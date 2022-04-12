@@ -1,0 +1,57 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  feed: one
+  title: MyString
+  content: MyText
+  url: MyString
+  author: MyString
+  published_at: 2022-04-12 08:43:08
+  last_modified_at: 2022-04-12 08:43:08
+  guid: MyString
+  image: MyString
+  itunes_author: MyString
+  itunes_block: false
+  itunes_duration: 1
+  itunes_explicit: false
+  itunes_keywords: MyString
+  itunes_subtitle: MyText
+  itunes_image: MyString
+  itunes_closed_captioned: false
+  itunes_order: 1
+  itunes_season: 1
+  itunes_episode: 1
+  itunes_title: MyString
+  itunes_episode_type: MyString
+  itunes_summary: MyText
+  enclosure_length: 1
+  enclosure_type: MyString
+  enclosure_url: MyString
+
+two:
+  feed: two
+  title: MyString
+  content: MyText
+  url: MyString
+  author: MyString
+  published_at: 2022-04-12 08:43:08
+  last_modified_at: 2022-04-12 08:43:08
+  guid: MyString
+  image: MyString
+  itunes_author: MyString
+  itunes_block: false
+  itunes_duration: 1
+  itunes_explicit: false
+  itunes_keywords: MyString
+  itunes_subtitle: MyText
+  itunes_image: MyString
+  itunes_closed_captioned: false
+  itunes_order: 1
+  itunes_season: 1
+  itunes_episode: 1
+  itunes_title: MyString
+  itunes_episode_type: MyString
+  itunes_summary: MyText
+  enclosure_length: 1
+  enclosure_type: MyString
+  enclosure_url: MyString
