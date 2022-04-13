@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_13_231630) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_13_231818) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -51,14 +51,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_13_231630) do
     t.datetime "published_at"
     t.datetime "last_modified_at"
     t.string "guid"
-    t.string "image"
+    t.string "image_url"
     t.string "itunes_author"
     t.boolean "itunes_block"
     t.integer "itunes_duration"
     t.boolean "itunes_explicit"
     t.string "itunes_keywords"
     t.text "itunes_subtitle"
-    t.string "itunes_image"
+    t.string "itunes_image_url"
     t.boolean "itunes_closed_captioned"
     t.integer "itunes_order"
     t.integer "itunes_season"
