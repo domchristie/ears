@@ -1,0 +1,2 @@
+class OpmlImportsController < ApplicationController
+end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_13_015807) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_13_015934) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -95,6 +95,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_13_015807) do
     t.string "itunes_new_feed_url"
     t.string "itunes_subtitle"
     t.text "itunes_summary"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "opml_imports", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

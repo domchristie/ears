@@ -1,0 +1,2 @@
+class OpmlImport < ApplicationRecord
+end
