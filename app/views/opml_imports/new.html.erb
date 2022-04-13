@@ -1,0 +1,7 @@
+<h1>Import</h1>
+
+<%= form_with model: OpmlImport.new do |form| %>
+  <%= form.label :file %>
+  <%= form.file_field :file %>
+  <%= form.submit "Import" %>
+<% end %>

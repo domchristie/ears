@@ -1,2 +1,16 @@
 class OpmlImportsController < ApplicationController
+  def new
+  end
+
+  def create
+    opml_import = OpmlImport.create!(opml_import_params)
+    ImportOpmlJob.perform_later(opml_import)
+    redirect_to root_path, notice: "Import in progess"
+  end
+
+  private
+
+  def opml_import_params
+    params.require(:opml_import).permit(:file)
+  end
 end

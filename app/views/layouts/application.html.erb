@@ -12,7 +12,13 @@
   </head>
 
   <body>
-    <main class="container mx-auto mt-28 px-5 flex">
+     <% if notice || alert %>
+      <div class="p-2 text-center <%= notice ? "bg-green-50 text-green-900" : "bg-red-50 text-red-800" %>">
+        <%= notice || alert %>
+      </div>
+    <% end %>
+
+    <main class="container mx-auto">
       <%= yield %>
     </main>
   </body>
