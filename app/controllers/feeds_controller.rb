@@ -10,5 +10,7 @@ class FeedsController < ApplicationController
       @feed.sync!
       @feed.reload
     end
+
+    @entries = @feed.entries.order(published_at: :desc)
   end
 end
