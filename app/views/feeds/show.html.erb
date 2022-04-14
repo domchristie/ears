@@ -1,4 +1,19 @@
-<h1><%= @feed.title %></h1>
-<%= sanitize @feed.description %>
+<%= render "header", image: @feed.rss_image.url, title: @feed.title do |p| %>
+  <% p.content_for :meta do %>
+    <div class="text-lg"><%= @feed.author %></div>
 
-<%= render @feed.entries %>
+    <% if @feed.description %>
+      <div class="prose prose-neutral text-neutral-500 max-w-2xl text-center">
+        <%= sanitize @feed.description.gsub(/&nbsp;/, " ") %>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>
+
+<%= render "container" do %>
+  <hr class="border-2 my-6 sm:my-8">
+
+  <%= render "list" do %>
+    <%= render @feed.entries %>
+  <% end %>
+<% end %>

@@ -1,0 +1,20 @@
+<% yield p = component_partial %>
+
+<div class="relative h-64 w-full overflow-hidden">
+  <div class="absolute inset-0">
+    <div id="header_image" class="absolute inset-0 scale-150 transform-gpu bg-cover bg-top blur-lg" style="background-image: url('<%= image %>')"></div>
+  </div>
+</div>
+
+<%= render "container", tag: :header do %>
+  <div class="flex flex-col items-center mb-6 gap-4 text-center">
+    <div class="relative mx-auto -mt-44 w-64 h-64 bg-white p-2.5 shadow">
+      <%= image_tag image, class: "w-full h-full object-cover", alt: "" %>
+    </div>
+
+    <div class="space-y-1.5">
+      <h1 class="text-2xl font-semibold"><%= title %></h1>
+      <%= p.content_for :meta %>
+    </div>
+  </div>
+<% end %>

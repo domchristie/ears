@@ -11,14 +11,14 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body class="mb-48">
      <% if notice || alert %>
       <div class="p-2 text-center <%= notice ? "bg-green-50 text-green-900" : "bg-red-50 text-red-800" %>">
         <%= notice || alert %>
       </div>
     <% end %>
 
-    <main class="container mx-auto">
+    <main>
       <%= yield %>
     </main>
   </body>
