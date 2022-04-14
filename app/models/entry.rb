@@ -1,6 +1,14 @@
 class Entry < ApplicationRecord
   belongs_to :feed, touch: true
 
+  def duration
+    itunes_duration
+  end
+
+  def summary
+    itunes_summary || description
+  end
+
   def self.import_all!(feed_id, remote_entries)
     attributes = remote_entries.map do |remote_entry|
       Entry.attributes_for_import(remote_entry)&.merge(feed_id: feed_id)

@@ -3,7 +3,7 @@ class Feed < ApplicationRecord
   has_one :rss_image, as: :rss_imageable
 
   def author
-    managing_editor || itunes_author
+    itunes_author || managing_editor
   end
 
   def sync!
