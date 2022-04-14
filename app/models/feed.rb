@@ -6,6 +6,10 @@ class Feed < ApplicationRecord
     itunes_author || managing_editor
   end
 
+  def image_url
+    rss_image.try(:url)
+  end
+
   def sync!
     get = self.get
     checked_at = Time.now.utc
