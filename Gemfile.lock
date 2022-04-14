@@ -94,6 +94,9 @@ GEM
       sax-machine (>= 1.0)
     globalid (1.0.0)
       activesupport (>= 5.0)
+    httparty (0.20.0)
+      mime-types (~> 3.0)
+      multi_xml (>= 0.5.2)
     i18n (1.10.0)
       concurrent-ruby (~> 1.0)
     importmap-rails (1.0.3)
@@ -113,9 +116,13 @@ GEM
     marcel (1.0.2)
     matrix (0.4.2)
     method_source (1.0.0)
+    mime-types (3.4.1)
+      mime-types-data (~> 3.2015)
+    mime-types-data (3.2022.0105)
     mini_mime (1.1.2)
     minitest (5.15.0)
     msgpack (1.5.1)
+    multi_xml (0.6.0)
     net-imap (0.2.3)
       digest
       net-protocol
@@ -221,6 +228,7 @@ DEPENDENCIES
   capybara
   debug
   feedjira (~> 3.2)
+  httparty (~> 0.20.0)
   importmap-rails
   jbuilder
   pg (~> 1.1)

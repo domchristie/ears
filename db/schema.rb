@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_13_232441) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_14_153242) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -109,6 +109,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_13_232441) do
     t.text "itunes_summary"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "last_checked_at"
   end
 
   create_table "itunes_entries", force: :cascade do |t|
