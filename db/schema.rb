@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_13_231818) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_13_232441) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -40,6 +40,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_13_231818) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "enclosures", force: :cascade do |t|
+    t.string "url", null: false
+    t.bigint "length"
+    t.string "mime_type"
+    t.bigint "entry_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["entry_id"], name: "index_enclosures_on_entry_id", unique: true
   end
 
   create_table "entries", force: :cascade do |t|
@@ -73,6 +83,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_13_231818) do
     t.datetime "updated_at", null: false
     t.text "description"
     t.index ["feed_id"], name: "index_entries_on_feed_id"
+    t.index ["guid"], name: "index_entries_on_guid", unique: true
   end
 
   create_table "feeds", force: :cascade do |t|
@@ -100,9 +111,52 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_13_231818) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "itunes_entries", force: :cascade do |t|
+    t.bigint "entry_id", null: false
+    t.bigint "duration"
+    t.string "image"
+    t.boolean "explicit"
+    t.string "title"
+    t.integer "episode"
+    t.integer "season"
+    t.string "episode_type"
+    t.boolean "block"
+    t.string "author"
+    t.string "subtitle"
+    t.text "summary"
+    t.string "keywords"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["entry_id"], name: "index_itunes_entries_on_entry_id", unique: true
+  end
+
+  create_table "itunes_feeds", force: :cascade do |t|
+    t.bigint "feed_id", null: false
+    t.string "channel_type"
+    t.string "new_feed_url"
+    t.boolean "complete"
+    t.string "author"
+    t.boolean "block"
+    t.boolean "explicit"
+    t.text "subtitle"
+    t.string "image"
+    t.text "summary"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["feed_id"], name: "index_itunes_feeds_on_feed_id", unique: true
+  end
+
   create_table "opml_imports", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "plays", force: :cascade do |t|
+    t.float "progress", default: 0.0
+    t.bigint "entry_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["entry_id"], name: "index_plays_on_entry_id", unique: true
   end
 
   create_table "rss_images", force: :cascade do |t|
