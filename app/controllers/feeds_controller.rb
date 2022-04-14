@@ -1,6 +1,6 @@
 class FeedsController < ApplicationController
   def index
-    @feeds = Feed.all.order(title: :asc)
+    @feeds = Feed.all.includes(:rss_image).order(title: :asc)
   end
 
   def show

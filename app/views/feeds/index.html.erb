@@ -2,4 +2,6 @@
 
 <%= link_to "Import", new_opml_import_path %>
 
-<%= render @feeds %>
+  <%= render "list", space: "space-y-6", class: "mt-6" do %>
+    <%= render @feeds %>
+  <% end %>

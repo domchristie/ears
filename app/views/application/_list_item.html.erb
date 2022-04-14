@@ -1,0 +1,13 @@
+<% body = yield(p = component_partial) %>
+
+<%= content_tag (local_assigns[:tag] || :article), class: "flex items-center" do %>
+  <%= p.content_for :image %>
+
+  <div class="space-y-1">
+    <h2 class="text-xl leading-tight font-semibold line-clamp-2">
+      <%= link_to_if local_assigns[:path], title, local_assigns[:path] %>
+    </h2>
+
+    <%= body %>
+  </div>
+<% end %>

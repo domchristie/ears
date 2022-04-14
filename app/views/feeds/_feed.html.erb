@@ -1,3 +1,13 @@
-<article>
-  <p><%= link_to feed.title, feed_path(feed) %></p>
-</article>
+<%= render "list_item", title: feed.title, path: feed_path(feed) do |p| %>
+  <% p.content_for :image do %>
+    <% if feed.rss_image %>
+      <%= image_tag(feed.rss_image.url, class: "w-20 h-20 shrink-0 sm:w-24 sm:h-24 p-1 mr-3 bg-white shadow", alt: "")%>
+    <% else %>
+      <div class="w-20 h-20 shrink-0 sm:w-24 sm:h-24 mr-3 bg-gray-100"></div>
+    <% end %>
+  <% end %>
+
+  <% if feed.author %>
+    <div class="text-neutral-500"><%= feed.author %></div>
+  <% end %>
+<% end %>

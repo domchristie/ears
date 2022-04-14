@@ -2,6 +2,10 @@ class Feed < ApplicationRecord
   has_many :entries, dependent: :destroy
   has_one :rss_image, as: :rss_imageable
 
+  def author
+    managing_editor || itunes_author
+  end
+
   def sync!
     get = self.get
     checked_at = Time.now.utc
