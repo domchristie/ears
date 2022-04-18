@@ -94,6 +94,10 @@ GEM
       sax-machine (>= 1.0)
     globalid (1.0.0)
       activesupport (>= 5.0)
+    hashid-rails (1.4.1)
+      activerecord (>= 4.0)
+      hashids (~> 1.0)
+    hashids (1.0.6)
     httparty (0.20.0)
       mime-types (~> 3.0)
       multi_xml (>= 0.5.2)
@@ -228,6 +232,7 @@ DEPENDENCIES
   capybara
   debug
   feedjira (~> 3.2)
+  hashid-rails (~> 1.4)
   httparty (~> 0.20.0)
   importmap-rails
   jbuilder

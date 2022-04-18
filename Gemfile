@@ -77,3 +77,5 @@ end
 gem "feedjira", "~> 3.2"
 
 gem "httparty", "~> 0.20.0"
+
+gem "hashid-rails", "~> 1.4"
