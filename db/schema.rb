@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_14_153242) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_18_032512) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -121,7 +121,18 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_14_153242) do
     t.index ["rss_imageable_type", "rss_imageable_id"], name: "index_rss_images_on_rss_imageable_type_and_rss_imageable_id", unique: true
   end
 
+  create_table "web_sub_subscriptions", force: :cascade do |t|
+    t.bigint "feed_id", null: false
+    t.string "hub_url", null: false
+    t.datetime "expires_at"
+    t.string "secret", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["feed_id"], name: "index_web_sub_subscriptions_on_feed_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "entries", "feeds"
+  add_foreign_key "web_sub_subscriptions", "feeds"
 end
