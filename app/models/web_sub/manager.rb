@@ -1,7 +1,4 @@
-require "webmock"
-
 class WebSub::Manager
-
   def self.start(web_sub)
     return if Rails.env.development?
 
