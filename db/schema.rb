@@ -100,6 +100,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_18_032512) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "last_checked_at"
+    t.index ["url"], name: "index_feeds_on_url", unique: true
   end
 
   create_table "opml_imports", force: :cascade do |t|
@@ -121,18 +122,18 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_18_032512) do
     t.index ["rss_imageable_type", "rss_imageable_id"], name: "index_rss_images_on_rss_imageable_type_and_rss_imageable_id", unique: true
   end
 
-  create_table "web_sub_subscriptions", force: :cascade do |t|
-    t.bigint "feed_id", null: false
+  create_table "web_subs", force: :cascade do |t|
+    t.string "feed_url", null: false
     t.string "hub_url", null: false
     t.datetime "expires_at"
     t.string "secret", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["feed_id"], name: "index_web_sub_subscriptions_on_feed_id"
+    t.index ["feed_url"], name: "index_web_subs_on_feed_url"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "entries", "feeds"
-  add_foreign_key "web_sub_subscriptions", "feeds"
+  add_foreign_key "web_subs", "feeds", column: "feed_url", primary_key: "url"
 end
