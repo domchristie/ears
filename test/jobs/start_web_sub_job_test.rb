@@ -1,6 +1,6 @@
 require "test_helper"
 
-class WebSubSubscriptionsControllerTest < ActionDispatch::IntegrationTest
+class StartWebSubJobTest < ActiveJob::TestCase
   # test "the truth" do
   #   assert true
   # end

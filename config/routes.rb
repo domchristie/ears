@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :web_sub_subscriptions
+  constraints subdomain: "websub" do
+    get "web_subs/:id/feed", to: "web_subs#update", as: :web_sub_feed
+    post "web_subs/:web_sub_id/feed", to: "web_subs/feeds#update"
+  end
+
   get 'entries/show'
   resources :opml_imports, only: [:new, :create]
   resources :feeds, only: [:index, :show]

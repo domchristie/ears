@@ -1,6 +1,6 @@
 require "test_helper"
 
-class WebSubSubscriptionTest < ActiveSupport::TestCase
+class ConfirmWebSubJobTest < ActiveJob::TestCase
   # test "the truth" do
   #   assert true
   # end
