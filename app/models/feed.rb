@@ -3,6 +3,8 @@ class Feed < ApplicationRecord
   has_one :rss_image, as: :rss_imageable
   has_many :web_subs, foreign_key: :feed_url, primary_key: :url, dependent: :destroy
 
+  after_commit :start_web_sub, if: :saved_change_to_web_sub_hub_url?
+
   def author
     itunes_author || managing_editor
   end
@@ -13,6 +15,7 @@ class Feed < ApplicationRecord
 
   def self.attributes_for_import(remote_feed)
     {
+      web_sub_hub_url: remote_feed.hubs.first,
       copyright: remote_feed.copyright,
       description: remote_feed.description,
       language: remote_feed.language,
@@ -32,5 +35,11 @@ class Feed < ApplicationRecord
       itunes_subtitle: remote_feed.itunes_subtitle,
       itunes_summary: remote_feed.itunes_summary
     }
+  end
+
+  private
+
+  def start_web_sub
+    StartWebSubJob.perform_later(self)
   end
 end
