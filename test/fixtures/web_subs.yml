@@ -1,0 +1,12 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  feed_url: http://feeds.example.com
+  hub_url: https://pubsubhubbub.appspot.com/
+  secret: 9057f028-6696-4134-8d9e-913d1e6cee44
+
+# two:
+#   feed: two
+#   hub_url: MyString
+#   expired_at: 2022-04-17 20:25:12
+#   secret: MyString

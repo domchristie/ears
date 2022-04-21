@@ -1,44 +1,21 @@
 class Feed < ApplicationRecord
   has_many :entries, dependent: :destroy
   has_one :rss_image, as: :rss_imageable
+  has_many :web_subs, foreign_key: :feed_url, primary_key: :url, dependent: :destroy
+
+  after_commit :start_web_sub, if: :saved_change_to_web_sub_hub_url?
 
   def author
     itunes_author || managing_editor
   end
 
   def image_url
-    rss_image.try(:url)
-  end
-
-  def sync!
-    get = self.get
-    checked_at = Time.now.utc
-    import! parse(get.body) unless get.response.is_a?(Net::HTTPNotModified)
-    update!(last_checked_at: checked_at)
-  end
-
-  def import!(remote_feed)
-    Feed.upsert(
-      self.class.attributes_for_import(remote_feed).merge(id: id),
-      unique_by: :id,
-      record_timestamps: true
-    )
-    RssImage.import!(Feed, id, remote_feed.image) if remote_feed.image
-    Entry.import_all!(id, remote_feed.entries) if remote_feed.entries.try(:any?)
-  end
-
-  def parse(xml)
-    Feedjira.parse(xml, parser: Feedjira::Parser::ITunesRSS)
-  end
-
-  def get
-    HTTParty.get(url, headers: {
-      "If-Modified-Since": last_checked_at.try(:to_fs, :rfc7231)
-    })
+    rss_image.try(:url) || itunes_image
   end
 
   def self.attributes_for_import(remote_feed)
     {
+      web_sub_hub_url: remote_feed.hubs.first,
       copyright: remote_feed.copyright,
       description: remote_feed.description,
       language: remote_feed.language,
@@ -58,5 +35,11 @@ class Feed < ApplicationRecord
       itunes_subtitle: remote_feed.itunes_subtitle,
       itunes_summary: remote_feed.itunes_summary
     }
+  end
+
+  private
+
+  def start_web_sub
+    StartWebSubJob.perform_later(self)
   end
 end

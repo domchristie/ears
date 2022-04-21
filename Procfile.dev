@@ -1,2 +1,4 @@
 web: bin/rails server -p 3000
 css: bin/rails tailwindcss:watch
+caddy: caddy run --config Caddyfile.dev
+mdns: bundle exec rails mdns

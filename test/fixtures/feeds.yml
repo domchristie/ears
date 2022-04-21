@@ -1,45 +1,17 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  url: MyText
-  copyright: MyString
-  description: MyText
-  image: MyString
-  language: MyString
-  last_build_at: 2022-04-12 08:24:01
-  website_url: MyString
-  managing_editor: MyString
-  title: MyString
-  ttl: 1
-  itunes_author: MyString
+  url: http://feeds.example.com
+  copyright: Example
+  description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+  language: "en-us"
+  website_url: http://example.com
+  managing_editor: Example Author
+  title: Example Title
+  ttl: 600
+  itunes_author: Example Author
   itunes_block: false
-  itunes_image: MyString
   itunes_explicit: false
   itunes_complete: false
-  itunes_keywords: MyString
-  itunes_type: MyString
-  itunes_new_feed_url: MyString
-  itunes_subtitle: MyString
-  itunes_summary: MyText
-
-two:
-  url: MyText
-  copyright: MyString
-  description: MyText
-  image: MyString
-  language: MyString
-  last_build_at: 2022-04-12 08:24:01
-  website_url: MyString
-  managing_editor: MyString
-  title: MyString
-  ttl: 1
-  itunes_author: MyString
-  itunes_block: false
-  itunes_image: MyString
-  itunes_explicit: false
-  itunes_complete: false
-  itunes_keywords: MyString
-  itunes_type: MyString
-  itunes_new_feed_url: MyString
-  itunes_subtitle: MyString
-  itunes_summary: MyText
+  itunes_type: episodic
+  itunes_summary: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.

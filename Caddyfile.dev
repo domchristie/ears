@@ -1,0 +1,7 @@
+app.listen.local {
+  reverse_proxy localhost:3000
+}
+
+websub.listen.local {
+  reverse_proxy localhost:3000
+}
