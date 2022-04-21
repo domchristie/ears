@@ -3,12 +3,7 @@ class WebSubs::FeedsController < ApplicationController
     subscription = WebSub.find(params[:web_sub_id])
 
     if subscription.validate_signature(*parse_signature_header)
-      ImportFeedJob.perform_later(
-        subscription.feed,
-        rss: request.body,
-        source: :web_sub,
-        at: Time.now.utc
-      )
+      SyncFeedJob.perform_later(subscription.feed, source: :web_sub)
     end
 
     head :ok

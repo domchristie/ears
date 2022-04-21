@@ -5,13 +5,18 @@ class SyncFeedJob < ApplicationJob
     at = Time.now.utc
     get = Feed::Manager.fetch(feed)
 
-    if get.response.is_a?(Net::HTTPSuccess)
+    case get.response
+    when Net::HTTPSuccess
       ImportFeedJob.perform_now(
         feed,
         remote_feed: Feed::Manager.parse(get.body),
         source: source,
         at: at
       )
+    when Net::HTTPRedirection
+      puts "TODO: update feed_url, enqueue SyncFeedJob"
+    when Net::HTTPClientError
+      puts "TODO: mark as gone?"
     end
   end
 end

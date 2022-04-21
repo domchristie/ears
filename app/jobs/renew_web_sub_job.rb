@@ -6,6 +6,6 @@ class RenewWebSubJob < ApplicationJob
       feed: web_sub.feed,
       hub_url: web_sub.hub_url
     )
-    new_web_sub.start
+    WebSub::Manager.start(new_web_sub)
   end
 end

@@ -6,24 +6,11 @@ class WebSub < ApplicationRecord
 
   before_create :set_secret
 
-  def start
-    HTTParty.post(
-      hub_url,
-      headers: {"Content-Type": "application/x-www-form-urlencoded"},
-      body: {
-        "hub.callback": callback_url,
-        "hub.mode": "subscribe",
-        "hub.topic": feed.url,
-        "hub.secret": secret
-      }
-    )
-  end
-
   def verify_topic(topic)
     topic == feed.url
   end
 
-  def validate_signature(signature, algorithm)
+  def validate_signature(algorithm, signature)
     algorithms = {
       sha1: Digest::SHA1,
       sha256: Digest::SHA256,
