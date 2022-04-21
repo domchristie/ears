@@ -1,4 +1,4 @@
-<%= render "header", image: @feed.rss_image.url, title: @feed.title do |p| %>
+<%= render "header", image: @feed.image_url, title: @feed.title do |p| %>
   <% p.content_for :meta do %>
     <div class="text-lg"><%= @feed.author %></div>
 

@@ -1,13 +1,14 @@
 class Feed < ApplicationRecord
   has_many :entries, dependent: :destroy
   has_one :rss_image, as: :rss_imageable
+  has_many :web_subs, foreign_key: :feed_url, primary_key: :url, dependent: :destroy
 
   def author
     itunes_author || managing_editor
   end
 
   def image_url
-    rss_image.try(:url)
+    rss_image.try(:url) || itunes_image
   end
 
   def self.attributes_for_import(remote_feed)
