@@ -10,33 +10,6 @@ class Feed < ApplicationRecord
     rss_image.try(:url)
   end
 
-  def sync!
-    get = self.get
-    checked_at = Time.now.utc
-    import! parse(get.body) unless get.response.is_a?(Net::HTTPNotModified)
-    update!(last_checked_at: checked_at)
-  end
-
-  def import!(remote_feed)
-    Feed.upsert(
-      self.class.attributes_for_import(remote_feed).merge(id: id),
-      unique_by: :id,
-      record_timestamps: true
-    )
-    RssImage.import!(Feed, id, remote_feed.image) if remote_feed.image
-    Entry.import_all!(id, remote_feed.entries) if remote_feed.entries.try(:any?)
-  end
-
-  def parse(xml)
-    Feedjira.parse(xml, parser: Feedjira::Parser::ITunesRSS)
-  end
-
-  def get
-    HTTParty.get(url, headers: {
-      "If-Modified-Since": last_checked_at.try(:to_fs, :rfc7231)
-    })
-  end
-
   def self.attributes_for_import(remote_feed)
     {
       copyright: remote_feed.copyright,
