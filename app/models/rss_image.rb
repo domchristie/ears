@@ -1,5 +1,5 @@
 class RssImage < ApplicationRecord
-  belongs_to :rss_imageable
+  belongs_to :rss_imageable, polymorphic: true
 
   def self.import!(type, id, remote_image)
     attributes = RssImage.attributes_for_import(remote_image).merge(

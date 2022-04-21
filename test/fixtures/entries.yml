@@ -8,15 +8,14 @@ one:
   author: MyString
   published_at: 2022-04-12 08:43:08
   last_modified_at: 2022-04-12 08:43:08
-  guid: MyString
-  image: MyString
+  guid: c638b3a8-eac8-4c13-9240-dcb2507b8be5
   itunes_author: MyString
   itunes_block: false
   itunes_duration: 1
   itunes_explicit: false
   itunes_keywords: MyString
   itunes_subtitle: MyText
-  itunes_image: MyString
+  itunes_image_url: MyString
   itunes_closed_captioned: false
   itunes_order: 1
   itunes_season: 1
@@ -29,22 +28,21 @@ one:
   enclosure_url: MyString
 
 two:
-  feed: two
+  feed: one
   title: MyString
   content: MyText
   url: MyString
   author: MyString
   published_at: 2022-04-12 08:43:08
   last_modified_at: 2022-04-12 08:43:08
-  guid: MyString
-  image: MyString
+  guid: 51f11905-6d34-4478-9fc5-37d9add63405
   itunes_author: MyString
   itunes_block: false
   itunes_duration: 1
   itunes_explicit: false
   itunes_keywords: MyString
   itunes_subtitle: MyText
-  itunes_image: MyString
+  itunes_image_url: MyString
   itunes_closed_captioned: false
   itunes_order: 1
   itunes_season: 1
