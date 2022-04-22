@@ -91,5 +91,6 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  routes.default_url_options = {host: "listenup.club"}
+  routes.default_url_options = {protocol: "https", host: "listenup.club"}
+  config.hosts << /.*\.listenup\.club/
 end
