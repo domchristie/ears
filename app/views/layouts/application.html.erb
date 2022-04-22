@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+    <link href="https://api.fontshare.com/css?f[]=bespoke-sans@1,2&display=swap" rel="stylesheet">
+    <link href='https://tools-static.wmflabs.org/fontcdn/css?family=Roboto+Mono:400&subset=latin' rel='stylesheet' type='text/css'>
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
