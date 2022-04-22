@@ -13,3 +13,15 @@
  *= require_tree .
  *= require_self
  */
+
+.prose br,
+.prose p br+br,
+.prose p br:only-child,
+.prose p:empty {
+  display: none
+}
+
+.prose p br,
+.prose li br {
+  display: block;
+}
