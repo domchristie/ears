@@ -1,3 +1,5 @@
+<% @title = @entry.title %>
+
 <%= render "header", image: @entry.image_url, title: @entry.title do |p| %>
   <% p.content_for :meta do %>
     <div class="justify-center text-lg leading-6">
