@@ -81,5 +81,6 @@ class WebSubTest < ActionDispatch::IntegrationTest
     })
 
     assert_difference("Entry.count", 3) { perform_enqueued_jobs }
+    assert_equal "web_sub", feed.reload.import_source
   end
 end

@@ -3,6 +3,7 @@ class ImportFeedJob < ApplicationJob
 
   def perform(feed, remote_feed:, source:, at: nil)
     attributes = Feed.attributes_for_import(remote_feed)
+    attributes[:import_source] = source
     attributes[:last_checked_at] = at if at
     feed.update!(attributes)
 

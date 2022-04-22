@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_21_002751) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_22_021619) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -101,6 +101,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_21_002751) do
     t.datetime "updated_at", null: false
     t.datetime "last_checked_at"
     t.string "web_sub_hub_url"
+    t.string "import_source"
     t.index ["url"], name: "index_feeds_on_url", unique: true
   end
 
