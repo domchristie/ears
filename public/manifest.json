@@ -1,0 +1,16 @@
+{
+  "name": "Listen",
+  "short_name": "Listen",
+  "display": "standalone",
+  "start_url": "https://app.listen.club",
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

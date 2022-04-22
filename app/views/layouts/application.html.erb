@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="apple-touch-icon" href="/icon.png">
+    <link rel="icon" href="/icon.png" type="image/png" />
+
     <link href="https://api.fontshare.com/css?f[]=bespoke-sans@1,2&display=swap" rel="stylesheet">
     <link href='https://tools-static.wmflabs.org/fontcdn/css?family=Roboto+Mono:400&subset=latin' rel='stylesheet' type='text/css'>
     <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
@@ -23,5 +28,14 @@
     <main>
       <%= yield %>
     </main>
+
+    <script>
+    if (navigator.serviceWorker) {
+      navigator.serviceWorker.register('/serviceworker.js', { scope: './' })
+        .then(function () {
+          console.log('[Page] Service worker registered!')
+        })
+    }
+    </script>
   </body>
 </html>
