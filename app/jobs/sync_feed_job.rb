@@ -13,8 +13,8 @@ class SyncFeedJob < ApplicationJob
         source: source,
         at: at
       )
-    when Net::HTTPRedirection
-      puts "TODO: update feed_url, enqueue SyncFeedJob"
+    when Net::HTTPTemporaryRedirect, Net::HTTPMovedPermanently
+      puts "TODO: update feed_url, enqueue SyncFeedJob; feed id: #{feed.id}"
     when Net::HTTPClientError
       puts "TODO: mark as gone?"
     end
