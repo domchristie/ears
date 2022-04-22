@@ -1,7 +1,17 @@
-<h1>Feeds</h1>
+<%= render "container" do %>
+  <h2 class="text-sm uppercase tracking-wide font-semibold mt-6 mb-3">Recently Played</h2>
 
-<%= link_to "Import", new_opml_import_path %>
+  <div class="flex flex-nowrap space-x-3 pb-1 overflow-x-auto">
+    <% @recently_played.each do |feed| %>
+      <article class="w-32 h-32 p-2 bg-white shadow flex-shrink-0">
+        <%= link_to image_tag(feed.image_url), feed_path(feed), alt: feed.title %>
+      </article>
+    <% end %>
+  </div>
 
-  <%= render "list", space: "space-y-6", class: "mt-6" do %>
+  <h2 class="text-sm uppercase tracking-wide font-semibold mt-6 mb-3">All Feeds</h2>
+
+  <%= render "list", space: "space-y-4" do %>
     <%= render @feeds %>
   <% end %>
+<% end %>

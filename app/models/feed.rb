@@ -2,6 +2,7 @@ class Feed < ApplicationRecord
   has_many :entries, dependent: :destroy
   has_one :rss_image, as: :rss_imageable
   has_many :web_subs, foreign_key: :feed_url, primary_key: :url, dependent: :destroy
+  has_many :plays, through: :entries
 
   after_commit :start_web_sub, if: :saved_change_to_web_sub_hub_url?
 
