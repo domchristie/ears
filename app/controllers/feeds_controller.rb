@@ -7,7 +7,7 @@ class FeedsController < ApplicationController
     @feed = Feed.find(params[:id])
 
     if !@feed.last_checked_at
-      SyncFeedJob.perform_now(@feed, source: :initial)
+      SyncFeedJob.perform_now(@feed, source: :feeds_show)
       @feed.reload
     end
 
