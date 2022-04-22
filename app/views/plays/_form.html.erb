@@ -1,0 +1,5 @@
+<%= turbo_frame_tag "play_form" do %>
+  <%= form_with model: [entry, entry.plays.first || entry.plays.build], data: {player_target: "playForm"} do |f| %>
+    <%= f.hidden_field :progress, data: {player_target: "progressField"} %>
+  <% end %>
+<% end %>

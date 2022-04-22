@@ -16,8 +16,8 @@
   <div
     class="-mt-4 px-4 sm:px-0 w-full text-center"
     data-controller="player media-session"
-    data-player-plays-path-value="<%# entry_plays_path(@entry) %>"
-    data-player-offset-value="<%# @entry.plays.first.try(:progress) || 0 %>"
+    data-player-plays-path-value="<%= entry_plays_path(@entry) %>"
+    data-player-offset-value="<%= @entry.plays.first.try(:progress) || 0 %>"
     data-player-duration-value="<%= @entry.duration %>"
 
     data-media-session-title-value="<%= @entry.title %>"
@@ -80,7 +80,7 @@
         class="block w-full bg-gradient from-l rounded-full cursor-pointer focus:outline-none focus-visible:ring">
     </div>
 
-    <%# render "plays/form", entry: @entry %>
+    <%= render "plays/form", entry: @entry %>
   </div>
 
   <% if @entry.summary && @entry.content && strip_tags(@entry.summary).gsub(/\s/, "")[0..70] != strip_tags(@entry.content).gsub(/\s/, "")[0..70] %>
