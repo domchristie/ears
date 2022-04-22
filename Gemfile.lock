@@ -101,6 +101,7 @@ GEM
       activerecord (>= 4.0)
       hashids (~> 1.0)
     hashids (1.0.6)
+    honeybadger (4.12.1)
     httparty (0.20.0)
       mime-types (~> 3.0)
       multi_xml (>= 0.5.2)
@@ -247,6 +248,7 @@ DEPENDENCIES
   debug
   feedjira (~> 3.2)
   hashid-rails (~> 1.4)
+  honeybadger (~> 4.12)
   httparty (~> 0.20.0)
   importmap-rails
   jbuilder
