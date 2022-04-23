@@ -25,5 +25,7 @@
     </span>
   </div>
 
-  <div class="text-neutral-500 line-clamp-1 break-all"><%= strip_tags (entry.summary || entry.description) %></div>
+  <div class="text-neutral-500 line-clamp-1 break-all">
+    <%= strip_tags (entry.summary || entry.description).gsub("&nbsp;", " ") %>
+  </div>
 <% end %>
