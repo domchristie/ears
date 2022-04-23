@@ -34,7 +34,7 @@ class Entry < ApplicationRecord
       published_at: remote_entry.published,
       last_modified_at: remote_entry.updated,
       guid: remote_entry.entry_id,
-      image_url: remote_entry.image,
+      image_url: (remote_entry.image unless remote_entry.image == remote_entry.enclosure_url),
       itunes_author: remote_entry.itunes_author,
       itunes_block: remote_entry.itunes_block == "Yes",
       itunes_duration: parse_duration(remote_entry.itunes_duration),
