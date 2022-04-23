@@ -1,9 +1,9 @@
 class SyncFeedJob < ApplicationJob
   queue_as :default
 
-  def perform(feed, source:)
+  def perform(feed, source:, force: false)
     at = Time.now.utc
-    get = Feed::Manager.fetch(feed)
+    get = Feed::Manager.fetch(feed, conditional: !force)
 
     case get.response
     when Net::HTTPSuccess
