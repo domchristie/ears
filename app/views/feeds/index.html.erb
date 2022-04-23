@@ -1,5 +1,5 @@
 <%= render "container" do %>
-  <h2 class="text-sm uppercase tracking-wide font-semibold mt-6 mb-3">Recently Played</h2>
+  <h2 class="text-sm uppercase tracking-wide font-semibold mt-6 mb-3 text-neutral-500">Recently Played</h2>
 
   <div class="flex flex-nowrap space-x-3 pb-1 overflow-x-auto">
     <% @recently_played.each do |feed| %>
@@ -9,7 +9,17 @@
     <% end %>
   </div>
 
-  <h2 class="text-sm uppercase tracking-wide font-semibold mt-6 mb-3">All Feeds</h2>
+  <h2 class="text-sm uppercase tracking-wide font-semibold mt-6 mb-3 text-neutral-500">Recently Updated</h2>
+
+  <div class="flex flex-nowrap space-x-3 pb-1 overflow-x-auto">
+    <% @recently_updated.each do |feed| %>
+      <article class="w-32 h-32 p-1.5 bg-white shadow flex-shrink-0">
+        <%= link_to image_tag(feed.image_url), feed_path(feed), alt: feed.title %>
+      </article>
+    <% end %>
+  </div>
+
+  <h2 class="text-sm uppercase tracking-wide font-semibold mt-6 mb-3 text-neutral-500">All Feeds</h2>
 
   <%= render "list", space: "space-y-4" do %>
     <%= render @feeds %>
