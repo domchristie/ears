@@ -3,7 +3,7 @@
 
   <div class="flex flex-nowrap space-x-3 pb-1 overflow-x-auto">
     <% @recently_played.each do |feed| %>
-      <article class="w-32 h-32 p-2 bg-white shadow flex-shrink-0">
+      <article class="w-32 h-32 p-1.5 bg-white shadow flex-shrink-0">
         <%= link_to image_tag(feed.image_url), feed_path(feed), alt: feed.title %>
       </article>
     <% end %>
