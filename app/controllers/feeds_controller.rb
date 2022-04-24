@@ -25,6 +25,6 @@ class FeedsController < ApplicationController
       @feed.reload
     end
 
-    @entries = @feed.entries.order(published_at: :desc)
+    @entries = @feed.entries.order(published_at: :desc).limit(52) # TODO pagination
   end
 end
