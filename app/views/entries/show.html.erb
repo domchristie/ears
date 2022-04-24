@@ -7,10 +7,7 @@
       <%= link_to @entry.feed.title, feed_path(@entry.feed), class: "text-neutral-500" %>
     </div>
 
-    <time datetime="<%= @entry.published_at.to_s(:iso8601) %>" class="block text-neutral-500 font-medium uppercase tracking-wide">
-      <%= @entry.published_at.to_date.to_fs(:short) %>
-      <%= @entry.published_at.year if @entry.published_at.year != Time.now.year %>
-    </time>
+    <%= local_relative_time @entry.published_at, type: "date", class: "block text-neutral-500 font-medium uppercase tracking-wide" %>
   <% end %>
 <% end %>
 

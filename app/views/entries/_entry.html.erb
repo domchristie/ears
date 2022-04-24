@@ -1,11 +1,6 @@
 <%= render "list_item", title: entry.title, path: entry_path(entry) do %>
   <div class="flex space-x-3 text-neutral-600 text-[0.8125rem] font-mono">
-    <span class="flex items-center pt-0.5">
-      <time datetime="<%= entry.published_at.to_fs(:iso8601) %>" class="uppercase">
-        <%= entry.published_at.to_date.to_fs(:short) %>
-        <%= entry.published_at.year if entry.published_at.year != Time.now.year %>
-      </time>
-    </span>
+    <%= local_relative_time entry.published_at, type: "date", class: "uppercase" %>
 
     <% if entry.itunes_episode %>
       <span class="flex items-center">
