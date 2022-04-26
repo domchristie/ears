@@ -4,10 +4,13 @@ class Feed::Manager
   end
 
   def self.fetch(feed, conditional: true)
-    HTTParty.get(feed.url, headers: {
-      "If-Modified-Since": (
-        feed.last_checked_at.try(:to_fs, :rfc7231) if conditional
-      )
-    })
+    headers = if conditional
+      {
+        "If-Modified-Since": feed.last_checked_at.try(:to_fs, :rfc7231),
+        "If-None-Match": feed.etag
+      }
+    end
+
+    HTTParty.get(feed.url, headers: headers)
   end
 end
