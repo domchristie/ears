@@ -15,7 +15,7 @@
 <%= render "container" do %>
   <hr class="border-2 my-6 sm:my-8">
 
-  <%= render "list" do %>
+  <%= render "list", class: "sm:space-y-4" do %>
     <%= render @entries %>
   <% end %>
 <% end %>

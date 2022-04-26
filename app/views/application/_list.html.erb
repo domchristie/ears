@@ -1,2 +1,1 @@
-<% class_name = Array(local_assigns[:class]).push(local_assigns[:space] || "space-y-6 sm:space-y-8") %>
-<%= content_tag (local_assigns[:tag] || :div), yield, class: class_name %>
+<%= content_tag (local_assigns[:tag] || :div), yield, class: local_assigns[:class] %>
