@@ -1,4 +1,6 @@
 class WebSubs::FeedsController < ApplicationController
+  skip_forgery_protection only: :update
+
   def update
     subscription = WebSub.find(params[:web_sub_id])
 
