@@ -10,14 +10,8 @@ class WebSub < ApplicationRecord
     topic == feed.url
   end
 
-  def validate_signature(algorithm, signature)
-    algorithms = {
-      sha1: Digest::SHA1,
-      sha256: Digest::SHA256,
-      sha384: Digest::SHA384,
-      sha512: Digest::SHA512
-    }
-    signature == algorithms[algorithm.to_sym].hexdigest(secret)
+  def validate_signature(algorithm, signature, payload)
+    signature == OpenSSL::HMAC.hexdigest(algorithm.to_s, secret, payload)
   end
 
   def callback_url

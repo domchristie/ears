@@ -76,9 +76,17 @@ class WebSubTest < ActionDispatch::IntegrationTest
     stub_request(:get, new_web_sub.feed_url)
       .to_return(status: 200, body: File.read(file))
 
-    post(web_sub_feed_url(new_web_sub), headers: {
-      "X-Hub-Signature": "sha1=#{Digest::SHA1.hexdigest(new_web_sub.secret)}"
-    })
+    params = {test: "body"}
+    signature = OpenSSL::HMAC.hexdigest(
+      "sha1",
+      new_web_sub.secret,
+      URI.encode_www_form(params)
+    )
+    post(
+      web_sub_feed_url(new_web_sub),
+      params: params,
+      headers: {"X-Hub-Signature": "sha1=#{signature}"}
+    )
 
     assert_difference("Entry.count", 3) { perform_enqueued_jobs }
     assert_equal "web_sub", feed.reload.import_source
