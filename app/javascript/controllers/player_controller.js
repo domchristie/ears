@@ -85,6 +85,10 @@ export default class PlayerController extends Controller {
 
   trackProgress () {
     this.progressFieldTarget.value = this.currentTime
+    this.remainingFieldTarget.value = Math.max(
+      this.duration - this.currentTime,
+      0
+    )
     if (!this.audioTarget.paused) this.throttledPersistProgress()
   }
 
@@ -101,7 +105,8 @@ PlayerController.targets = [
   'elapsed',
   'remaining',
   'playForm',
-  'progressField'
+  'progressField',
+  'remainingField'
 ]
 
 PlayerController.values = {

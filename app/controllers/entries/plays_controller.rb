@@ -15,6 +15,6 @@ class Entries::PlaysController < ApplicationController
   private
 
   def play_params
-    params.require(:play).permit(:progress)
+    params.require(:play).permit(:progress, :remaining)
   end
 end
