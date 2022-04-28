@@ -4,7 +4,7 @@
   </h2>
 
   <div class="flex flex-nowrap space-x-4 pb-4 overflow-x-auto transform-gpu">
-    <% @recently_played.each do |feed| %>
+    <% @dashboard.recently_played.each do |feed| %>
       <% play = feed.most_recent_play %>
       <%= render "feeds/featured", feed: feed do %>
         <% if play.remaining > 60 %>
@@ -22,7 +22,7 @@
   </h2>
 
   <div class="flex flex-nowrap space-x-4 pb-4 overflow-x-auto transform-gpu">
-    <% @recently_updated.each do |feed| %>
+    <% @dashboard.recently_updated.each do |feed| %>
       <%= render "feeds/featured", feed: feed %>
     <% end %>
   </div>
@@ -32,6 +32,6 @@
   </h2>
 
   <%= render "list" do %>
-    <%= render @feeds %>
+    <%= render partial: "feeds/feed", collection: @dashboard.feeds %>
   <% end %>
 <% end %>

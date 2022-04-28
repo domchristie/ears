@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  namespace :users do
+    resource :dashboard, only: :show
+  end
+
   constraints subdomain: "websub" do
     get "web_subs/:id/feed", to: "web_subs#update", as: :web_sub_feed
     post "web_subs/:web_sub_id/feed", to: "web_subs/feeds#update"
@@ -9,7 +13,7 @@ Rails.application.routes.draw do
   end
 
   resources :opml_imports, only: [:new, :create]
-  resources :feeds, only: [:index, :show]
+  resources :feeds, only: :show
   resources :entries, only: :show
-  root "feeds#index"
+  root "users/dashboards#show"
 end
