@@ -1,10 +1,10 @@
 <%= render "list_item", title: feed.title, path: feed_path(feed) do |p| %>
   <% p.content_for :image do %>
-    <% if feed.image_url %>
-      <%= image_tag(feed.image_url, class: "w-20 h-20 shrink-0 sm:w-24 sm:h-24 p-1 mr-3 bg-white shadow", alt: "")%>
-    <% else %>
-      <div class="w-20 h-20 shrink-0 sm:w-24 sm:h-24 mr-3 bg-gray-100"></div>
-    <% end %>
+    <div class="relative w-20 h-20 shrink-0 sm:w-24 sm:h-24 mr-3 before:absolute before:inset-0 before:ring-inset before:ring-1 before:ring-black/10">
+      <% if feed.image_url %>
+        <%= image_tag(feed.image_url, alt: "")%>
+      <% end %>
+    </div>
   <% end %>
 
   <% if feed.author %>
