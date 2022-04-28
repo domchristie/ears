@@ -3,7 +3,7 @@
     Recently Played
   </h2>
 
-  <div class="flex flex-nowrap space-x-4 pb-4 overflow-x-auto">
+  <div class="flex flex-nowrap space-x-4 pb-4 overflow-x-auto transform-gpu">
     <% @recently_played.each do |feed| %>
       <% play = feed.most_recent_play %>
       <%= render "feeds/featured", feed: feed, entry: play.entry do %>
@@ -21,7 +21,7 @@
     Recently Updated
   </h2>
 
-  <div class="flex flex-nowrap space-x-4 pb-4 overflow-x-auto">
+  <div class="flex flex-nowrap space-x-4 pb-4 overflow-x-auto transform-gpu">
     <% @recently_updated.each do |feed| %>
       <%= render "feeds/featured", feed: feed, entry: feed.most_recent_entry %>
     <% end %>
