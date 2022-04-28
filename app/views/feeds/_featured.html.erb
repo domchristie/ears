@@ -1,0 +1,9 @@
+<article class="relative w-36 h-36 flex-shrink-0">
+  <%= link_to image_tag(feed.image_url), feed_path(feed), alt: feed.title, class: "block relative before:absolute before:inset-0 before:ring-inset before:ring-1 before:ring-black/10" %>
+
+  <div class="absolute bottom-1.5 left-1.5 right-1.5 whitespace-nowrap px-1.5 leading-5 bg-white/95 text-gray-600 text-xs font-medium truncate">
+    <%= entry.title %>
+  </div>
+
+  <%= yield %>
+</article>
