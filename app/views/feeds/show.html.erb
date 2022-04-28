@@ -5,7 +5,7 @@
     <div class="text-lg"><%= @feed.author %></div>
 
     <% if @feed.description %>
-      <div class="prose prose-neutral text-neutral-500 max-w-2xl text-center">
+      <div data-controller="external-content" class="prose prose-neutral text-neutral-500 max-w-2xl text-center">
         <%= sanitize @feed.description.gsub(/&nbsp;/, " ") %>
       </div>
     <% end %>

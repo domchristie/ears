@@ -90,7 +90,7 @@
 
   <hr class="border-2 my-6 border-neutral-200">
 
-  <div class="prose prose-neutral max-w-2xl mx-auto">
+  <div data-controller="external-content" class="prose prose-neutral max-w-2xl mx-auto">
     <%= sanitize(@entry.content) || sanitize(@entry.description) %>
   </div>
 <% end %>
