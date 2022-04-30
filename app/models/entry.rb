@@ -18,6 +18,15 @@ class Entry < ApplicationRecord
     [enclosure_url, play.try(:progress)].compact.join("#t=")
   end
 
+  def media_session_metadata
+    {
+      title: title,
+      artist: feed.title,
+      album: published_at.to_date.to_fs(:short),
+      artwork: [{src: image_url, sizes: "512x512"}]
+    }
+  end
+
   def self.import_all!(feed_id, remote_entries)
     attributes = remote_entries.map do |remote_entry|
       Entry.attributes_for_import(remote_entry)&.merge(feed_id: feed_id)

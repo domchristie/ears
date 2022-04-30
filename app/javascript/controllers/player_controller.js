@@ -1,6 +1,16 @@
 import { Controller } from '@hotwired/stimulus'
 
 export default class PlayerController extends Controller {
+  static targets = [
+    'audio',
+    'controls',
+    'toggle',
+    'loader',
+    'playForm',
+    'progressField',
+    'remainingField'
+  ]
+
   initialize () {
     this.throttledPersistProgress = throttle(
       () => this.persistProgress(),
@@ -9,7 +19,7 @@ export default class PlayerController extends Controller {
   }
 
   get duration () {
-    return this.audioTarget.duration
+    return this.audioTarget?.duration || 0
   }
 
   get currentTime () {
@@ -74,20 +84,6 @@ export default class PlayerController extends Controller {
 
 function requestUrl (url) {
   return url.split("#")[0]
-}
-
-PlayerController.targets = [
-  'audio',
-  'controls',
-  'toggle',
-  'loader',
-  'playForm',
-  'progressField',
-  'remainingField'
-]
-
-PlayerController.values = {
-  duration: Number
 }
 
 function throttle (fn, delay) {

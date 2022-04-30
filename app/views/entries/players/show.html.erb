@@ -1,7 +1,8 @@
 <%= turbo_frame_tag :player do %>
   <div
     data-player-target="controls"
-    data-player-duration-value="<%= @entry.duration %>"
+    data-media-session-target="controls"
+    data-media-session-metadata="<%= @entry.media_session_metadata.to_json %>"
     class="relative -mt-6"
   >
     <div class="flex justify-center items-end gap-3">

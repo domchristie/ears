@@ -1,28 +1,32 @@
 import { Controller } from '@hotwired/stimulus'
 
 export default class MediaSessionController extends Controller {
-  create () {
-    if ('mediaSession' in navigator && !this.hasTriggeredMediaSession) {
-      this.audioTarget.pause()
-      this.audioTarget.play()
+  static targets = ['audio', 'controls']
+  static values = { metadata: Object }
 
-      navigator.mediaSession.metadata = new MediaMetadata({
-        title: this.titleValue,
-        artist: this.artistValue,
-        album: this.albumValue,
-        artwork: this.artworkValue
-      })
+  controlsTargetConnected () {
+    this.element.dataset.mediaSessionMetadataValue =
+      this.controlsTarget.dataset.mediaSessionMetadata
+  }
 
-      this.hasTriggeredMediaSession = true
+  async create () {
+    if ('mediaSession' in navigator) {
+      await Promise.resolve() // next tick to fix off-by-one errors in iOS
+
+      navigator.mediaSession.metadata = new MediaMetadata(this.metadataValue)
+
+      navigator.mediaSession.setActionHandler('play', () =>
+        this.audioTarget.play()
+      )
+      navigator.mediaSession.setActionHandler('pause', () =>
+        this.audioTarget.pause()
+      )
+      navigator.mediaSession.setActionHandler('seekbackward', (details) =>
+        this.audioTarget.currentTime -= details.seekOffset
+      )
+      navigator.mediaSession.setActionHandler('seekforward', (details) =>
+        this.audioTarget.currentTime += details.seekOffset
+      )
     }
   }
-}
-
-MediaSessionController.targets = ['audio']
-
-MediaSessionController.values = {
-  title: String,
-  artist: String,
-  album: String,
-  artwork: Array
 }
