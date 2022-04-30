@@ -15,7 +15,8 @@
  */
 
 .prose br,
-.prose p br+br,
+.prose p br + br,
+.prose li br + br,
 .prose p br:only-child,
 .prose p:empty {
   display: none
