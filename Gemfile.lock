@@ -110,6 +110,9 @@ GEM
     importmap-rails (1.0.3)
       actionpack (>= 6.0.0)
       railties (>= 6.0.0)
+    inline_svg (1.8.0)
+      activesupport (>= 3.0)
+      nokogiri (>= 1.6)
     io-console (0.5.11)
     irb (1.4.1)
       reline (>= 0.3.0)
@@ -252,6 +255,7 @@ DEPENDENCIES
   honeybadger (~> 4.12)
   httparty (~> 0.20.0)
   importmap-rails
+  inline_svg (~> 1.8)
   jbuilder
   local_time (~> 2.1)
   mdns
