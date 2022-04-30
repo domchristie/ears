@@ -1,0 +1,22 @@
+<%
+options = {
+  data: {
+    player_target: "toggle",
+    action: "player#toggle",
+    href: entry.enclosure_url
+  },
+  href: (entry.enclosure_url if local_assigns[:tag] == :a),
+  tabindex: 0,
+  class: "rounded-full focus:outline-none focus:ring-4 ring-white/90"
+}
+
+padding = local_assigns[:padding] || "p-2"
+size = local_assigns[:size] || "w-10 h-10"
+%>
+
+<%= content_tag local_assigns[:tag] || :button, options do %>
+  <span class="flex <%= padding %> bg-black/60 rounded-full">
+    <%= inline_svg_tag "icons/play.svg", class: "play-icon #{size} mx-auto text-white translate-x-[2.5%]", title: "Play", aria: true %>
+    <%= inline_svg_tag "icons/pause.svg", class: "pause-icon #{size} mx-auto text-white", title: "Pause", aria: true %>
+  </span>
+<% end %>

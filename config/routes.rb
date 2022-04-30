@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   resources :entries, only: :show do
     resources :plays, only: [:create, :update], controller: "entries/plays"
+    resource :player, only: :show, controller: "entries/players"
   end
 
   resources :opml_imports, only: [:new, :create]

@@ -14,6 +14,10 @@ class Entry < ApplicationRecord
     itunes_image_url || super || feed.image_url
   end
 
+  def resume_enclosure_url(play)
+    [enclosure_url, play.try(:progress)].compact.join("#t=")
+  end
+
   def self.import_all!(feed_id, remote_entries)
     attributes = remote_entries.map do |remote_entry|
       Entry.attributes_for_import(remote_entry)&.merge(feed_id: feed_id)

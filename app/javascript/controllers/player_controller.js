@@ -8,79 +8,44 @@ export default class PlayerController extends Controller {
     )
   }
 
-  async connect () {
-    const audioElement = this.audioTarget
-    const clone = audioElement.cloneNode(true)
-    audioElement.parentNode.insertBefore(clone, audioElement)
-    audioElement.remove()
-
-    this.updateTime()
-    this.updateScrubber()
-  }
-
   get duration () {
-    return this.audioTarget.duration || this.durationValue
+    return this.audioTarget.duration
   }
 
   get currentTime () {
-    return this.started ? (this.audioTarget.currentTime || 0) : this.offset
+    return this.audioTarget?.currentTime || 0
   }
 
-  get offset () {
-    return this._offset != null ? this._offset : this.offsetValue
-  }
+  async toggle (event) {
+    event.preventDefault()
 
-  set offset (value) {
-    this._offset = value
-  }
-
-  start () {
-    if (!this.started) {
-      this.audioTarget.currentTime = this.offset
-      this.started = true
-    }
-  }
-
-  play () {
-    return this.audioTarget.play()
-  }
-
-  pause () {
-    return this.audioTarget.pause()
-  }
-
-  updateControls () {
-    if (this.audioTarget.paused) {
-      this.playTarget.hidden = false
-      this.playTarget.focus()
-      this.pauseTarget.hidden = true
+    if (this.targetApplicable(event.currentTarget)) {
+      this.audioTarget[this.audioTarget.paused ? 'play' : 'pause']()
     } else {
-      this.playTarget.hidden = true
-      this.pauseTarget.hidden = false
-      this.pauseTarget.focus()
+      this.audioTarget.src = event.currentTarget.dataset.href
+      await this.loadNewControls()
+      this.audioTarget.play()
     }
   }
 
-  updateTime () {
-    this.elapsedTarget.textContent = formatDuration(this.currentTime, 'display')
-    this.elapsedTarget.setAttribute('datetime', formatDuration(this.currentTime))
-    const remaining = this.duration - this.currentTime
-    this.remainingTarget.textContent = formatDuration(remaining, 'display')
-    this.remainingTarget.setAttribute('datetime', formatDuration(remaining))
+  skipBack () {
+    this.audioTarget.currentTime -= 15
   }
 
-  updateScrubber () {
-    const value = this.duration ? this.currentTime / this.duration : 0
-    this.scrubberTarget.value = value
-    this.scrubberTarget.style.setProperty('--val', value)
+  skipForward () {
+    this.audioTarget.currentTime += 30
   }
 
-  scrub () {
-    const value = +this.scrubberTarget.value * this.duration
-    this.offset = value
-    this.audioTarget.currentTime = value
-    this.scrubberTarget.style.setProperty('--val', +this.scrubberTarget.value)
-    this.updateTime()
+  updateToggles () {
+    this.toggleTargets.forEach((target) => {
+      if (this.targetApplicable(target)) {
+        target.classList.toggle('--playing', !this.audioTarget.paused)
+      }
+    })
+  }
+
+  controlsTargetConnected () {
+    this._controlsLoaded?.call()
   }
 
   trackProgress () {
@@ -95,23 +60,33 @@ export default class PlayerController extends Controller {
   persistProgress () {
     this.dispatch('submit', { target: this.playFormTarget, prefix: '' })
   }
+
+  targetApplicable (target) {
+    return requestUrl(target.dataset.href) === requestUrl(this.audioTarget.src)
+  }
+
+  loadNewControls () {
+    const promise = new Promise(resolve => this._controlsLoaded = resolve)
+    this.loaderTarget.click()
+    return promise
+  }
+}
+
+function requestUrl (url) {
+  return url.split("#")[0]
 }
 
 PlayerController.targets = [
   'audio',
-  'play',
-  'pause',
-  'scrubber',
-  'elapsed',
-  'remaining',
+  'controls',
+  'toggle',
+  'loader',
   'playForm',
   'progressField',
   'remainingField'
 ]
 
 PlayerController.values = {
-  playsPath: String,
-  offset: Number,
   duration: Number
 }
 
@@ -123,29 +98,4 @@ function throttle (fn, delay) {
     lastCalled = now
     return fn(...args)
   }
-}
-
-function duration (seconds) {
-  const hours = Math.floor(seconds / (60 * 60))
-  const minutes = Math.floor(seconds / 60) % 60
-  seconds = Math.floor(seconds % 60)
-  return { hours, minutes, seconds }
-}
-
-function formatDuration (elapsed, format) {
-  const { hours, minutes, seconds } = duration(elapsed)
-  switch (format) {
-  case 'display':
-    return [
-      hours ? pad(hours) : null,
-      pad(minutes),
-      pad(seconds)
-    ].filter(p => p != null).join(':')
-  default:
-    return `PT${hours}H${minutes}M${seconds}S`
-  }
-}
-
-function pad (number) {
-  return number < 10 ? '0' + number : number.toString()
 }

@@ -7,3 +7,29 @@
     -webkit-tap-highlight-color: transparent;
   }
 }
+
+@layer components {
+  [data-player-target="toggle"] .pause-icon {
+    display: none;
+  }
+
+  [data-player-target="toggle"].--playing .pause-icon {
+    display: block;
+  }
+
+  [data-player-target="toggle"].--playing .play-icon {
+    display: none;
+  }
+}
+
+@layer utilities {
+  .bg-player-bar {
+    background-color: rgb(255, 255, 255, 0.95);
+  }
+
+  @supports (backdrop-filter: blur(1px)) {
+    .bg-player-bar {
+      background-color: rgb(255, 255, 255, 0.75);
+    }
+  }
+}

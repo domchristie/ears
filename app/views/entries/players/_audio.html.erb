@@ -1,0 +1,14 @@
+<audio
+  data-player-target="audio"
+  data-media-session-target="audio"
+  data-action="
+    play->player#updateToggles
+    play->media-session#create
+    pause->player#updateToggles
+    timeupdate->player#trackProgress
+    ended->player#persistProgress"
+  preload="auto"
+  src="<%= local_assigns[:source] %>"
+  class="hidden"
+>
+</audio>

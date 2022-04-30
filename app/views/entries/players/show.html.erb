@@ -1,0 +1,26 @@
+<%= turbo_frame_tag :player do %>
+  <div
+    data-player-target="controls"
+    data-player-duration-value="<%= @entry.duration %>"
+    class="relative -mt-6"
+  >
+    <div class="flex justify-center items-end gap-3">
+      <div class="relative w-20 h-20 order-2">
+        <div class="block relative before:absolute before:inset-0 before:ring-inset before:ring-1 before:ring-black/10 ring-1 ring-white/50 shadow-lg">
+          <%= image_tag @entry.image_url, alt: "" %>
+        </div>
+
+        <div class="absolute inset-0 flex items-center justify-center">
+          <%= render "toggle", entry: @entry %>
+        </div>
+      </div>
+
+      <%= render "skip", direction: :back, seconds: 15, data: { action: "player#skipBack" }, class: "order-1" %>
+      <%= render "skip", direction: :forward, seconds: 30, data: { action: "player#skipForward" }, class: "order-3" %>
+    </div>
+
+    <%= link_to "#{@entry.feed.title} - #{@entry.title}", entry_path(@entry), class: "block p-2 text-sm font-medium text-center truncate text-blue-700", data: {turbo_frame: "_top"} %>
+
+    <%= render "plays/form", entry: @entry %>
+  </div>
+<% end %>

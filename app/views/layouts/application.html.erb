@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html data-controller="player" data-action="turbo:load->player#updateToggles">
   <head>
     <title><%= @title ? "#{@title} - Listen" : "Listen" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -18,7 +18,7 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="mb-48">
+  <body class="mb-44">
      <% if notice || alert %>
       <div class="p-2 text-center <%= notice ? "bg-green-50 text-green-900" : "bg-red-50 text-red-800" %>">
         <%= notice || alert %>
@@ -29,7 +29,15 @@
       <%= yield %>
     </main>
 
-    <script>
+    <div data-turbo-permanent id="player_bar" class="fixed bottom-0 w-full min-h-[1px] bg-player-bar backdrop-blur">
+      <%= render "entries/players/audio", source: Current.entry.try(:resume_enclosure_url, Current.play) %>
+
+      <% if Current.entry %>
+        <%= turbo_frame_tag :player, src: entry_player_path(Current.entry) %>
+      <% end %>
+    </div>
+
+    <script data-turbo-eval="false">
     if (navigator.serviceWorker) {
       navigator.serviceWorker.register('/serviceworker.js', { scope: './' })
         .then(function () {

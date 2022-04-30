@@ -1,6 +1,14 @@
 <% @title = @entry.title %>
 
 <%= render "header", image: @entry.image_url, title: @entry.title do |p| %>
+  <% p.content_for :image_overlay do %>
+    <div class="absolute inset-0 flex items-center justify-center">
+      <%= render "entries/players/toggle", entry: @entry, tag: :a, padding: "p-4", size: "w-16 h-16" %>
+    </div>
+
+    <%= link_to "#{@entry.title}", entry_player_path(@entry, autoplay: true), data: {turbo_frame: "player", player_target: "loader"}, class: "hidden" %>
+  <% end %>
+
   <% p.content_for :meta do %>
     <div class="justify-center text-lg leading-6">
       <%= image_tag @entry.feed.image_url, class: "inline-block w-6 h-6 mr-1 object-cover align-top" %>
@@ -12,76 +20,6 @@
 <% end %>
 
 <%= render "container" do %>
-  <div
-    class="-mt-4 px-4 sm:px-0 w-full text-center"
-    data-controller="player media-session"
-    data-player-plays-path-value="<%= entry_plays_path(@entry) %>"
-    data-player-offset-value="<%= @entry.plays.first.try(:progress) || 0 %>"
-    data-player-duration-value="<%= @entry.duration %>"
-
-    data-media-session-title-value="<%= @entry.title %>"
-    data-media-session-artist-value="<%= @entry.feed.title %>"
-    data-media-session-album-value="<%= @entry.published_at.to_date.to_fs(:short) %>"
-    data-media-session-artwork-value="<%= [{ src: @entry.image_url, sizes: '512x512' }].to_json %>"
-  >
-    <audio
-      data-player-target="audio"
-      data-media-session-target="audio"
-      data-action="
-        play->player#start
-        play->player#updateControls
-        play->media-session#create
-        pause->player#updateControls
-        durationchange->player#updateTime
-        durationchange->player#updateScrubber
-        timeupdate->player#updateTime
-        timeupdate->player#updateScrubber
-        timeupdate->player#trackProgress
-        ended->player#persistProgress
-      "
-      class="block w-full"
-    >
-      <source src="<%= @entry.enclosure_url %>" type="<%= @entry.enclosure_type %>">
-    </audio>
-
-    <div class="flex items-end justify-between">
-      <time
-        data-player-target="elapsed"
-        class="font-mono text-xs text-neutral-500 translate-y-0.5"
-      >
-        --:--
-      </time>
-      <time
-        data-player-target="remaining"
-        class="font-mono text-xs text-neutral-500 order-3 translate-y-0.5"
-      >
-        --:--
-      </time>
-
-      <button data-player-target="play" data-action="player#play" class="p-2 font-bold">
-        Play
-      </button>
-      <button data-player-target="pause" data-action="player#pause" class="p-2 font-bold" hidden>
-        Pause
-      </button>
-    </div>
-
-    <div>
-      <input
-        data-player-target="scrubber"
-        data-action="player#scrub"
-        type="range"
-        min="0"
-        max="1"
-        value="0"
-        autocomplete="off"
-        step="0.00001"
-        class="block w-full bg-gradient from-l rounded-full cursor-pointer focus:outline-none focus-visible:ring">
-    </div>
-
-    <%= render "plays/form", entry: @entry %>
-  </div>
-
   <% if @entry.summary && @entry.content && strip_tags(@entry.summary).gsub(/\s/, "")[0..70] != strip_tags(@entry.content).gsub(/\s/, "")[0..70] %>
     <div class="mt-6 prose prose-neutral mx-auto text-center text-neutral-500">
       <%= sanitize @entry.summary %>
