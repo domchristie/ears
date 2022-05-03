@@ -1,0 +1,42 @@
+<%
+r = 3
+d = r * 2
+elapsed = local_assigns[:elapsed].to_f == 0 ? 0 : local_assigns[:elapsed].to_f.clamp(0.08, 0.92)
+elapsed_arc = elapsed * Math::PI * d
+elapsed_deg = elapsed * 360
+options = local_assigns[:options] || {}
+%>
+<svg <%= tag.attributes(options.without(:needle, :elapsed)) %> width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <%# chrome %>
+  <path
+    fill-rule="evenodd"
+    clip-rule="evenodd"
+    d="M9.5 0.5C8.67157 0.5 8 1.17157 8 2C8 2.08408 8.00692 2.16655 8.02022 2.24686C7.27174 2.43741 6.56541 2.7335 5.91801 3.11834C5.87053 3.05194 5.81698 2.98855 5.75736 2.92893C5.17157 2.34315 4.22182 2.34315 3.63604 2.92893L2.92893 3.63604C2.34314 4.22183 2.34314 5.17157 2.92893 5.75736C2.98855 5.81698 3.05194 5.87053 3.11834 5.91802C2.40795 7.11305 2 8.50888 2 10C2 14.4183 5.58172 18 10 18C14.4183 18 18 14.4183 18 10C18 8.50888 17.592 7.11304 16.8817 5.91801C16.9481 5.87053 17.0114 5.81698 17.0711 5.75736C17.6569 5.17157 17.6569 4.22183 17.0711 3.63604L16.364 2.92893C15.7782 2.34315 14.8284 2.34315 14.2426 2.92893C14.183 2.98855 14.1295 3.05194 14.082 3.11834C13.4346 2.7335 12.7283 2.43741 11.9798 2.24686C11.9931 2.16655 12 2.08408 12 2C12 1.17157 11.3284 0.5 10.5 0.5H9.5Z"
+    fill="currentColor"/>
+
+  <%# elapsed %>
+  <circle
+    <%= tag.attributes({stroke: "none"}.merge(options[:remaining] || {})) %>
+    cx="10"
+    cy="10"
+    r="<%= d %>"
+    fill="currentColor"/>
+
+  <%# elapsed %>
+  <circle
+    <%= tag.attributes({stroke: "none"}.merge(options[:elapsed] || {})) %>
+    cx="10"
+    cy="10"
+    r="<%= r %>"
+    fill="transparent"
+    stroke-width="<%= d %>"
+    stroke-dasharray="<%= elapsed_arc %> <%= Math::PI * d %>"
+    transform="rotate(-90 10 10)"/>
+
+  <%# needle %>
+  <path
+    <%= tag.attributes({fill: "white"}.merge(options[:needle] || {})) %>
+    transform-origin="center"
+    transform= "rotate(<%= elapsed_deg %>)"
+    d="M9.42929 4.49497C9.46986 4.21096 9.7131 4 10 4V4C10.2869 4 10.5301 4.21096 10.5707 4.49497L11.2879 9.51508C11.3998 10.2988 10.7917 11 10 11V11C9.20831 11 8.60017 10.2988 8.71213 9.51508L9.42929 4.49497Z"/>
+</svg>

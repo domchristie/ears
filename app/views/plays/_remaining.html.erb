@@ -1,4 +1,4 @@
 <%= tag.time(
   "#{play_remaining_in_words(remaining)} left",
-  **options.merge(datetime:  ActiveSupport::Duration.build(remaining.round).iso8601)
+  **(local_assigns[:options] || {}).merge(datetime: ActiveSupport::Duration.build(remaining.round).iso8601)
 ) %>
