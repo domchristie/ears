@@ -5,7 +5,8 @@ module PlaysHelper
       parts = remaining.parts
       [
         (parts[:hours].to_i > 1 && "#{parts[:hours]} hrs"),
-        (parts[:hours].to_i == 1 && "#{parts[:hours]} hr"),
+        (parts[:hours].to_i == 1 && parts[:minutes].to_i < 1 && "#{parts[:hours]} hour"),
+        (parts[:hours].to_i == 1 && parts[:minutes].to_i >= 1 && "#{parts[:hours]} hr"),
         (parts[:minutes].to_i > 1 && "#{parts[:minutes]} mins"),
         (parts[:minutes].to_i == 1 && "#{parts[:minutes]} min")
       ].select(&:itself).join(" ")
