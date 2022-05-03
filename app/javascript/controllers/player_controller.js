@@ -1,4 +1,5 @@
 import { Controller } from '@hotwired/stimulus'
+import { formatDuration } from '../helpers/time-helpers'
 
 export default class PlayerController extends Controller {
   static targets = [
@@ -6,16 +7,18 @@ export default class PlayerController extends Controller {
     'controls',
     'toggle',
     'loader',
+    'elapsed',
+    'remaining',
+    'progress',
     'playForm',
-    'progressField',
+    'elapsedField',
     'remainingField'
   ]
 
   initialize () {
-    this.throttledPersistProgress = throttle(
-      () => this.persistProgress(),
-      20000
-    )
+    this.persistElapsedLater = throttle(_ => this.persistElapsed(), 20000)
+    this.updateTimeLater = throttle(_ => this.updateTime(), 1000)
+    this.updateTime()
   }
 
   get duration () {
@@ -54,20 +57,34 @@ export default class PlayerController extends Controller {
     })
   }
 
+  updateTime () {
+    this.elapsedTarget.textContent = formatDuration(this.currentTime, 'display')
+    this.elapsedTarget.setAttribute('datetime', formatDuration(this.currentTime))
+    const remaining = Math.max(this.duration - this.currentTime, 0)
+    this.remainingTarget.textContent = '-' + formatDuration(remaining, 'display')
+    this.remainingTarget.setAttribute('datetime', formatDuration(remaining))
+  }
+
+  updateProgress () {
+    const progress = this.currentTime / this.duration
+    this.progressTarget.value = progress
+    this.progressTarget.style.setProperty('--progress', progress)
+  }
+
   controlsTargetConnected () {
     this._controlsLoaded?.call()
   }
 
   trackProgress () {
-    this.progressFieldTarget.value = this.currentTime
+    this.elapsedFieldTarget.value = this.currentTime
     this.remainingFieldTarget.value = Math.max(
       this.duration - this.currentTime,
       0
     )
-    if (!this.audioTarget.paused) this.throttledPersistProgress()
+    if (!this.audioTarget.paused) this.persistElapsedLater()
   }
 
-  persistProgress () {
+  persistElapsed () {
     this.dispatch('submit', { target: this.playFormTarget, prefix: '' })
   }
 

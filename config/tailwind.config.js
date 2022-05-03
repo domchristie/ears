@@ -11,6 +11,7 @@ module.exports = {
       fontFamily: {
         sans: ['Bespoke Sans', ...defaultTheme.fontFamily.sans],
         mono: ['Roboto Mono', ...defaultTheme.fontFamily.mono],
+        native: defaultTheme.fontFamily.sans,
       },
     },
   },

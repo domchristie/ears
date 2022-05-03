@@ -7,6 +7,9 @@
     play->media-session#setState
     pause->player#updateToggles
     pause->media-session#setState
+    durationchange->player#updateTime
+    timeupdate->player#updateTimeLater
+    timeupdate->player#updateProgress
     timeupdate->player#trackProgress
     ended->player#persistProgress"
   preload="auto"

@@ -5,4 +5,8 @@ class Play < ApplicationRecord
   def self.most_recent
     order(updated_at: :desc).first
   end
+
+  def progress
+    1 / (elapsed + remaining) * elapsed
+  end
 end
