@@ -3,7 +3,14 @@
 <%= render "header", image: @entry.image_url, title: @entry.title do |p| %>
   <% p.content_for :image_overlay do %>
     <div class="absolute inset-0 flex items-center justify-center">
-      <%= render "entries/players/toggle", entry: @entry, tag: :a, padding: "p-4", size: "w-16 h-16" %>
+      <%= render(
+        "entries/players/toggle",
+        entry: @entry,
+        play: @entry.most_recent_play,
+        tag: :a,
+        padding: "p-4",
+        size: "w-16 h-16"
+      ) %>
     </div>
 
     <%= link_to "#{@entry.title}", entry_player_path(@entry, autoplay: true), data: {turbo_frame: "player", player_target: "loader"}, class: "hidden" %>

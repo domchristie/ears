@@ -1,11 +1,12 @@
 <%
+href = local_assigns[:play] ? entry.resume_enclosure_url(play) : entry.enclosure_url
 options = {
   data: {
     player_target: "toggle",
     action: "player#toggle",
-    href: entry.enclosure_url
+    href: href
   },
-  href: (entry.enclosure_url if local_assigns[:tag] == :a),
+  href: (href if local_assigns[:tag] == :a),
   tabindex: 0,
   class: "rounded-full focus:outline-none focus:ring-4 ring-white/90"
 }
