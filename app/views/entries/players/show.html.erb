@@ -7,8 +7,8 @@
   >
     <div class="flex justify-center items-end gap-3">
       <div class="relative w-20 h-20 order-2">
-        <div class="block relative before:absolute before:inset-0 before:ring-inset before:ring-1 before:ring-black/10 ring-1 ring-white/50 shadow-lg">
-          <%= image_tag @entry.image_url, alt: "" %>
+        <div class="block relative before:absolute before:inset-0 before:ring-inset before:ring-1 before:ring-black/10 shadow-lg">
+          <%= image_tag @entry.feed.image_url, alt: "" %>
         </div>
 
         <div class="absolute inset-0 flex items-center justify-center">
