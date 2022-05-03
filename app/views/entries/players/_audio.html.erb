@@ -4,7 +4,9 @@
   data-action="
     play->player#updateToggles
     play->media-session#create
+    play->media-session#setState
     pause->player#updateToggles
+    pause->media-session#setState
     timeupdate->player#trackProgress
     ended->player#persistProgress"
   preload="auto"

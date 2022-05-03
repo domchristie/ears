@@ -29,4 +29,11 @@ export default class MediaSessionController extends Controller {
       )
     }
   }
+
+  setState () {
+    if ('mediaSession' in navigator) {
+      navigator.mediaSession.playbackState =
+        this.audioTarget.paused ? 'paused' : 'playing'
+    }
+  }
 }
