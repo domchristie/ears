@@ -3,12 +3,6 @@
 <%= render "header", image: @feed.image_url, title: @feed.title do |p| %>
   <% p.content_for :meta do %>
     <div class="text-lg"><%= @feed.author %></div>
-
-    <% if @feed.description %>
-      <div data-controller="external-content" class="prose prose-neutral text-neutral-500 max-w-2xl text-center">
-        <%= sanitize @feed.description.gsub(/&nbsp;/, " ") %>
-      </div>
-    <% end %>
   <% end %>
 <% end %>
 
