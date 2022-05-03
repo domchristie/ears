@@ -1,5 +1,5 @@
 import { Controller } from '@hotwired/stimulus'
-import { formatDuration } from '../helpers/time-helpers'
+import { formatDuration } from 'helpers/time-helpers'
 
 export default class PlayerController extends Controller {
   static targets = [
