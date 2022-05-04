@@ -10,11 +10,9 @@ LocalTime.start()
 ;(function () {
 const FetchMethod = { get: 0 }
   document.addEventListener('turbo:submit-end', async ({ detail }) => {
-    console.log("turbo:submit-end")
     const nonGetFetch = detail.formSubmission.fetchRequest.method !== FetchMethod.get
     const responseHTML = await detail.fetchResponse.responseHTML
     if (detail.success && nonGetFetch && responseHTML) {
-      console.log("clearing")
       Turbo.clearCache()
     }
   })
