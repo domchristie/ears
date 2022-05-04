@@ -60,6 +60,8 @@ export default class PlayerController extends Controller {
   }
 
   updateTime () {
+    if (this.audioTarget.readyState < 2) return
+
     const remaining = Math.max(this.duration - this.currentTime, 0)
 
     this.ifApplicable(this.elapsedTargets, t => {
