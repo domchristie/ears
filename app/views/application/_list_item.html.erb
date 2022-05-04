@@ -1,6 +1,6 @@
 <% body = yield(p = component_partial) %>
 
-<%= content_tag (local_assigns[:tag] || :article), class: "focus-within:bg-gray-100 relative flex items-center -mx-2.5 p-2.5" do %>
+<%= content_tag (local_assigns[:tag] || :article), class: "focus-within:bg-neutral-100 dark:focus-within:bg-neutral-800 relative flex items-center -mx-2.5 p-2.5" do %>
   <%= p.content_for :image %>
 
   <div class="space-y-1 min-w-0">
