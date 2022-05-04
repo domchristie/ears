@@ -1,4 +1,16 @@
 <article class="relative w-36 h-36 flex-shrink-0">
-  <%= link_to image_tag(feed.image_url, alt: feed.title), feed_path(feed), alt: feed.title, class: "block relative before:absolute before:inset-0 before:ring-inset before:ring-1 before:ring-black/10" %>
+  <%= link_to(
+    image_tag(feed.image_url, alt: feed.title, width: 144, height: 144),
+    feed_path(feed),
+    class: "
+      block
+      relative
+      before:absolute
+      before:inset-0
+      before:ring-inset
+      before:ring-1
+      before:ring-black/10
+    "
+  ) %>
   <%= yield %>
 </article>
