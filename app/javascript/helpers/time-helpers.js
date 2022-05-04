@@ -9,12 +9,14 @@ export function formatDuration (elapsed, format) {
   const { hours, minutes, seconds } = duration(elapsed)
   switch (format) {
   case 'words':
-    [
+    return [
       (hours > 1 && `%{hours} hrs`),
-      (hours === 1 && `%{hours} hr`),
-      (minutes > 1 && `%{minutes} mins`),
-      (minutes === 1 && `%{minutes} min`)
-    ].filter(p => p != null).join(' ')
+      (hours === 1 && minutes < 1 && `${hours} hour`),
+      (hours === 1 && minutes >= 1 && `${hours} hr`),
+      (minutes === 0 && `${minutes} mins`),
+      (minutes === 1 && `${minutes} min`),
+      (minutes > 1 && `${minutes} mins`),
+    ].filter(p => p).join(' ')
   case 'display':
     return [
       hours ? pad(hours) : null,

@@ -12,7 +12,9 @@ export default class PlayerController extends Controller {
     'progress',
     'playForm',
     'elapsedField',
-    'remainingField'
+    'remainingField',
+    'timerIcon',
+    'remainingInWords',
   ]
 
   initialize () {
@@ -58,24 +60,43 @@ export default class PlayerController extends Controller {
   }
 
   updateTime () {
-    this.elapsedTarget.textContent = formatDuration(this.currentTime, 'display')
-    this.elapsedTarget.setAttribute('datetime', formatDuration(this.currentTime))
     const remaining = Math.max(this.duration - this.currentTime, 0)
-    this.remainingTarget.textContent = '-' + formatDuration(remaining, 'display')
-    this.remainingTarget.setAttribute('datetime', formatDuration(remaining))
+
+    this.ifApplicable(this.elapsedTargets, t => {
+      t.textContent = formatDuration(this.currentTime, 'display')
+      t.setAttribute('datetime', formatDuration(this.currentTime))
+    })
+
+    this.ifApplicable(this.remainingTargets, t => {
+      t.textContent = '-' + formatDuration(remaining, 'display')
+      t.setAttribute('datetime', formatDuration(remaining))
+    })
+
+    this.ifApplicable(this.timerIconTargets, t => {
+      t.style.setProperty('--progress', this.currentTime / this.duration)
+    })
+
+    this.ifApplicable(this.remainingInWordsTargets, t => {
+      t.textContent = remaining > 60
+        ? `${formatDuration(remaining, 'words')} left`
+        : 'Played'
+      t.setAttribute('datetime', formatDuration(remaining))
+    })
   }
 
   updateProgress () {
     const progress = this.currentTime / this.duration
-    this.progressTarget.value = progress
-    this.progressTarget.style.setProperty('--progress', progress)
+    this.ifApplicable(this.progressTargets, t => {
+      t.value = progress
+      t.style.setProperty('--progress', progress)
+    })
   }
 
   controlsTargetConnected () {
     this._controlsLoaded?.call()
   }
 
-  trackProgress () {
+  trackElapsed () {
     this.elapsedFieldTarget.value = this.currentTime
     this.remainingFieldTarget.value = Math.max(
       this.duration - this.currentTime,
@@ -90,6 +111,12 @@ export default class PlayerController extends Controller {
 
   targetApplicable (target) {
     return requestUrl(target.dataset.href) === requestUrl(this.audioTarget.src)
+  }
+
+  ifApplicable (targets, callback) {
+    targets.forEach(t => {
+      if (this.targetApplicable(t)) callback.call(this, t)
+    })
   }
 
   loadNewControls () {

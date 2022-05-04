@@ -10,8 +10,8 @@
     durationchange->player#updateTime
     timeupdate->player#updateTimeLater
     timeupdate->player#updateProgress
-    timeupdate->player#trackProgress
-    ended->player#persistProgress"
+    timeupdate->player#trackElapsed
+    ended->player#persistElapsed"
   preload="auto"
   src="<%= local_assigns[:source] %>"
   class="hidden"

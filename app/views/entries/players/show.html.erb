@@ -21,18 +21,19 @@
     </div>
 
 
-    <div class="flex items-end justify-between px-3 pb-1 -mt-1 font-native text-xs text-black tabular-nums font-semibold">
+    <div class="flex items-end justify-between px-2 pb-1 -mt-1 font-native text-xs tabular-nums font-semibold">
       <time
-        data-player-target="elapsed">
+        data-player-target="elapsed" data-href="<%= @entry.enclosure_url %>">
         --:--
       </time>
-      <time data-player-target="remaining">
+      <time data-player-target="remaining" data-href="<%= @entry.enclosure_url %>">
         --:--
       </time>
     </div>
 
     <progress
       data-player-target="progress"
+      data-href="<%= @entry.enclosure_url %>"
       min="0"
       max="1"
       class="block w-full h-1 appearance-none border-0 text-blue-500"

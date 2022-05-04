@@ -11,10 +11,27 @@
           <div class="flex items-center absolute top-1.5 left-1.5 whitespace-nowrap px-1.5 leading-5 bg-white/95 text-neutral-400 text-xs font-medium">
             <%= render(
               "timer",
-              elapsed: play.progress,
-              options: { class: "h-4 w-4 -ml-0.5 mr-1 text-neutral-300" }
+              progress: play.progress,
+              options: {
+                aria: { hidden: true },
+                data: {
+                  player_target: "timerIcon",
+                  href: play.entry.enclosure_url
+                },
+                class: "h-4 w-4 -ml-0.5 mr-1 text-neutral-300"
+              }
             ) %>
-            <%= render "plays/remaining", remaining: play.remaining, options: {class: "text-neutral-500"} %>
+            <%= render(
+              "plays/remaining",
+              remaining: play.remaining,
+              options: {
+                data: {
+                  player_target: "remainingInWords",
+                  href: play.entry.enclosure_url
+                },
+                class: "text-neutral-500"
+              }
+            ) %>
           </div>
         <% end %>
       <% end %>
