@@ -4,8 +4,8 @@ attributes[:class] = Array(attributes[:class]).push(["relative p-2 rounded-full 
 %>
 
 <button <%= tag.attributes(attributes) %>>
-  <%= inline_svg_tag "icons/skip-#{direction}.svg", class: "w-10 h-10 text-blue-600", title: "Skip back #{seconds} seconds", aria: true %>
-  <span aria-hidden="true" class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -mt-px text-sm font-semibold tracking-tighter text-blue-700">
+  <%= inline_svg_tag "icons/skip-#{direction}.svg", class: "w-10 h-10", title: "Skip back #{seconds} seconds", aria: true %>
+  <span aria-hidden="true" class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -mt-px text-sm font-semibold tracking-tighter">
     <%= seconds %>
   </span>
 </button>
