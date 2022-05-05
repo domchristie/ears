@@ -4,6 +4,12 @@ class WebSub < ApplicationRecord
 
   belongs_to :feed, foreign_key: :feed_url, primary_key: :url
 
+  scope :expiring, -> { where(expires_at: Time.current..3.hours.from_now) }
+
+  scope :expired, -> {
+    where.not(expires_at: nil).where("expires_at < ?", Time.current)
+  }
+
   before_create :set_secret
 
   def verify_topic(topic)
