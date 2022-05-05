@@ -1,0 +1,28 @@
+{
+  "name": "listen",
+  "version": "1.0.0",
+  "description": "This README would normally document whatever steps are necessary to get the application up and running.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "prepare": "npm run copy-icons",
+    "copy-icons": "[ \"$NODE_ENV\" = production ] && exit 0; mkdir -p vendor/assets/images/heroicons && cp -R node_modules/heroicons vendor/assets/images"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/taperinstruments/listen.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/taperinstruments/listen/issues"
+  },
+  "homepage": "https://github.com/taperinstruments/listen#readme",
+  "dependencies": {
+    "heroicons": "^1.0.6"
+  }
+}
