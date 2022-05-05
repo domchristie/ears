@@ -9,7 +9,17 @@
 }
 
 @layer components {
-  [data-player-target="toggle"] .pause-icon {
+  [data-player-target="toggle"] .pause-icon,
+  [data-player-target="toggle"] .loading-icon {
+    display: none;
+  }
+
+  [data-player-target="toggle"].--loading .loading-icon {
+    display: block;
+  }
+
+  [data-player-target="toggle"].--loading .play-icon,
+  [data-player-target="toggle"].--loading .pause-icon {
     display: none;
   }
 
@@ -17,7 +27,8 @@
     display: block;
   }
 
-  [data-player-target="toggle"].--playing .play-icon {
+  [data-player-target="toggle"].--playing .play-icon,
+  [data-player-target="toggle"].--playing .loading-icon {
     display: none;
   }
 

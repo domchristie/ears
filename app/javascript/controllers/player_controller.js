@@ -56,10 +56,23 @@ export default class PlayerController extends Controller {
     this.audioTarget.currentTime += 30
   }
 
+  get ready () {
+    return this.audioTarget && this.audioTarget.readyState >= 3
+  }
+
+  get playing () {
+    return this.ready && !this.audioTarget.paused
+  }
+
+  get loading () {
+    return !this.ready && !this.audioTarget.paused
+  }
+
   updateToggles () {
     this.toggleTargets.forEach((target) => {
       if (this.targetApplicable(target)) {
-        target.classList.toggle('--playing', !this.audioTarget.paused)
+        target.classList.toggle('--loading', this.loading)
+        target.classList.toggle('--playing', this.playing)
       }
     })
   }

@@ -19,5 +19,9 @@ size = local_assigns[:size] || "w-10 h-10"
   <span class="flex <%= padding %> bg-black/60 rounded-full">
     <%= inline_svg_tag "icons/play.svg", class: "play-icon #{size} mx-auto text-white translate-x-[2.5%]", title: "Play", aria: true %>
     <%= inline_svg_tag "icons/pause.svg", class: "pause-icon #{size} mx-auto text-white", title: "Pause", aria: true %>
+
+    <span class="mx-auto scale-75">
+      <%= inline_svg_tag "icons/loading.svg", class: "loading-icon #{size} text-white", title: "Loading", aria: true %>
+    </span>
   </span>
 <% end %>
