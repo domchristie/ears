@@ -27,6 +27,12 @@
             class: "capitalize"
           ) %>
         </p>
+
+        <% if play = feed.most_recent_entry.most_recent_play %>
+          <div class="flex items-center absolute top-1.5 left-1.5 whitespace-nowrap px-1.5 leading-5 bg-white/95 text-neutral-400 text-xs font-medium">
+            <%= render "plays/play", play: play %>
+          </div>
+        <% end %>
       <% end %>
     <% end %>
   </div>

@@ -17,6 +17,7 @@ export default class PlayerController extends Controller {
     'playForm',
     'elapsedField',
     'remainingField',
+    'played',
     'timerIcon',
     'remainingInWords',
   ]
@@ -83,14 +84,16 @@ export default class PlayerController extends Controller {
       t.setAttribute('aria-label', `${distanceOfTimeInWords(remaining)} left`)
     })
 
+    this.ifApplicable(this.playedTargets, t => {
+      t.checked = remaining < 60
+    })
+
     this.ifApplicable(this.timerIconTargets, t => {
       t.style.setProperty('--progress', this.currentTime / this.duration)
     })
 
     this.ifApplicable(this.remainingInWordsTargets, t => {
-      t.textContent = remaining > 60
-        ? `${distanceOfTimeInWords(remaining, 'short')} left`
-        : 'Played'
+      t.textContent = `${distanceOfTimeInWords(remaining, 'short')} left`
       t.setAttribute('datetime', iso8601Duration(remaining))
       t.setAttribute('aria-label', `${distanceOfTimeInWords(remaining)} left`)
     })

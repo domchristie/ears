@@ -11,7 +11,7 @@ class User::Dashboard
   def recently_updated
     @recently_updated ||= Feed
       .joins(:entries)
-      .includes(:rss_image, :most_recent_entry)
+      .includes(:rss_image, most_recent_entry: :most_recent_play)
       .group(:id)
       .order("max(entries.published_at) DESC")
       .limit(10)
