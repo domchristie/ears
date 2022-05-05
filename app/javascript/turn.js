@@ -33,8 +33,6 @@ export default class Turn {
   }
 
   async beforeEnter (event) {
-    if (this.action === 'restore') return
-
     event.preventDefault()
 
     if (this.isPreview) {
@@ -63,7 +61,6 @@ export default class Turn {
   }
 
   get shouldAnimateEnter () {
-    if (this.action === 'restore') return false
     if (this.isPreview) return true
     if (this.hasPreview) return false
     return true
