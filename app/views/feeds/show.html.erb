@@ -1,5 +1,9 @@
 <% @title = @feed.title %>
 
+<nav class="flex absolute w-full z-20 p-4">
+  <%= render "back", path: root_path %>
+</nav>
+
 <%= render "header", image: @feed.image_url, title: @feed.title do |p| %>
   <% p.content_for :meta do %>
     <div class="text-lg"><%= @feed.author %></div>

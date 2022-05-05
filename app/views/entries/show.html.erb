@@ -1,5 +1,9 @@
 <% @title = @entry.title %>
 
+<nav class="flex absolute w-full z-20 p-4">
+  <%= render "back", path: feed_path(@entry.feed) %>
+</nav>
+
 <%= render "header", image: @entry.image_url, title: @entry.title do |p| %>
   <% p.content_for :image_overlay do %>
     <div class="absolute inset-0 flex items-center justify-center">
