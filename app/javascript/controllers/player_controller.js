@@ -1,5 +1,9 @@
 import { Controller } from '@hotwired/stimulus'
-import { formatDuration } from 'helpers/time-helpers'
+import {
+  chronoDuration,
+  iso8601Duration,
+  distanceOfTimeInWords
+} from 'helpers/time-helpers'
 
 export default class PlayerController extends Controller {
   static targets = [
@@ -65,13 +69,18 @@ export default class PlayerController extends Controller {
     const remaining = Math.max(this.duration - this.currentTime, 0)
 
     this.ifApplicable(this.elapsedTargets, t => {
-      t.textContent = formatDuration(this.currentTime, 'display')
-      t.setAttribute('datetime', formatDuration(this.currentTime))
+      t.textContent = chronoDuration(this.currentTime)
+      t.setAttribute('datetime', iso8601Duration(this.currentTime))
+      t.setAttribute(
+        'aria-label',
+        `Currently played: ${distanceOfTimeInWords(this.currentTime)}`
+      )
     })
 
     this.ifApplicable(this.remainingTargets, t => {
-      t.textContent = '-' + formatDuration(remaining, 'display')
-      t.setAttribute('datetime', formatDuration(remaining))
+      t.textContent = '-' + chronoDuration(remaining, 'display')
+      t.setAttribute('datetime', iso8601Duration(remaining))
+      t.setAttribute('aria-label', `${distanceOfTimeInWords(remaining)} left`)
     })
 
     this.ifApplicable(this.timerIconTargets, t => {
@@ -80,9 +89,10 @@ export default class PlayerController extends Controller {
 
     this.ifApplicable(this.remainingInWordsTargets, t => {
       t.textContent = remaining > 60
-        ? `${formatDuration(remaining, 'words')} left`
+        ? `${distanceOfTimeInWords(remaining, 'short')} left`
         : 'Played'
-      t.setAttribute('datetime', formatDuration(remaining))
+      t.setAttribute('datetime', iso8601Duration(remaining))
+      t.setAttribute('aria-label', `${distanceOfTimeInWords(remaining)} left`)
     })
   }
 
