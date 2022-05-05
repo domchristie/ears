@@ -9,4 +9,8 @@ class Play < ApplicationRecord
   def progress
     1 / (elapsed + remaining) * elapsed
   end
+
+  def complete?
+    remaining <= 60
+  end
 end

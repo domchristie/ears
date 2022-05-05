@@ -7,31 +7,9 @@
     <% @dashboard.recently_played.each do |feed| %>
       <% play = feed.most_recent_play %>
       <%= render "feeds/featured", feed: feed do %>
-        <% if play.remaining > 60 %>
+        <% unless play.complete? %>
           <div class="flex items-center absolute top-1.5 left-1.5 whitespace-nowrap px-1.5 leading-5 bg-white/95 text-neutral-400 text-xs font-medium">
-            <%= render(
-              "timer",
-              progress: play.progress,
-              options: {
-                aria: { hidden: true },
-                data: {
-                  player_target: "timerIcon",
-                  href: play.entry.enclosure_url
-                },
-                class: "h-4 w-4 -ml-0.5 mr-1 text-neutral-300"
-              }
-            ) %>
-            <%= render(
-              "plays/remaining",
-              remaining: play.remaining,
-              options: {
-                data: {
-                  player_target: "remainingInWords",
-                  href: play.entry.enclosure_url
-                },
-                class: "text-neutral-500"
-              }
-            ) %>
+            <%= render "plays/play", play: play %>
           </div>
         <% end %>
       <% end %>

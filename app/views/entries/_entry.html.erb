@@ -1,21 +1,13 @@
+<% play = entry.most_recent_play || entry.upcoming_play %>
+
 <%= render "list_item", title: entry.title, path: entry_path(entry) do %>
   <div class="flex space-x-4 text-sm font-medium text-neutral-500">
     <div class="flex items-center">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-neutral-300 -translate-y-px" viewBox="0 0 20 20" fill="currentColor">
-        <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
-      </svg>
+      <%= icon :calendar, solid: true, class: "h-4 w-4 mr-1 text-neutral-300 -translate-y-px" %>
       <%= local_relative_time entry.published_at, type: "date", class: "uppercase" %>
     </div>
 
-    <span class="flex items-center">
-      <%= render(
-        "timer",
-        options: {
-          class: "h-4 w-4 -ml-0.5 mr-1 text-neutral-300"
-        }
-      ) %>
-      <%= play_remaining_in_words(entry.duration) %>
-    </span>
+    <%= render play %>
   </div>
 
   <div class="text-neutral-500 line-clamp-1 break-all">

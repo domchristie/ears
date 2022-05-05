@@ -1,0 +1,25 @@
+<div class="flex items-center">
+  <%= render(
+    "timer",
+    progress: play.progress,
+    options: {
+      aria: {hidden: true},
+      data: {player_target: "timerIcon", href: play.entry&.enclosure_url},
+      class: "h-4 w-4 -ml-0.5 mr-1 text-neutral-300"
+    }
+  ) %>
+
+  <time
+    data-player-target="remainingInWords"
+    data-href="<%= play.entry&.enclosure_url %>"
+    class="text-neutral-500",
+    datetime="<%= ActiveSupport::Duration.build(play.remaining.round).iso8601 %>"
+  >
+    <% if play.complete? %>
+      Played
+    <% else %>
+      <%= play_remaining_in_words(play.remaining) %>
+      <%= "left" unless play.new_record? %>
+    <% end %>
+  </time>
+</div>
