@@ -1,7 +1,5 @@
 <%= render "container" do %>
-  <h2 class="flex items-center text-sm uppercase tracking-wide font-semibold mt-6 mb-3 text-neutral-500 dark:text-neutral-400">
-    Recently Played
-  </h2>
+  <%= render("heading", icon: :play) { "Recently Played" } %>
 
   <div class="flex flex-nowrap space-x-4 pb-4 overflow-x-auto transform-gpu">
     <% @dashboard.recently_played.each do |feed| %>
@@ -16,9 +14,7 @@
     <% end %>
   </div>
 
-  <h2 class="flex text-sm uppercase tracking-wide font-semibold mt-6 mb-3 text-neutral-500 dark:text-neutral-400">
-    Recently Updated
-  </h2>
+  <%= render("heading", icon: :sparkles) { "Recently Updated" } %>
 
   <div class="flex flex-nowrap space-x-4 pb-4 overflow-x-auto transform-gpu">
     <% @dashboard.recently_updated.each do |feed| %>
@@ -34,9 +30,7 @@
     <% end %>
   </div>
 
-  <h2 class="flex text-sm uppercase tracking-wide font-semibold mt-6 mb-1 text-neutral-500 dark:text-neutral-400">
-    Your Feeds
-  </h2>
+  <%= render("heading", icon: :collection) { "Your Feeds" } %>
 
   <%= render "list" do %>
     <%= render partial: "feeds/feed", collection: @dashboard.feeds %>
