@@ -3,10 +3,11 @@
   data-player-target="played"
   data-href="<%= play.entry&.enclosure_url %>"
   class="peer hidden"
+  disabled
   <%= "checked" if play.complete? %>
 >
 
-<span class="<%= class_names("hidden peer-checked:flex items-center text-neutral-500") %>">
+<span class="<%= class_names("hidden peer-checked:flex items-center") %>">
   <%= icon :"check-circle", solid: true, class: "h-4 w-4 -ml-px mr-1 text-teal-500" %>
   Played
 </span>
@@ -25,7 +26,6 @@
   <time
     data-player-target="remainingInWords"
     data-href="<%= play.entry&.enclosure_url %>"
-    class="text-neutral-500",
     datetime="<%= ActiveSupport::Duration.build(play.remaining.round).iso8601 %>"
   >
     <%= play_remaining_in_words(play.remaining) %>
