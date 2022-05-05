@@ -52,6 +52,10 @@ module.exports = {
     require('@tailwindcss/forms'),
     require('@tailwindcss/aspect-ratio'),
     require('@tailwindcss/typography'),
-    require('@tailwindcss/line-clamp')
+    require('@tailwindcss/line-clamp'),
+    plugin(function ({ addVariant }) {
+      addVariant('turn-enter', '.turn-enter &')
+      addVariant('turn-exit', '.turn-exit &')
+    })
   ]
 }
