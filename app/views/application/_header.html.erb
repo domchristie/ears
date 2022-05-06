@@ -14,8 +14,8 @@
     </div>
 
     <div
-      data-turn-exit="motion-safe:turn-exit:animate-exit"
-      data-turn-enter="motion-safe:turn-enter:animate-enter"
+      data-turn-exit="<%= turn_exit_class_names %>"
+      data-turn-enter="<%= turn_enter_class_names %>"
       class="relative mx-auto -mt-44 w-64 h-64 bg-white p-2.5 shadow"
     >
       <%= image_tag image, class: "w-full h-full object-cover", alt: "", width: 240, height: 240 %>
