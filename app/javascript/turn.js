@@ -33,6 +33,8 @@ export default class Turn {
   }
 
   async beforeEnter (event) {
+    if (this.action === 'restore' && !Turn.animateRestore) return
+
     event.preventDefault()
 
     if (this.isPreview) {
@@ -58,9 +60,11 @@ export default class Turn {
   async complete () {
     await this.animateIn
     this.removeClasses('enter')
+    Turn.animateRestore = false
   }
 
   get shouldAnimateEnter () {
+    if (this.action === 'restore' && !Turn.animateRestore) return false
     if (this.isPreview) return true
     if (this.hasPreview) return false
     return true
@@ -120,6 +124,8 @@ Turn.eventListeners = {
     if (this.currentTurn) this.currentTurn.complete()
   }.bind(Turn)
 }
+
+Turn.animateRestore = false
 
 function animationsEnd (selector) {
   const elements = [...document.querySelectorAll(selector)]
