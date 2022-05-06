@@ -4,6 +4,10 @@ export default class MediaSessionController extends Controller {
   static targets = ['audio', 'controls']
   static values = { metadata: Object }
 
+  initialize () {
+    this.createLater = throttle(_ => this.create(), 20000)
+  }
+
   controlsTargetConnected () {
     this.element.dataset.mediaSessionMetadataValue =
       this.controlsTarget.dataset.mediaSessionMetadata
@@ -35,5 +39,15 @@ export default class MediaSessionController extends Controller {
       navigator.mediaSession.playbackState =
         this.audioTarget.paused ? 'paused' : 'playing'
     }
+  }
+}
+
+function throttle (fn, delay) {
+  let lastCalled = 0
+  return function (...args) {
+    let now = new Date().getTime()
+    if (now - lastCalled < delay) return
+    lastCalled = now
+    return fn(...args)
   }
 }
