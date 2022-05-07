@@ -24,25 +24,21 @@ module.exports = {
         'fade-in-up': {
           '0%': {
             opacity: 0,
-            '--tw-translate-y': '4rem',
-            transform: 'translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))'
+            transform: 'translate3d(0, 4rem, 0)'
           },
           '100%': {
             opacity: 1,
-            '--tw-translate-y': 0,
-            transform: 'translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))'
+            transform: 'translateZ(0)'
           }
         },
         'fade-out-up': {
           '0%': {
             opacity: 1,
-            '--tw-translate-y': 0,
-            transform: 'translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))'
+            transform: 'transform: translateZ(0)'
           },
           '100%': {
             opacity: 0,
-            '--tw-translate-y': '-4rem',
-            transform: 'translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))'
+            transform: 'translate3d(0, -4rem, 0)'
           }
         }
       }
