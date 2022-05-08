@@ -87,3 +87,5 @@ gem "honeybadger", "~> 4.12"
 gem "local_time", "~> 2.1"
 
 gem "inline_svg", "~> 1.8"
+
+gem "bullet", "~> 7.0", :group => :development
