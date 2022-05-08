@@ -15,8 +15,8 @@ class User::Dashboard
   end
 
   def recently_updated
-    @recently_updated ||= @user
-      .followed_feeds
+    @recently_updated ||= Feed
+      .relevant_to(@user)
       .joins(:entries)
       .includes(:rss_image, :most_recent_entry)
       .group(:id)
@@ -25,8 +25,8 @@ class User::Dashboard
   end
 
   def feeds
-    @feeds ||= @user
-      .followed_feeds
+    @feeds ||= Feed
+      .relevant_to(@user)
       .includes(:rss_image)
       .order(title: :asc)
   end

@@ -6,6 +6,10 @@ class Feed < ApplicationRecord
   has_many :active_web_subs, -> { where("web_subs.expires_at > ?", Time.current) }, class_name: "WebSub", foreign_key: :feed_url, primary_key: :url
   has_many :plays, dependent: :destroy
 
+  scope :relevant_to, ->(user) {
+    user.followed_feeds.or(Feed.where(id: user.played_feeds))
+  }
+
   after_commit :start_web_sub, if: :saved_change_to_web_sub_hub_url?
 
   def author
