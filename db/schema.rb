@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_07_184833) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_08_175944) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -107,6 +107,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_07_184833) do
     t.index ["url"], name: "index_feeds_on_url", unique: true
   end
 
+  create_table "followings", force: :cascade do |t|
+    t.bigint "feed_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["feed_id"], name: "index_followings_on_feed_id"
+    t.index ["user_id"], name: "index_followings_on_user_id"
+  end
+
   create_table "opml_imports", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -160,6 +169,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_07_184833) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "entries", "feeds"
+  add_foreign_key "followings", "feeds"
+  add_foreign_key "followings", "users"
   add_foreign_key "plays", "entries"
   add_foreign_key "plays", "feeds"
   add_foreign_key "plays", "users"
