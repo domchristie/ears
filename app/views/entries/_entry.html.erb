@@ -1,4 +1,4 @@
-<% play = entry.most_recent_current_user_play || entry.upcoming_play %>
+<% play = entry.most_recent_play_by(user) || entry.upcoming_play %>
 
 <%= render "list_item", title: entry.title, path: entry_path(entry) do %>
   <div class="flex space-x-4 text-sm font-medium text-neutral-500">

@@ -1,11 +1,6 @@
 class Entry < ApplicationRecord
   belongs_to :feed, touch: true
   has_many :plays, dependent: :destroy
-  has_one(
-    :most_recent_current_user_play,
-    -> { where(user: Current.user).order(updated_at: :desc) },
-    class_name: "Play"
-  )
 
   def duration
     itunes_duration
@@ -30,6 +25,10 @@ class Entry < ApplicationRecord
       album: published_at.to_date.to_fs(:short),
       artwork: [{src: feed.image_url, sizes: "512x512"}]
     }
+  end
+
+  def most_recent_play_by(user)
+    plays.most_recent_by(user)
   end
 
   def upcoming_play

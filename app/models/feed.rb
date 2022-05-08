@@ -5,11 +5,6 @@ class Feed < ApplicationRecord
   has_many :web_subs, foreign_key: :feed_url, primary_key: :url, dependent: :destroy
   has_many :active_web_subs, -> { where("web_subs.expires_at > ?", Time.current) }, class_name: "WebSub", foreign_key: :feed_url, primary_key: :url
   has_many :plays, dependent: :destroy
-  has_one(
-    :most_recent_current_user_play,
-    -> { where(user: Current.user).order(updated_at: :desc) },
-    class_name: "Play"
-  )
 
   after_commit :start_web_sub, if: :saved_change_to_web_sub_hub_url?
 
@@ -19,6 +14,10 @@ class Feed < ApplicationRecord
 
   def image_url
     rss_image.try(:url) || itunes_image
+  end
+
+  def most_recent_play_by(user)
+    plays.most_recent_by(user)
   end
 
   def self.attributes_for_import(remote_feed)
