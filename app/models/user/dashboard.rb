@@ -5,7 +5,7 @@ class User::Dashboard
 
   def recently_played
     @recently_played ||= @user
-      .followed_feeds
+      .played_feeds
       .joins(:plays)
       .where(plays: {user: @user})
       .includes(:rss_image)
