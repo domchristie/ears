@@ -10,7 +10,7 @@
       <%= render(
         "entries/players/toggle",
         entry: @entry,
-        play: @entry.most_recent_play,
+        play: @entry.most_recent_current_user_play,
         tag: :a,
         padding: "p-4",
         size: "w-16 h-16"

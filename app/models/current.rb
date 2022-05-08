@@ -1,3 +1,3 @@
 class Current < ActiveSupport::CurrentAttributes
-  attribute :entry, :play
+  attribute :user, :entry, :play
 end

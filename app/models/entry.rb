@@ -1,7 +1,11 @@
 class Entry < ApplicationRecord
   belongs_to :feed, touch: true
   has_many :plays, dependent: :destroy
-  has_one :most_recent_play, -> { order(updated_at: :desc) }, class_name: "Play"
+  has_one(
+    :most_recent_current_user_play,
+    -> { where(user: Current.user).order(updated_at: :desc) },
+    class_name: "Play"
+  )
 
   def duration
     itunes_duration

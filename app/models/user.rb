@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  has_many :plays, dependent: :destroy
+
   before_save :downcase_email
 
   validates(

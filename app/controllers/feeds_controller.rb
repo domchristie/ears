@@ -9,7 +9,7 @@ class FeedsController < ApplicationController
 
     @entries = @feed
       .entries
-      .includes(:most_recent_play)
+      .includes(:most_recent_current_user_play)
       .order(published_at: :desc)
       .limit(52) # TODO pagination
   end

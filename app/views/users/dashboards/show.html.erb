@@ -3,7 +3,7 @@
 
   <div class="flex flex-nowrap space-x-4 pb-4 overflow-x-auto transform-gpu">
     <% @dashboard.recently_played.each do |feed| %>
-      <% play = feed.most_recent_play %>
+      <% play = feed.most_recent_current_user_play %>
       <%= render "feeds/featured", feed: feed do %>
         <% unless play.complete? %>
           <div class="flex items-center absolute top-1.5 left-1.5 whitespace-nowrap px-1.5 leading-5 bg-white/95 text-neutral-600 text-xs font-medium">
@@ -28,7 +28,7 @@
           ) %>
         </p>
 
-        <% if play = feed.most_recent_entry.most_recent_play %>
+        <% if play = feed.most_recent_entry.most_recent_current_user_play %>
           <div class="flex items-center absolute top-1.5 left-1.5 whitespace-nowrap px-1.5 leading-5 bg-white/95 text-neutral-600 text-xs font-medium">
             <%= render "plays/play", play: play %>
           </div>

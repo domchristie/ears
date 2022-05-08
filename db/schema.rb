@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_07_183230) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_07_184833) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -119,8 +119,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_07_183230) do
     t.datetime "updated_at", null: false
     t.float "remaining", default: 0.0
     t.bigint "feed_id", null: false
+    t.bigint "user_id", null: false
     t.index ["entry_id"], name: "index_plays_on_entry_id"
     t.index ["feed_id"], name: "index_plays_on_feed_id"
+    t.index ["user_id", "entry_id"], name: "index_plays_on_user_id_and_entry_id", unique: true
+    t.index ["user_id"], name: "index_plays_on_user_id"
   end
 
   create_table "rss_images", force: :cascade do |t|
@@ -159,5 +162,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_07_183230) do
   add_foreign_key "entries", "feeds"
   add_foreign_key "plays", "entries"
   add_foreign_key "plays", "feeds"
+  add_foreign_key "plays", "users"
   add_foreign_key "web_subs", "feeds", column: "feed_url", primary_key: "url"
 end

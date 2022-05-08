@@ -1,9 +1,12 @@
 class Play < ApplicationRecord
   belongs_to :entry
   belongs_to :feed
+  belongs_to :user
 
-  def self.most_recent
-    order(updated_at: :desc).first
+  scope :by, ->(user) { where(user: user) }
+
+  def self.most_recent_by(user)
+    by(user).order(updated_at: :desc).first
   end
 
   def progress
