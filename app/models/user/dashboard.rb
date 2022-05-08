@@ -4,7 +4,8 @@ class User::Dashboard
   end
 
   def recently_played
-    @recently_played ||= Feed
+    @recently_played ||= @user
+      .followed_feeds
       .joins(:plays)
       .where(plays: {user: @user})
       .includes(:rss_image)
@@ -14,7 +15,8 @@ class User::Dashboard
   end
 
   def recently_updated
-    @recently_updated ||= Feed
+    @recently_updated ||= @user
+      .followed_feeds
       .joins(:entries)
       .includes(:rss_image, :most_recent_entry)
       .group(:id)
@@ -23,6 +25,9 @@ class User::Dashboard
   end
 
   def feeds
-    @feeds ||= Feed.includes(:rss_image).order(title: :asc)
+    @feeds ||= @user
+      .followed_feeds
+      .includes(:rss_image)
+      .order(title: :asc)
   end
 end
