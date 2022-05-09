@@ -11,7 +11,8 @@ class Entries::PlaysController < ApplicationController
 
   def update
     @play = Play.find(params[:id])
-    head :forbidden unless Current.user == @play.user
+    return head(:forbidden) unless Current.user == @play.user
+
     @play.update!(play_params)
     render partial: "plays/form", locals: {entry: @play.entry, play: @play}
   end
