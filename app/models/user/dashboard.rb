@@ -28,6 +28,7 @@ class User::Dashboard
     @feeds ||= Feed
       .relevant_to(@user)
       .includes(:rss_image)
+      .group(:id)
       .order(title: :asc)
   end
 end
