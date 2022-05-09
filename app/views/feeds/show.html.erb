@@ -11,6 +11,10 @@
 <% end %>
 
 <%= render "container" do %>
+  <% if play = @feed.most_recent_play_by(Current.user) %>
+    <%= render("users/dashboards/heading", icon: :play) { "Last Played" } %>
+    <%= render play.entry, user: Current.user %>
+  <% end %>
   <hr class="border-2 my-6 sm:my-8">
 
   <%= render "list", class: "sm:space-y-4" do %>
