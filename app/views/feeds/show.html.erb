@@ -12,7 +12,7 @@
 
 <%= render "container" do %>
   <% if play = @feed.most_recent_play_by(Current.user) %>
-    <%= render("users/dashboards/heading", icon: :play) { "Last Played" } %>
+    <%= render("users/dashboards/heading", icon: :play, class: "mt-6 mb-1") { "Last Played" } %>
     <%= render play.entry, user: Current.user %>
   <% end %>
   <hr class="border-2 my-6 sm:my-8">

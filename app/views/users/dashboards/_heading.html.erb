@@ -1,7 +1,7 @@
   <h2
     data-turn-exit="<%= turn_exit_class_names %>"
     data-turn-enter="<%= turn_enter_class_names %>"
-    class="flex items-center text-sm uppercase tracking-wide font-semibold mt-6 mb-3 text-neutral-500 dark:text-neutral-400"
+    class="flex items-center text-sm uppercase tracking-wide font-semibold text-neutral-500 dark:text-neutral-400 <%= local_assigns[:class] %>"
   >
     <%= icon icon, solid: true, class: "h-5 w-5 -ml-0.5 mr-0.5 text-neutral-300" %>
     <%= yield %>
