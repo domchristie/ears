@@ -27,7 +27,7 @@
             <span class="sr-only">Updated on</span>
             <%= local_relative_time(
               feed.most_recent_entry.published_at,
-              type: :weekday,
+              type: :"weekday-or-date",
               class: "capitalize"
             ) %>
           </p>
