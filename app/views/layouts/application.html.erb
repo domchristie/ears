@@ -33,11 +33,13 @@
       <%= yield %>
     </main>
 
-    <div data-turbo-permanent id="player_bar" class="fixed bottom-0 w-full min-h-[1px] bg-player-bar backdrop-blur">
-      <%= render "entries/players/audio", source: Current.entry.try(:resume_enclosure_url, Current.play) %>
+    <% if user_signed_in? %>
+      <div data-turbo-permanent id="player_bar" class="fixed bottom-0 w-full min-h-[1px] bg-player-bar backdrop-blur">
+        <%= render "entries/players/audio", source: Current.entry.try(:resume_enclosure_url, Current.play) %>
 
-      <%= turbo_frame_tag :player, src: (entry_player_path(Current.entry) if Current.entry) %>
-    </div>
+        <%= turbo_frame_tag :player, src: (entry_player_path(Current.entry) if Current.entry) %>
+      </div>
+    <% end %>
 
     <script data-turbo-eval="false">
     if (navigator.serviceWorker) {
