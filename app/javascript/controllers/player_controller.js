@@ -68,6 +68,10 @@ export default class PlayerController extends Controller {
     return !this.ready && !this.audioTarget.paused
   }
 
+  get shouldTrackPlayTime () {
+    return this.hasElapsedFieldTarget
+  }
+
   updateToggles () {
     this.toggleTargets.forEach((target) => {
       if (this.targetApplicable(target)) {
@@ -125,6 +129,8 @@ export default class PlayerController extends Controller {
   }
 
   trackElapsed () {
+    if (!this.shouldTrackPlayTime) return
+
     this.elapsedFieldTarget.value = this.currentTime
     this.remainingFieldTarget.value = Math.max(
       this.duration - this.currentTime,
@@ -134,6 +140,8 @@ export default class PlayerController extends Controller {
   }
 
   persistElapsed () {
+    if (!this.shouldTrackPlayTime) return
+
     this.dispatch('submit', { target: this.playFormTarget, prefix: '' })
   }
 
