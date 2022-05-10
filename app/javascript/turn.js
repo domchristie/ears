@@ -97,8 +97,10 @@ export default class Turn {
 }
 
 Turn.start = function () {
-  for (var event in this.eventListeners) {
-    addEventListener(event, this.eventListeners[event])
+  if (motionSafe()) {
+    for (var event in this.eventListeners) {
+      addEventListener(event, this.eventListeners[event])
+    }
   }
 }
 
@@ -126,6 +128,15 @@ Turn.eventListeners = {
 }
 
 Turn.animateRestore = false
+
+function prefersReducedMotion () {
+  const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+  return !mediaQuery || mediaQuery.matches
+}
+
+function motionSafe () {
+  return !prefersReducedMotion()
+}
 
 function animationsEnd (selector) {
   const elements = [...document.querySelectorAll(selector)]
