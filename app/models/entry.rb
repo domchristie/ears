@@ -15,7 +15,8 @@ class Entry < ApplicationRecord
   end
 
   def resume_enclosure_url(play)
-    [enclosure_url, play.try(:elapsed)].compact.join("#t=")
+    elapsed = play.try(:complete?) ? nil : play.try(:elapsed)
+    [enclosure_url, elapsed].compact.join("#t=")
   end
 
   def media_session_metadata
