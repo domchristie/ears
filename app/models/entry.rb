@@ -31,8 +31,12 @@ class Entry < ApplicationRecord
     plays.most_recent_by(user)
   end
 
-  def upcoming_play
-    plays.build(elapsed: 0, remaining: duration)
+  def upcoming_play_by(user)
+    plays.build(user: user, elapsed: 0, remaining: duration)
+  end
+
+  def play_by(user)
+    most_recent_play_by(user) || upcoming_play_by(user)
   end
 
   def self.import_all!(feed_id, remote_entries)

@@ -12,7 +12,7 @@
         </div>
 
         <div class="absolute inset-0 flex items-center justify-center">
-          <%= render "toggle", entry: @entry %>
+          <%= render "toggle", play: @entry.play_by(Current.user) %>
         </div>
       </div>
 

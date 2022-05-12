@@ -1,27 +1,13 @@
 <%
-href = local_assigns[:play] ? entry.resume_enclosure_url(play) : entry.enclosure_url
-options = {
-  data: {
-    player_target: "toggle",
-    action: "player#toggle",
-    href: href
-  },
-  href: (href if local_assigns[:tag] == :a),
-  tabindex: 0,
-  class: "rounded-full focus:outline-none focus:ring-4 ring-white/90"
-}
-
 padding = local_assigns[:padding] || "p-2"
 size = local_assigns[:size] || "w-10 h-10"
 %>
 
-<%= content_tag local_assigns[:tag] || :button, options do %>
-  <span class="flex <%= padding %> bg-black/60 rounded-full">
-    <%= inline_svg_tag "icons/play.svg", class: "play-icon #{size} mx-auto text-white translate-x-[2.5%]", title: "Play", aria: true %>
-    <%= inline_svg_tag "icons/pause.svg", class: "pause-icon #{size} mx-auto text-white", title: "Pause", aria: true %>
+<%= render "plays/toggle", play: play, options: {class: "flex #{padding} bg-black/60 ring ring-white/20 focus-within:ring-white/75 rounded-full"} do %>
+  <%= inline_svg_tag "icons/play.svg", class: "block peer-checked:hidden peer-indeterminate:hidden  #{size} mx-auto text-white translate-x-[2.5%]", title: "Play", aria: true %>
+  <%= inline_svg_tag "icons/pause.svg", class: "hidden peer-checked:block peer-indeterminate:hidden #{size} mx-auto text-white", title: "Pause", aria: true %>
 
-    <span class="mx-auto scale-75">
-      <%= inline_svg_tag "icons/loading.svg", class: "loading-icon #{size} text-white", title: "Loading", aria: true %>
-    </span>
+  <span class="hidden peer-indeterminate:block mx-auto scale-75">
+    <%= inline_svg_tag "icons/loading.svg", class: "#{size} text-white", title: "Loading", aria: true %>
   </span>
 <% end %>

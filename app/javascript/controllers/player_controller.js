@@ -9,7 +9,6 @@ export default class PlayerController extends Controller {
   static targets = [
     'audio',
     'controls',
-    'toggle',
     'loader',
     'elapsed',
     'remaining',
@@ -18,6 +17,7 @@ export default class PlayerController extends Controller {
     'elapsedField',
     'remainingField',
     'played',
+    'playState',
     'timerIcon',
     'remainingInWords',
   ]
@@ -42,8 +42,8 @@ export default class PlayerController extends Controller {
     if (this.targetApplicable(event.currentTarget)) {
       this.audioTarget[this.audioTarget.paused ? 'play' : 'pause']()
     } else {
-      this.audioTarget.src = event.currentTarget.dataset.href
-      await this.loadNewControls()
+      this.audioTarget.src = event.currentTarget.href
+      await this.loadNewControls(this.findLoader(event.currentTarget))
       this.audioTarget.play()
     }
   }
@@ -73,10 +73,10 @@ export default class PlayerController extends Controller {
   }
 
   updateToggles () {
-    this.toggleTargets.forEach((target) => {
+    this.playStateTargets.forEach((target) => {
       if (this.targetApplicable(target)) {
-        target.classList.toggle('--loading', this.loading)
-        target.classList.toggle('--playing', this.playing)
+        target.indeterminate = this.loading
+        target.checked = target.disabled = this.playing
       }
     })
   }
@@ -155,9 +155,13 @@ export default class PlayerController extends Controller {
     })
   }
 
-  loadNewControls () {
+  findLoader (target) {
+    return target.parentNode.querySelector('[data-player-target="loader"]')
+  }
+
+  loadNewControls (loader) {
     const promise = new Promise(resolve => this._controlsLoaded = resolve)
-    this.loaderTarget.click()
+    loader.click()
     return promise
   }
 }
