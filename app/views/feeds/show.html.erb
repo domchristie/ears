@@ -13,24 +13,26 @@
 <%= render "container" do %>
   <menu class="flex justify-center gap-x-4 max-w-sm mx-auto -mt-3">
     <% if play = @feed.most_recent_play_by(Current.user) %>
-      <li class="flex-1 min-w-0 max-w-[16rem] mx-auto">
+      <li class="flex-1 min-w-0 max-w-[16rem] mx-auto text-center">
         <%= render(
           "plays/featured",
           title: play.complete? ? "Replay" : "Resume",
           play: play,
           highlight: params[:source] == "recently_played"
         ) %>
+        <%= render "plays/remaining_in_words", play: play, options: {class: "block mt-1 text-xs text-neutral-500"} %>
       </li>
     <% end %>
 
     <% if play&.entry != @feed.most_recent_entry %>
-      <li class="flex-1 min-w-0 max-w-[16rem] mx-auto">
+      <li class="flex-1 min-w-0 max-w-[16rem] mx-auto text-center">
         <%= render(
           "plays/featured",
           title: "Latest",
-          play: @feed.most_recent_entry.upcoming_play_by(Current.user),
+          play: play = @feed.most_recent_entry.upcoming_play_by(Current.user),
           highlight: params[:source] == "recently_updated"
         ) %>
+        <%= render "plays/remaining_in_words", play: play, options: {class: "block mt-1 text-xs text-neutral-500"} %>
       </li>
     <% end %>
   </menu>

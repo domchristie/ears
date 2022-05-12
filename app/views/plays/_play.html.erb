@@ -22,13 +22,6 @@
       }
     ) %>
 
-    <time
-      data-player-target="remainingInWords"
-      data-href="<%= play.entry&.enclosure_url %>"
-      datetime="<%= iso8601_duration(play.remaining) %>"
-    >
-      <%= play_remaining_in_words(play.remaining) %>
-      <%= "left" unless play.new_record? %>
-    </time>
+    <%= render "plays/remaining_in_words", play: play %>
   </span>
 </div>
