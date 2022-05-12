@@ -11,10 +11,20 @@
 <% end %>
 
 <%= render "container" do %>
-  <% if play = @feed.most_recent_play_by(Current.user) %>
-    <%= render("users/dashboards/heading", icon: :play, class: "mt-6 mb-1") { "Last Played" } %>
-    <%= render play.entry, user: Current.user %>
-  <% end %>
+  <div class="flex justify-center gap-x-4 max-w-sm mx-auto -mt-3">
+    <% if play = @feed.most_recent_play_by(Current.user) %>
+      <div class="flex-1 min-w-0 max-w-[16rem] mx-auto">
+        <%= render "plays/featured", title: "Resume", play: play %>
+      </div>
+    <% end %>
+
+    <% if play&.entry != @feed.most_recent_entry %>
+      <div class="flex-1 min-w-0 max-w-[16rem] mx-auto">
+        <%= render "plays/featured", title: "Latest", play: @feed.most_recent_entry.upcoming_play_by(Current.user) %>
+      </div>
+    <% end %>
+  </div>
+
   <hr class="border-2 my-6 sm:my-8">
 
   <%= render "list", class: "sm:space-y-4" do %>
