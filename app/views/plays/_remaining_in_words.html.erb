@@ -2,8 +2,13 @@
   data-player-target="remainingInWords"
   data-href="<%= play.entry&.enclosure_url %>"
   datetime="<%= iso8601_duration(play.remaining) %>"
+  aria-label="<%= distance_of_time_in_words 0, play.elapsed, include_seconds: true %> left"
   <%= tag.attributes local_assigns[:options] %>
 >
-  <%= play_remaining_in_words(play.remaining) %>
-  <%= "left" unless play.new_record? %>
+  <% if play.complete? %>
+    Played
+  <% else %>
+    <%= play_remaining_in_words(play.remaining) %>
+    <%= "left" unless play.new_record? %>
+  <% end %>
 </time>
