@@ -6,8 +6,8 @@
     data-media-session-metadata="<%= @entry.media_session_metadata.to_json %>"
     class="relative -mt-6"
   >
-    <div class="flex justify-center items-end gap-3">
-      <div class="relative w-20 h-20 order-2">
+    <menu class="flex justify-center items-end gap-3">
+      <li class="relative w-20 h-20 order-2">
         <div class="block relative before:absolute before:inset-0 before:ring-inset before:ring-1 before:ring-black/10 shadow-lg">
           <%= image_tag @entry.feed.image_url, alt: "", width: 80, height: 80 %>
         </div>
@@ -15,11 +15,11 @@
         <div class="absolute inset-0 flex items-center justify-center">
           <%= render "toggle", play: play %>
         </div>
-      </div>
+      </li>
 
-      <%= render "skip", direction: :back, seconds: 15, data: { action: "player#skipBack" }, class: "order-1" %>
-      <%= render "skip", direction: :forward, seconds: 30, data: { action: "player#skipForward" }, class: "order-3" %>
-    </div>
+      <li class="order-1"><%= render "skip", direction: :back, seconds: 15, data: { action: "player#skipBack" } %></li>
+      <li class="order-3"><%= render "skip", direction: :forward, seconds: 30, data: { action: "player#skipForward" } %></li>
+    </menu>
 
 
     <p class="flex items-end justify-between px-2 pb-1 -mt-1 font-native text-xs tabular-nums font-semibold">
