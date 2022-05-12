@@ -26,7 +26,7 @@ class_names = highlight ? "bg-black text-white border-transparent" : "bg-white b
     <%= inline_svg_tag "icons/loading.svg", class: "w-2.5 h-2.5 animate-spin #{highlight ? "text-white" : "text-neutral-500"}", title: "Loading", aria: true %>
   </span>
 
-  <p class="block basis-full text-xs font-normal normal-case tracking-normal text-center <%= highlight ? "text-neutral-400" : "text-neutral-500" %> truncate">
+  <p class="block basis-full text-xs font-normal normal-case tracking-normal text-center <%= highlight ? "text-neutral-300" : "text-neutral-500" %> truncate">
     <%= play.entry.title %>
   </p>
 <% end %>
