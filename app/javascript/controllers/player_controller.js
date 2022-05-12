@@ -91,7 +91,7 @@ export default class PlayerController extends Controller {
       t.setAttribute('datetime', iso8601Duration(this.currentTime))
       t.setAttribute(
         'aria-label',
-        `Currently played: ${distanceOfTimeInWords(this.currentTime)}`
+        `${distanceOfTimeInWords(this.currentTime)} elapsed`
       )
     })
 

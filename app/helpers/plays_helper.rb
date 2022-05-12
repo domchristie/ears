@@ -1,4 +1,17 @@
 module PlaysHelper
+  def chrono_duration(duration)
+    parts = ActiveSupport::Duration.build(duration.to_i).parts
+    [
+      parts[:hours].to_i > 1 ? parts[:hours].to_s.rjust(2, "0") : nil,
+      parts[:minutes].to_s.rjust(2, "0"),
+      parts[:seconds].to_s.rjust(2, "0")
+    ].compact.join(":")
+  end
+
+  def iso8601_duration(duration)
+    ActiveSupport::Duration.build(duration.to_i).iso8601
+  end
+
   def play_remaining_in_words(remaining)
     if remaining > 0
       remaining = ActiveSupport::Duration.build(remaining.round)
