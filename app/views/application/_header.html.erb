@@ -16,7 +16,7 @@
     <div
       data-turn-exit="<%= turn_exit_class_names %>"
       data-turn-enter="<%= turn_enter_class_names %>"
-      class="relative mx-auto -mt-44 w-64 h-64 bg-white p-2.5 shadow"
+      class="relative mx-auto -mt-44 w-64 h-64 after:absolute after:inset-0 after:ring-inset after:ring-2 after:ring-black/10"
     >
       <%= image_tag image, class: "w-full h-full object-cover", alt: "", width: 240, height: 240 %>
       <%= p.content_for :image_overlay %>
