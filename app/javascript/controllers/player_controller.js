@@ -16,8 +16,7 @@ export default class PlayerController extends Controller {
     'playForm',
     'elapsedField',
     'remainingField',
-    'played',
-    'playState',
+    'play',
     'timerIcon',
     'remainingInWords',
   ]
@@ -73,10 +72,10 @@ export default class PlayerController extends Controller {
   }
 
   updateToggles () {
-    this.playStateTargets.forEach((target) => {
+    this.playTargets.forEach((target) => {
       if (this.targetApplicable(target)) {
-        target.indeterminate = this.loading
-        target.checked = target.disabled = this.playing
+        target.classList.toggle('--loading', this.loading)
+        target.classList.toggle('--playing', this.playing)
       }
     })
   }
@@ -101,8 +100,8 @@ export default class PlayerController extends Controller {
       t.setAttribute('aria-label', `${distanceOfTimeInWords(remaining)} left`)
     })
 
-    this.ifApplicable(this.playedTargets, t => {
-      t.checked = remaining < 60
+    this.ifApplicable(this.playTargets, t => {
+      t.classList.toggle('--played', remaining < 60)
     })
 
     this.ifApplicable(this.timerIconTargets, t => {

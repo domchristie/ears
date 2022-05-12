@@ -1,18 +1,10 @@
 <%
 entry = play.entry
 options = local_assigns.fetch(:options, {})
-options[:class] = Array(options[:class]).push("relative")
+options[:class] = Array(options[:class]).push("relative #{play_state_class_names(play)}")
 %>
 
-<div <%= tag.attributes(options) %>>
-  <input
-    autocomplete="off"
-    data-player-target="playState"
-    data-href="<%= entry.enclosure_url %>"
-    class="peer hidden"
-    type="checkbox"
-    disabled
-  >
+<div data-player-target="play" data-href="<%= entry.enclosure_url %>" <%= tag.attributes(options) %>>
   <%= link_to entry.resume_enclosure_url(play), data: {action: "player#toggle", href: entry.enclosure_url}, tabindex: 0, class: "before:absolute before:inset-0 before:z-10" do %>
     <span class="sr-only"><%= entry.title %></span>
   <% end %>

@@ -16,4 +16,8 @@ class Play < ApplicationRecord
   def complete?
     remaining <= 60
   end
+
+  def started?
+    persisted?
+  end
 end

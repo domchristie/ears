@@ -1,34 +1,34 @@
-<input
-  type="checkbox"
-  data-player-target="played"
+<div
+  data-player-target="play"
   data-href="<%= play.entry&.enclosure_url %>"
-  class="peer hidden"
-  disabled
-  <%= "checked" if play.complete? %>
+  class="flex items-center <%= play_state_class_names(play) %>"
 >
+  <span class="<%= class_names("hidden played:flex items-center") %>">
+    <%= icon :"check-circle", solid: true, class: "h-4 w-4 -ml-px mr-1 text-teal-500" %>
+    Played
+  </span>
 
-<span class="<%= class_names("hidden peer-checked:flex items-center") %>">
-  <%= icon :"check-circle", solid: true, class: "h-4 w-4 -ml-px mr-1 text-teal-500" %>
-  Played
-</span>
+  <span class="<%= class_names("played:hidden flex items-center") %>">
+    <%= render(
+      "timer",
+      progress: play.progress,
+      options: {
+        aria: {hidden: true},
+        data: {player_target: "timerIcon", href: play.entry&.enclosure_url},
+        class: "h-4 w-4 -ml-px mr-1 #{(play.started? ? "text-blue-500" : "text-neutral-300")}",
+        progress: ({class: "text-white", stroke: "currentColor"} if play.started?),
+        remaining: ({class: "text-blue-200", fill: "currentColor"} if play.started?),
+        needle: ({class: "text-blue-700", fill: "currentColor"} if play.started?)
+      }
+    ) %>
 
-<span class="<%= class_names("peer-checked:hidden flex items-center") %>">
-  <%= render(
-    "timer",
-    progress: play.progress,
-    options: {
-      aria: {hidden: true},
-      data: {player_target: "timerIcon", href: play.entry&.enclosure_url},
-      class: "h-4 w-4 -ml-px mr-1 text-neutral-300"
-    }
-  ) %>
-
-  <time
-    data-player-target="remainingInWords"
-    data-href="<%= play.entry&.enclosure_url %>"
-    datetime="<%= ActiveSupport::Duration.build(play.remaining.round).iso8601 %>"
-  >
-    <%= play_remaining_in_words(play.remaining) %>
-    <%= "left" unless play.new_record? %>
-  </time>
-</span>
+    <time
+      data-player-target="remainingInWords"
+      data-href="<%= play.entry&.enclosure_url %>"
+      datetime="<%= iso8601_duration(play.remaining) %>"
+    >
+      <%= play_remaining_in_words(play.remaining) %>
+      <%= "left" unless play.new_record? %>
+    </time>
+  </span>
+</div>

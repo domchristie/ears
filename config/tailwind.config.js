@@ -52,6 +52,12 @@ module.exports = {
     plugin(function ({ addVariant }) {
       addVariant('turn-enter', '.turn-enter &')
       addVariant('turn-exit', '.turn-exit &')
+    }),
+    plugin(function ({ addVariant }) {
+      addVariant('loading', '.--loading &')
+      addVariant('started', '.--started &')
+      addVariant('playing', '.--playing &')
+      addVariant('played', '.--played &')
     })
   ]
 }

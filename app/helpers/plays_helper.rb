@@ -13,16 +13,22 @@ module PlaysHelper
   end
 
   def play_remaining_in_words(remaining)
-    if remaining > 0
-      remaining = ActiveSupport::Duration.build(remaining.round)
-      parts = remaining.parts
-      [
-        (parts[:hours].to_i > 1 && "#{parts[:hours]} hrs"),
-        (parts[:hours].to_i == 1 && parts[:minutes].to_i < 1 && "#{parts[:hours]} hour"),
-        (parts[:hours].to_i == 1 && parts[:minutes].to_i >= 1 && "#{parts[:hours]} hr"),
-        (parts[:minutes].to_i > 1 && "#{parts[:minutes]} mins"),
-        (parts[:minutes].to_i == 1 && "#{parts[:minutes]} min")
-      ].select(&:itself).join(" ")
-    end
+    remaining = ActiveSupport::Duration.build(remaining.round)
+    parts = remaining.parts
+    [
+      (parts[:hours].to_i > 1 && "#{parts[:hours]} hrs"),
+      (parts[:hours].to_i == 1 && parts[:minutes].to_i < 1 && "#{parts[:hours]} hour"),
+      (parts[:hours].to_i == 1 && parts[:minutes].to_i >= 1 && "#{parts[:hours]} hr"),
+      (parts[:minutes].to_i > 1 && "#{parts[:minutes]} mins"),
+      (parts[:minutes].to_i == 1 && "#{parts[:minutes]} min"),
+      (parts[:minutes].to_i < 1 && "< 1 min")
+    ].select(&:itself).join(" ")
+  end
+
+  def play_state_class_names(play)
+    class_names(
+      "--started": play.started?,
+      "--played": play.complete?
+    )
   end
 end

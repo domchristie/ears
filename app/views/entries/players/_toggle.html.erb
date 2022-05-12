@@ -4,10 +4,10 @@ size = local_assigns[:size] || "w-10 h-10"
 %>
 
 <%= render "plays/toggle", play: play, options: {class: "flex #{padding} bg-black/60 ring ring-white/20 focus-within:ring-white/75 rounded-full"} do %>
-  <%= inline_svg_tag "icons/play.svg", class: "block peer-checked:hidden peer-indeterminate:hidden  #{size} mx-auto text-white translate-x-[2.5%]", title: "Play", aria: true %>
-  <%= inline_svg_tag "icons/pause.svg", class: "hidden peer-checked:block peer-indeterminate:hidden #{size} mx-auto text-white", title: "Pause", aria: true %>
+  <%= inline_svg_tag "icons/play.svg", class: "block playing:hidden loading:hidden  #{size} mx-auto text-white translate-x-[2.5%]", title: "Play", aria: true %>
+  <%= inline_svg_tag "icons/pause.svg", class: "hidden playing:block loading:hidden #{size} mx-auto text-white", title: "Pause", aria: true %>
 
-  <span class="hidden peer-indeterminate:block mx-auto scale-75">
+  <span class="hidden loading:block mx-auto scale-75">
     <%= inline_svg_tag "icons/loading.svg", class: "#{size} text-white", title: "Loading", aria: true %>
   </span>
 <% end %>
