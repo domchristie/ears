@@ -1,21 +1,32 @@
-<%= render "plays/toggle", play: play, options: { class: "relative flex flex-wrap min-w-0 cursor-pointer items-center justify-center border-2 px-3 pt-2 pb-2 text-center text-sm font-semibold uppercase tracking-wide" } do %>
-  <span class="block peer-checked:hidden peer-indeterminate:hidden p-0.5 my-px -ml-1 mr-1.5 rounded-full border-2">
+<%
+highlight = local_assigns[:highlight]
+class_names = highlight ? "bg-black text-white border-transparent" : "bg-white border-neutral-200"
+%>
+
+<%= render(
+  "plays/toggle",
+  play: play,
+  options: {
+    class: "#{class_names} relative flex flex-wrap min-w-0 cursor-pointer items-center justify-center border-2 px-3 py-2 text-center text-sm font-semibold uppercase tracking-wide focus-within:border-black focus-within:ring"
+  }
+) do %>
+  <span class="block peer-checked:hidden peer-indeterminate:hidden p-0.5 my-px -ml-1 mr-1.5 rounded-full border-2 border-neutral-200">
     <%= inline_svg_tag "icons/play.svg", class: "w-2.5 h-2.5 translate-x-[4%]", title: "Play", aria_hidden: true %>
   </span>
 
   <span class="block peer-checked:hidden peer-indeterminate:hidden"><%= title %></span>
 
-  <span class="hidden peer-checked:block my-px peer-indeterminate:hidden p-0.5 -ml-1 mr-1.5 rounded-full border-2">
+  <span class="hidden peer-checked:block my-px peer-indeterminate:hidden p-0.5 -ml-1 mr-1.5 rounded-full border-2 border-neutral-200">
     <%= inline_svg_tag "icons/pause.svg", class: "w-2.5 h-2.5 translate-x-[1%]", title: "Pause", aria: true %>
   </span>
 
   <span class="hidden peer-checked:block peer-indeterminate:hidden">Pause</span>
 
-  <span class="hidden peer-indeterminate:block my-px p-0.5 rounded-full border-2">
-    <%= inline_svg_tag "icons/loading.svg", class: "w-2.5 h-2.5 animate-spin text-neutral-500", title: "Loading", aria: true %>
+  <span class="hidden peer-indeterminate:block my-px p-0.5 rounded-full border-2 border-neutral-200">
+    <%= inline_svg_tag "icons/loading.svg", class: "w-2.5 h-2.5 animate-spin #{highlight ? "text-white" : "text-neutral-500"}", title: "Loading", aria: true %>
   </span>
 
-  <p class="block basis-full text-xs font-normal normal-case tracking-normal text-center text-neutral-500 truncate">
+  <p class="block basis-full text-xs font-normal normal-case tracking-normal text-center <%= highlight ? "text-neutral-400" : "text-neutral-500" %> truncate">
     <%= play.entry.title %>
   </p>
 <% end %>

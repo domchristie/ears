@@ -14,13 +14,23 @@
   <div class="flex justify-center gap-x-4 max-w-sm mx-auto -mt-3">
     <% if play = @feed.most_recent_play_by(Current.user) %>
       <div class="flex-1 min-w-0 max-w-[16rem] mx-auto">
-        <%= render "plays/featured", title: "Resume", play: play %>
+        <%= render(
+          "plays/featured",
+          title: play.complete? ? "Replay" : "Resume",
+          play: play,
+          highlight: params[:source] == "recently_played"
+        ) %>
       </div>
     <% end %>
 
     <% if play&.entry != @feed.most_recent_entry %>
       <div class="flex-1 min-w-0 max-w-[16rem] mx-auto">
-        <%= render "plays/featured", title: "Latest", play: @feed.most_recent_entry.upcoming_play_by(Current.user) %>
+        <%= render(
+          "plays/featured",
+          title: "Latest",
+          play: @feed.most_recent_entry.upcoming_play_by(Current.user),
+          highlight: params[:source] == "recently_updated"
+        ) %>
       </div>
     <% end %>
   </div>

@@ -1,7 +1,7 @@
 <article class="relative w-36 h-36 flex-shrink-0 snap-start">
   <%= link_to(
     image_tag(feed.image_url, alt: feed.title, width: 144, height: 144),
-    feed_path(feed),
+    feed_path(feed, source: local_assigns[:source]),
     class: "
       block
       relative
