@@ -37,7 +37,9 @@
       <div data-turbo-permanent id="player_bar" class="fixed bottom-0 w-full min-h-[1px] bg-player-bar backdrop-blur">
         <%= render "entries/players/audio", source: Current.entry.try(:resume_enclosure_url, Current.play) %>
 
-        <%= turbo_frame_tag :player, src: (entry_player_path(Current.entry) if Current.entry) %>
+        <div style="margin-bottom: env(safe-area-inset-bottom)"><%# Leave room for iOS home bar %>
+          <%= turbo_frame_tag :player, src: (entry_player_path(Current.entry) if Current.entry) %>
+        </div>
       </div>
     <% end %>
 
