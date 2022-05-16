@@ -16,8 +16,7 @@ class WebSubs::FeedsController < ApplicationController
     subscription = WebSub.find(params[:web_sub_id])
     algorithm, signature = parse_signature_header
 
-    body = request.body.read
-    if subscription.validate_signature(algorithm, signature, body)
+    if subscription.validate_signature(algorithm, signature, request.raw_post)
       SyncFeedJob.perform_later(subscription.feed, source: :web_sub)
     else
       raise InvalidSignature.new(
