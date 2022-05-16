@@ -5,5 +5,5 @@ one:
   user: one
 
 two:
-  feed: two
+  feed: one
   user: two

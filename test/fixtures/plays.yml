@@ -1,9 +1,7 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  progress: 1.5
+  elapsed: 1.5
   entry: one
-
-two:
-  progress: 1.5
-  entry: two
+  feed: one
+  user: one
