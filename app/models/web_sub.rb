@@ -17,7 +17,8 @@ class WebSub < ApplicationRecord
   end
 
   def validate_signature(algorithm, signature, payload)
-    signature == OpenSSL::HMAC.hexdigest(algorithm.to_s, secret, payload)
+    digest = OpenSSL::Digest.new(algorithm.to_s)
+    signature == OpenSSL::HMAC.hexdigest(digest, secret, payload)
   end
 
   def callback_url

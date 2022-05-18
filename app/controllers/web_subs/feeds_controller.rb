@@ -21,7 +21,7 @@ class WebSubs::FeedsController < ApplicationController
     else
       raise InvalidSignature.new(
         "InvalidSignature",
-        algorithm: algorithm, signature: signature, body: body
+        algorithm: algorithm, signature: signature, body: request.raw_post
       )
     end
 
