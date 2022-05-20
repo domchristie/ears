@@ -6,7 +6,7 @@ module ApplicationHelper
   end
 
   def turn_exit_class_names
-    "motion-safe:turn-exit:animate-exit"
+    "motion-safe:turn-exit:animate-exit will-change-[transform,opacity]"
   end
 
   def turn_enter_class_names
