@@ -5,9 +5,15 @@ options[:class] = Array(options[:class]).push("relative #{play_state_class_names
 %>
 
 <div data-player-target="play" data-href="<%= entry.enclosure_url %>" <%= tag.attributes(options) %>>
-  <%= link_to entry.resume_enclosure_url(play), data: {action: "player#toggle", href: entry.enclosure_url}, tabindex: 0, class: "before:absolute before:inset-0 before:z-10" do %>
+  <a
+    href="<%= entry.resume_enclosure_url(play) %>"
+    data-action="player#toggle"
+    data-href="<%= entry.enclosure_url %>"
+    tabindex="0"
+    class="before:absolute before:inset-0 before:z-10"
+  >
     <span class="sr-only"><%= entry.title %></span>
-  <% end %>
+  </a>
 
   <%# Used to load the player %>
   <%= link_to entry.title, entry_player_path(entry, autoplay: true), data: {turbo_frame: "player", player_target: "loader"}, hidden: true, class: "hidden" %>
