@@ -9,6 +9,6 @@
   </div>
 
   <div class="text-neutral-500 line-clamp-1 break-all">
-    <%= strip_tags (entry.summary || entry.description).gsub("&nbsp;", " ") %>
+    <%= strip_tags (entry.summary || entry.description).to_s.gsub("&nbsp;", " ") %>
   </div>
 <% end %>
