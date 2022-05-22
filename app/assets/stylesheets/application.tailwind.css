@@ -10,10 +10,10 @@
 
 @layer components {
   progress {
-    background-color: theme("colors.neutral.200");
+    @apply bg-black/10;
   }
   progress::-webkit-progress-bar {
-    background-color: theme("colors.neutral.200");
+    @apply bg-black/10;
   }
 
   progress::-moz-progress-bar {

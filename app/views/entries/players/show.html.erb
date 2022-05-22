@@ -9,7 +9,7 @@
   >
     <menu class="flex justify-center items-end gap-3">
       <li class="relative w-20 h-20 order-2">
-        <div class="block relative before:absolute before:inset-0 before:ring-inset before:ring-1 before:ring-black/10 shadow-lg">
+        <div class="block relative before:absolute before:inset-0 before:ring-inset before:ring-1 before:ring-black/10">
           <%= image_tag @entry.feed.image_url, alt: "", width: 80, height: 80 %>
         </div>
 
@@ -23,7 +23,7 @@
     </menu>
 
 
-    <p class="flex items-end justify-between px-2 pb-1 -mt-1 font-native text-xs tabular-nums font-semibold">
+    <p class="flex items-end justify-between px-2 pb-1 -mt-2.5 font-native text-xs tabular-nums font-semibold">
       <time
         data-player-target="elapsed"
         data-href="<%= @entry.enclosure_url %>"
