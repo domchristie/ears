@@ -16,6 +16,11 @@
     @apply bg-black/10;
   }
 
+  progress::-webkit-progress-inner-element,
+  progress::-webkit-progress-bar {
+    background-color: transparent;
+  }
+
   progress::-moz-progress-bar {
     background: transparent;
     transition: width 0.1s;
