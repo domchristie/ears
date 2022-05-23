@@ -1,7 +1,7 @@
   <%= link_to(
-    icon(:"arrow-left", class: "w-6 h-6 text-white", title: local_assigns[:text] || "Back", aria: true),
+    icon(:"arrow-left", solid: true, class: "w-5 h-5 text-white", title: local_assigns[:text] || "Back", aria: true),
     path,
     data: {controller: "back", action: "back#back"},
     tabindex: 0,
-    class: "block p-2.5 rounded-full bg-black/60 ring ring-white/20 focus:outline-none focus:ring-white/75"
+    class: "block p-2 rounded-full bg-black/60 ring ring-white/20 focus:outline-none focus:ring-white/75"
   ) %>
