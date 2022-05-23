@@ -33,6 +33,10 @@
     background: currentColor;
     transition: width 0.1s;
   }
+
+  [data-turn-exit] {
+    will-change: transform, opacity;
+  }
 }
 
 @layer utilities {
