@@ -21,7 +21,7 @@ module ApplicationHelper
     )
     imagekitio.url({
       path: CGI.escape(url),
-      transformation: [{height: "256", width: "256"}],
+      transformation: [{height: "512", width: "512"}],
       signed: true
     })
   end
