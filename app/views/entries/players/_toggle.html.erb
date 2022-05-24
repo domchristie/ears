@@ -8,6 +8,6 @@ size = local_assigns[:size] || "w-10 h-10"
   <%= inline_svg_tag "icons/pause.svg", class: "hidden playing:block loading:hidden #{size} mx-auto text-white", title: "Pause", aria: true %>
 
   <span class="hidden loading:block mx-auto scale-75">
-    <%= inline_svg_tag "icons/loading.svg", class: "#{size} text-white", title: "Loading", aria: true %>
+    <%= inline_svg_tag "icons/loading.svg", class: "loading:motion-safe:animate-spin #{size} text-white", title: "Loading", aria: true %>
   </span>
 <% end %>

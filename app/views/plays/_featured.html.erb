@@ -23,7 +23,7 @@ class_names = highlight ? "bg-black text-white border-transparent" : "bg-white b
   <span class="hidden playing:block loading:hidden">Pause</span>
 
   <span class="hidden loading:block my-px p-0.5 rounded-full border-2 border-neutral-200">
-    <%= inline_svg_tag "icons/loading.svg", class: "w-2.5 h-2.5 animate-spin #{highlight ? "text-white" : "text-neutral-500"}", title: "Loading", aria: true %>
+    <%= inline_svg_tag "icons/loading.svg", class: "loading:motion-safe:animate-spin w-2.5 h-2.5 #{highlight ? "text-white" : "text-neutral-500"}", title: "Loading", aria: true %>
   </span>
 
   <p class="block basis-full text-xs font-normal normal-case tracking-normal text-center <%= highlight ? "text-neutral-300" : "text-neutral-500" %> truncate">
