@@ -38,6 +38,12 @@
   .turn-exit [data-turn-exit] {
     will-change: transform, opacity;
   }
+
+  @supports (not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px)))) {
+    #header_image {
+      @apply blur-lg;
+    }
+  }
 }
 
 @layer utilities {
