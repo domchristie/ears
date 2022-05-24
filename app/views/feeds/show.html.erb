@@ -4,7 +4,7 @@
   <%= render "back", path: root_path %>
 </nav>
 
-<%= render "header", image: @feed.image_url, title: @feed.title do |p| %>
+<%= render "header", image: external_image_url(@feed.image_url), title: @feed.title do |p| %>
   <% p.content_for :meta do %>
     <div class="text-lg"><%= @feed.author %></div>
   <% end %>

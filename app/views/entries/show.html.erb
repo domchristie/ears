@@ -4,7 +4,7 @@
   <%= render "back", path: feed_path(@entry.feed) %>
 </nav>
 
-<%= render "header", image: @entry.image_url, title: @entry.title do |p| %>
+<%= render "header", image: external_image_url(@entry.image_url), title: @entry.title do |p| %>
   <% p.content_for :image_overlay do %>
     <div class="absolute inset-0 flex items-center justify-center">
       <%= render(
@@ -18,7 +18,7 @@
 
   <% p.content_for :meta do %>
     <div class="justify-center text-lg leading-6">
-      <%= image_tag @entry.feed.image_url, class: "inline-block w-6 h-6 mr-1 object-cover align-top", width: 24, height: 24 %>
+      <%= image_tag external_image_url(@entry.feed.image_url), class: "inline-block w-6 h-6 mr-1 object-cover align-top", width: 24, height: 24 %>
       <%= link_to @entry.feed.title, feed_path(@entry.feed), class: "text-neutral-500" %>
     </div>
 
