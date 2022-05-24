@@ -3,7 +3,7 @@
   <% if @dashboard.recently_played.any? %>
     <%= render("heading", icon: :play, class: "mt-6 mb-3") { "Recently Played" } %>
 
-    <div class="flex flex-nowrap space-x-4 pb-4 overflow-x-auto transform-gpu snap-x">
+    <div class="flex flex-nowrap space-x-4 pb-4 overflow-x-auto snap-x">
       <% @dashboard.recently_played.each do |feed| %>
         <% play = feed.most_recent_play_by(Current.user) %>
         <%= render "feeds/cover", feed: feed, source: :recently_played do %>
@@ -18,7 +18,7 @@
   <% if @dashboard.recently_updated.any? %>
     <%= render("heading", icon: :sparkles, class: "mt-6 mb-3") { "Recently Updated" } %>
 
-    <div class="flex flex-nowrap space-x-4 pb-4 overflow-x-auto transform-gpu snap-x">
+    <div class="flex flex-nowrap space-x-4 pb-4 overflow-x-auto snap-x">
       <% @dashboard.recently_updated.each do |feed| %>
         <%= render "feeds/cover", feed: feed, source: :recently_updated do %>
           <p class="flex items-center absolute bottom-1.5 left-1.5 whitespace-nowrap px-1.5 leading-5 bg-white/95 text-neutral-600 text-xs font-medium">
