@@ -23,13 +23,18 @@
 export default class Turn {
   constructor (action) {
     this.action = action
+    this.beforeExitClasses = new Set()
     this.exitClasses = new Set()
     this.enterClasses = new Set()
   }
 
   exit () {
     this.animateOut = animationsEnd('[data-turn-exit]')
-    this.addClasses('exit')
+    this.addClasses('before-exit')
+    requestAnimationFrame(() => {
+      this.addClasses('exit')
+      this.removeClasses('before-exit')
+    })
   }
 
   async beforeEnter (event) {

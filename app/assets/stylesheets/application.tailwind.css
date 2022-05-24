@@ -34,7 +34,8 @@
     transition: width 0.1s;
   }
 
-  [data-turn-exit] {
+  .turn-before-exit [data-turn-exit],
+  .turn-exit [data-turn-exit] {
     will-change: transform, opacity;
   }
 }
