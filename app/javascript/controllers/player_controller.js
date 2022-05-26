@@ -76,6 +76,9 @@ export default class PlayerController extends Controller {
       if (this.targetApplicable(target)) {
         target.classList.toggle('--loading', this.loading)
         target.classList.toggle('--playing', this.playing)
+      } else {
+        target.classList.remove('--loading')
+        target.classList.remove('--playing')
       }
     })
   }
