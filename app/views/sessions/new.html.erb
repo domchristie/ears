@@ -4,5 +4,6 @@
     <%= form.email_field :email, required: true %>
   </div>
 
+  <%= form.hidden_field :remember_me, value: 1 %>
   <%= form.submit "Sign In" %>
 <% end %>

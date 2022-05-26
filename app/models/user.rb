@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_many :active_sessions, dependent: :destroy
   has_many :followings, dependent: :destroy
   has_many :plays, dependent: :destroy
   has_many :followed_feeds, through: :followings, source: :feed
