@@ -10,9 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_08_180434) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_26_223557) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "active_sessions", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "user_agent"
+    t.string "ip_address"
+    t.string "remember_token", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["remember_token"], name: "index_active_sessions_on_remember_token", unique: true
+    t.index ["user_id"], name: "index_active_sessions_on_user_id"
+  end
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -104,6 +115,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_08_180434) do
     t.string "import_source"
     t.datetime "last_modified_at"
     t.string "etag"
+    t.bigint "itunes_id"
+    t.index ["itunes_id"], name: "index_feeds_on_itunes_id", unique: true
     t.index ["url"], name: "index_feeds_on_url", unique: true
   end
 
@@ -166,6 +179,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_08_180434) do
     t.index ["feed_url"], name: "index_web_subs_on_feed_url"
   end
 
+  add_foreign_key "active_sessions", "users", on_delete: :cascade
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "entries", "feeds"

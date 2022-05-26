@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  user_agent: MyString
+  ip_address: MyString
+  remember_token: MyString
+
+two:
+  user: two
+  user_agent: MyString
+  ip_address: MyString
+  remember_token: MyString
