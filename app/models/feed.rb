@@ -7,7 +7,7 @@ class Feed < ApplicationRecord
   has_many :plays, dependent: :destroy
 
   scope :relevant_to, ->(user) {
-    user.followed_feeds.or(Feed.where(id: user.played_feeds))
+    Feed.where(id: user.followed_feeds).or(Feed.where(id: user.played_feeds))
   }
 
   after_commit :start_web_sub, if: :saved_change_to_web_sub_hub_url?
