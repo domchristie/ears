@@ -15,7 +15,9 @@ class Entry < ApplicationRecord
   end
 
   def resume_enclosure_url(play)
-    elapsed = play.try(:complete?) ? nil : play.try(:elapsed)
+    elapsed = play.try(:complete?) || play.try(:elapsed).to_i == 0 ?
+      nil :
+      play.try(:elapsed)
     [enclosure_url, elapsed].compact.join("#t=")
   end
 
