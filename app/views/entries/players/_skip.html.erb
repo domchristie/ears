@@ -1,11 +1,11 @@
 <%
 attributes = local_assigns.without(:seconds, :direction)
-attributes[:class] = Array(attributes[:class]).push(["block text-sm tracking-tight p-0.5 mb-0.5 font-semibold bg-white/25 border-2 border-black/10 rounded-full focus:border-black focus:ring-2 focus:outline-none focus:animate-press transition-transform touch-manipulation"])
+attributes[:class] = Array(attributes[:class]).push(["block text-sm tracking-tight p-0.5 mb-0.5 font-semibold border-2 border-black/10 rounded-full focus:border-black focus:ring-2 focus:outline-none focus:animate-press transition-transform touch-manipulation"])
 attributes[:aria] = {labelledby: "Skip #{direction} #{seconds} seconds"}
 %>
 
 <button <%= tag.attributes(attributes) %>>
-  <span aria-hidden="true" class="block w-7 h-7 leading-7 bg-black/5 rounded-full">
+  <span aria-hidden="true" class="block w-7 h-7 leading-7 bg-white rounded-full">
     <span class="block -translate-y-px"><%= seconds %></span>
   </span>
 </button>
