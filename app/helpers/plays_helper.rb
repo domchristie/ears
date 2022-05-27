@@ -2,7 +2,7 @@ module PlaysHelper
   def chrono_duration(duration)
     parts = ActiveSupport::Duration.build(duration.to_i).parts
     [
-      parts[:hours].to_i > 1 ? parts[:hours].to_s.rjust(2, "0") : nil,
+      parts[:hours].to_i > 0 ? parts[:hours].to_s.rjust(2, "0") : nil,
       parts[:minutes].to_s.rjust(2, "0"),
       parts[:seconds].to_s.rjust(2, "0")
     ].compact.join(":")

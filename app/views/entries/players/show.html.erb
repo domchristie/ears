@@ -38,7 +38,7 @@
         datetime="<%= iso8601_duration play.remaining %>"
         aria-label="<%= distance_of_time_in_words 0, play.remaining, include_seconds: true %> left"
       >
-        <%= chrono_duration play.remaining %>
+        -<%= chrono_duration play.remaining %>
       </time>
     </p>
 

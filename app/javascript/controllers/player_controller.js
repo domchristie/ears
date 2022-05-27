@@ -24,7 +24,6 @@ export default class PlayerController extends Controller {
   initialize () {
     this.persistElapsedLater = throttle(_ => this.persistElapsed(), 20000)
     this.updateTimeLater = throttle(_ => this.updateTime(), 1000)
-    this.updateTime()
   }
 
   get duration () {
