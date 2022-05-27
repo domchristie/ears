@@ -1,5 +1,16 @@
-<%= render "container" do %>
+<% content_for :nav do %>
+  <nav data-turn-exit="<%= turn_exit_class_names %>" data-turn-enter="<%= turn_enter_class_names %>" class="sticky top-0 flex w-full items-center z-20 px-3 sm:px-6 py-3 bg-white drop-shadow-[0_2px_0_rgba(0,0,0,0.08)]">
+    <%= link_to(
+      "Listen",
+      request.url,
+      tabindex: 0,
+      class: "text-2xl leading-7 font-black lowercase tracking-tight",
+      onclick: "window.location.reload(); return false"
+    ) %>
+  </nav>
+<% end %>
 
+<%= render "container" do %>
   <% if @dashboard.recently_played.any? %>
     <%= render("heading", icon: :play, class: "mt-6 mb-3") { "Recently Played" } %>
 

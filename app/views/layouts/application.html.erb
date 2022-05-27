@@ -29,6 +29,8 @@
       </div>
     <% end %>
 
+    <%= content_for :nav %>
+
     <main data-turn-exit="<%= turn_exit_class_names %>" data-turn-enter="<%= turn_enter_class_names %>">
       <%= yield %>
     </main>
