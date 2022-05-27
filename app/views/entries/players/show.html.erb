@@ -5,10 +5,10 @@
     data-player-target="controls"
     data-media-session-target="controls"
     data-media-session-metadata="<%= @entry.media_session_metadata.to_json %>"
-    class="relative -mt-6"
+    class="relative -mt-4"
   >
-    <menu class="flex justify-center items-end gap-3">
-      <li class="relative w-20 h-20 order-2">
+    <menu class="flex justify-center items-end gap-x-3">
+      <li class="relative w-16 h-16 order-2">
         <div class="block relative before:absolute before:inset-0 before:ring-inset before:ring-1 before:ring-black/10">
           <%= image_tag external_image_url(@entry.feed.image_url), alt: "", width: 80, height: 80 %>
         </div>
@@ -51,7 +51,7 @@
       class="block w-full h-1 appearance-none border-0 ring-1 ring-white/50 text-black"
     ></progress>
 
-    <%= link_to "#{@entry.feed.title} - #{@entry.title}", entry_path(@entry), class: "block p-2 text-sm font-medium text-center truncate text-black dark:text-white", data: {turbo_frame: "_top"} %>
+    <%= link_to "#{@entry.feed.title} - #{@entry.title}", entry_path(@entry), class: "block p-1.5 text-sm font-medium text-center truncate text-black dark:text-white", data: {turbo_frame: "_top"} %>
 
     <%= render("plays/form", entry: @entry) if user_signed_in? %>
   </div>
