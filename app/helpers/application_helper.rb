@@ -5,6 +5,13 @@ module ApplicationHelper
     inline_svg_tag("heroicons/#{options.delete(:solid) ? "solid" : "outline"}/#{name}.svg", options)
   end
 
+  def turn_attributes
+    tag.attributes(data: {
+      turn_exit: turn_exit_class_names,
+      turn_enter: turn_enter_class_names
+    })
+  end
+
   def turn_exit_class_names
     "motion-safe:turn-exit:animate-exit"
   end

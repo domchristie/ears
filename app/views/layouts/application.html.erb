@@ -31,7 +31,7 @@
 
     <%= content_for :nav %>
 
-    <main data-turn-exit="<%= turn_exit_class_names %>" data-turn-enter="<%= turn_enter_class_names %>">
+    <main <%= turn_attributes %>>
       <%= yield %>
     </main>
 
