@@ -7,6 +7,12 @@
       class: "text-2xl leading-7 font-black lowercase tracking-tight",
       onclick: "window.location.reload(); return false"
     ) %>
+    <%= link_to(
+      icon(:"dots-horizontal", solid: true, class: "w-5 h-5", title: "Settings", aria: true),
+      settings_path,
+      tabindex: 0,
+      class: "ml-auto block p-0.5 rounded-full border-2 border-black ring ring-white/20 focus:outline-none focus:ring-white/75"
+    ) %>
   </nav>
 <% end %>
 
