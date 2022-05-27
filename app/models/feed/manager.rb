@@ -6,7 +6,7 @@ class Feed::Manager
   def self.fetch(feed, conditional: true)
     headers = if conditional
       {
-        "If-Modified-Since": feed.last_checked_at.try(:to_fs, :rfc7231),
+        "If-Modified-Since": feed.last_modified_at.try(:to_fs, :rfc7231),
         "If-None-Match": feed.etag
       }
     end
