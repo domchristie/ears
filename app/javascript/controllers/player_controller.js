@@ -46,12 +46,20 @@ export default class PlayerController extends Controller {
     }
   }
 
-  skipBack () {
-    this.audioTarget.currentTime -= 15
+  skipBack (event = {}) {
+    event.currentTarget?.focus()
+    this.audioTarget.currentTime = Math.max(
+      this.audioTarget.currentTime - 15,
+      0
+    )
   }
 
-  skipForward () {
-    this.audioTarget.currentTime += 30
+  skipForward (event = {}) {
+    event.currentTarget?.focus()
+    this.audioTarget.currentTime = Math.min(
+      this.audioTarget.currentTime + 30,
+      this.duration
+    )
   }
 
   get ready () {
