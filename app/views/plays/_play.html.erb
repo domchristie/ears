@@ -8,17 +8,17 @@
     Played
   </span>
 
-  <span class="<%= class_names("played:hidden flex items-center") %>">
+  <span class="played:hidden flex items-center">
     <%= render(
       "timer",
       progress: play.progress,
       options: {
         aria: {hidden: true},
         data: {player_target: "timerIcon", href: play.entry&.enclosure_url},
-        class: "h-4 w-4 -ml-px mr-1 #{(play.started? ? "text-blue-500" : "text-neutral-300")}",
-        progress: ({class: "text-white", stroke: "currentColor"} if play.started?),
-        remaining: ({class: "text-blue-200", fill: "currentColor"} if play.started?),
-        needle: ({class: "text-blue-700", fill: "currentColor"} if play.started?)
+        class: "h-4 w-4 -ml-px mr-1 text-neutral-300 started:text-blue-500",
+        remaining: ({class: "started:text-blue-200"}),
+        progress: ({class: "started:text-white"}),
+        needle: ({class: "started:fill-blue-700"})
       }
     ) %>
 

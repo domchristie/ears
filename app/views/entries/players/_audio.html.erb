@@ -5,9 +5,11 @@
     loadeddata->player#updateToggles
     canplaythrough->player#updateToggles
     play->player#updateToggles
+    play->player#updatePlays
     play->media-session#create
     play->media-session#setState
     pause->player#updateToggles
+    pause->player#updatePlays
     pause->media-session#setState
     durationchange->player#updateTime
     timeupdate->player#updateTimeLater

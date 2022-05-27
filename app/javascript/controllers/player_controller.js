@@ -82,6 +82,13 @@ export default class PlayerController extends Controller {
     })
   }
 
+  updatePlays () {
+    this.ifApplicable(this.playTargets, t => {
+      t.classList.add('--started')
+      t.classList.toggle('--playing', this.playing)
+    })
+  }
+
   updateTime () {
     if (this.audioTarget.readyState < 2) return
 

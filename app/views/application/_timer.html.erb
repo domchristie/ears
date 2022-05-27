@@ -14,19 +14,21 @@ options = local_assigns[:options] || {}
 
   <%# bg %>
   <circle
-    <%= tag.attributes({stroke: "none"}.merge(options[:remaining] || {})) %>
+    <%= tag.attributes(options[:remaining] || {}) %>
     cx="10"
     cy="10"
     r="<%= d %>"
+    stroke="none"
     fill="currentColor"/>
 
   <%# progress %>
   <circle
-    <%= tag.attributes({stroke: "none"}.merge(options[:progress] || {})) %>
+    <%= tag.attributes(options[:progress] || {}) %>
     cx="10"
     cy="10"
     r="<%= r %>"
     fill="transparent"
+    stroke="currentColor"
     stroke-width="<%= d %>"
     transform="rotate(-90 10 10)"
     style="stroke-dasharray: var(--progress-arc) calc(var(--PI) * var(--d))"/>
