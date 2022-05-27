@@ -48,10 +48,10 @@
       min="0"
       max="1"
       value="<%= play.progress %>"
-      class="block w-full h-1 appearance-none border-0 ring-1 ring-white/50 text-blue-500"
+      class="block w-full h-1 appearance-none border-0 ring-1 ring-white/50 text-black"
     ></progress>
 
-    <%= link_to "#{@entry.feed.title} - #{@entry.title}", entry_path(@entry), class: "block p-2 text-sm font-medium text-center truncate text-blue-700 dark:text-blue-400", data: {turbo_frame: "_top"} %>
+    <%= link_to "#{@entry.feed.title} - #{@entry.title}", entry_path(@entry), class: "block p-2 text-sm font-medium text-center truncate text-black dark:text-white", data: {turbo_frame: "_top"} %>
 
     <%= render("plays/form", entry: @entry) if user_signed_in? %>
   </div>
