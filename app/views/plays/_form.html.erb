@@ -1,5 +1,5 @@
 <%= turbo_frame_tag "play_form" do %>
-  <%= form_with model: [entry, entry.plays.first || entry.plays.build], data: {player_target: "playForm"} do |f| %>
+  <%= form_with model: [entry, entry.play_by(Current.user)], data: {player_target: "playForm"} do |f| %>
     <%= f.hidden_field :elapsed, data: {player_target: "elapsedField"} %>
     <%= f.hidden_field :remaining, data: {player_target: "remainingField"} %>
   <% end %>
