@@ -5,9 +5,3 @@ one:
   user_agent: MyString
   ip_address: MyString
   remember_token: MyString
-
-two:
-  user: two
-  user_agent: MyString
-  ip_address: MyString
-  remember_token: MyString

@@ -3,6 +3,10 @@ require_relative "../config/environment"
 require "rails/test_help"
 require "webmock/minitest"
 
+Minitest.after_run do
+  FileUtils.rm_rf(ActiveStorage::Blob.services.fetch(:test_fixtures).root)
+end
+
 class ActiveSupport::TestCase
   # Run tests in parallel with specified workers
   parallelize(workers: :number_of_processors)
