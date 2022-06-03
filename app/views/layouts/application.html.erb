@@ -35,7 +35,7 @@
       <%= yield %>
     </main>
 
-    <% if user_signed_in? %>
+    <% unless @hide_player %>
       <div data-turbo-permanent id="player_bar" class="fixed bottom-0 w-full min-h-[1px] bg-player-bar backdrop-blur">
         <%= render "entries/players/audio", source: Current.entry.try(:resume_enclosure_url, Current.play) %>
 
