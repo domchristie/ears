@@ -1,11 +1,16 @@
 <% body = yield(p = component_partial) %>
 
-<%= content_tag (local_assigns[:tag] || :article), class: "focus-within:bg-neutral-100 dark:focus-within:bg-neutral-800 relative flex items-center -mx-2.5 p-2.5" do %>
+<%= content_tag (local_assigns[:tag] || :article), class: "group focus-within:bg-neutral-100 dark:focus-within:bg-neutral-800 relative flex items-center -mx-2.5 p-2.5" do %>
   <%= p.content_for :image %>
 
   <div class="space-y-1 min-w-0">
-    <p class="text-xl leading-tight font-semibold line-clamp-2">
-      <%= link_to_if local_assigns[:path], title, local_assigns[:path], tabindex: 0, class: "after:absolute after:inset-0" %>
+    <% class_names = "text-xl leading-tight font-semibold line-clamp-2" %>
+    <p class="<%= class_names %>">
+      <% if local_assigns[:method] %>
+        <%= button_to title, path, method: method, tabindex: 0, class: "#{class_names} after:absolute after:inset-0" %>
+      <% else %>
+        <%= link_to_if local_assigns[:path], title, local_assigns[:path], tabindex: 0, class: "after:absolute after:inset-0" %>
+      <% end %>
     </p>
 
     <%= body %>
