@@ -1,5 +1,5 @@
 require "test_helper"
-class WebSubTest < ActionDispatch::IntegrationTest
+class WebSubsTest < ActionDispatch::IntegrationTest
   test "successful subscription" do
     feed = Feed.create!(
       title: "All About Everything",

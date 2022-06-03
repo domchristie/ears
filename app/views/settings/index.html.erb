@@ -1,3 +1,19 @@
 <%= render "container" do %>
-  <%= button_to "Log out", logout_path, method: :delete %>
+  <%= render "list" do %>
+    <%= render "list_item", title: "Import OPML", path: new_opml_import_path do |p| %>
+      <% p.content_for :image do %>
+        <div class="p-3 bg-neutral-100 group-focus-within:bg-white mr-3">
+          <%= icon :"document-text", class: "w-6 h-6" %>
+        </div>
+      <% end %>
+    <% end %>
+
+    <%= render "list_item", title: "Log out", path: logout_path, method: :delete do |p| %>
+      <% p.content_for :image do %>
+        <div class="p-3 bg-neutral-100 group-focus-within:bg-white mr-3">
+          <%= icon :logout, class: "w-6 h-6" %>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
 <% end %>
