@@ -21,6 +21,10 @@ class Feed < ApplicationRecord
     rss_image.try(:url) || itunes_image
   end
 
+  def share_url
+    "https://pod.link/#{Base64.urlsafe_encode64(url).gsub(/==$/, "")}"
+  end
+
   def most_recent_play_by(user)
     plays.most_recent_by(user)
   end

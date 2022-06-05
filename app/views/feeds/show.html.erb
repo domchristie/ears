@@ -2,6 +2,20 @@
 
 <nav class="flex absolute w-full z-20 p-3.5">
   <%= render "back", path: root_path %>
+  <%= link_to(
+    icon(:share, solid: true, class: "w-5 h-5 text-white", title: "Share", aria: true),
+    @feed.share_url,
+    target: "_blank",
+    data: {
+      controller: "share",
+      action: "share#share",
+      share_title_value: @feed.title,
+      share_url_value: @feed.share_url,
+    },
+    tabindex: 0,
+    class: "ml-auto block p-2 rounded-full bg-black/60 ring ring-white/20 focus:outline-none focus:ring-white/75"
+  ) %>
+
 </nav>
 
 <%= render "header", image: external_image_url(@feed.image_url), title: @feed.title do |p| %>
