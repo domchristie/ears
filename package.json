@@ -24,5 +24,8 @@
   "homepage": "https://github.com/taperinstruments/listen#readme",
   "dependencies": {
     "heroicons": "^1.0.6"
+  },
+  "devDependencies": {
+    "tailwind-utopia": "github:domchristie/tailwind-utopia"
   }
 }
