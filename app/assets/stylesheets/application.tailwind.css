@@ -38,22 +38,4 @@
   html.turn-exit [data-turn-exit] {
     will-change: transform, opacity;
   }
-
-  @supports (not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px)))) {
-    #header_image {
-      @apply blur-lg;
-    }
-  }
-}
-
-@layer utilities {
-  .bg-player-bar {
-    background-color: rgb(255, 255, 255, 0.95);
-  }
-
-  @supports (backdrop-filter: blur(1px)) {
-    .bg-player-bar {
-      background-color: rgb(255, 255, 255, 0.75);
-    }
-  }
 }
