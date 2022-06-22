@@ -51,9 +51,11 @@
     <% end %>
   </menu>
 
-  <hr class="border-2 my-6 sm:my-8">
+  <hr class="border-2 my-fl-md">
 
-  <%= render "list", class: "sm:space-y-4" do %>
-    <%= render @entries, user: Current.user %>
-  <% end %>
+  <section class="max-w-[50rem] mx-auto">
+    <%= render "list", class: "-mt-fl-3xs" do %>
+      <%= render @entries, user: Current.user %>
+    <% end %>
+  </section>
 <% end %>

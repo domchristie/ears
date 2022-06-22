@@ -11,6 +11,16 @@ module.exports = {
   ],
   theme: {
     extend: {
+      utopia: {
+        spacing: {
+          '4xs': 0.125,
+          '4xl': 8,
+          '5xl': 11,
+          '6xl': 16,
+          '7xl': 22,
+          '8xl': 32,
+        }
+      },
       animation: {
         press: 'press 0.3s cubic-bezier(0.65, 0.05, 0.35, 1) forwards',
         enter: 'fade-in-up 0.6s cubic-bezier(0.65, 0.05, 0.35, 1) forwards',
@@ -57,6 +67,7 @@ module.exports = {
     },
   },
   plugins: [
+    require('tailwind-utopia')(),
     require('@tailwindcss/forms'),
     require('@tailwindcss/aspect-ratio'),
     require('@tailwindcss/typography'),

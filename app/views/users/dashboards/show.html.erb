@@ -1,66 +1,42 @@
 <% content_for :nav do %>
-  <nav <%= turn_attributes %> class="sticky top-0 flex w-full items-center z-20 px-4 sm:px-6 py-3 bg-white drop-shadow-[0_2px_0_rgba(0,0,0,0.08)]">
-    <%= link_to(
-      "Listen",
-      request.url,
-      tabindex: 0,
-      class: "text-2xl leading-7 font-black lowercase tracking-tight",
-      onclick: "window.location.reload(); return false"
-    ) %>
-    <%= link_to(
-      icon(:"dots-horizontal", solid: true, class: "w-5 h-5", title: "Settings", aria: true),
-      settings_path,
-      tabindex: 0,
-      class: "ml-auto block p-0.5 rounded-full border-2 border-black ring ring-white/20 focus:outline-none focus:ring-white/75"
-    ) %>
+  <nav class="sticky top-0 z-20 px-fl-xs-md py-fl-2xs overflow-hidden bg-white drop-shadow-[0_2px_0_rgba(0,0,0,0.08)]">
+    <div <%= turn_attributes %> class="flex w-full items-center">
+      <%= link_to(
+        "Listen",
+        request.url,
+        tabindex: 0,
+        class: "text-fl-lg leading-[1] font-black lowercase tracking-tight",
+        onclick: "window.location.reload(); return false"
+      ) %>
+      <%= link_to(
+        icon(:"dots-horizontal", solid: true, class: "w-5 h-5", title: "Settings", aria: true),
+        settings_path,
+        tabindex: 0,
+        class: "ml-auto block p-0.5 rounded-full border-2 border-black ring ring-white/20 focus:outline-none focus:ring-white/75"
+      ) %>
+    </div>
   </nav>
 <% end %>
 
 <%= render "container" do %>
-  <% if @dashboard.recently_played.any? %>
-    <%= render("heading", icon: :play, class: "mt-6 mb-3") { "Recently Played" } %>
+  <%= render("heading", icon: :play, class: "mt-fl-lg mb-fl-2xs") { "Recently Played" } %>
+  <div class="flex flex-nowrap space-x-fl-xs overflow-x-auto snap-x">
+    <%= render(partial: "recently_played", collection: @dashboard.recently_played, as: :feed) || render("empty") do %>
+      Recently played feeds appear here
+    <% end %>
+  </div>
 
-    <div class="flex flex-nowrap space-x-4 pb-4 overflow-x-auto snap-x">
-      <% @dashboard.recently_played.each do |feed| %>
-        <% play = feed.most_recent_play_by(Current.user) %>
-        <%= render "feeds/cover", feed: feed, source: :recently_played do %>
-          <div class="absolute top-1.5 left-1.5 whitespace-nowrap px-1.5 leading-5 bg-white/95 text-neutral-600 text-xs font-medium">
-            <%= render "plays/play", play: play %>
-          </div>
-        <% end %>
-      <% end %>
-    </div>
-  <% end %>
-
-  <% if @dashboard.recently_updated.any? %>
-    <%= render("heading", icon: :sparkles, class: "mt-6 mb-3") { "Recently Updated" } %>
-
-    <div class="flex flex-nowrap space-x-4 pb-4 overflow-x-auto snap-x">
-      <% @dashboard.recently_updated.each do |feed| %>
-        <%= render "feeds/cover", feed: feed, source: :recently_updated do %>
-          <p class="flex items-center absolute bottom-1.5 left-1.5 whitespace-nowrap px-1.5 leading-5 bg-white/95 text-neutral-600 text-xs font-medium">
-            <span class="sr-only">Updated on</span>
-            <%= local_relative_time(
-              feed.most_recent_entry.published_at,
-              type: :"weekday-or-date",
-              class: "capitalize"
-            ) %>
-          </p>
-
-          <% if play = feed.most_recent_entry.most_recent_play_by(Current.user) %>
-            <div class="flex items-center absolute top-1.5 left-1.5 whitespace-nowrap px-1.5 leading-5 bg-white/95 text-neutral-600 text-xs font-medium">
-              <%= render "plays/play", play: play %>
-            </div>
-          <% end %>
-        <% end %>
-      <% end %>
-    </div>
-  <% end %>
+  <%= render("heading", icon: :sparkles, class: "mt-fl-lg mb-fl-2xs") { "Recently Updated" } %>
+  <div class="flex flex-nowrap space-x-fl-xs overflow-x-auto snap-x">
+    <%= render(partial: "recently_updated", collection: @dashboard.recently_updated, as: :feed) || render("empty") do %>
+      Recently updated feeds appear here
+    <% end %>
+  </div>
 
   <% if @dashboard.feeds.any? %>
-    <%= render("heading", icon: :collection, class: "mt-6 mb-3") { "Your Feeds" } %>
+    <%= render("heading", icon: :"rss", class: "mt-fl-lg mb-fl-2xs") { "Your Feeds" } %>
 
-    <%= render "list" do %>
+    <%= render "list", class: "-mt-fl-3xs" do %>
       <%= render partial: "feeds/feed", collection: @dashboard.feeds %>
     <% end %>
   <% end %>
