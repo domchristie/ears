@@ -1,6 +1,6 @@
 <% content_for :nav do %>
-  <nav class="sticky top-0 z-20 px-fl-xs-md py-fl-xs overflow-hidden bg-white drop-shadow-[0_2px_0_rgba(0,0,0,0.08)]">
-    <div <%= turn_attributes %> class="flex w-full items-center">
+  <nav <%= turn_attributes %> class="sticky top-0 z-20 px-fl-xs-md py-fl-xs overflow-hidden bg-white drop-shadow-[0_2px_0_rgba(0,0,0,0.08)]">
+    <div class="flex w-full items-center">
       <%= link_to(
         "Listen",
         request.url,
