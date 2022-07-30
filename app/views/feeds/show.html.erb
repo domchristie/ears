@@ -1,16 +1,16 @@
-<% @title = @feed.title %>
+<% @title = @feed_show.feed.title %>
 
 <nav class="flex absolute w-full z-20 p-3.5">
   <%= render "back", path: root_path %>
   <%= link_to(
     icon(:share, solid: true, class: "w-5 h-5 text-white", title: "Share", aria: true),
-    @feed.share_url,
+    @feed_show.feed.share_url,
     target: "_blank",
     data: {
       controller: "share",
       action: "share#share",
-      share_title_value: @feed.title,
-      share_url_value: @feed.share_url,
+      share_title_value: @feed_show.feed.title,
+      share_url_value: @feed_show.feed.share_url,
     },
     tabindex: 0,
     class: "ml-auto block p-2 rounded-full bg-black/60 ring ring-white/20 focus:outline-none focus:ring-white/75"
@@ -18,15 +18,15 @@
 
 </nav>
 
-<%= render "header", image: external_image_url(@feed.image_url), title: @feed.title do |p| %>
+<%= render "header", image: external_image_url(@feed_show.feed.image_url), title: @feed_show.feed.title do |p| %>
   <% p.content_for :meta do %>
-    <div class="text-lg"><%= @feed.author %></div>
+    <div class="text-lg"><%= @feed_show.feed.author %></div>
   <% end %>
 <% end %>
 
 <%= render "container" do %>
   <menu class="flex justify-center gap-x-4 max-w-sm mx-auto -mt-3">
-    <% if play = @feed.most_recent_play_by(Current.user) %>
+    <% if play = @feed_show.feed.most_recent_play_by(Current.user) %>
       <li class="flex-1 min-w-0 max-w-[16rem] mx-auto text-center">
         <%= render(
           "plays/featured",
@@ -38,12 +38,12 @@
       </li>
     <% end %>
 
-    <% if play&.entry != @feed.most_recent_entry %>
+    <% if play&.entry != @feed_show.feed.most_recent_entry %>
       <li class="flex-1 min-w-0 max-w-[16rem] mx-auto text-center">
         <%= render(
           "plays/featured",
           title: "Latest",
-          play: play = @feed.most_recent_entry.upcoming_play_by(Current.user),
+          play: play = @feed_show.feed.most_recent_entry.upcoming_play_by(Current.user),
           highlight: params[:source] == "recently_updated"
         ) %>
         <%= render "plays/remaining_in_words", play: play, options: {class: "block mt-0.5 text-xs text-neutral-500"} %>
@@ -55,7 +55,7 @@
 
   <section class="max-w-[50rem] mx-auto">
     <%= render "list", class: "-mt-fl-3xs" do %>
-      <%= render @entries, user: Current.user %>
+      <%= render @feed_show.entries, user: Current.user %>
     <% end %>
   </section>
 <% end %>
