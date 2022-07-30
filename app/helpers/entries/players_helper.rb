@@ -1,2 +1,0 @@
-module Entries::PlayersHelper
-end
