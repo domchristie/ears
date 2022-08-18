@@ -1,0 +1,4 @@
+<%= turbo_stream.replace(
+  following_dom_id(@following),
+  partial: "followings/form",
+  locals: {following: @following}) %>

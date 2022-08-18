@@ -1,0 +1,33 @@
+<nav <%= turn_attributes %> class="sticky top-0 z-20 px-fl-xs-md py-fl-xs overflow-hidden bg-white drop-shadow-[0_2px_0_rgba(0,0,0,0.08)]">
+  <div class="flex w-full items-center">
+    <% if current_page?(root_path) %>
+      <%= link_to(
+        "Listen",
+        request.url,
+        tabindex: 0,
+        class: "text-fl-lg leading-[1] font-black lowercase tracking-tight",
+        onclick: "window.location.reload(); return false"
+      ) %>
+    <% else %>
+      <%= link_to(
+        icon(:"arrow-sm-left", solid: true, class: "w-5 h-5", title: local_assigns[:text] || "Back", aria: true),
+        root_path,
+        data: {controller: "back", action: "back#back"},
+        tabindex: 0,
+        class: "block p-0.5 rounded-full border-2 border-black ring ring-white/20 focus:outline-none focus:ring-white/75"
+      ) %>
+    <% end %>
+    <%= link_to(
+      icon(:"plus-sm", solid: true, class: "w-5 h-5", title: "Add", aria: true),
+      new_directories_search_path,
+      tabindex: 0,
+      class: "ml-auto mr-fl-xs-sm block p-0.5 rounded-full border-2 border-black ring ring-white/20 focus:outline-none focus:ring-white/75"
+    ) %>
+    <%= link_to(
+      icon(:"dots-horizontal", solid: true, class: "w-5 h-5", title: "Settings", aria: true),
+      settings_path,
+      tabindex: 0,
+      class: "block p-0.5 rounded-full border-2 border-black ring ring-white/20 focus:outline-none focus:ring-white/75"
+    ) %>
+  </div>
+</nav>

@@ -3,6 +3,10 @@ Rails.application.routes.draw do
   post "login", to: "sessions#create"
   delete "logout", to: "sessions#destroy"
 
+  namespace :directories do
+    resource :search, only: [:new, :show]
+  end
+
   resources :settings, only: :index
 
   namespace :users do
@@ -22,5 +26,6 @@ Rails.application.routes.draw do
   resources :opml_imports, only: [:new, :create]
   resources :feeds, only: :show
   resources :entries, only: :show
+  resources :followings, only: [:create, :destroy]
   root "users/dashboards#show"
 end

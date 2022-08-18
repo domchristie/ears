@@ -1,0 +1,10 @@
+<%= render "search_results/search_result", search_result: search_result do |p| %>
+  <% p.content_for :action do %>
+    <%
+    feed = Feed.find_or_initialize_by(url: search_result.meta[:url])
+    feed.attributes = {title: search_result.title, itunes_image: search_result.image_url}
+    following = Current.user.followings.find_or_initialize_by(feed: feed)
+    %>
+    <%= render "followings/form", following: following %>
+  <% end %>
+<% end %>

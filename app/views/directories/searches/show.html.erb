@@ -1,0 +1,9 @@
+<% content_for :nav, render("nav") %>
+
+<%= render "container" do %>
+  <%= render "form", search: @search %>
+
+  <div class="mt-fl-sm">
+    <%= render partial: "search_result", collection: @search.results %>
+  </div>
+<% end %>

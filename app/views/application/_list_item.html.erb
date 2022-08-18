@@ -3,7 +3,7 @@
 <%= content_tag (local_assigns[:tag] || :article), class: "group focus-within:bg-neutral-100 dark:focus-within:bg-neutral-800 relative flex items-center -mx-fl-2xs p-fl-2xs" do %>
   <%= p.content_for :image %>
 
-  <div class="space-y-fl-4xs-3xs min-w-0">
+  <div class="space-y-fl-4xs-3xs flex-1 min-w-0">
     <% class_names = "text-xl leading-tight font-semibold line-clamp-2" %>
     <p class="<%= class_names %>">
       <% if local_assigns[:method] %>
@@ -15,4 +15,6 @@
 
     <%= body %>
   </div>
+
+  <%= p.content_for :action %>
 <% end %>

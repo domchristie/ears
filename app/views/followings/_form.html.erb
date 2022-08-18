@@ -1,0 +1,22 @@
+<% if following.new_record? %>
+  <%= form_with model: following, id: following_dom_id(following) do |form| %>
+    <%= form.hidden_field :user_id %>
+    <%= form.hidden_field :feed_id %>
+
+    <%= form.fields_for :feed do |feed_form| %>
+      <%= feed_form.hidden_field :url %>
+      <%= feed_form.hidden_field :title %>
+      <%= feed_form.hidden_field :itunes_image %>
+    <% end %>
+
+    <%= form.button class: "p-1 rounded-full focus:outline-none focus:ring" do %>
+      <%= icon :"plus-circle", class: "w-6 h-6", width: 24, height: 24, title: "Add to your feeds" %>
+    <% end %>
+  <% end %>
+<% else %>
+  <%= form_with model: following, method: :delete, id: following_dom_id(following) do |form| %>
+    <%= form.button class: "block p-1" do %>
+      <%= icon :"check-circle", class: "w-6 h-6 text-teal-500", width: 24, height: 24, title: "Unfollow", aria: true %>
+    <% end %>
+  <% end %>
+<% end %>
