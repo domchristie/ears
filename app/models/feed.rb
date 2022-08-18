@@ -22,7 +22,7 @@ class Feed < ApplicationRecord
   end
 
   def share_url
-    "https://pod.link/#{Base64.urlsafe_encode64(url).gsub(/==$/, "")}"
+    "https://pod.link/#{Base64.urlsafe_encode64(url).delete("=")}"
   end
 
   def most_recent_play_by(user)
