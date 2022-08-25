@@ -1,4 +1,4 @@
-<%= render "list_item", title: search_result.title do |p| %>
+<%= render "list_item", title: search_result.title, path: search_result.path do |p| %>
   <% p.content_for :image do %>
     <div class="relative w-fl-2xl h-fl-2xl shrink-0 mr-fl-2xs before:absolute before:inset-0 before:ring-inset before:ring-1 before:ring-black/10 dark:before:ring-white/20">
       <% if search_result.image_url %>

@@ -24,8 +24,11 @@ class Feed::Show
   private
 
   def find_feed
-    [:id, :url].lazy.filter_map do |key|
-      @params[key] && Feed.find_by(key => @params[key])
-    end.first
+    if @params[:id]
+      Feed.find(@params[:id])
+    elsif @params[:encoded_url]
+      url = Base64.urlsafe_decode64(@params[:encoded_url])
+      Feed.find_or_create_by(url: url)
+    end
   end
 end

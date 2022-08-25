@@ -24,8 +24,10 @@ Rails.application.routes.draw do
   end
 
   resources :opml_imports, only: [:new, :create]
+
+  get "feeds/:encoded_url", to: "feeds#show", constraints: {encoded_url: %r{(?:[a-zA-Z0-9+/]{4})*(?:|(?:[a-zA-Z0-9+/]{3}=)|(?:[a-zA-Z0-9+/]{2}==)|(?:[a-zA-Z0-9+/]{1}===))}}
   resources :feeds, only: :show
-  resources :entries, only: :show
+
   resources :followings, only: [:create, :destroy]
   root "users/dashboards#show"
 end

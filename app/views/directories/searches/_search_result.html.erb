@@ -1,3 +1,4 @@
+<% search_result.path = feed_path(Base64.urlsafe_encode64(search_result.meta[:url])) if search_result.meta[:url].present? %>
 <%= render "search_results/search_result", search_result: search_result do |p| %>
   <% p.content_for :action do %>
     <%

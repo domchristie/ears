@@ -1,4 +1,5 @@
 class Itunes::Search
+  include Rails.application.routes.url_helpers
   attr_reader :term
 
   def initialize(term = "")
