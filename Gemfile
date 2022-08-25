@@ -90,4 +90,4 @@ gem "inline_svg", "~> 1.8"
 
 gem "bullet", "~> 7.0", :group => :development
 
-gem "imagekitio", "~> 2.1"
+gem "imagekitio", github: "domchristie/imagekit-ruby", branch: "carrierwave"
