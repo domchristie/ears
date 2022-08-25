@@ -13,6 +13,8 @@ class Feed < ApplicationRecord
 
   after_commit :start_web_sub, if: :saved_change_to_web_sub_hub_url?
 
+  validates :url, format: %r{http(s)://.+}
+
   def author
     itunes_author || managing_editor
   end
