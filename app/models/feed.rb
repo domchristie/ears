@@ -53,6 +53,14 @@ class Feed < ApplicationRecord
     }
   end
 
+  def self.encode_url(url)
+    "encoded_url#{Encryptor.url_safe_encrypt(url)}"
+  end
+
+  def self.decode_url(url)
+    Encryptor.url_safe_decrypt(url[11..])
+  end
+
   private
 
   def start_web_sub

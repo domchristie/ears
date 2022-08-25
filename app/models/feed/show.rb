@@ -27,7 +27,7 @@ class Feed::Show
     if @params[:id]
       Feed.find(@params[:id])
     elsif @params[:encoded_url]
-      url = Base64.urlsafe_decode64(@params[:encoded_url])
+      url = Feed.decode_url(@params[:encoded_url])
       Feed.find_or_create_by(url: url)
     end
   end
