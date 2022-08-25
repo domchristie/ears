@@ -4,7 +4,7 @@
   class="flex items-center <%= play_state_class_names(play) %>"
 >
   <span class="<%= class_names("hidden played:flex items-center") %>">
-    <%= icon :"check-circle", solid: true, class: "h-4 w-4 -ml-px mr-1 text-teal-500" %>
+    <%= icon :"check-circle", solid: true, class: "h-[1.143em] w-[1.143em] -ml-px mr-1 text-teal-500" %>
     Played
   </span>
 
@@ -15,7 +15,7 @@
       options: {
         aria: {hidden: true},
         data: {player_target: "timerIcon", href: play.entry&.enclosure_url},
-        class: "h-4 w-4 -ml-px mr-1 text-neutral-300 started:text-blue-500",
+        class: "h-[1.143em] w-[1.143em] -ml-px mr-1 text-neutral-300 started:text-blue-500",
         remaining: ({class: "started:text-blue-200"}),
         progress: ({class: "started:text-white"}),
         needle: ({class: "started:fill-blue-700"})

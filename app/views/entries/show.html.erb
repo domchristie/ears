@@ -22,7 +22,10 @@
       <%= link_to @entry.feed.title, feed_path(@entry.feed), class: "text-neutral-500" %>
     </div>
 
-    <%= local_relative_time @entry.published_at, type: "date", class: "block text-neutral-500 font-medium uppercase tracking-wide" %>
+    <div class="flex space-x-4 justify-center text-neutral-500 font-medium">
+      <%= local_relative_time @entry.published_at, type: "date", class: "block uppercase tracking-wide" %>
+      <%= render @entry.play_by(current_user) %>
+    </div>
   <% end %>
 <% end %>
 
