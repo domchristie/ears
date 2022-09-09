@@ -23,10 +23,10 @@ class SyncFeedJob < ApplicationJob
     when Net::HTTPNotModified
       puts "[#{self.class}] feed: #{feed.id} Net::HTTPNotModified"
     when Net::HTTPTemporaryRedirect, Net::HTTPMovedPermanently
-      puts "[#{self.class}] feed: #{feed.id} #{response.class}"
+      puts "[#{self.class}] feed: #{feed.id} #{get.response.class}"
       # TODO: update feed_url, enqueue SyncFeedJob
     when Net::HTTPClientError
-      puts "[#{self.class}] feed: #{feed.id} #{response.class}"
+      puts "[#{self.class}] feed: #{feed.id} #{get.response.class}"
       # TODO: mark as gone?
     end
   end
