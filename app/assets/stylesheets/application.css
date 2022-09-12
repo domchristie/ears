@@ -14,7 +14,6 @@
  *= require_self
  */
 
-.prose br,
 .prose p br + br,
 .prose li br + br,
 .prose p br:only-child,
