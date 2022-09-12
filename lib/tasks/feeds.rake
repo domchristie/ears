@@ -13,6 +13,10 @@ namespace :feeds do
     end
   end
 
+  task destroy_unused: :environment do
+    Feed.where.missing(:plays, :followings).destroy_all
+  end
+
   task demo: :environment do
     user = User.find_or_create_by!(email: "demo@example.com")
     user.followings.destroy_all
