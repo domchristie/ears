@@ -2,14 +2,14 @@
 
 <%= render "container" do %>
   <%= render("heading", icon: :play, class: "mt-fl-lg mb-fl-2xs") { "Recently Played" } %>
-  <div class="flex flex-nowrap space-x-fl-xs overflow-x-auto snap-x">
+  <div class="flex flex-nowrap space-x-fl-xs overflow-x-auto snap-x pb-2">
     <%= render(partial: "recently_played", collection: @dashboard.recently_played, as: :feed) || render("empty") do %>
       Recently played feeds appear here
     <% end %>
   </div>
 
   <%= render("heading", icon: :sparkles, class: "mt-fl-lg mb-fl-2xs") { "Recently Updated" } %>
-  <div class="flex flex-nowrap space-x-fl-xs overflow-x-auto snap-x">
+  <div class="flex flex-nowrap space-x-fl-xs overflow-x-auto snap-x pb-2">
     <%= render(partial: "recently_updated", collection: @dashboard.recently_updated, as: :feed) || render("empty") do %>
       Recently updated feeds appear here
     <% end %>
