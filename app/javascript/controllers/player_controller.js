@@ -41,6 +41,7 @@ export default class PlayerController extends Controller {
       this.audioTarget[this.audioTarget.paused ? 'play' : 'pause']()
     } else {
       this.audioTarget.src = event.currentTarget.href
+      this.audioTarget.load()
       await this.loadNewControls(this.findLoader(event.currentTarget))
       this.audioTarget.play()
     }
