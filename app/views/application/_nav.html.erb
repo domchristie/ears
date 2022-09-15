@@ -2,11 +2,13 @@
   <div class="flex w-full items-center">
     <% if current_page?(root_path) %>
       <%= link_to(
-        "Listen",
+        "👂",
         request.url,
         tabindex: 0,
-        class: "text-fl-lg leading-[1] font-black lowercase tracking-tight",
-        onclick: "window.location.reload(); return false"
+        class: "text-fl-lg leading-[1]",
+        onclick: "window.location.reload(); return false",
+        aria: { label: "All Ears" },
+        title: "All Ears"
       ) %>
     <% else %>
       <%= link_to(

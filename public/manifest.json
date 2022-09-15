@@ -1,8 +1,8 @@
 {
-  "name": "Listen",
-  "short_name": "Listen",
+  "name": "All Ears",
+  "short_name": "All Ears",
   "display": "standalone",
-  "start_url": "https://app.listen.club",
+  "start_url": "https://app.listenup.club",
   "theme_color": "#ffffff",
   "background_color": "#ffffff",
   "icons": [
