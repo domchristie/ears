@@ -14,14 +14,14 @@ module PlaysHelper
 
   def play_remaining_in_words(remaining)
     remaining = ActiveSupport::Duration.build(remaining.round)
-    parts = remaining.parts
+    remaining.parts.with_defaults(hours: nil, minutes: nil) => {hours:, minutes:}
     [
-      (parts[:hours].to_i > 1 && "#{parts[:hours]} hrs"),
-      (parts[:hours].to_i == 1 && parts[:minutes].to_i < 1 && "#{parts[:hours]} hour"),
-      (parts[:hours].to_i == 1 && parts[:minutes].to_i >= 1 && "#{parts[:hours]} hr"),
-      (parts[:minutes].to_i > 1 && "#{parts[:minutes]} mins"),
-      (parts[:minutes].to_i == 1 && "#{parts[:minutes]} min"),
-      (parts[:minutes].to_i < 1 && "< 1 min")
+      (hours.to_i > 1 && "#{hours} hrs"),
+      (hours.to_i == 1 && minutes.to_i < 1 && "#{hours} hour"),
+      (hours.to_i == 1 && minutes.to_i >= 1 && "#{hours} hr"),
+      (minutes.to_i > 1 && "#{minutes} mins"),
+      (minutes.to_i == 1 && "#{minutes} min"),
+      (hours.to_i == 0 && minutes.to_i < 1 && "< 1 min")
     ].select(&:itself).join(" ")
   end
 

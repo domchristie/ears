@@ -2,7 +2,7 @@ import { Controller } from '@hotwired/stimulus'
 import {
   chronoDuration,
   iso8601Duration,
-  distanceOfTimeInWords
+  humanDuration
 } from 'helpers/time-helpers'
 
 export default class PlayerController extends Controller {
@@ -21,9 +21,16 @@ export default class PlayerController extends Controller {
     'remainingInWords',
   ]
 
-  initialize () {
-    this.persistElapsedLater = throttle(_ => this.persistElapsed(), 20000)
-    this.updateTimeLater = throttle(_ => this.updateTime(), 1000)
+  get ready () {
+    return this.audioTarget && this.audioTarget.readyState >= 3
+  }
+
+  get playing () {
+    return this.ready && !this.audioTarget.paused
+  }
+
+  get loading () {
+    return !this.ready && !this.audioTarget.paused
   }
 
   get duration () {
@@ -33,6 +40,22 @@ export default class PlayerController extends Controller {
   get currentTime () {
     return this.audioTarget?.currentTime || 0
   }
+
+  get remaining () {
+    return Math.max(this.duration - this.currentTime, 0)
+  }
+
+  get progress () {
+    return this.currentTime / this.duration
+  }
+
+  get complete () {
+    return 0.05 * this.duration > 60
+      ? this.remaining < 60
+      : this.progress > 0.95
+  }
+
+  // Actions
 
   async toggle (event) {
     event.preventDefault()
@@ -63,22 +86,6 @@ export default class PlayerController extends Controller {
     )
   }
 
-  get ready () {
-    return this.audioTarget && this.audioTarget.readyState >= 3
-  }
-
-  get playing () {
-    return this.ready && !this.audioTarget.paused
-  }
-
-  get loading () {
-    return !this.ready && !this.audioTarget.paused
-  }
-
-  get shouldTrackPlayTime () {
-    return this.hasElapsedFieldTarget
-  }
-
   updateToggles () {
     this.playTargets.forEach((target) => {
       if (this.targetApplicable(target)) {
@@ -101,25 +108,23 @@ export default class PlayerController extends Controller {
   updateTime () {
     if (this.audioTarget.readyState < 2) return
 
-    const remaining = Math.max(this.duration - this.currentTime, 0)
-
     this.ifApplicable(this.elapsedTargets, t => {
       t.textContent = chronoDuration(this.currentTime)
       t.setAttribute('datetime', iso8601Duration(this.currentTime))
       t.setAttribute(
         'aria-label',
-        `${distanceOfTimeInWords(this.currentTime)} elapsed`
+        `${humanDuration(this.currentTime)} elapsed`
       )
     })
 
     this.ifApplicable(this.remainingTargets, t => {
-      t.textContent = '-' + chronoDuration(remaining, 'display')
-      t.setAttribute('datetime', iso8601Duration(remaining))
-      t.setAttribute('aria-label', `${distanceOfTimeInWords(remaining)} left`)
+      t.textContent = '-' + chronoDuration(this.remaining, 'display')
+      t.setAttribute('datetime', iso8601Duration(this.remaining))
+      t.setAttribute('aria-label', `${humanDuration(this.remaining)} left`)
     })
 
     this.ifApplicable(this.playTargets, t => {
-      t.classList.toggle('--played', remaining < 60)
+      t.classList.toggle('--played', this.complete)
     })
 
     this.ifApplicable(this.timerIconTargets, t => {
@@ -127,10 +132,18 @@ export default class PlayerController extends Controller {
     })
 
     this.ifApplicable(this.remainingInWordsTargets, t => {
-      t.textContent = `${distanceOfTimeInWords(remaining, 'short')} left`
-      t.setAttribute('datetime', iso8601Duration(remaining))
-      t.setAttribute('aria-label', `${distanceOfTimeInWords(remaining)} left`)
+      t.textContent = this.complete
+        ? 'Played'
+        : `${humanDuration(this.remaining, 'short')} left`
+      t.setAttribute('datetime', iso8601Duration(this.remaining))
+      t.setAttribute('aria-label', `${humanDuration(this.remaining)} left`)
     })
+  }
+
+  get updateTimeLater () {
+    return this._updateTimeLater = (
+      this._updateTimeLater || throttle(_ => this.updateTime(), 250)
+    )
   }
 
   updateProgress () {
@@ -141,8 +154,8 @@ export default class PlayerController extends Controller {
     })
   }
 
-  controlsTargetConnected () {
-    this._controlsLoaded?.call()
+  get shouldTrackPlayTime () {
+    return this.hasElapsedFieldTarget
   }
 
   trackElapsed () {
@@ -161,6 +174,20 @@ export default class PlayerController extends Controller {
 
     this.dispatch('submit', { target: this.playFormTarget, prefix: '' })
   }
+
+  get persistElapsedLater () {
+    return this._persistElapsedLater = (
+      this._persistElapsedLater || throttle(_ => this.persistElapsed(), 20000)
+    )
+  }
+
+  // Callbacks
+
+  controlsTargetConnected () {
+    this._controlsLoaded?.call()
+  }
+
+  // Private
 
   targetApplicable (target) {
     return requestUrl(target.dataset.href) === requestUrl(this.audioTarget.src)

@@ -9,12 +9,16 @@ class Play < ApplicationRecord
     by(user).order(updated_at: :desc).first
   end
 
+  def duration
+    elapsed + remaining
+  end
+
   def progress
-    1 / (elapsed + remaining) * elapsed
+    elapsed / duration
   end
 
   def complete?
-    remaining <= 60
+    0.05 * duration > 60 ? remaining < 60 : progress > 0.95
   end
 
   def started?

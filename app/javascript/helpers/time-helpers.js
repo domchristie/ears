@@ -1,3 +1,35 @@
+import humanizeDuration from 'humanize-duration'
+
+const LANGUAGES = {
+  'en-short': {
+    y: (n) => pluralize(n, 'yr', 'yrs'),
+    mo: (n) => pluralize(n, 'mth', 'mths'),
+    w: (n) => pluralize(n, 'wk', 'wks'),
+    d: (n) => pluralize(n, 'day', 'days'),
+    h: (n) => pluralize(n, 'hr', 'hrs'),
+    m: (n) => pluralize(n, 'min', 'mins'),
+    s: (n) => pluralize(n, 'sec', 'secs'),
+    ms: () => "ms"
+  }
+}
+
+const HUMANIZERS = {
+  default: humanizeDuration.humanizer({
+    round: true,
+    largest: 2,
+    units: ['h', 'm', 's'],
+  }),
+  short: humanizeDuration.humanizer({
+    language: 'en-short',
+    languages: LANGUAGES,
+    round: true,
+    largest: 2,
+    units: ['h', 'm', 's'],
+    conjunction: ' ',
+    serialComma: false
+  })
+}
+
 export function chronoDuration (d) {
   const { hours, minutes, seconds } = duration(d)
   return [
@@ -12,57 +44,26 @@ export function iso8601Duration (d) {
   return `PT${hours}H${minutes}M${seconds}S`
 }
 
-export function distanceOfTimeInWords (seconds, scope = 'default') {
-  const d = duration(seconds)
+export function humanDuration (seconds, humanizer = 'default') {
+  if (seconds < 60 && humanizer === 'short') return '< 1 min'
 
-  let output = []
-  for (const unit in d) {
-    const count = d[unit]
-    const template = findTemplate(count, unit, scope)
-    count && template && output.push(typeof template === 'function'
-      ? template(count, d)
-      : template
-    )
-  }
-  return output.join(' ')
-
-  function findTemplate (count, unit, scope) {
-    return DURATION.words[scope][unit]?.[count === 1 ? 'one' : 'other']
-  }
+  return HUMANIZERS[humanizer](seconds * 1000, {
+    largest: seconds < 60 * 60 ? 1 : 2
+  })
 }
 
 function duration (seconds) {
-  const hours = Math.floor(seconds / (60 * 60))
-  const minutes = Math.floor(seconds / 60) % 60
-  seconds = Math.floor(seconds % 60)
-  return { hours, minutes, seconds }
+  const MINUTE = 60
+  const HOUR = MINUTE * 60
+  const hours = Math.floor(seconds / HOUR)
+  const minutes = Math.floor(seconds / MINUTE) % 60
+  return { hours, minutes, seconds: Math.floor(seconds % 60) }
 }
 
 function pad (number) {
   return number < 10 ? '0' + number : number.toString()
 }
 
-const DURATION = {
-  words: {
-    default: {
-      hours: {
-        one: '1 hour',
-        other: count => `${count} hours`
-      },
-      minutes: {
-        one: '1 minute',
-        other: count => `${count} minutes`
-      }
-    },
-    short: {
-      hours: {
-        one: (_, d) => d.minutes >= 1 ? '1 hr' : '1 hour',
-        other: count => `${count} hrs`
-      },
-      minutes: {
-        one: '1 min',
-        other: count => `${count} mins`
-      }
-    }
-  }
+function pluralize (n, singular, plural) {
+  return n > 1 || n === 0 ? plural : singular
 }
