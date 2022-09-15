@@ -34,7 +34,7 @@
           play: play,
           highlight: params[:source] == "recently_played"
         ) %>
-        <%= render "plays/remaining_in_words", play: play, options: {class: "block mt-0.5 text-xs text-neutral-500"} %>
+        <%= render "plays/remaining_in_words", play: play, options: {class: "block touch-none select-none mt-0.5 text-xs text-neutral-500"} %>
       </li>
     <% end %>
 
@@ -46,7 +46,7 @@
           play: play = @feed_show.feed.most_recent_entry.upcoming_play_by(Current.user),
           highlight: params[:source] == "recently_updated"
         ) %>
-        <%= render "plays/remaining_in_words", play: play, options: {class: "block mt-0.5 text-xs text-neutral-500"} %>
+        <%= render "plays/remaining_in_words", play: play, options: {class: "block touch-none select-none mt-0.5 text-xs text-neutral-500"} %>
       </li>
     <% end %>
   </menu>
