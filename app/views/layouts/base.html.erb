@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html data-controller="player media-session" data-action="turbo:load->player#updateToggles">
+  <head>
+    <title><%= @title ? "#{@title} - All Ears" : "All Ears" %></title>
+    <meta name="viewport" content="width=device-width,viewport-fit=cover,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="apple-touch-icon" href="/icon.png">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👂</text></svg>">
+
+    <link href="https://api.fontshare.com/css?f[]=bespoke-sans@1,2&display=swap" rel="stylesheet">
+    <link href='https://tools-static.wmflabs.org/fontcdn/css?family=Roboto+Mono:400&subset=latin' rel='stylesheet' type='text/css'>
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <script src="//js.honeybadger.io/v4.0/honeybadger.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      Honeybadger.configure({
+        apiKey: '<%= ENV["HONEYBADGER_API_KEY"] %>',
+        environment: '<%= Rails.env %>',
+        revision: '<%= ENV["HEROKU_SLUG_COMMIT"] %>'
+      });
+    </script>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body class="mb-32 dark:bg-neutral-900 dark:text-neutral-100">
+    <%= yield %>
+  </body>
+</html>

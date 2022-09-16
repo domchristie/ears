@@ -1,4 +1,8 @@
 module ApplicationHelper
+  def layout(name, args = {}, &block)
+    render layout: "layouts/#{name}", locals: args, inline: capture(&block)
+  end
+
   def icon(name, options = {})
     size = options[:solid] ? 20 : 24
     options[:width] = options[:height] = size

@@ -1,0 +1,5 @@
+<% if notice || alert %>
+  <div class="p-fl-3xs text-center <%= notice ? "bg-green-50 text-green-900" : "bg-red-50 text-red-800" %>">
+    <%= notice || alert %>
+  </div>
+<% end %>

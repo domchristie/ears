@@ -1,2 +1,6 @@
-<% @hide_player = true %>
-<%= render template: "layouts/application" %>
+<%= layout :base do %>
+  <%= render "flash" %>
+  <main <%= turn_attributes %>>
+    <%= yield %>
+  </main>
+<% end %>
