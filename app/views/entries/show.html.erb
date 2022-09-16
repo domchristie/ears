@@ -1,7 +1,7 @@
 <% @title = @entry.title %>
 
-<nav class="flex absolute w-full z-20 p-3.5">
-  <%= render "back", path: feed_path(@entry.feed) %>
+<nav class="flex absolute w-full z-20 p-2.5 sm:px-fl-xs-lg">Z
+  <%= render "back", path: feed_path(@entry.feed), color: :translucent_black %>
 </nav>
 
 <%= render "header", image: external_image_url(@entry.image_url), title: @entry.title do |p| %>

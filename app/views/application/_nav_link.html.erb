@@ -1,0 +1,15 @@
+<%
+colors = {
+  default: "bg-gray-100",
+  translucent_black: "bg-black/60 text-white ring ring-white/20 group-focus:ring-white/75"
+}
+props = self.props(local_assigns.with_defaults(color: :default))
+self.props(props) => {path:, icon:, label:, color:, **options}
+options[:class] = Array(options[:class]).push("group p-1 rounded-full focus:outline-none")
+%>
+
+<%= link_to path, options do %>
+  <span <%= tag.attributes(class: ["block p-2 rounded-full", colors[color]]) %>>
+    <%= self.icon icon, solid: true, class: "w-5 h-5", title: label, aria: true %>
+  </span>
+<% end %>

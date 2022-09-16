@@ -1,7 +1,8 @@
-  <%= link_to(
-    icon(:"arrow-left", solid: true, class: "w-5 h-5 text-white", title: local_assigns[:text] || "Back", aria: true),
-    path,
-    data: {controller: "back", action: "back#back"},
-    tabindex: 0,
-    class: "block touch-none select-none p-2 rounded-full bg-black/60 ring ring-white/20 focus:outline-none focus:ring-white/75"
-  ) %>
+<%= render(
+  "nav_link",
+  path: path,
+  icon: :"arrow-sm-left",
+  label: local_assigns[:text] || "Back",
+  color: local_assigns[:color] || :default,
+  data: {controller: "back", action: "back#back"}
+) %>

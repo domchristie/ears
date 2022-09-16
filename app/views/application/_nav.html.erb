@@ -1,35 +1,14 @@
-<nav <%= turn_attributes %> class="sticky top-0 z-20 px-fl-xs-md py-fl-xs overflow-hidden bg-white drop-shadow-[0_2px_0_rgba(0,0,0,0.08)]">
+<nav class="sticky top-0 z-20 p-2.5 sm:px-fl-xs-lg overflow-hidden bg-white drop-shadow-[0_2px_0_rgba(0,0,0,0.08)]">
   <div class="flex w-full items-center">
     <% if current_page?(root_path) %>
-      <%= link_to(
-        "👂",
-        request.url,
-        tabindex: 0,
-        class: "text-fl-lg leading-[1]",
-        onclick: "window.location.reload(); return false",
-        aria: { label: "All Ears" },
-        title: "All Ears"
-      ) %>
+      <%= render "nav_link", path: request.url, icon: :refresh, label: "Refresh", onclick: "window.location.reload(); return false" %>
     <% else %>
-      <%= link_to(
-        icon(:"arrow-sm-left", solid: true, class: "w-5 h-5", title: local_assigns[:text] || "Back", aria: true),
-        root_path,
-        data: {controller: "back", action: "back#back"},
-        tabindex: 0,
-        class: "block p-0.5 rounded-full border-2 border-black ring ring-white/20 focus:outline-none focus:ring-white/75"
-      ) %>
+      <%= render "back", path: root_path %>
     <% end %>
-    <%= link_to(
-      icon(:"plus-sm", solid: true, class: "w-5 h-5", title: "Add", aria: true),
-      new_directories_search_path,
-      tabindex: 0,
-      class: "ml-auto mr-fl-xs-sm block p-0.5 rounded-full border-2 border-black ring ring-white/20 focus:outline-none focus:ring-white/75"
-    ) %>
-    <%= link_to(
-      icon(:"dots-horizontal", solid: true, class: "w-5 h-5", title: "Settings", aria: true),
-      settings_path,
-      tabindex: 0,
-      class: "block p-0.5 rounded-full border-2 border-black ring ring-white/20 focus:outline-none focus:ring-white/75"
-    ) %>
+
+    <div class="flex justify-end ml-auto space-x-fl-xs-md">
+      <%= render "nav_link", path: new_directories_search_path, icon: :search, label: "Search" %>
+      <%= render "nav_link", path: settings_path, icon: :"dots-horizontal", label: "Settings" %>
+    </div>
   </div>
 </nav>
