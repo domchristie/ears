@@ -53,6 +53,8 @@
       </div>
     <% end %>
 
+    <div style="height: env(safe-area-inset-bottom, 0)"></div>
+
     <script data-turbo-eval="false">
     if (navigator.serviceWorker) {
       navigator.serviceWorker.register('/serviceworker.js', { scope: './' })
