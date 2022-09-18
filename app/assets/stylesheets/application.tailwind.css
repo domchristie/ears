@@ -9,6 +9,10 @@
 }
 
 @layer components {
+  img {
+    @apply bg-white;
+  }
+
   progress {
     @apply bg-black/10;
   }

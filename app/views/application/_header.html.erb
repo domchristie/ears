@@ -1,7 +1,7 @@
 <% yield p = component_partial %>
 
 <div class="relative h-64 w-full overflow-hidden">
-  <div class="absolute inset-0">
+  <div class="absolute inset-0 bg-neutral-100">
     <div class="absolute inset-0 scale-150 bg-cover bg-top blur-lg [@supports(backdrop-filter:blur(0))]:blur-none" style="background-image: url('<%= image %>')"></div>
     <div class="absolute inset-0 backdrop-blur-xl"></div>
   </div>
