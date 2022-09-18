@@ -3,7 +3,7 @@ padding = local_assigns[:padding] || "p-2"
 size = local_assigns[:size] || "w-8 h-8"
 %>
 
-<%= render "plays/toggle", play: play, options: {class: ["flex bg-black/60 ring ring-white/20 focus-within:ring-white/75 rounded-full", padding, {"bg-black/20": play.nil?}]} do %>
+<%= render "plays/toggle", play: play, options: {class: ["flex ring ring-white/20 focus-within:ring-white/75 rounded-full", padding, {"bg-black/60": play.present?, "bg-black/20": play.nil?}]} do %>
   <%= inline_svg_tag "icons/play.svg", class: "block playing:hidden loading:hidden  #{size} mx-auto text-white translate-x-[2.5%]", title: "Play", aria: true %>
   <%= inline_svg_tag "icons/pause.svg", class: "hidden playing:block loading:hidden #{size} mx-auto text-white", title: "Pause", aria: true %>
 

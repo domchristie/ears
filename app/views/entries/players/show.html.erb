@@ -1,1 +1,1 @@
-<%= render "entries/players/player", entry: @entry %>
+<%= render "entries/players/player", entry: @entry, play: @entry.play_by(Current.user) %>

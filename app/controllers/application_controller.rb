@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   private
 
   def setup_player
-    Current.play = Play.most_recent_by(Current.user)
+    Current.play = Play.most_recent_by(Current.user) || NilPlay.new
     Current.entry = Current.play.try(:entry)
   end
 end

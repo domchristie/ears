@@ -6,7 +6,7 @@ attributes[:aria] = {labelledby: "Skip #{direction} #{seconds} seconds"}
 
 <button <%= tag.attributes(attributes) %>>
   <%= inline_svg_tag "icons/skip-#{direction}.svg", class: "w-10 h-10" %>
-  <span aria-hidden="true" class="block w-7 h-7 leading-7 text-sm tracking-tight font-semibold text-black absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-full">
+  <span aria-hidden="true" class="block w-7 h-7 leading-7 text-sm tracking-tight font-semibold absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-full">
     <span class="block -translate-y-px"><%= seconds %></span>
   </span>
 </button>

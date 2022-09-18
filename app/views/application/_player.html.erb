@@ -2,8 +2,8 @@
     <%= render "entries/players/audio", source: entry.try(:resume_enclosure_url, play) %>
 
     <div style="margin-bottom: env(safe-area-inset-bottom)"><%# Leave room for iOS home bar %>
-      <%= turbo_frame_tag :player, src: (entry_player_path(entry) if entry.present?) do %>
-        <%= render "entries/players/player", entry: NilEntry.new %>
+      <%= turbo_frame_tag :player do %>
+        <%= render "entries/players/player", entry: Current.entry, play: Current.play %>
       <% end %>
     </div>
   </div>
