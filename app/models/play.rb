@@ -14,7 +14,7 @@ class Play < ApplicationRecord
   end
 
   def progress
-    elapsed / duration
+    duration == 0 ? 0 : elapsed / duration
   end
 
   def complete?
