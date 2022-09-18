@@ -11,7 +11,7 @@
     <%= yield %>
   </main>
 
-  <%= render "player" %>
+  <%= render "player", entry: Current.entry, play: Current.play %>
 
   <script data-turbo-eval="false">
   if (navigator.serviceWorker) {

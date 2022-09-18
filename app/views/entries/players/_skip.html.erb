@@ -1,6 +1,6 @@
 <%
 attributes = local_assigns.without(:seconds, :direction)
-attributes[:class] = Array(attributes[:class]).push(["block relative rounded-full focus:text-blue-600 focus:ring-2 focus:outline-none focus:animate-press transition-transform touch-none select-none"])
+attributes[:class] = Array(attributes[:class]).push(["block relative rounded-full focus:text-blue-600 focus:ring-2 focus:outline-none focus:animate-press transition-transform touch-none select-none disabled:text-neutral-400"])
 attributes[:aria] = {labelledby: "Skip #{direction} #{seconds} seconds"}
 %>
 
