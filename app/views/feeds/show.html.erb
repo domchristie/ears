@@ -1,38 +1,20 @@
-<% @title = @feed_show.feed.title %>
+<% @title = @feed_show.title %>
 
 <nav class="flex absolute w-full z-20 p-2.5 sm:px-fl-xs-lg">
   <%= render "back", path: root_path, color: :translucent_black %>
 </nav>
 
-<%= render "header", image: external_image_url(@feed_show.feed.image_url), title: @feed_show.feed.title do |p| %>
+<%= render "header", image: external_image_url(@feed_show.image_url), title: @feed_show.title do |p| %>
   <% p.content_for :meta do %>
-    <div class="text-lg"><%= @feed_show.feed.author %></div>
+    <div class="text-lg"><%= @feed_show.author %></div>
   <% end %>
 <% end %>
 
 <%= render "container" do %>
   <menu class="flex justify-center gap-x-4 max-w-sm mx-auto -mt-3">
-    <% if play = @feed_show.feed.most_recent_play_by(Current.user) %>
+    <% @feed_show.actions.each do |action| %>
       <li class="flex-1 min-w-0 max-w-[16rem] mx-auto text-center">
-        <%= render(
-          "plays/featured",
-          title: play.complete? ? "Replay" : "Resume",
-          play: play,
-          highlight: params[:source] == "recently_played"
-        ) %>
-        <%= render "plays/remaining_in_words", play: play, options: {class: "block select-none mt-0.5 text-xs text-neutral-500"} %>
-      </li>
-    <% end %>
-
-    <% if play&.entry != @feed_show.feed.most_recent_entry %>
-      <li class="flex-1 min-w-0 max-w-[16rem] mx-auto text-center">
-        <%= render(
-          "plays/featured",
-          title: "Latest",
-          play: play = @feed_show.feed.most_recent_entry.upcoming_play_by(Current.user),
-          highlight: params[:source] == "recently_updated"
-        ) %>
-        <%= render "plays/remaining_in_words", play: play, options: {class: "block select-none mt-0.5 text-xs text-neutral-500"} %>
+        <%= render action %>
       </li>
     <% end %>
   </menu>

@@ -30,3 +30,5 @@ class_names = highlight ? "bg-black text-white border-transparent" : "bg-white b
     <%= play.entry.title %>
   </p>
 <% end %>
+
+<%= render "plays/remaining_in_words", play: play, options: {class: "block select-none mt-0.5 text-xs text-neutral-500"} %>
