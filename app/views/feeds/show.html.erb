@@ -11,13 +11,15 @@
 <% end %>
 
 <%= render "container" do %>
-  <menu class="flex justify-center gap-x-4 max-w-sm mx-auto -mt-3">
-    <% @feed_show.actions.each do |action| %>
-      <li class="flex-1 min-w-0 max-w-[16rem] mx-auto text-center">
-        <%= render action %>
-      </li>
-    <% end %>
-  </menu>
+  <%= turbo_frame_tag :feed_actions do %>
+    <menu class="flex justify-center gap-x-4 max-w-sm mx-auto -mt-3">
+      <% @feed_show.actions.each do |action| %>
+        <li class="flex-1 min-w-0 max-w-[16rem] mx-auto text-center">
+          <%= render action %>
+        </li>
+      <% end %>
+    </menu>
+  <% end %>
 
   <hr class="border-2 my-fl-md">
 

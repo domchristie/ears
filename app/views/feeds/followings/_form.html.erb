@@ -1,0 +1,6 @@
+<%= form_with model: [feed, following] do |form| %>
+  <%= form.button class: "w-full bg-white border-neutral-200 relative flex items-center cursor-pointer items-center justify-center border-2 px-3 py-2 text-center text-sm font-semibold uppercase tracking-wide focus-within:border-black focus-within:ring" do %>
+    <%= icon :"plus-circle", solid: true, width: 20, height: 20, class: "w-5 h-5 mr-1 -ml-1" %>
+    Follow
+  <% end %>
+<% end %>

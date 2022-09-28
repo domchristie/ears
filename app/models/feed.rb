@@ -31,6 +31,10 @@ class Feed < ApplicationRecord
     plays.most_recent_by(user)
   end
 
+  def followed_by?(user)
+    followings.where(user: user).exists?
+  end
+
   def self.attributes_for_import(remote_feed)
     {
       web_sub_hub_url: remote_feed.hubs.first,

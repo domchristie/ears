@@ -26,8 +26,9 @@ Rails.application.routes.draw do
   resources :opml_imports, only: [:new, :create]
 
   get "feeds/:encoded_url", to: "feeds#show", constraints: {encoded_url: %r{encoded_url.+}}
-  resources :feeds, only: :show
+  resources :feeds, only: :show do
+    resources :followings, only: [:create], controller: "feeds/followings"
+  end
 
-  resources :followings, only: [:create, :destroy]
   root "users/dashboards#show"
 end

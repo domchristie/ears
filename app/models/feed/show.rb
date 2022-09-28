@@ -25,8 +25,9 @@ class Feed::Show
 
   def actions
     [
-      (replay_resume_action if most_recent_play.present?),
-      (latest_action if most_recent_play&.entry != most_recent_entry)
+      (follow_action unless followed?),
+      (replay_resume_action if followed? && most_recent_play.present?),
+      (latest_action if followed? && most_recent_play&.entry != most_recent_entry)
     ].compact
   end
 
@@ -47,6 +48,20 @@ class Feed::Show
 
   def most_recent_entry
     @most_recent_entry ||= feed.most_recent_entry
+  end
+
+  def followed?
+    @followed ||= feed.followed_by?(Current.user)
+  end
+
+  def follow_action
+    {
+      partial: "feeds/followings/form",
+      locals: {
+        feed: feed,
+        following: Following.find_or_initialize_by(user: Current.user, feed: feed)
+      }
+    }
   end
 
   def replay_resume_action
