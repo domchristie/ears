@@ -49,12 +49,12 @@
       class="block w-full h-1 appearance-none border-0 ring-1 ring-white/50 text-black"
     ></progress>
 
-    <div class="block p-1.5 text-sm font-medium text-center truncate text-black dark:text-white">
+    <div class="block p-1.5 text-sm font-medium text-center text-black dark:text-white">
       <%= link_to_if(
         entry.present?,
         "#{entry.feed.title} - #{entry.title}",
         entry.present? ? entry_path(entry) : "#",
-        class: "block",
+        class: "block truncate",
         data: {turbo_frame: "_top"}
       ) %>
     </div>
