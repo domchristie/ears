@@ -10,12 +10,13 @@ LocalTime.start()
 // clear cache after both turbo-frame and turbo-stream form submissions
 // https://github.com/hotwired/turbo/issues/554#issuecomment-1078479296
 ;(function () {
-const FetchMethod = { get: 0 }
+  const FetchMethod = { get: 0 }
   document.addEventListener('turbo:submit-end', async ({ detail }) => {
-    const nonGetFetch = detail.formSubmission.fetchRequest.method !== FetchMethod.get
-    const responseHTML = await detail.fetchResponse.responseHTML
-    if (detail.success && nonGetFetch && responseHTML) {
-      Turbo.clearCache()
-    }
+    const shouldClearCache = (
+      detail.success &&
+      await detail.fetchResponse?.responseHTML &&
+      detail.formSubmission.fetchRequest.method !== FetchMethod.get
+    )
+    if (shouldClearCache) Turbo.clearCache()
   })
 })()
