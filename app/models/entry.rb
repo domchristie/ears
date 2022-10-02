@@ -79,7 +79,9 @@ class Entry < ApplicationRecord
       itunes_summary: remote_entry.itunes_summary,
       enclosure_length: remote_entry.enclosure_length,
       enclosure_type: remote_entry.enclosure_type,
-      enclosure_url: remote_entry.enclosure_url
+      enclosure_url: remote_entry.enclosure_url,
+      podcast_chapters_url: remote_entry.podcast_chapters_url,
+      podcast_chapters_type: remote_entry.podcast_chapters_type
     }
   end
 
