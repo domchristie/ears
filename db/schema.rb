@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_02_151349) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_02_154548) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -165,6 +165,20 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_02_151349) do
     t.index ["rss_imageable_type", "rss_imageable_id"], name: "index_rss_images_on_rss_imageable_type_and_rss_imageable_id", unique: true
   end
 
+  create_table "table_of_contents", force: :cascade do |t|
+    t.bigint "entry_id", null: false
+    t.string "version"
+    t.string "author"
+    t.string "title"
+    t.string "podcast_name"
+    t.string "description"
+    t.string "file_name"
+    t.boolean "waypoints"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["entry_id"], name: "index_table_of_contents_on_entry_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", null: false
     t.datetime "created_at", null: false
@@ -191,5 +205,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_02_151349) do
   add_foreign_key "plays", "entries"
   add_foreign_key "plays", "feeds"
   add_foreign_key "plays", "users"
+  add_foreign_key "table_of_contents", "entries"
   add_foreign_key "web_subs", "feeds", column: "feed_url", primary_key: "url"
 end

@@ -1,0 +1,2 @@
+class TableOfContentsController < ApplicationController
+end

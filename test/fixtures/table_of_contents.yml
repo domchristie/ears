@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  entry: one
+  version: MyString
+  author: MyString
+  title: MyString
+  podcast_name: MyString
+  description: MyString
+  file_name: MyString
+  waypoints: false
+
+two:
+  entry: two
+  version: MyString
+  author: MyString
+  title: MyString
+  podcast_name: MyString
+  description: MyString
+  file_name: MyString
+  waypoints: false
