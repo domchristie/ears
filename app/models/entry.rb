@@ -1,6 +1,7 @@
 class Entry < ApplicationRecord
   belongs_to :feed, touch: true
   has_many :plays, dependent: :destroy
+  has_one :table_of_contents, dependent: :destroy
 
   def duration
     itunes_duration
