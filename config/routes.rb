@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :table_of_contents
   get "login", to: "sessions#new"
   post "login", to: "sessions#create"
   delete "logout", to: "sessions#destroy"
@@ -22,6 +21,7 @@ Rails.application.routes.draw do
   resources :entries, only: :show do
     resources :plays, only: [:create, :update], controller: "entries/plays"
     resource :player, only: :show, controller: "entries/players"
+    resource :table_of_contents, only: :show, controller: "entries/table_of_contents", path: "toc"
   end
 
   resources :opml_imports, only: [:new, :create]
