@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_02_154548) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_02_165608) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -176,6 +176,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_02_154548) do
     t.boolean "waypoints"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "last_modified_at"
+    t.string "etag"
     t.index ["entry_id"], name: "index_table_of_contents_on_entry_id"
   end
 
