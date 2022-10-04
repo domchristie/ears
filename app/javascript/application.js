@@ -17,6 +17,6 @@ LocalTime.start()
       await detail.fetchResponse?.responseHTML &&
       detail.formSubmission.fetchRequest.method !== FetchMethod.get
     )
-    if (shouldClearCache) Turbo.clearCache()
+    if (shouldClearCache) Turbo.cache.clear()
   })
 })()
