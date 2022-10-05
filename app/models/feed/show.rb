@@ -15,7 +15,7 @@ class Feed::Show
   def entries
     @entries ||= feed
       .entries
-      .order(published_at: :desc)
+      .order(published_at: feed.itunes_type == "serial" ? :asc : :desc)
       .limit(52) # TODO pagination
   end
 
