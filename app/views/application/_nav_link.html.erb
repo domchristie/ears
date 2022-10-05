@@ -5,7 +5,7 @@ colors = {
 }
 props = self.props(local_assigns.with_defaults(color: :default))
 self.props(props) => {path:, icon:, label:, color:, **options}
-options[:class] = Array(options[:class]).push("group p-1 rounded-full focus:outline-none")
+options[:class] = Array(options[:class]).push("group py-1 rounded-full focus:outline-none")
 %>
 
 <%= link_to path, options do %>
