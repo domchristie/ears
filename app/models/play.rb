@@ -10,7 +10,7 @@ class Play < ApplicationRecord
   end
 
   def duration
-    elapsed + remaining
+    remaining ? elapsed + remaining : entry.duration
   end
 
   def progress
