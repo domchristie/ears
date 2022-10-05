@@ -19,6 +19,7 @@
 }
 
 .prose p br + br,
+.prose p + br,
 .prose li br + br,
 .prose p br:only-child,
 .prose p:empty {
