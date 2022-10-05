@@ -77,10 +77,10 @@ module.exports = {
       addVariant('turn-exit', '.turn-exit &')
     }),
     plugin(function ({ addVariant }) {
-      addVariant('loading', '.--loading &')
-      addVariant('started', '.--started &')
-      addVariant('playing', '.--playing &')
-      addVariant('played', '.--played &')
+      addVariant('loading', ['&.--loading', '.--loading &'])
+      addVariant('started', ['&.--started', '.--started &'])
+      addVariant('playing', ['&.--playing', '.--playing &'])
+      addVariant('played', ['&.--played', '.--played &'])
     })
   ]
 }

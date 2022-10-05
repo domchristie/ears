@@ -2,6 +2,12 @@
 
 <nav class="flex absolute w-full z-20 p-2.5 sm:px-fl-xs-lg">
   <%= render "back", path: feed_path(@entry.feed), color: :translucent_black %>
+
+  <div class="flex justify-end ml-auto space-x-fl-3xs-xs">
+    <% if @entry.podcast_chapters_url.present? %>
+      <%= render "nav_link", path: entry_table_of_contents_path(@entry), color: :translucent_black, icon: :"book-open", label: "ToC" %>
+    <% end %>
+  </div>
 </nav>
 
 <%= render "header", image: external_image_url(@entry.image_url), title: @entry.title do |p| %>

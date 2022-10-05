@@ -1,5 +1,6 @@
 class TableOfContents < ApplicationRecord
   belongs_to :entry
+  has_many :chapters, dependent: :destroy
 
   def url
     entry.podcast_chapters_url

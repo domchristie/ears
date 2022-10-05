@@ -70,6 +70,20 @@ export default class PlayerController extends Controller {
     }
   }
 
+  async skipToAndPlay (event) {
+    event.preventDefault()
+
+    if (this.targetApplicable(event.currentTarget)) {
+      this.audioTarget.currentTime = event.params.time || 0.001
+      if (this.audioTarget.paused) this.audioTarget.play()
+    } else {
+      this.audioTarget.src = event.currentTarget.href
+      this.audioTarget.load()
+      await this.loadNewControls(this.findLoader(event.currentTarget))
+      this.audioTarget.play()
+    }
+  }
+
   skipBack (event = {}) {
     event.currentTarget?.focus()
     this.audioTarget.currentTime = Math.max(
@@ -179,6 +193,15 @@ export default class PlayerController extends Controller {
     return this._persistElapsedLater = (
       this._persistElapsedLater || throttle(_ => this.persistElapsed(), 20000)
     )
+  }
+
+  dispatchTimeUpdate () {
+    this.dispatch('timeupdate', {
+      detail: {
+        href: requestUrl(this.audioTarget.src),
+        currentTime: this.currentTime
+      }
+    })
   }
 
   // Callbacks

@@ -1,0 +1,48 @@
+<%
+entry = play.entry
+duration = end_time - chapter.start_time
+progress = (play.elapsed - chapter.start_time) / duration
+%>
+
+<article
+  data-controller="chapter"
+  data-chapter-start-time-value="<%= chapter.start_time %>"
+  data-chapter-end-time-value="<%= end_time %>"
+  data-action="player:timeupdate@window->chapter#update"
+  data-href="<%= entry.enclosure_url %>"
+  class="relative p-2.5 sm:px-fl-xs-lg"
+>
+  <a
+    href="<%= entry.enclosure_url %>#t=<%= chapter.start_time %>"
+    data-action="player#skipToAndPlay"
+    data-player-time-param="<%= chapter.start_time %>"
+    data-href="<%= entry.enclosure_url %>"
+    tabindex="0"
+    class="select-none before:absolute before:inset-0 before:z-10"
+  >
+    <span class="sr-only"><%= chapter.title %></span>
+  </a>
+
+  <%# Used to load the player %>
+  <%= link_to chapter.title, entry_player_path(entry, autoplay: true), data: {turbo_frame: "player", player_target: "loader"}, hidden: true, class: "hidden" %>
+
+  <header class="flex items-baseline font-semibold">
+    <data value="<%= chapter.start_time %>" class="block text-xs font-native tabular-nums text-neutral-500">
+      <%= chrono_duration(chapter.start_time, include_empty_hours: play.duration >= 1.hour) %>
+    </data>
+    <% if chapter.url %>
+      <%= link_to "Link", chapter.url, aria: {label: "Supporting content about #{chapter.title}"}, target: "_blank", class: "relative ml-auto z-10 text-sm underline p-0.5" %>
+    <% end %>
+  </header>
+
+  <p class="playing:font-semibold"><%= chapter.title || "Chapter #{index + 1}" %></p>
+
+  <progress
+    data-chapter-target="progress"
+    min="0"
+    max="1"
+    <%= "value=#{progress}" if (chapter.start_time..end_time).include?(play.elapsed) %>
+    class="block absolute bottom-0 left-0 right-0 w-full h-1 appearance-none border-0 text-black"
+  ></progress>
+  <div class="h-1"></div>
+</article>
