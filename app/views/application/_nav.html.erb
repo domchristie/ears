@@ -1,5 +1,4 @@
 <nav class="sticky top-0 z-20 p-2.5 sm:px-fl-xs-lg overflow-hidden bg-white [@supports(backdrop-filter:blur(0))]:bg-white/75 [@supports(backdrop-filter:blur(0))]:backdrop-blur">
-  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-bold text-3xl leading-none">Æ</div>
   <div class="flex w-full items-center">
     <% if current_page?(root_path) %>
       <%= render "nav_link", path: request.url, icon: :refresh, label: "Refresh", onclick: "window.location.reload(); return false" %>
