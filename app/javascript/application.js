@@ -2,7 +2,7 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 import LocalTime from "local-time"
-import Turn from "turn"
+import Turn from "@domchristie/turn"
 Turn.start()
 LocalTime.start()
 

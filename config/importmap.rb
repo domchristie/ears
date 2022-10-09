@@ -9,3 +9,4 @@ pin "local-time", to: "https://ga.jspm.io/npm:local-time@2.1.0/app/assets/javasc
 pin "turn", to: "turn.js"
 pin_all_from "app/javascript/helpers", under: "helpers"
 pin "humanize-duration", to: "https://ga.jspm.io/npm:humanize-duration@3.27.3/humanize-duration.js"
+pin "@domchristie/turn", to: "https://ga.jspm.io/npm:@domchristie/turn@1.0.0/dist/turn.min.js"
