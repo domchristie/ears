@@ -1,8 +1,8 @@
 <% @title = @feed_show.title %>
 
-<nav class="flex absolute w-full z-20 p-2.5 sm:px-fl-xs-lg">
+<%= render "nav", class: "absolute" do %>
   <%= render "back", path: root_path, color: :translucent_black %>
-</nav>
+<% end %>
 
 <%= render "header", image: external_image_url(@feed_show.image_url), title: @feed_show.title do |p| %>
   <% p.content_for :meta do %>

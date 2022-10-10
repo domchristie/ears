@@ -1,6 +1,9 @@
-<nav class="flex w-full z-20 p-2.5 sm:px-fl-xs-lg">
-  <%= render "back", path: entry_path(@toc_show.entry), color: :translucent_black %>
-</nav>
+<% content_for :nav do %>
+  <%= render "nav", color: :translucent_white, class: "fixed top-0" do %>
+    <%= render "back", path: entry_path(@toc_show.entry), color: :translucent_black %>
+  <% end %>
+  <div class="h-16"></div>
+<% end %>
 
 <% @toc_show.chapters.each_with_index do |chapter, i| %>
   <% end_time = chapter.end_time || @toc_show.chapters[i + 1]&.start_time || @toc_show.play.duration %>

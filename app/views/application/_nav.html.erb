@@ -1,14 +1,11 @@
-<nav class="sticky top-0 z-20 p-2.5 sm:px-fl-xs-lg overflow-hidden bg-white [@supports(backdrop-filter:blur(0))]:bg-white/75 [@supports(backdrop-filter:blur(0))]:backdrop-blur">
-  <div class="flex w-full items-center">
-    <% if current_page?(root_path) %>
-      <%= render "nav_link", path: request.url, icon: :refresh, label: "Refresh", onclick: "window.location.reload(); return false" %>
-    <% else %>
-      <%= render "back", path: root_path %>
-    <% end %>
+<%
+colors = {
+  default: "",
+  translucent_white: "bg-white [@supports(backdrop-filter:blur(0))]:bg-white/75 [@supports(backdrop-filter:blur(0))]:backdrop-blur"
+}
+props(local_assigns.with_defaults(color: :default)) => {color:, class: classes}
+%>
 
-    <div class="flex justify-end ml-auto space-x-fl-xs-md">
-      <%= render "nav_link", path: new_directories_search_path, icon: :search, label: "Search" %>
-      <%= render "nav_link", path: settings_path, icon: :"dots-horizontal", label: "Settings" %>
-    </div>
-  </div>
+<nav class="w-full flex z-20 p-3.5 sm:px-fl-xs-lg <%= self.class_names([classes, colors[color]]) %>">
+  <%= yield %>
 </nav>

@@ -1,11 +1,11 @@
 <%
 colors = {
-  default: "bg-gray-100",
+  default: "bg-gray-100 ring ring-white/50 group-focus:ring-white",
   translucent_black: "bg-black/60 text-white ring ring-white/20 group-focus:ring-white/75"
 }
 props = self.props(local_assigns.with_defaults(color: :default))
 self.props(props) => {path:, icon:, label:, color:, **options}
-options[:class] = Array(options[:class]).push("group py-1 rounded-full focus:outline-none")
+options[:class] = Array(options[:class]).push("group rounded-full focus:outline-none")
 %>
 
 <%= link_to path, options do %>
