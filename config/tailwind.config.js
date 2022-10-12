@@ -84,6 +84,8 @@ module.exports = {
       addVariant('started', ['&.--started', '.--started &'])
       addVariant('playing', ['&.--playing', '.--playing &'])
       addVariant('played', ['&.--played', '.--played &'])
+      addVariant('active', '&[data-active]')
+      addVariant('group-active', '.group[data-active] &')
     })
   ]
 }
