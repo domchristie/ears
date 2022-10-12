@@ -10,7 +10,7 @@ progress = (play.elapsed - chapter.start_time) / duration
   data-chapter-end-time-value="<%= end_time %>"
   data-action="player:timeupdate@window->chapter#update"
   data-href="<%= entry.enclosure_url %>"
-  class="relative p-3.5 sm:px-fl-xs-lg"
+  class="group relative p-3.5 sm:px-fl-xs-lg"
 >
   <a
     href="<%= entry.enclosure_url %>#t=<%= chapter.start_time %>"

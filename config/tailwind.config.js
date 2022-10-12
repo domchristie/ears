@@ -81,13 +81,13 @@ module.exports = {
     }),
     plugin(function ({ addVariant }) {
       addVariant('loading', '&.--loading')
-      addVariant('group-loading', '.--loading &')
+      addVariant('group-loading', '.group.--loading &')
       addVariant('started', '&.--started')
-      addVariant('group-started', '.--started &')
+      addVariant('group-started', '.group.--started &')
       addVariant('playing', '&.--playing')
-      addVariant('group-playing', '.--playing &')
+      addVariant('group-playing', '.group.--playing &')
       addVariant('played', '&.--played')
-      addVariant('group-played', '.--played &')
+      addVariant('group-played', '.group.--played &')
       addVariant('active', '&[data-active]')
       addVariant('group-active', '.group[data-active] &')
     })

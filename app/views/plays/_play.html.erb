@@ -1,7 +1,7 @@
 <div
   data-player-target="play"
   data-href="<%= play.entry&.enclosure_url %>"
-  class="flex items-center <%= play_state_class_names(play) %>"
+  class="group flex items-center <%= play_state_class_names(play) %>"
 >
   <span class="<%= class_names("hidden group-played:flex items-center") %>">
     <%= icon :"check-circle", solid: true, class: "h-[1.143em] w-[1.143em] -ml-px mr-1 text-teal-500" %>

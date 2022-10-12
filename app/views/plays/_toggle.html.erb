@@ -1,7 +1,7 @@
 <%
 entry = play.entry
 options = local_assigns.fetch(:options, {})
-options[:class] = Array(options[:class]).push("relative group #{play_state_class_names(play)}")
+options[:class] = Array(options[:class]).push("group relative #{play_state_class_names(play)}")
 %>
 
 <div data-player-target="play" data-href="<%= entry.enclosure_url %>" <%= tag.attributes(options) %>>
