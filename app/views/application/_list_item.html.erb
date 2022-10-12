@@ -1,20 +1,31 @@
-<% body = yield(p = component_partial) %>
+<%
+body = yield(p = component_partial)
+colors = {
+  default: "bg-white dark:bg-black focus-within:bg-grey-100 dark:focus-within:bg-grey-900",
+  accent: "bg-grey-50 dark:bg-grey-900 focus-within:bg-white dark:focus-within:bg-black"
+}
+props(local_assigns.with_defaults(color: :default)) => {color:}
+%>
 
-<%= content_tag (local_assigns[:tag] || :article), class: "group focus-within:bg-neutral-100 dark:focus-within:bg-neutral-800 relative flex items-center -mx-fl-2xs p-fl-2xs" do %>
-  <%= p.content_for :image %>
+<%= content_tag (local_assigns[:tag] || :article), class: "group relative #{colors[color]}" do %>
+  <div class="max-w-6xl px-fl-xs-lg mx-auto">
+    <div class="flex items-center p-fl-2xs -mx-fl-2xs ">
+      <%= p.content_for :image %>
 
-  <div class="space-y-fl-4xs-3xs flex-1 min-w-0">
-    <% class_names = "text-xl leading-tight font-semibold line-clamp-2" %>
-    <p class="<%= class_names %>">
-      <% if local_assigns[:method] %>
-        <%= button_to title, path, method: method, tabindex: 0, class: "#{class_names} after:absolute after:inset-0" %>
-      <% else %>
-        <%= link_to_if local_assigns[:path], title, local_assigns[:path], tabindex: 0, class: "after:absolute after:inset-0" %>
-      <% end %>
-    </p>
+      <div class="space-y-fl-4xs-3xs flex-1 min-w-0">
+        <% class_names = "text-xl leading-tight font-semibold line-clamp-2" %>
+        <p class="<%= class_names %>">
+          <% if local_assigns[:method] %>
+            <%= button_to title, path, method: method, tabindex: 0, class: "#{class_names} after:absolute after:inset-0" %>
+          <% else %>
+            <%= link_to_if local_assigns[:path], title, local_assigns[:path], tabindex: 0, class: "after:absolute after:inset-0" %>
+          <% end %>
+        </p>
 
-    <%= body %>
+        <%= body %>
+      </div>
+
+      <%= p.content_for :action %>
+    </div>
   </div>
-
-  <%= p.content_for :action %>
 <% end %>

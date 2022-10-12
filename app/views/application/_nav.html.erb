@@ -1,11 +1,11 @@
 <%
 colors = {
   default: "",
-  translucent_white: "bg-white [@supports(backdrop-filter:blur(0))]:bg-white/75 [@supports(backdrop-filter:blur(0))]:backdrop-blur"
+  translucent: "bg-frosted-glass-light dark:bg-frosted-glass-dark"
 }
-props(local_assigns.with_defaults(color: :default)) => {color:, class: classes}
+props(local_assigns.with_defaults(color: :default)) => {color:, class: classes, **rest}
 %>
 
-<nav class="w-full flex z-20 p-3.5 sm:px-fl-xs-lg <%= self.class_names([classes, colors[color]]) %>">
+<nav class="w-full flex z-20 p-3.5 sm:px-fl-xs-lg <%= self.class_names([classes, colors[color]]) %>" <%= tag.attributes(rest) %>>
   <%= yield %>
 </nav>

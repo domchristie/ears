@@ -14,12 +14,14 @@
       Recently updated feeds appear here
     <% end %>
   </div>
+<% end %>
 
   <% if @dashboard.feeds.any? %>
-    <%= render("heading", icon: :"rss", class: "mt-fl-lg mb-fl-2xs") { "Your Feeds" } %>
+    <%= render "container" do %>
+      <%= render("heading", icon: :"rss", class: "mt-fl-lg mb-fl-2xs") { "Your Feeds" } %>
+    <% end %>
 
     <%= render "list", class: "-mt-fl-3xs" do %>
       <%= render partial: "feeds/feed", collection: @dashboard.feeds %>
     <% end %>
   <% end %>
-<% end %>

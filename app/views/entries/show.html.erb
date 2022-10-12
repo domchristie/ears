@@ -1,13 +1,16 @@
 <% @title = @entry.title %>
 
-<%= render "nav", class: "absolute" do %>
-  <%= render "back", path: feed_path(@entry.feed), color: :translucent_black %>
+<% content_for :nav do %>
+  <%= render "nav", class: "group fixed", data: {layout_target: "respondable", active_when: "banner:invisible"} do %>
+    <div class="absolute inset-0 opacity bg-frosted-glass-light dark:bg-frosted-glass-dark -translate-y-full group-active:translate-y-0 opacity-0 group-active:opacity-100 transition duration-300"></div>
+    <%= render "back", path: feed_path(@entry.feed), color: :translucent_black %>
 
-  <div class="flex justify-end ml-auto space-x-fl-3xs-xs">
-    <% if @entry.podcast_chapters_url.present? %>
-      <%= render "nav_link", path: entry_table_of_contents_path(@entry), color: :translucent_black, icon: :"book-open", label: "ToC" %>
-    <% end %>
-  </div>
+    <div class="flex justify-end ml-auto space-x-fl-3xs-xs">
+      <% if @entry.podcast_chapters_url.present? %>
+        <%= render "nav_link", path: entry_table_of_contents_path(@entry), color: :translucent_black, icon: :"book-open", label: "ToC" %>
+      <% end %>
+    </div>
+  <% end %>
 <% end %>
 
 <%= render "header", image: external_image_url(@entry.image_url), title: @entry.title do |p| %>
@@ -23,12 +26,12 @@
   <% end %>
 
   <% p.content_for :meta do %>
-    <div class="justify-center text-lg leading-6">
+    <div class="justify-center text-lg leading-6 my-fl-3xs">
       <%= image_tag external_image_url(@entry.feed.image_url), class: "inline-block w-6 h-6 mr-1 object-cover align-top", width: 24, height: 24 %>
-      <%= link_to @entry.feed.title, feed_path(@entry.feed), class: "text-neutral-500" %>
+      <%= link_to @entry.feed.title, feed_path(@entry.feed), class: "text-grey-500 dark:text-grey-400" %>
     </div>
 
-    <div class="flex space-x-4 justify-center text-neutral-500 font-medium">
+    <div class="flex space-x-4 justify-center text-grey-500 dark:text-grey-400 font-medium">
       <%= local_relative_time @entry.published_at, type: "date", class: "block uppercase tracking-wide" %>
       <%= render @entry.play_by(current_user) %>
     </div>
@@ -37,14 +40,14 @@
 
 <%= render "container" do %>
   <% if @entry.summary && @entry.content && strip_tags(@entry.summary).gsub(/\s/, "")[0..70] != strip_tags(@entry.content).gsub(/\s/, "")[0..70] %>
-    <div class="mt-6 prose prose-neutral mx-auto text-center text-neutral-500">
+    <div class="mt-6 prose prose-grey mx-auto text-center text-grey-500 dark:text-grey-400">
       <%= sanitize @entry.summary %>
     </div>
   <% end %>
+<% end %>
 
-  <hr class="border-2 my-6 border-neutral-200">
-
-  <div data-controller="external-content" class="prose prose-neutral max-w-2xl mx-auto">
+<div class="relative px-fl-xs-lg py-fl-sm mt-fl-xs bg-grey-50 dark:bg-grey-900">
+  <div data-controller="external-content" class="prose prose-grey dark:prose-invert max-w-2xl mx-auto">
     <%= sanitize(@entry.content) || sanitize(@entry.description) %>
   </div>
-<% end %>
+</div>

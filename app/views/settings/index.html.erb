@@ -1,21 +1,19 @@
 <% content_for :nav, render("nav_bar") %>
 
-<%= render "container" do %>
-  <%= render "list", class: "mt-2" do %>
-    <%= render "list_item", title: "Import OPML", path: new_opml_import_path do |p| %>
-      <% p.content_for :image do %>
-        <div class="p-3 bg-neutral-100 group-focus-within:bg-white mr-3">
-          <%= icon :"cloud-upload", class: "w-6 h-6" %>
-        </div>
-      <% end %>
+<%= render "list", class: "mt-2" do %>
+  <%= render "list_item", title: "Import OPML", path: new_opml_import_path do |p| %>
+    <% p.content_for :image do %>
+      <div class="p-3 bg-grey-100 dark:bg-grey-700 group-focus-within:bg-white mr-3">
+        <%= icon :"cloud-upload", class: "w-6 h-6" %>
+      </div>
     <% end %>
+  <% end %>
 
-    <%= render "list_item", title: "Log out", path: logout_path, method: :delete do |p| %>
-      <% p.content_for :image do %>
-        <div class="p-3 bg-neutral-100 group-focus-within:bg-white mr-3">
-          <%= icon :logout, class: "w-6 h-6" %>
-        </div>
-      <% end %>
+  <%= render "list_item", title: "Log out", path: logout_path, method: :delete do |p| %>
+    <% p.content_for :image do %>
+      <div class="p-3 bg-grey-100 dark:bg-grey-700 group-focus-within:bg-white mr-3">
+        <%= icon :logout, class: "w-6 h-6" %>
+      </div>
     <% end %>
   <% end %>
 <% end %>

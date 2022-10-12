@@ -2,11 +2,11 @@
 
 <%= render "container" do %>
   <div class="max-w-sm mx-auto">
-    <h1 <%= turn_attributes %> class="text-sm uppercase tracking-wide font-semibold text-neutral-500 dark:text-neutral-400 mt-6 mb-3">Import OPML</h1>
+    <h1 <%= turn_attributes %> class="text-sm uppercase tracking-wide font-semibold mt-6 mb-3">Import OPML</h1>
     <%= form_with model: OpmlImport.new, class: "space-y-4" do |form| %>
       <%= form.label :file do %>
         <span class="sr-only">Choose OPML file</span>
-        <%= form.file_field :file, accept: ".opml,text/opml", class: "block w-full text-sm text-neutral-500 file:bg-neutral-100 file:border-0 file:rounded-none file:text-black file:px-2 file:py-1 file:text-center file:text-sm file:font-semibold file:font-[inherit]" %>
+        <%= form.file_field :file, accept: ".opml,text/opml", class: "block w-full text-sm text-grey-500 file:bg-grey-100 file:border-0 file:rounded-none file:text-black file:px-2 file:py-1 file:text-center file:text-sm file:font-semibold file:font-[inherit]" %>
       <% end %>
 
       <%= form.submit "Import", class: "rounded-none block w-full text-sm bg-white border-2 px-3 py-2 text-center text-sm font-semibold" %>

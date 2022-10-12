@@ -27,7 +27,7 @@ progress = (play.elapsed - chapter.start_time) / duration
   <%= link_to chapter.title, entry_player_path(entry, autoplay: true), data: {turbo_frame: "player", player_target: "loader"}, hidden: true, class: "hidden" %>
 
   <header class="flex items-baseline font-semibold">
-    <data value="<%= chapter.start_time %>" class="block text-xs font-native tabular-nums text-neutral-500">
+    <data value="<%= chapter.start_time %>" class="block text-xs font-native tabular-nums text-grey-500">
       <%= chrono_duration(chapter.start_time, include_empty_hours: play.duration >= 1.hour) %>
     </data>
     <% if chapter.url %>

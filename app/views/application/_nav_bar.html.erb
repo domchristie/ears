@@ -1,4 +1,4 @@
-<%= render "nav", color: :translucent_white, class: "fixed top-0" do %>
+<%= render "nav", color: :translucent, class: "fixed top-0" do %>
   <% if current_page?(root_path) %>
     <%= render "nav_link", path: request.url, icon: :refresh, label: "Refresh", onclick: "window.location.reload(); return false" %>
   <% else %>

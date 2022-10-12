@@ -1,18 +1,19 @@
 <% @title = @feed_show.title %>
 
-<%= render "nav", class: "absolute" do %>
-  <%= render "back", path: root_path, color: :translucent_black %>
+<% content_for :nav do %>
+  <%= render "nav", class: "group fixed", data: {layout_target: "respondable", active_when: "banner:invisible"} do %>
+    <div class="absolute inset-0 opacity bg-frosted-glass-light dark:bg-frosted-glass-dark -translate-y-full group-active:translate-y-0 opacity-0 group-active:opacity-100 transition duration-300"></div>
+    <%= render "back", path: root_path, color: :translucent_black %>
+  <% end %>
 <% end %>
 
 <%= render "header", image: external_image_url(@feed_show.image_url), title: @feed_show.title do |p| %>
   <% p.content_for :meta do %>
-    <div class="text-lg"><%= @feed_show.author %></div>
+    <p><%= @feed_show.author %></p>
   <% end %>
-<% end %>
 
-<%= render "container" do %>
   <%= turbo_frame_tag :feed_actions do %>
-    <menu class="flex justify-center gap-x-4 max-w-sm mx-auto -mt-3">
+    <menu class="flex justify-center gap-x-4 max-w-sm mt-fl-2xs mx-auto">
       <% @feed_show.actions.each do |action| %>
         <li class="flex-1 min-w-0 max-w-[16rem] mx-auto text-center">
           <%= render action %>
@@ -20,12 +21,10 @@
       <% end %>
     </menu>
   <% end %>
-
-  <hr class="border-2 my-fl-md">
-
-  <section class="max-w-[50rem] mx-auto">
-    <%= render "list", class: "-mt-fl-3xs" do %>
-      <%= render @feed_show.entries, user: Current.user %>
-    <% end %>
-  </section>
 <% end %>
+
+<div class="relative py-fl-2xs mt-fl-xs">
+  <%= render "list", class: "space-y-fl-3xs" do %>
+    <%= render @feed_show.entries, user: Current.user %>
+  <% end %>
+</div>
