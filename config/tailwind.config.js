@@ -82,7 +82,8 @@ module.exports = {
     plugin(function ({ addVariant }) {
       addVariant('loading', '&.--loading')
       addVariant('group-loading', '.--loading &')
-      addVariant('started', ['&.--started', '.--started &'])
+      addVariant('started', '&.--started')
+      addVariant('group-started', '.--started &')
       addVariant('playing', ['&.--playing', '.--playing &'])
       addVariant('played', ['&.--played', '.--played &'])
       addVariant('active', '&[data-active]')
