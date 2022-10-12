@@ -10,17 +10,17 @@ class_names = highlight ? "bg-black dark:bg-white text-white dark:text-black bor
     class: "#{class_names} relative flex flex-wrap min-w-0 cursor-pointer items-center justify-center border-2 px-3 py-2 text-center text-sm font-semibold uppercase tracking-wide focus-within:border-black focus-within:ring"
   }
 ) do %>
-  <span class="block playing:hidden group-loading:hidden p-0.5 my-px -ml-1 mr-1.5 rounded-full border-2 border-grey-200">
+  <span class="block group-playing:hidden group-loading:hidden p-0.5 my-px -ml-1 mr-1.5 rounded-full border-2 border-grey-200">
     <%= inline_svg_tag "icons/play.svg", class: "w-2.5 h-2.5 translate-x-[4%]", title: "Play", aria_hidden: true %>
   </span>
 
-  <span class="block playing:hidden group-loading:hidden"><%= title %></span>
+  <span class="block group-playing:hidden group-loading:hidden"><%= title %></span>
 
-  <span class="hidden playing:block my-px group-loading:hidden p-0.5 -ml-1 mr-1.5 rounded-full border-2 border-grey-200">
+  <span class="hidden group-playing:block my-px group-loading:hidden p-0.5 -ml-1 mr-1.5 rounded-full border-2 border-grey-200">
     <%= inline_svg_tag "icons/pause.svg", class: "w-2.5 h-2.5 translate-x-[1%]", title: "Pause", aria: true %>
   </span>
 
-  <span class="hidden playing:block group-loading:hidden">Pause</span>
+  <span class="hidden group-playing:block group-loading:hidden">Pause</span>
 
   <span class="hidden group-loading:block my-px p-0.5 rounded-full border-2 border-grey-200">
     <%= inline_svg_tag "icons/loading.svg", class: "group-loading:motion-safe:animate-spin w-2.5 h-2.5 #{highlight ? "text-white" : "text-grey-500"}", title: "Loading", aria: true %>

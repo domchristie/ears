@@ -4,8 +4,8 @@ size = local_assigns[:size] || "w-8 h-8"
 %>
 
 <%= render "plays/toggle", play: play, options: {class: ["flex ring ring-white/20 focus-within:ring-white/75 rounded-full", padding, {"bg-black/60": play.present?, "bg-black/20": play.nil?}]} do %>
-  <%= inline_svg_tag "icons/play.svg", class: "block playing:hidden group-loading:hidden  #{size} mx-auto text-white translate-x-[2.5%]", title: "Play", aria: true %>
-  <%= inline_svg_tag "icons/pause.svg", class: "hidden playing:block group-loading:hidden #{size} mx-auto text-white", title: "Pause", aria: true %>
+  <%= inline_svg_tag "icons/play.svg", class: "block group-playing:hidden group-loading:hidden  #{size} mx-auto text-white translate-x-[2.5%]", title: "Play", aria: true %>
+  <%= inline_svg_tag "icons/pause.svg", class: "hidden group-playing:block group-loading:hidden #{size} mx-auto text-white", title: "Pause", aria: true %>
 
   <span class="hidden group-loading:block mx-auto">
     <%= inline_svg_tag "icons/loading.svg", class: "group-loading:motion-safe:animate-spin #{size} text-white", title: "Loading", aria: true %>

@@ -35,7 +35,7 @@ progress = (play.elapsed - chapter.start_time) / duration
     <% end %>
   </header>
 
-  <p class="playing:font-semibold"><%= chapter.title || "Chapter #{index + 1}" %></p>
+  <p class="group-playing:font-semibold"><%= chapter.title || "Chapter #{index + 1}" %></p>
 
   <progress
     data-chapter-target="progress"
