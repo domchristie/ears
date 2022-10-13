@@ -80,6 +80,7 @@ GEM
       tzinfo (~> 2.0)
     addressable (2.8.1)
       public_suffix (>= 2.0.2, < 6.0)
+    authentication-zero (2.15.8)
     bcrypt (3.1.18)
     bindex (0.8.1)
     bootsnap (1.11.1)
@@ -297,6 +298,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  authentication-zero (~> 2.15)
   bcrypt (~> 3.1.7)
   bootsnap
   bullet (~> 7.0)
