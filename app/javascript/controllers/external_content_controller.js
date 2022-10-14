@@ -1,34 +1,24 @@
 
 import { Controller } from '@hotwired/stimulus'
 
-const ACTION = 'external-content#openInNewWindow'
-
 export default class ExternalContentController extends Controller {
   connect () {
-    this.anchors.forEach(this.addAction)
+    this.anchors.forEach(this.addTarget)
   }
 
   get anchors () {
-    return Array.from(this.element.querySelectorAll('a'))
+    return [...this.element.querySelectorAll('a')]
   }
 
-  addAction (a) {
-    a.dataset.action = a.dataset.action || ''
-    if (a.dataset.action.indexOf(ACTION) === -1) {
-      a.dataset.action += ` ${ACTION}`
-    }
+  addTarget (a) {
+    a.setAttribute('target', '_blank')
   }
 
-  removeAction (a) {
-    a.dataset.action = a.dataset.action.replace(` ${ACTION}`, '')
-  }
-
-  openInNewWindow (event) {
-    event.preventDefault()
-    window.open(event.target.href, '_blank')
+  removeTarget (a) {
+    a.removeAttribute('target')
   }
 
   disconnect () {
-    this.anchors.forEach(this.removeAction)
+    this.anchors.forEach(this.removeTarget)
   }
 }
