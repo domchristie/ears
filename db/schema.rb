@@ -20,9 +20,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_16_234459) do
     t.bigint "user_id", null: false
     t.string "user_agent"
     t.string "ip_address"
-    t.string "remember_token", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "remember_token", null: false
     t.index ["remember_token"], name: "index_active_sessions_on_remember_token", unique: true
     t.index ["user_id"], name: "index_active_sessions_on_user_id"
   end
