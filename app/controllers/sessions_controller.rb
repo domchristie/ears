@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-    @user = User.find_by(email: params[:user][:email].downcase)
+    @user = User.find_by(email: params[:user][:email].downcase.strip)
     if @user
       after_login_path = session[:user_return_to] || root_path
       active_session = login @user
