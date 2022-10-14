@@ -28,10 +28,7 @@ module PlaysHelper
     ].select(&:itself).join(" ")
   end
 
-  def play_state_class_names(play)
-    class_names(
-      "--started": play.started?,
-      "--played": play.complete?
-    )
+  def play_state_attributes(play)
+    {data: {started: play.started? || nil, played: play.complete? || nil}}
   end
 end

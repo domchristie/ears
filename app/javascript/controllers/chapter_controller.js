@@ -11,10 +11,10 @@ export default class ChapterController extends Controller {
   update (event) {
     if (this.eventApplicable(event)) {
       this.progressTarget.value = this.progress(event.detail.currentTime)
-      this.element.classList.add('--playing')
+      this.element.setAttribute('data-playing', true)
     } else {
       this.progressTarget.value = 0
-      this.element.classList.remove('--playing')
+      this.element.removeAttribute('data-playing')
     }
   }
 

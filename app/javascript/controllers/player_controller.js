@@ -103,19 +103,19 @@ export default class PlayerController extends Controller {
   updateToggles () {
     this.playTargets.forEach((target) => {
       if (this.targetApplicable(target)) {
-        target.classList.toggle('--loading', this.loading)
-        target.classList.toggle('--playing', this.playing)
+        target.toggleAttribute('data-loading', this.loading)
+        target.toggleAttribute('data-playing', this.playing)
       } else {
-        target.classList.remove('--loading')
-        target.classList.remove('--playing')
+        target.removeAttribute('data-loading')
+        target.removeAttribute('data-playing')
       }
     })
   }
 
   updatePlays () {
     this.ifApplicable(this.playTargets, t => {
-      t.classList.add('--started')
-      t.classList.toggle('--playing', this.playing)
+      t.setAttribute('data-started', true)
+      t.toggleAttribute('data-playing', this.playing)
     })
   }
 
@@ -138,7 +138,7 @@ export default class PlayerController extends Controller {
     })
 
     this.ifApplicable(this.playTargets, t => {
-      t.classList.toggle('--played', this.complete)
+      t.toggleAttribute('data-played', this.complete)
     })
 
     this.ifApplicable(this.timerIconTargets, t => {
