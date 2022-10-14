@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  CONFIRMATION_TOKEN_EXPIRATION = 10.minutes
+
   has_secure_password
 
   has_many :active_sessions, dependent: :destroy
@@ -17,4 +19,20 @@ class User < ApplicationRecord
     presence: true,
     uniqueness: true
   )
+
+  def confirm!
+    update_columns(confirmed_at: Time.current)
+  end
+
+  def confirmed?
+    confirmed_at.present?
+  end
+
+  def unconfirmed?
+    !confirmed?
+  end
+
+  def generate_confirmation_token
+    signed_id expires_in: CONFIRMATION_TOKEN_EXPIRATION, purpose: :confirm_email
+  end
 end
