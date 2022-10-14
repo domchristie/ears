@@ -5,7 +5,9 @@ class User < ApplicationRecord
   has_many :followed_feeds, through: :followings, source: :feed
   has_many :played_feeds, through: :plays, source: :feed
 
-  before_save :downcase_email
+  before_validation do
+    self.email = email.try(:downcase).try(:strip)
+  end
 
   validates(
     :email,
@@ -13,10 +15,4 @@ class User < ApplicationRecord
     presence: true,
     uniqueness: true
   )
-
-  private
-
-  def downcase_email
-    self.email = email.downcase
-  end
 end
