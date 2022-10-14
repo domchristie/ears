@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  has_secure_password
+
   has_many :active_sessions, dependent: :destroy
   has_many :followings, dependent: :destroy
   has_many :plays, dependent: :destroy
