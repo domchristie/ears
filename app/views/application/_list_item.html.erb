@@ -18,7 +18,7 @@ props(local_assigns.with_defaults(color: :default)) => {color:}
           <% if local_assigns[:method] %>
             <%= button_to title, path, method: method, tabindex: 0, class: "#{class_names} after:absolute after:inset-0" %>
           <% else %>
-            <%= link_to_if local_assigns[:path], title, local_assigns[:path], tabindex: 0, class: "after:absolute after:inset-0" %>
+            <%= link_to_if local_assigns[:path], title, local_assigns[:path], tabindex: 0, class: "after:absolute after:inset-0", data: {turbo_frame: "_top"} %>
           <% end %>
         </p>
 

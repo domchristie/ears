@@ -13,10 +13,16 @@ class Feed::Show
   end
 
   def entries
-    @entries ||= feed
-      .entries
-      .order(published_at: feed.itunes_type == "serial" ? :asc : :desc)
-      .limit(52) # TODO pagination
+    unless @entries
+      @entries = feed.entries
+      @entries = if @params[:query]
+        @entries.entry_search(@params[:query])
+      else
+        @entries.order(published_at: feed.itunes_type == "serial" ? :asc : :desc)
+      end
+      @entries = @entries.limit(52) # TODO pagination
+    end
+    @entries
   end
 
   def feed

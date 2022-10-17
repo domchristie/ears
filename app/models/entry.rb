@@ -1,4 +1,11 @@
 class Entry < ApplicationRecord
+  include PgSearch::Model
+  pg_search_scope(
+    :entry_search,
+    against: [[:title, "A"], :itunes_summary, :description, :content],
+    using: {tsearch: {prefix: true}}
+  )
+
   belongs_to :feed, touch: true
   has_many :plays, dependent: :destroy
   has_one :table_of_contents, dependent: :destroy

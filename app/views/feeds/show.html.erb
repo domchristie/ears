@@ -23,8 +23,19 @@
   <% end %>
 <% end %>
 
-<div class="relative py-fl-2xs mt-fl-xs">
-  <%= render "list", class: "space-y-fl-3xs" do %>
-    <%= render @feed_show.entries, user: Current.user %>
+<%= turbo_frame_tag :entries, class: "block mt-fl-xs" do %>
+  <%= render "container" do %>
+    <details <%= "open" if params[:query].present? %>>
+      <summary class="cursor-pointer">Search</summary>
+      <%= form_with url: feed_path(@feed_show.feed), method: :get, data: {turbo_action: :replace} do |form| %>
+        <%= form.search_field :query, value: params[:query], class: "block w-full py-0.5 px-1" %>
+      <% end %>
+    </details>
   <% end %>
-</div>
+
+  <div class="relative py-fl-2xs">
+    <%= render "list", class: "space-y-fl-3xs" do %>
+      <%= render @feed_show.entries, user: Current.user %>
+    <% end %>
+  </div>
+<% end %>
