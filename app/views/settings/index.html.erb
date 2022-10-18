@@ -3,7 +3,7 @@
 <%= render "list", class: "mt-2" do %>
   <%= render "list_item", title: "Import OPML", path: new_opml_import_path do |p| %>
     <% p.content_for :image do %>
-      <div class="p-3 bg-grey-100 dark:bg-grey-700 group-focus-within:bg-white mr-3">
+      <div class="p-3 bg-grey-100 dark:bg-grey-700 group-focus-within:bg-white dark:group-focus-within:bg-black mr-3">
         <%= icon :"cloud-upload", class: "w-6 h-6" %>
       </div>
     <% end %>
@@ -11,7 +11,7 @@
 
   <%= render "list_item", title: "Log out", path: logout_path, method: :delete do |p| %>
     <% p.content_for :image do %>
-      <div class="p-3 bg-grey-100 dark:bg-grey-700 group-focus-within:bg-white mr-3">
+      <div class="p-3 bg-grey-100 dark:bg-grey-700 group-focus-within:bg-white dark:group-focus-within:bg-black mr-3">
         <%= icon :logout, class: "w-6 h-6" %>
       </div>
     <% end %>
