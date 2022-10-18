@@ -15,7 +15,7 @@ class Feed::Show
   def entries
     unless @entries
       @entries = feed.entries
-      @entries = if @params[:query]
+      @entries = if @params[:query].present?
         @entries.entry_search(@params[:query])
       else
         @entries.order(published_at: feed.itunes_type == "serial" ? :asc : :desc)
