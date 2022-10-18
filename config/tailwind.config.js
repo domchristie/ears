@@ -24,7 +24,7 @@ module.exports = {
       animation: {
         press: 'press 0.3s cubic-bezier(0.65, 0.05, 0.35, 1) forwards',
         enter: 'fade-in-up 0.6s cubic-bezier(0.65, 0.05, 0.35, 1) forwards',
-        exit: 'fade-out-up 0.3s cubic-bezier(0.65, 0.05, 0.35, 1) 0.1s forwards',
+        exit: 'fade-out-up 0.3s cubic-bezier(0.65, 0.05, 0.35, 1) forwards',
       },
       colors: {
         grey: colors.zinc
