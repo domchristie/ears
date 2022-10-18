@@ -1,9 +1,11 @@
 <%= form_with url: login_path, scope: :user do |form| %>
-  <div>
-    <%= form.label :email %>
-    <%= form.email_field :email, required: true %>
-  </div>
-
   <%= form.hidden_field :remember_me, value: 1 %>
-  <%= form.submit "Sign In" %>
+  <div class="space-y-fl-xs">
+    <div>
+      <%= form.label :email %>
+      <%= form.email_field :email, ui.text_input.merge(required: true) %>
+    </div>
+
+    <%= form.submit "Sign In", ui.button %>
+  </div>
 <% end %>

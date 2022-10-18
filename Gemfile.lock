@@ -10,6 +10,14 @@ GIT
       multipart-post (>= 2.1.0)
       rest-client (~> 2.1, >= 2.1)
 
+GIT
+  remote: https://github.com/seanpdoyle/attributes_and_token_lists.git
+  revision: 48b12d3d18eef389a3c845486755eac1dd233832
+  branch: main
+  specs:
+    attributes_and_token_lists (0.1.0)
+      rails (>= 6.1.3.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -300,6 +308,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  attributes_and_token_lists!
   bcrypt (~> 3.1.7)
   bootsnap
   bullet (~> 7.0)

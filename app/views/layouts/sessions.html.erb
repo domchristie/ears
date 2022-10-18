@@ -1,6 +1,13 @@
 <%= layout :base do %>
-  <%= render "flash" %>
-  <main <%= turn_attributes %>>
-    <%= yield %>
-  </main>
+  <div class="min-h-dscreen grid grid-rows-[0.75fr_auto_1.25fr]">
+    <div>
+      <%= render "flash" %>
+    </div>
+
+     <main class="w-full px-fl-xs-lg" <%= turn_attributes %>>
+      <div class="max-w-xs mx-auto">
+        <%= yield  %>
+      </div>
+    </main>
+  </div>
 <% end %>

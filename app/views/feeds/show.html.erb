@@ -25,12 +25,13 @@
 
 <%= turbo_frame_tag :entries, class: "block mt-fl-xs" do %>
   <%= render "container" do %>
-    <details <%= "open" if params[:query].present? %>>
-      <summary class="cursor-pointer">Search</summary>
-      <%= form_with url: feed_path(@feed_show.feed), method: :get, data: {turbo_action: :replace} do |form| %>
-        <%= form.search_field :query, value: params[:query], class: "block w-full py-0.5 px-1" %>
-      <% end %>
-    </details>
+    <%= form_with url: feed_path(@feed_show.feed), method: :get, data: {turbo_action: :replace} do |form| %>
+      <div class="relative px-0.5 -mx-fl-xs-lg sm:px-0 sm:mx-0">
+        <%= icon :search, solid: true, class: "w-5 h-5 absolute top-1/2 left-2 -translate-y-1/2 text-grey-500 pointer-events-none", aria_hidden: true %>
+        <%= form.label :query, "Search", class: "sr-only" %>
+        <%= form.search_field :query, ui.text_input(size: :sm).merge(value: params[:query], class: "pl-8") %>
+      </div>
+    <% end %>
   <% end %>
 
   <div class="relative py-fl-2xs">

@@ -93,3 +93,5 @@ gem "bullet", "~> 7.0", :group => :development
 gem "imagekitio", github: "domchristie/imagekit-ruby", branch: "carrierwave"
 
 gem "pg_search", "~> 2.3"
+
+gem 'attributes_and_token_lists', github: "seanpdoyle/attributes_and_token_lists", branch: "main"

@@ -90,6 +90,24 @@ module.exports = {
       addVariant('group-played', '.group[data-played] &')
       addVariant('active', '&[data-active]')
       addVariant('group-active', '.group[data-active] &')
+    }),
+    plugin(function ({ addUtilities }) {
+      addUtilities({
+        '.min-h-dscreen': generate('minHeight'),
+        '.h-dscreen': generate('height')
+      })
+
+      function generate (property) {
+        return {
+          [property]: [
+            'calc(100vh - env(safe-area-inset-bottom, 0) - env(safe-area-inset-top, 0))',
+            '100dvh'
+          ],
+          '@supports (-webkit-touch-callout: none)': {
+            [property]: ['-webkit-fill-available', '100dvh']
+          }
+        }
+      }
     })
   ]
 }
