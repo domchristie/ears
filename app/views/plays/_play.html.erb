@@ -4,22 +4,22 @@
   class="group flex items-center"
   <%= tag.attributes(play_state_attributes(play)) %>
 >
-  <span class="<%= class_names("hidden group-played:flex items-center") %>">
+  <span class="<%= class_names("hidden group-data-played:flex items-center") %>">
     <%= icon :"check-circle", solid: true, class: "h-[1.143em] w-[1.143em] -ml-px mr-1 text-teal-500" %>
     Played
   </span>
 
-  <span class="group-played:hidden flex items-center">
+  <span class="group-data-played:hidden flex items-center">
     <%= render(
       "timer",
       progress: play.progress,
       options: {
         aria: {hidden: true},
         data: {player_target: "timerIcon", href: play.entry&.enclosure_url},
-        class: "h-[1.143em] w-[1.143em] -ml-px mr-1 text-grey-300 dark:text-grey-600 group-started:text-blue-500",
-        remaining: ({class: "group-started:text-blue-200"}),
-        progress: ({class: "group-started:text-white"}),
-        needle: ({class: "group-started:fill-blue-700"})
+        class: "h-[1.143em] w-[1.143em] -ml-px mr-1 text-grey-300 dark:text-grey-600 group-data-started:text-blue-500",
+        remaining: ({class: "group-data-started:text-blue-200"}),
+        progress: ({class: "group-data-started:text-white"}),
+        needle: ({class: "group-data-started:fill-blue-700"})
       }
     ) %>
 

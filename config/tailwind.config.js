@@ -29,6 +29,13 @@ module.exports = {
       colors: {
         grey: colors.zinc
       },
+      data: {
+        loading: 'loading',
+        started: 'started',
+        playing: 'playing',
+        played: 'played',
+        active: 'active',
+      },
       fontFamily: {
         sans: ['Bespoke Sans', ...defaultTheme.fontFamily.sans],
         mono: ['Roboto Mono', ...defaultTheme.fontFamily.mono],
@@ -78,18 +85,6 @@ module.exports = {
     plugin(function ({ addVariant }) {
       addVariant('turn-enter', '.turn-enter &')
       addVariant('turn-exit', '.turn-exit &')
-    }),
-    plugin(function ({ addVariant }) {
-      addVariant('loading', '&[data-loading]')
-      addVariant('group-loading', '.group[data-loading] &')
-      addVariant('started', '&[data-started]')
-      addVariant('group-started', '.group[data-started] &')
-      addVariant('playing', '&[data-playing]')
-      addVariant('group-playing', '.group[data-playing] &')
-      addVariant('played', '&[data-played]')
-      addVariant('group-played', '.group[data-played] &')
-      addVariant('active', '&[data-active]')
-      addVariant('group-active', '.group[data-active] &')
     }),
     plugin(function ({ addUtilities }) {
       addUtilities({

@@ -41,15 +41,15 @@
   .bg-frosted-glass-light {
     @apply
       bg-white/95
-      [@supports(backdrop-filter:blur(0))]:bg-white/75
-      [@supports(backdrop-filter:blur(0))]:backdrop-blur;
+      supports-[backdrop-filter:blur(0)]:bg-white/75
+      supports-[backdrop-filter:blur(0)]:backdrop-blur;
   }
 
   .bg-frosted-glass-dark {
     @apply
       bg-black/95
-      [@supports(backdrop-filter:blur(0))]:bg-black/75
-      [@supports(backdrop-filter:blur(0))]:backdrop-blur
+      supports-[backdrop-filter:blur(0)]:bg-black/75
+      supports-[backdrop-filter:blur(0)]:backdrop-blur
   }
 
   html.turn-before-exit [data-turn-exit],
