@@ -23,9 +23,9 @@
   <% end %>
 <% end %>
 
-<%= turbo_frame_tag :entries, class: "block mt-fl-xs" do %>
+<div class="mt-fl-xs">
   <%= render "container" do %>
-    <%= form_with url: feed_path(@feed_show.feed), method: :get, data: {turbo_action: :replace} do |form| %>
+    <%= form_with url: feed_path(@feed_show.feed), method: :get, data: {turbo_frame: :entries, turbo_action: :replace} do |form| %>
       <div class="relative px-0.5 -mx-fl-xs-lg sm:px-0 sm:mx-0">
         <%= icon :search, solid: true, class: "w-5 h-5 absolute top-1/2 left-2 -translate-y-1/2 text-grey-500 pointer-events-none", aria_hidden: true %>
         <%= form.label :query, "Search", class: "sr-only" %>
@@ -34,9 +34,11 @@
     <% end %>
   <% end %>
 
-  <div class="relative py-fl-2xs">
-    <%= render "list", class: "space-y-fl-3xs" do %>
-      <%= render @feed_show.entries, user: Current.user %>
-    <% end %>
-  </div>
-<% end %>
+  <%= turbo_frame_tag :entries do %>
+    <div class="relative py-fl-2xs">
+      <%= render "list", class: "space-y-fl-3xs" do %>
+        <%= render @feed_show.entries, user: Current.user %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
