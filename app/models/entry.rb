@@ -1,4 +1,5 @@
 class Entry < ApplicationRecord
+  include Hashid::Rails
   include PgSearch::Model
   pg_search_scope(
     :entry_search,

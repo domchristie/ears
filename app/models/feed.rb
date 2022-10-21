@@ -1,4 +1,6 @@
 class Feed < ApplicationRecord
+  include Hashid::Rails
+
   has_many :entries, dependent: :destroy
   has_one :most_recent_entry, -> { order(published_at: :desc) }, class_name: "Entry"
   has_one :rss_image, as: :rss_imageable

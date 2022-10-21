@@ -41,7 +41,7 @@ class Feed::Show
 
   def find_feed
     if @params[:id]
-      Feed.find(@params[:id])
+      Feed.find_by_hashid!(@params[:id])
     elsif @params[:encoded_url]
       url = Feed.decode_url(@params[:encoded_url])
       Feed.find_or_create_by(url: url)

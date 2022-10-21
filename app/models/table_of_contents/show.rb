@@ -31,7 +31,7 @@ class TableOfContents::Show
   private
 
   def find_entry
-    Entry.find(@params[:entry_id])
+    Entry.find_by_hashid!(@params[:entry_id])
   end
 
   def find_table_of_contents

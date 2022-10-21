@@ -1,6 +1,6 @@
 class Entries::PlaysController < ApplicationController
   def create
-    entry = Entry.find(params[:entry_id])
+    entry = Entry.find_by_hashid!(params[:entry_id])
     @play = Current.user.plays.find_or_initialize_by(
       entry: entry,
       feed: entry.feed
