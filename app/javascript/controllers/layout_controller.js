@@ -12,6 +12,10 @@ export default class LayoutController extends Controller {
     this.observableTargets.forEach(t => this.observer.observe(t))
   }
 
+  scrollToTop () {
+    window.scroll({ top: 0, behavior: 'smooth' })
+  }
+
   observed (entries) {
     const respondables = this.respondableTargets
     entries.forEach(entry => {
