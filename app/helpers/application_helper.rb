@@ -1,6 +1,6 @@
 module ApplicationHelper
   def layout(name, args = {}, &block)
-    render layout: "layouts/#{name}", locals: args, inline: capture(&block)
+    render layout: "layouts/#{name}", locals: args, html: capture(&block)
   end
 
   def icon(name, options = {})
