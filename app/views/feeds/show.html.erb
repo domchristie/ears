@@ -30,7 +30,7 @@
     <%= form_with url: feed_path(@feed_show.feed), method: :get, data: {turbo_frame: :entries, turbo_action: :replace, controller: "live-search", live_search_target: "form"}, class: "group px-px sm:px-0 -mx-fl-xs-lg sm:mx-0" do |form| %>
       <fieldset class="flex items-center">
         <div class="relative flex-1">
-          <%= icon :search, solid: true, class: "w-5 h-5 absolute top-1/2 left-2 -translate-y-1/2 text-grey-500 pointer-events-none", aria_hidden: true %>
+          <%= icon :search, solid: true, class: "w-5 h-5 absolute top-1/2 left-2 -translate-y-1/2 text-grey-500 dark:text-grey-400 pointer-events-none", aria_hidden: true %>
           <%= form.label :query, "Search", class: "sr-only" %>
           <%= form.search_field :query, ui.text_input(size: :sm).merge(value: params[:query], class: "pl-8", data: {live_search_target: "input", action: "live-search#search live-search#setQuery"}) %>
         </div>
