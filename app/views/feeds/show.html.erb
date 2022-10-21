@@ -35,7 +35,7 @@
           <%= form.search_field :query, ui.text_input(size: :sm).merge(value: params[:query], class: "pl-8", data: {live_search_target: "input", action: "live-search#search live-search#setQuery"}) %>
         </div>
         <div data-live-search-target="cancel" class="overflow-hidden transition-[width] group-data-[query]:w-[var(--width)] group-data-[query='']:w-0">
-          <%= link_to "Cancel", feed_path(@feed_show.feed), data: {turbo_frame: :entries, turbo_action: :replace, action: "live-search#cancel"}, class: "px-fl-3xs" %>
+          <%= link_to "Cancel", feed_path(@feed_show.feed), data: {turbo_frame: :entries, turbo_action: :replace, action: "live-search#cancel"}, class: "px-fl-2xs" %>
         </div>
       </fieldset>
     <% end %>
