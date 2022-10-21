@@ -27,19 +27,24 @@
 
 <div class="mt-fl-xs">
   <%= render "container" do %>
-    <%= form_with url: feed_path(@feed_show.feed), method: :get, data: {turbo_frame: :entries, turbo_action: :replace} do |form| %>
-      <div class="relative px-0.5 -mx-fl-xs-lg sm:px-0 sm:mx-0">
-        <%= icon :search, solid: true, class: "w-5 h-5 absolute top-1/2 left-2 -translate-y-1/2 text-grey-500 pointer-events-none", aria_hidden: true %>
-        <%= form.label :query, "Search", class: "sr-only" %>
-        <%= form.search_field :query, ui.text_input(size: :sm).merge(value: params[:query], class: "pl-8") %>
-      </div>
+    <%= form_with url: feed_path(@feed_show.feed), method: :get, data: {turbo_frame: :entries, turbo_action: :replace, controller: "live-search", live_search_target: "form"}, class: "group px-px sm:px-0 -mx-fl-xs-lg sm:mx-0" do |form| %>
+      <fieldset class="flex items-center">
+        <div class="relative flex-1">
+          <%= icon :search, solid: true, class: "w-5 h-5 absolute top-1/2 left-2 -translate-y-1/2 text-grey-500 pointer-events-none", aria_hidden: true %>
+          <%= form.label :query, "Search", class: "sr-only" %>
+          <%= form.search_field :query, ui.text_input(size: :sm).merge(value: params[:query], class: "pl-8", data: {live_search_target: "input", action: "live-search#search live-search#setQuery"}) %>
+        </div>
+        <div data-live-search-target="cancel" class="overflow-hidden transition-[width] group-data-[query]:w-[var(--width)] group-data-[query='']:w-0">
+          <%= link_to "Cancel", feed_path(@feed_show.feed), data: {turbo_frame: :entries, turbo_action: :replace, action: "live-search#cancel"}, class: "px-fl-3xs" %>
+        </div>
+      </fieldset>
     <% end %>
   <% end %>
 
-  <%= turbo_frame_tag :entries do %>
-    <div class="relative py-fl-2xs">
-      <%= render "list", class: "space-y-fl-3xs" do %>
-        <%= render @feed_show.entries, user: Current.user %>
+  <%= turbo_frame_tag :entries, class: "block relative py-fl-2xs space-y-fl-3xs" do %>
+    <div class="<%= class_names "min-h-[50vh]": params[:query] %>">
+      <%= render(@feed_show.entries, user: Current.user) || render("empty") do %>
+        <%= params[:query].present? ? "No results" : "No episodes" %>
       <% end %>
     </div>
   <% end %>
