@@ -1,4 +1,6 @@
 class Play < ApplicationRecord
+  include Hashid::Rails
+
   belongs_to :entry
   belongs_to :feed
   belongs_to :user

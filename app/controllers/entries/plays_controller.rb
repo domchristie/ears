@@ -10,7 +10,7 @@ class Entries::PlaysController < ApplicationController
   end
 
   def update
-    @play = Play.find(params[:id])
+    @play = Play.find_by_hashid!(params[:id])
     return head(:forbidden) unless Current.user == @play.user
 
     @play.update!(play_params)
