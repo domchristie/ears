@@ -41,8 +41,8 @@
     <% end %>
   <% end %>
 
-  <%= turbo_frame_tag :entries, class: "block relative py-fl-2xs space-y-fl-3xs" do %>
-    <div class="<%= class_names "min-h-[50vh]": params[:query] %>">
+  <%= turbo_frame_tag :entries, class: "block relative py-fl-2xs" do %>
+    <div class="<%= class_names ["space-y-fl-3xs", {"min-h-[50vh]": params[:query]}] %>">
       <%= render(@feed_show.entries, user: Current.user) || render("empty") do %>
         <%= params[:query].present? ? "No results" : "No episodes" %>
       <% end %>
