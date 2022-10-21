@@ -11,6 +11,8 @@ class Feed < ApplicationRecord
     Feed.where(id: user.followed_feeds).or(Feed.where(id: user.played_feeds))
   }
 
+  scope :web_subable, -> { Feed.where.not(web_sub_hub_url: nil) }
+
   after_commit :start_web_sub, if: :saved_change_to_web_sub_hub_url?
 
   validates :url, format: %r{http(s)?://.+}
@@ -66,8 +68,6 @@ class Feed < ApplicationRecord
   def self.decode_url(url)
     Encryptor.url_safe_decrypt(url[11..])
   end
-
-  private
 
   def start_web_sub
     StartWebSubJob.perform_later(self)
