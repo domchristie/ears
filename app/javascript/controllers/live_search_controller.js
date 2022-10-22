@@ -6,8 +6,13 @@ export default class LiveSearchController extends Controller {
 
   initialize () {
     this.search = debounce(this.search, 300).bind(this)
-    this.#hideCancel()
   }
+
+  connect () {
+    this.setCancelWidth()
+    this.setQuery()
+  }
+
   search () {
     this.formTarget.requestSubmit()
   }
@@ -26,10 +31,5 @@ export default class LiveSearchController extends Controller {
       '--width',
       `${this.cancelTarget.clientWidth}px`
     )
-  }
-
-  #hideCancel () {
-    this.setCancelWidth()
-    this.cancelTarget.classList.add('w-0')
   }
 }
