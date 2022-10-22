@@ -103,6 +103,7 @@ module.exports = {
     plugin(function ({ addVariant }) {
       addVariant('turn-enter', '.turn-enter &')
       addVariant('turn-exit', '.turn-exit &')
+      addVariant('turbo-preview', '[data-turbo-preview] &')
     }),
     plugin(function ({ addUtilities }) {
       addUtilities({
