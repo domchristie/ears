@@ -48,7 +48,7 @@
   .bg-frosted-glass-dark {
     @apply
       bg-black/95
-      supports-[backdrop-filter:blur(0)]:bg-black/75
+      supports-[backdrop-filter:blur(0)]:bg-black/60
       supports-[backdrop-filter:blur(0)]:backdrop-blur
   }
 
