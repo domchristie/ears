@@ -22,6 +22,11 @@ module Authentication
     active_session
   end
 
+  def login_and_remember(user)
+    session = login(user)
+    remember(session)
+  end
+
   def forget_active_session
     cookies.delete :remember_token
   end

@@ -1,9 +1,9 @@
 <%= layout :base do %>
   <%= render "spinner" %>
 
-  <%= render "flash" %>
-
   <%= content_for :nav %>
+
+  <%= render "flash" %>
 
   <main <%= turn_attributes %>>
     <%= yield %>
