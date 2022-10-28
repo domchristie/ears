@@ -72,6 +72,10 @@ class Entry < ApplicationRecord
       last_modified_at: remote_entry.updated,
       guid: remote_entry.entry_id,
       image_url: (remote_entry.image unless remote_entry.image == remote_entry.enclosure_url),
+      enclosure_length: remote_entry.enclosure_length,
+      enclosure_type: remote_entry.enclosure_type,
+      enclosure_url: remote_entry.enclosure_url,
+
       itunes_author: remote_entry.itunes_author,
       itunes_block: remote_entry.itunes_block == "Yes",
       itunes_duration: parse_duration(remote_entry.itunes_duration),
@@ -86,9 +90,7 @@ class Entry < ApplicationRecord
       itunes_title: remote_entry.itunes_title,
       itunes_episode_type: remote_entry.itunes_episode_type,
       itunes_summary: remote_entry.itunes_summary,
-      enclosure_length: remote_entry.enclosure_length,
-      enclosure_type: remote_entry.enclosure_type,
-      enclosure_url: remote_entry.enclosure_url,
+
       podcast_chapters_url: remote_entry.podcast_chapters_url,
       podcast_chapters_type: remote_entry.podcast_chapters_type
     }
