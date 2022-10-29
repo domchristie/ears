@@ -1,5 +1,9 @@
 one:
   email: one@example.com
+  password_digest: <%= BCrypt::Password.create("password", cost: 5) %>
+  confirmed_at: <%= 7.days.ago %>
 
 two:
   email: two@example.com
+  password_digest: <%= BCrypt::Password.create("password", cost: 5) %>
+  confirmed_at: <%= 7.days.ago %>
