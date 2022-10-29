@@ -10,6 +10,14 @@ module UiHelper
       @view_context = view_context
     end
 
+    def heading
+      tag.attributes class: "text-fl-xs uppercase tracking-wide font-semibold"
+    end
+
+    def label
+      tag.attributes class: "block text-fl-xs"
+    end
+
     def text_input(size: :default)
       sizes = {
         default: "",

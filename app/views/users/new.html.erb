@@ -1,19 +1,21 @@
+<h1 <%= tag.attributes(ui.heading).merge(class: "mb-fl-2xs") %>>Sign Up</h1>
+
 <%= form_with model: @user, url: signup_path do |form| %>
   <%= render "form_errors", object: form.object %>
 
   <div class="space-y-fl-xs">
     <div>
-      <%= form.label :email %>
+      <%= form.label :email, nil, ui.label %>
       <%= form.email_field :email, ui.text_input.merge(required: true) %>
     </div>
 
     <div>
-      <%= form.label :password %>
+      <%= form.label :password, nil, ui.label %>
       <%= form.password_field :password, ui.text_input.merge(required: true) %>
     </div>
 
     <div>
-      <%= form.label :password_confirmation %>
+      <%= form.label :password_confirmation, nil, ui.label %>
       <%= form.password_field :password_confirmation, ui.text_input.merge(required: true) %>
     </div>
 
