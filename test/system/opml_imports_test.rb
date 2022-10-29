@@ -9,7 +9,7 @@ class OpmlImportsTest < ApplicationSystemTestCase
     attach_file "Choose OPML file", file_fixture("valid.opml")
     click_button "Import"
     assert_text "Import in progess"
-    click_link "Listen"
+    refresh
     assert_selector "article p a", text: "Radiolab"
     assert_selector "article p a", text: "99% Invisible"
   end
