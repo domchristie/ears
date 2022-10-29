@@ -1,5 +1,5 @@
 class ConfirmationsController < ApplicationController
-  before_action :redirect_if_authenticated
+  before_action :redirect_if_authenticated, only: [:new, :create]
 
   layout "sessions"
 

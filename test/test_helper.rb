@@ -2,6 +2,7 @@ ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
 require "rails/test_help"
 require "webmock/minitest"
+require "email_spec"
 
 Minitest.after_run do
   FileUtils.rm_rf(ActiveStorage::Blob.services.fetch(:test_fixtures).root)

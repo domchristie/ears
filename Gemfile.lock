@@ -124,6 +124,10 @@ GEM
     digest (3.1.0)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
+    email_spec (2.2.1)
+      htmlentities (~> 4.3.3)
+      launchy (~> 2.1)
+      mail (~> 2.7)
     erubi (1.11.0)
     feedjira (3.2.1)
       loofah (>= 2.3.1)
@@ -137,6 +141,7 @@ GEM
       hashids (~> 1.0)
     hashids (1.0.6)
     honeybadger (4.12.1)
+    htmlentities (4.3.4)
     http-accept (1.7.0)
     http-cookie (1.0.5)
       domain_name (~> 0.5)
@@ -160,6 +165,8 @@ GEM
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
+    launchy (2.5.0)
+      addressable (~> 2.7)
     local_time (2.1.0)
     loofah (2.19.0)
       crass (~> 1.0.2)
@@ -319,6 +326,7 @@ DEPENDENCIES
   bullet (~> 7.0)
   capybara
   debug
+  email_spec
   feedjira (~> 3.2)
   hashid-rails (~> 1.4)
   honeybadger (~> 4.12)

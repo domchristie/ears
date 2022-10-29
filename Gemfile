@@ -75,6 +75,7 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "webdrivers"
+  gem "email_spec"
 end
 
 gem "feedjira", "~> 3.2"

@@ -1,16 +1,18 @@
 require "test_helper"
 
-WebMock.disable_net_connect!(allow: lambda { |uri|
+WebMock.disable_net_connect!(allow_localhost: true, allow: lambda { |uri|
   uri.host.include?("chromedriver.storage.googleapis.com")
 })
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
-  driven_by :selenium, using: :chrome, screen_size: [1400, 1400]
+  include ActionMailer::TestHelper
+  include EmailSpec::Helpers
+  driven_by :selenium, using: :headless_chrome, screen_size: [1400, 1400]
 
-  def login(user)
+  def login(user, password: "password")
     visit root_path
     fill_in "Email", with: user.email
-    fill_in "Password", with: "password"
+    fill_in "Password", with: password
     click_button "Sign In"
     assert_current_path root_path
   end
