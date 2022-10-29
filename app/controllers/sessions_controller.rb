@@ -7,12 +7,18 @@ class SessionsController < ApplicationController
   def create
     @user = User.find_by(email: params[:user][:email].downcase.strip)
     if @user
-      after_login_path = session[:user_return_to] || root_path
-      active_session = login @user
-      remember(active_session) if params[:user][:remember_me] == "1"
-      redirect_to after_login_path
+      if @user.unconfirmed?
+        redirect_to new_confirmation_path, alert: "Incorrect email or password."
+      elsif @user.authenticate(params[:user][:password])
+        after_login_path = session[:user_return_to] || root_path
+        login_and_remember @user
+        redirect_to after_login_path
+      else
+        flash.now[:alert] = "Incorrect email or password."
+        render :new, status: :unprocessable_entity
+      end
     else
-      flash.now[:alert] = "Incorrect email"
+      flash.now[:alert] = "Incorrect email or password."
       render :new, status: :unprocessable_entity
     end
   end

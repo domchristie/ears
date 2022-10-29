@@ -1,4 +1,6 @@
 class ConfirmationsController < ApplicationController
+  before_action :redirect_if_authenticated
+
   layout "sessions"
 
   def edit
@@ -6,6 +8,7 @@ class ConfirmationsController < ApplicationController
 
     if @user.present?
       @user.confirm!
+      login_and_remember @user
       redirect_to root_path, notice: "Your account has been confirmed."
     else
       redirect_to new_confirmation_path, alert: "Invalid token."
