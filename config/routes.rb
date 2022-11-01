@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get "login", to: "sessions#new"
   post "login", to: "sessions#create"
   delete "logout", to: "sessions#destroy"
+  resources :passwords, only: [:new, :create, :edit, :update], param: :password_reset_token
 
   namespace :directories do
     resource :search, only: [:new, :show]

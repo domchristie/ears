@@ -10,6 +10,13 @@ module UiHelper
       @view_context = view_context
     end
 
+    def turn
+      tag.attributes(data: {
+        turn_exit: "motion-safe:turn-exit:animate-exit",
+        turn_enter: "motion-safe:turn-enter:animate-enter"
+      })
+    end
+
     def heading
       tag.attributes class: "text-fl-xs uppercase tracking-wide font-semibold"
     end

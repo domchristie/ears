@@ -1,0 +1,17 @@
+<h1 <%= tag.attributes(ui.heading, ui.turn, class: "mb-fl-2xs") %>>
+  Enter a New Password
+</h1>
+
+<%= form_with url: password_path(params[:password_reset_token]), scope: :user, method: :put do |form| %>
+  <div class="space-y-fl-xs">
+    <div>
+      <%= form.label :password, "New password", ui.label %>
+      <%= form.password_field :password, ui.text_input.merge(required: true) %>
+    </div>
+    <div>
+      <%= form.label :password_confirmation, "Confirm new password", ui.label %>
+      <%= form.password_field :password_confirmation, ui.text_input.merge(required: true) %>
+    </div>
+  </div>
+  <%= form.submit "Update Password", ui.button.merge(class: "mt-fl-xs")  %>
+<% end %>

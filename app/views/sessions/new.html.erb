@@ -1,4 +1,7 @@
-<h1 <%= tag.attributes(ui.heading).merge(class: "mb-fl-2xs") %>>Log In</h1>
+<header class="mb-fl-2xs">
+  <h1 <%= tag.attributes(ui.heading, ui.turn) %>>Log In</h1>
+  <p><%= link_to "Forgot password?", new_password_path, class: "text-fl-xs underline text-blue-600" %></p>
+</header>
 
 <%= form_with url: login_path, scope: :user do |form| %>
   <div class="space-y-fl-xs">
