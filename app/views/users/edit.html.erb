@@ -1,0 +1,38 @@
+<h1 <%= ui.heading.merge(class: "mb-fl-2xs") %>>Account</h1>
+
+<%= form_with model: @user, url: account_path, method: :put do |form| %>
+  <%= render "form_errors", object: form.object %>
+  <div class="space-y-fl-xs">
+    <div>
+      <%= form.label :email, "Current email", ui.label %>
+      <%= form.email_field :email, ui.text_input.merge(disabled: true) %>
+    </div>
+    <div>
+      <%= form.label :unconfirmed_email, "New email", ui.label %>
+      <%= form.text_field :unconfirmed_email, ui.text_input %>
+    </div>
+    <div>
+      <%= form.label :password, ui.label do %>
+        Password
+        <span class="block text-[0.875em]">(leave blank if you don't want to change it)</span>
+      <% end %>
+      <%= form.password_field :password, ui.text_input %>
+    </div>
+    <div>
+      <%= form.label :password_confirmation, nil, ui.label %>
+      <%= form.password_field :password_confirmation, ui.text_input %>
+    </div>
+
+    <div>
+      <%= form.label :current_password, ui.label do %>
+        Current password <span class="block text-[0.875em]">(needed to confirm changes)</span>
+      <% end %>
+      <%= form.password_field :current_password, ui.text_input.merge(required: true) %>
+    </div>
+    <%= form.submit "Update Account", ui.button %>
+  </div>
+<% end %>
+
+<div class="mt-fl-sm text-center">
+  <%= button_to "Delete Account", account_path, class: "text-fl-xs", method: :delete %>
+</div>

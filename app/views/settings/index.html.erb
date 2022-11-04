@@ -1,19 +1,34 @@
+<%
+items = [
+  {
+    title: "Account",
+    path: account_path,
+    icon: :"user-circle"
+  },
+  {
+    title: "Import OPML",
+    path: new_opml_import_path,
+    icon: :"cloud-upload"
+  },
+  {
+    title: "Log out",
+    path: logout_path,
+    icon: :logout,
+    method: :delete
+  }
+]
+%>
+
 <% content_for :nav, render("nav_bar") %>
 
 <%= render "list", class: "mt-2" do %>
-  <%= render "list_item", title: "Import OPML", path: new_opml_import_path do |p| %>
-    <% p.content_for :image do %>
-      <div class="p-3 bg-grey-100 dark:bg-grey-700 group-focus-within:bg-white dark:group-focus-within:bg-black mr-3">
-        <%= icon :"cloud-upload", class: "w-6 h-6" %>
-      </div>
-    <% end %>
-  <% end %>
-
-  <%= render "list_item", title: "Log out", path: logout_path, method: :delete do |p| %>
-    <% p.content_for :image do %>
-      <div class="p-3 bg-grey-100 dark:bg-grey-700 group-focus-within:bg-white dark:group-focus-within:bg-black mr-3">
-        <%= icon :logout, class: "w-6 h-6" %>
-      </div>
+  <% items.each do |item| %>
+    <%= render "list_item", title: item[:title], path: item[:path], method: item[:method] do |p| %>
+      <% p.content_for :image do %>
+        <div class="p-3 bg-grey-100 dark:bg-grey-700 group-focus-within:bg-white dark:group-focus-within:bg-black mr-3">
+          <%= icon item[:icon], class: "w-6 h-6" %>
+        </div>
+      <% end %>
     <% end %>
   <% end %>
 <% end %>

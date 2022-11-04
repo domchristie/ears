@@ -30,7 +30,7 @@ module UiHelper
         default: "",
         sm: "p-1"
       }
-      tag.attributes class: "#{sizes[size]} block w-full bg-grey-200 dark:bg-grey-800 border-transparent focus:bg-white dark:focus:bg-black transition"
+      tag.attributes class: "#{sizes[size]} block w-full bg-grey-200 dark:bg-grey-800 border-transparent focus:bg-white dark:focus:bg-black disabled:bg-grey-100 disabled:text-grey-700 dark:disabled:bg-grey-900 dark:disabled:text-grey-400 disabled:cursor-not-allowed transition"
     end
 
     def button
