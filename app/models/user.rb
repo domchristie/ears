@@ -26,7 +26,8 @@ class User < ApplicationRecord
   validates(
     :unconfirmed_email,
     format: {with: URI::MailTo::EMAIL_REGEXP},
-    allow_blank: true
+    allow_blank: true,
+    if: -> { respond_to?(:unconfirmed_email) }
   )
 
   def confirm!
@@ -104,7 +105,7 @@ class User < ApplicationRecord
   end
 
   def format_unconfirmed_email
-    if unconfirmed_email.present?
+    if respond_to?(:unconfirmed_email) && unconfirmed_email.present?
       self.unconfirmed_email = unconfirmed_email.try(:downcase).try(:strip)
     end
   end
