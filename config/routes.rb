@@ -17,10 +17,6 @@ Rails.application.routes.draw do
 
   resources :settings, only: :index
 
-  namespace :users do
-    resource :dashboard, only: :show
-  end
-
   constraints subdomain: "websub" do
     get "web_subs/:id/feed", to: "web_subs#update", as: :web_sub_feed
     post "web_subs/:web_sub_id/feed", to: "web_subs/feeds#update"
