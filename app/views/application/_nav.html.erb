@@ -1,9 +1,9 @@
 <%
 colors = {
   default: "",
-  translucent: "bg-frosted-glass-light dark:bg-frosted-glass-dark"
+  translucent: "bg-frosted-glass-light dark:bg-frosted-glass-dark bg-gradient-to-b from-white dark:from-black"
 }
-props(local_assigns.with_defaults(color: :default)) => {color:, class: classes, **rest}
+props(local_assigns.with_defaults(color: :default, class: [])) => {color:, class: classes, **rest}
 %>
 
 <nav class="w-full flex z-20 p-3.5 sm:px-fl-xs-lg <%= self.class_names([classes, colors[color]]) %>" <%= tag.attributes(rest) %>>
