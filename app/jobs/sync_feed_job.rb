@@ -2,7 +2,9 @@ class SyncFeedJob < ApplicationJob
   queue_as :default
 
   def perform(feed, source:, force: false)
-    puts "[#{self.class}] starting; feed: #{feed.id}, source: #{source}, force: #{force}"
+    Rails.logger.info(
+      "[#{self.class}] starting; feed: #{feed.id}, source: #{source}, force: #{force}"
+    )
     at = Time.now.utc
     get = Feed::Manager.fetch(feed, conditional: !force)
 
