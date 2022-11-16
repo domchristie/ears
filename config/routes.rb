@@ -1,15 +1,15 @@
 Rails.application.routes.draw do
-  get "signup", to: "users#new"
-  post "signup", to: "users#create"
-  resources :confirmations, only: [:edit, :new, :create], param: :confirmation_token
-  get "account", to: "users#edit"
-  put "account", to: "users#update"
-  delete "account", to: "users#destroy"
-
-  get "login", to: "sessions#new"
-  post "login", to: "sessions#create"
-  delete "logout", to: "sessions#destroy"
-  resources :passwords, only: [:new, :create, :edit, :update], param: :password_reset_token
+  get "sign_in", to: "sessions#new"
+  post "sign_in", to: "sessions#create"
+  get "sign_up", to: "registrations#new"
+  post "sign_up", to: "registrations#create"
+  resources :sessions, only: [:index, :show, :destroy]
+  resource :password, only: [:edit, :update]
+  namespace :identity do
+    resource :email, only: [:edit, :update]
+    resource :email_verification, only: [:edit, :create]
+    resource :password_reset, only: [:new, :edit, :create, :update]
+  end
 
   namespace :directories do
     resource :search, only: [:new, :show]

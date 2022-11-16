@@ -1,12 +1,34 @@
 class ApplicationController < ActionController::Base
-  include Authentication
-
-  before_action :setup_player, if: :user_signed_in?
+  before_action :current_user
+  before_action :set_current_request_details
+  before_action :setup_player
 
   private
 
+  def authenticate
+    if (session = Session.find_by_id(cookies.signed[:session_token]))
+      Current.session = session
+    else
+      redirect_to sign_in_path
+    end
+  end
+
+  def sign_in(user)
+    session = user.sessions.create!
+    cookies.signed.permanent[:session_token] = {value: session.id, httponly: true}
+  end
+
+  def set_current_request_details
+    Current.user_agent = request.user_agent
+    Current.ip_address = request.ip
+  end
+
   def setup_player
     Current.play = Play.most_recent_by(Current.user) || NilPlay.new
-    Current.entry = Current.play.try(:entry)
+    Current.entry = Current.play.try(:entry) || NilEntry.new
+  end
+
+  helper_method def current_user
+    Current.user ||= Session.find_by(id: cookies.signed[:session_token])&.user
   end
 end

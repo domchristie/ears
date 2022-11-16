@@ -3,7 +3,7 @@ require "application_system_test_case"
 class OpmlImportsTest < ApplicationSystemTestCase
   test "importing an OPML" do
     user = users(:one)
-    login user
+    sign_in_as user
     click_link "Settings"
     click_link "Import OPML"
     attach_file "Choose OPML file", file_fixture("valid.opml")

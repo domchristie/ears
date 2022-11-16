@@ -1,0 +1,11 @@
+<p>New sign in to your account (<%= @session.user.email %>)</p>
+
+<p>
+  <strong><%= @session.user_agent %></strong>
+  <br>
+  <%= @session.created_at %>
+  <br>
+  IP address: <%= @session.ip_address %>
+</p>
+
+<p><strong>If you don't recognize this sign in</strong>, <%= link_to "change your password", new_identity_password_reset_url %> immediately.</p>

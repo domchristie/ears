@@ -1,0 +1,14 @@
+<% content_for :nav, render("nav") { render("back", path: sign_in_path) } %>
+
+<h1 <%= tag.attributes(ui.heading, ui.turn, class: "mb-fl-2xs") %>>Forgot Password?</h1>
+
+<%= form_with url: identity_password_reset_path do |form| %>
+  <div <%= ui.form_controls %>>
+    <div>
+      <%= form.label :email, nil, ui.label %>
+      <%= form.email_field :email, ui.text_input.merge(required: true) %>
+    </div>
+
+    <%= form.submit "Send Instructions", ui.button %>
+  </div>
+<% end %>

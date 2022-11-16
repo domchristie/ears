@@ -1,0 +1,24 @@
+<h1 <%= tag.attributes(ui.heading, ui.turn, class: "mb-fl-2xs") %>>Reset Your Password</h1>
+
+<%= form_with url: identity_password_reset_path, method: :patch do |form| %>
+  <%= render "form_errors", object: @user %>
+
+  <%= form.hidden_field :sid, value: params[:sid] %>
+
+  <div <%= ui.form_controls %>>
+    <div>
+      <%= form.label :password, "New password", ui.label %>
+      <p class="text-xs">12 characters minimum</p>
+      <%= form.password_field :password, ui.text_input.merge(required: true, autocomplete: "new-password") %>
+    </div>
+
+    <div>
+      <%= form.label :password_confirmation, "Confirm new password" %>
+      <%= form.password_field :password_confirmation, ui.text_input.merge(required: true, autocomplete: "new-password") %>
+    </div>
+
+    <div>
+      <%= form.submit "Update Password", ui.button %>
+    </div>
+  </div>
+<% end %>

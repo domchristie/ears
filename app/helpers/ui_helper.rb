@@ -21,6 +21,10 @@ module UiHelper
       tag.attributes class: "text-fl-xs uppercase tracking-wide font-semibold"
     end
 
+    def form_controls
+      tag.attributes class: "space-y-fl-xs"
+    end
+
     def label
       tag.attributes class: "block text-fl-xs"
     end

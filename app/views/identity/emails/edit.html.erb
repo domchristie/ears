@@ -1,0 +1,18 @@
+<% content_for :nav, render("nav") { render("back", path: settings_path) } %>
+
+<h1 <%= tag.attributes(ui.heading, ui.turn, class: "mb-fl-2xs") %>>Change Email</h1>
+
+<%= form_with url: identity_email_path, method: :patch do |form| %>
+  <%= render "form_errors", object: @user %>
+
+  <div <%= ui.form_controls %>>
+    <div>
+      <%= form.label :email, "New email", ui.label %>
+      <%= form.email_field :email, ui.text_input %>
+    </div>
+
+    <div>
+      <%= form.submit "Update Email", ui.button %>
+    </div>
+  </div>
+<% end %>

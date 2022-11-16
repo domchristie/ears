@@ -1,0 +1,25 @@
+<h1 <%= tag.attributes(ui.heading, ui.turn, class: "mb-fl-2xs") %>>Sign Up</h1>
+
+<%= form_with(url: sign_up_path) do |form| %>
+  <%= render "form_errors", object: @user %>
+
+  <div <%= ui.form_controls %>>
+    <div>
+      <%= form.label :email, nil, ui.label %>
+      <%= form.email_field :email, ui.text_input.merge(autocomplete: "email") %>
+    </div>
+
+    <div>
+      <%= form.label :password, nil, ui.label %>
+      <p class="text-xs">12 characters minimum</p>
+      <%= form.password_field :password, ui.text_input.merge(required: true, autocomplete: "new-password") %>
+    </div>
+
+    <div>
+      <%= form.label :password_confirmation, nil, ui.label %>
+      <%= form.password_field :password_confirmation, ui.text_input.merge(required: true, autocomplete: "new-password") %>
+    </div>
+
+    <%= form.submit "Sign Up", ui.button %>
+  </div>
+<% end %>

@@ -1,0 +1,17 @@
+<%= layout :base do %>
+  <div class="min-h-dscreen grid grid-rows-[0.75fr_auto_1.25fr]">
+    <div>
+      <%= render "spinner" %>
+      <%= content_for :nav %>
+      <%= render "flash" %>
+    </div>
+
+     <main class="w-full px-fl-xs-lg" <%= turn_attributes %>>
+      <div class="max-w-xs mx-auto">
+        <%= yield  %>
+      </div>
+    </main>
+
+    <%= render("player", entry: Current.entry, play: Current.play) if Current.user %>
+  </div>
+<% end %>

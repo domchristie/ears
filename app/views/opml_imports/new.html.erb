@@ -1,15 +1,12 @@
-<% content_for :nav, render("nav_bar") %>
+<% content_for :nav, render("nav") { render("back", path: settings_path) } %>
 
-<%= render "container" do %>
-  <div class="max-w-sm mx-auto">
-    <h1 <%= turn_attributes %> class="text-sm uppercase tracking-wide font-semibold mt-6 mb-3">Import OPML</h1>
-    <%= form_with model: OpmlImport.new, class: "space-y-4" do |form| %>
-      <%= form.label :file do %>
-        <span class="sr-only">Choose OPML file</span>
-        <%= form.file_field :file, accept: ".opml,text/opml", class: "block w-full text-sm text-grey-500 dark:text-grey-400 file:bg-grey-100 dark:file:bg-grey-800 file:border-0 file:rounded-none file:text-black dark:file:text-white file:px-2 file:py-1 file:text-center file:text-sm file:font-semibold file:font-[inherit]" %>
-      <% end %>
+<h1 <%= tag.attributes(ui.heading, ui.turn, class: "mb-fl-2xs") %>>Import OPML</h1>
 
-      <%= form.submit "Import", ui.button %>
-    <% end %>
-  </div>
+<%= form_with model: OpmlImport.new, class: "space-y-4" do |form| %>
+  <%= form.label :file do %>
+    <span class="sr-only">Choose OPML file</span>
+    <%= form.file_field :file, accept: ".opml,text/opml", class: "block w-full text-sm text-grey-500 dark:text-grey-400 file:bg-grey-100 dark:file:bg-grey-800 file:border-0 file:rounded-none file:text-black dark:file:text-white file:px-2 file:py-1 file:text-center file:text-sm file:font-semibold file:font-[inherit]" %>
+  <% end %>
+
+  <%= form.submit "Import", ui.button %>
 <% end %>

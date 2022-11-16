@@ -10,22 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_04_183351) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_11_052721) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
-
-  create_table "active_sessions", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.string "user_agent"
-    t.string "ip_address"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "remember_token", null: false
-    t.index ["remember_token"], name: "index_active_sessions_on_remember_token", unique: true
-    t.index ["user_id"], name: "index_active_sessions_on_user_id"
-  end
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -66,6 +55,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_04_183351) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["table_of_contents_id"], name: "index_chapters_on_table_of_contents_id"
+  end
+
+  create_table "email_verification_tokens", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_email_verification_tokens_on_user_id"
   end
 
   create_table "entries", force: :cascade do |t|
@@ -152,6 +146,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_04_183351) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "password_reset_tokens", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_password_reset_tokens_on_user_id"
+  end
+
   create_table "plays", force: :cascade do |t|
     t.float "elapsed"
     t.bigint "entry_id", null: false
@@ -180,6 +179,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_04_183351) do
     t.index ["rss_imageable_type", "rss_imageable_id"], name: "index_rss_images_on_rss_imageable_type_and_rss_imageable_id", unique: true
   end
 
+  create_table "sessions", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "user_agent"
+    t.string "ip_address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_sessions_on_user_id"
+  end
+
   create_table "table_of_contents", force: :cascade do |t|
     t.bigint "entry_id", null: false
     t.string "version"
@@ -200,9 +208,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_04_183351) do
     t.string "email", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "confirmed_at"
     t.string "password_digest", null: false
     t.string "unconfirmed_email"
+    t.boolean "verified", default: false, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
@@ -216,16 +224,18 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_04_183351) do
     t.index ["feed_url"], name: "index_web_subs_on_feed_url"
   end
 
-  add_foreign_key "active_sessions", "users", on_delete: :cascade
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "chapters", "table_of_contents", column: "table_of_contents_id"
+  add_foreign_key "email_verification_tokens", "users"
   add_foreign_key "entries", "feeds"
   add_foreign_key "followings", "feeds"
   add_foreign_key "followings", "users"
+  add_foreign_key "password_reset_tokens", "users"
   add_foreign_key "plays", "entries"
   add_foreign_key "plays", "feeds"
   add_foreign_key "plays", "users"
+  add_foreign_key "sessions", "users"
   add_foreign_key "table_of_contents", "entries"
   add_foreign_key "web_subs", "feeds", column: "feed_url", primary_key: "url"
 end

@@ -1,17 +1,17 @@
 class UserMailer < ApplicationMailer
-  default from: User::MAILER_FROM_EMAIL
-
-  def confirmation(user, confirmation_token)
-    @user = user
-    @confirmation_token = confirmation_token
-
-    mail to: @user.confirmable_email, subject: "Confirmation Instructions"
+  def password_reset
+    @user = params[:user]
+    @signed_id = @user.password_reset_tokens.create.signed_id(
+      expires_in: PasswordResetToken::VALIDITY_DURATION
+    )
+    mail to: @user.email, subject: "Reset your password"
   end
 
-  def password_reset(user, password_reset_token)
-    @user = user
-    @password_reset_token = password_reset_token
-
-    mail to: @user.email, subject: "Password Reset Instructions"
+  def email_verification
+    @user = params[:user]
+    @signed_id = @user.email_verification_tokens.create.signed_id(
+      expires_in: EmailVerificationToken::VALIDITY_DURATION
+    )
+    mail to: @user.email, subject: "Verify your email"
   end
 end

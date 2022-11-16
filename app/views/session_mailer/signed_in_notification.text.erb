@@ -1,0 +1,7 @@
+New sign in to your account (<%= @session.user.email %>)
+
+<%= @session.user_agent %>
+<%= @session.created_at %>
+IP address: <%= @session.ip_address %>
+
+If you don't recognize this sign in, [change your password](<%= new_identity_password_reset_url %>) immediately.

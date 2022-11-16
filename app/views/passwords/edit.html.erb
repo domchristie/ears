@@ -1,17 +1,27 @@
-<h1 <%= tag.attributes(ui.heading, ui.turn, class: "mb-fl-2xs") %>>
-  Enter a New Password
-</h1>
+<% content_for :nav, render("nav") { render("back", path: settings_path) } %>
 
-<%= form_with url: password_path(params[:password_reset_token]), scope: :user, method: :put do |form| %>
-  <div class="space-y-fl-xs">
+<h1 <%= tag.attributes(ui.heading, ui.turn, class: "mb-fl-2xs") %>>Change Password</h1>
+
+<%= form_with(url: password_path, method: :patch) do |form| %>
+  <%= render "form_errors", object: @user %>
+
+  <div <%= ui.form_controls %>>
+    <div>
+      <%= form.label :current_password, nil, ui.label %>
+      <%= form.password_field :current_password, ui.text_input.merge(required: true, autocomplete: "current-password") %>
+    </div>
+
     <div>
       <%= form.label :password, "New password", ui.label %>
-      <%= form.password_field :password, ui.text_input.merge(required: true) %>
+      <p class="text-xs">12 characters minimum</p>
+      <%= form.password_field :password, ui.text_input.merge(required: true, autocomplete: "new-password") %>
     </div>
+
     <div>
       <%= form.label :password_confirmation, "Confirm new password", ui.label %>
-      <%= form.password_field :password_confirmation, ui.text_input.merge(required: true) %>
+      <%= form.password_field :password_confirmation, ui.text_input.merge(required: true, autocomplete: "new-password") %>
     </div>
+
+    <%= form.submit "Update Password", ui.button %>
   </div>
-  <%= form.submit "Update Password", ui.button.merge(class: "mt-fl-xs")  %>
 <% end %>

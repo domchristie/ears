@@ -3,7 +3,7 @@
 <%= form_with model: @user, url: signup_path do |form| %>
   <%= render "form_errors", object: form.object %>
 
-  <div class="space-y-fl-xs">
+  <div <%= ui.form_controls %>>
     <div>
       <%= form.label :email, nil, ui.label %>
       <%= form.email_field :email, ui.text_input.merge(required: true) %>

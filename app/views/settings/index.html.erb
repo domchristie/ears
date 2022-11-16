@@ -1,18 +1,26 @@
 <%
 items = [
   {
-    title: "Account",
-    path: account_path,
-    icon: :"user-circle"
-  },
-  {
     title: "Import OPML",
     path: new_opml_import_path,
     icon: :"cloud-upload"
+  }
+]
+account_items = [
+  {
+    title: "Change Email",
+    path: edit_identity_email_path,
+    icon: :"at-symbol",
+    details: Current.user.email
   },
   {
-    title: "Log out",
-    path: logout_path,
+    title: "Change Password",
+    path: edit_password_path,
+    icon: :"lock-closed"
+  },
+  {
+    title: "Log Out",
+    path: session_path(Current.session),
     icon: :logout,
     method: :delete
   }
@@ -22,13 +30,22 @@ items = [
 <% content_for :nav, render("nav_bar") %>
 
 <%= render "list", class: "mt-2" do %>
-  <% items.each do |item| %>
-    <%= render "list_item", title: item[:title], path: item[:path], method: item[:method] do |p| %>
-      <% p.content_for :image do %>
-        <div class="p-3 bg-grey-100 dark:bg-grey-700 group-focus-within:bg-white dark:group-focus-within:bg-black mr-3">
-          <%= icon item[:icon], class: "w-6 h-6" %>
-        </div>
-      <% end %>
-    <% end %>
+  <%= render partial: "settings/setting", collection: items %>
+<% end %>
+
+<%= render "container" do %>
+  <h2 <%= tag.attributes(ui.heading, ui.turn).merge(class: "mt-fl-sm mb-fl-2xs") %>>Account</h2>
+
+  <% unless Current.user.verified? %>
+    <div class="mb-fl-sm">
+      <p class="text-fl-xs flex">
+        We emailed instructions to <%= Current.user.email %>. Follow the instructions to confirm your account.
+      </p>
+      <p><%= button_to "Re-send verification email", identity_email_verification_path, class: "text-fl-xs underline" %></p>
+    </div>
   <% end %>
+<% end %>
+
+<%= render "list", class: "mt-2 space-y-fl-2xs" do %>
+  <%= render partial: "settings/setting", collection: account_items %>
 <% end %>
