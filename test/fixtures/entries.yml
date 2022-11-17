@@ -2,54 +2,54 @@
 
 one:
   feed: one
-  title: MyString
-  content: MyText
-  url: MyString
-  author: MyString
-  published_at: 2022-04-12 08:43:08
-  last_modified_at: 2022-04-12 08:43:08
+  title: Episode one
+  content: The first episode
+  url:  http://example.com/one
+  author: Mr Feed
+  published_at: 2022-04-05 08:43:08
+  last_modified_at: 2022-04-05 08:43:08
   guid: c638b3a8-eac8-4c13-9240-dcb2507b8be5
-  itunes_author: MyString
+  itunes_author: Mr Feed
   itunes_block: false
-  itunes_duration: 1
+  itunes_duration: 60
   itunes_explicit: false
-  itunes_keywords: MyString
-  itunes_subtitle: MyText
-  itunes_image_url: MyString
+  itunes_keywords: crime
+  itunes_subtitle: In the beginning
+  itunes_image_url: http://example.com/one.jpg
   itunes_closed_captioned: false
   itunes_order: 1
   itunes_season: 1
   itunes_episode: 1
-  itunes_title: MyString
+  itunes_title: Episode One
   itunes_episode_type: MyString
-  itunes_summary: MyText
-  enclosure_length: 1
-  enclosure_type: MyString
-  enclosure_url: MyString
+  itunes_summary: The first episode
+  enclosure_length: 60
+  enclosure_type: audio/mp3
+  enclosure_url: http://example.com/one.mp3
 
 two:
   feed: one
-  title: MyString
-  content: MyText
-  url: MyString
-  author: MyString
+  title: Episode two
+  content: The second episode
+  url:  http://example.com/two
+  author: Mr Feed
   published_at: 2022-04-12 08:43:08
   last_modified_at: 2022-04-12 08:43:08
-  guid: 51f11905-6d34-4478-9fc5-37d9add63405
-  itunes_author: MyString
+  guid: e6a21828-e7af-445e-8166-076d397900bd
+  itunes_author: Mr Feed
   itunes_block: false
-  itunes_duration: 1
+  itunes_duration: 60
   itunes_explicit: false
-  itunes_keywords: MyString
-  itunes_subtitle: MyText
-  itunes_image_url: MyString
+  itunes_keywords: crime
+  itunes_subtitle: There was
+  itunes_image_url: http://example.com/two.jpg
   itunes_closed_captioned: false
-  itunes_order: 1
+  itunes_order: 2
   itunes_season: 1
-  itunes_episode: 1
-  itunes_title: MyString
+  itunes_episode: 2
+  itunes_title: Episode two
   itunes_episode_type: MyString
-  itunes_summary: MyText
-  enclosure_length: 1
-  enclosure_type: MyString
-  enclosure_url: MyString
+  itunes_summary: The second episode
+  enclosure_length: 60
+  enclosure_type: audio/mp3
+  enclosure_url: http://example.com/two.mp3

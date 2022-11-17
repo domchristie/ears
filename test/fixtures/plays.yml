@@ -5,3 +5,9 @@ one:
   entry: one
   feed: one
   user: one
+
+two:
+  elapsed: 1.5
+  entry: one
+  feed: one
+  user: two

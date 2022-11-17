@@ -12,17 +12,18 @@ class Feed::Show
     end
   end
 
-  def entries
-    unless @entries
-      @entries = feed.entries
-      @entries = if @params[:query].present?
-        @entries.entry_search(@params[:query])
-      else
-        @entries.order(published_at: feed.itunes_type == "serial" ? :asc : :desc)
-      end
-      @entries = @entries.limit(25) # TODO pagination
-    end
-    @entries
+  def episodes
+    return @episodes if @episodes
+
+    episode_collection = EpisodeCollection.new(
+      entries: feed.entries,
+      user: Current.user,
+      query: @params[:query]
+    )
+    @episodes = episode_collection.episodes(
+      limit: 25,
+      order: {published_at: feed.itunes_type == "serial" ? :asc : :desc}
+    )
   end
 
   def feed
