@@ -58,7 +58,7 @@ class Entry < ApplicationRecord
     end.compact
 
     # Unfortunately some GUIDs aren't true GUIDs and so need to be scoped
-    Entry.upsert_all(attributes, unique_by: [:feed_id, :guid], record_timestamps: true)
+    Entry.upsert_all(attributes, unique_by: [:feed_id, :formatted_guid], record_timestamps: true)
   end
 
   def self.attributes_for_import(remote_entry)
