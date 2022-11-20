@@ -11,7 +11,7 @@ class RegistrationsController < ApplicationController
     if @user.save
       sign_in @user
       send_email_verification
-      redirect_to root_path, notice: "Welcome! You have signed up successfully"
+      redirect_to root_path, notice: t(".success")
     else
       render :new, status: :unprocessable_entity
     end

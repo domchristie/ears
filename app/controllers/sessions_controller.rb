@@ -13,13 +13,13 @@ class SessionsController < ApplicationController
       sign_in user
       redirect_to root_path
     else
-      redirect_to sign_in_path(email_hint: params[:email]), alert: "Incorrect email or password"
+      redirect_to sign_in_path(email_hint: params[:email]), alert: t(".failure")
     end
   end
 
   def destroy
     session = Current.user.sessions.find(params[:id])
     session.destroy
-    redirect_to sign_in_path, notice: "Signed out"
+    redirect_to sign_in_path, notice: t(".success")
   end
 end

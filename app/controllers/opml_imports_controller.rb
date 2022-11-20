@@ -9,7 +9,7 @@ class OpmlImportsController < ApplicationController
   def create
     opml_import = OpmlImport.create!(opml_import_params)
     ImportOpmlJob.perform_later(opml_import, Current.user)
-    redirect_to root_path, notice: "Import in progess"
+    redirect_to root_path, notice: t(".success")
   end
 
   private

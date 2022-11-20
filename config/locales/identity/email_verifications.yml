@@ -1,0 +1,8 @@
+en:
+  identity:
+    email_verifications:
+      edit:
+        success: "Email confirmed"
+        failure: "Invalid verification link"
+      create:
+        success: "Email verification sent"

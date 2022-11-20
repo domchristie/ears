@@ -1,0 +1,6 @@
+en:
+  sessions:
+    create:
+      failure: "Incorrect email or password"
+    destroy:
+      success: "Signed out"

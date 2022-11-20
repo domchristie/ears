@@ -1,0 +1,5 @@
+en:
+  identity:
+    emails:
+      update:
+        success: "Email updated"

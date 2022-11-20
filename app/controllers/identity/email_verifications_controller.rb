@@ -4,12 +4,12 @@ class Identity::EmailVerificationsController < ApplicationController
 
   def edit
     @user.update! verified: true
-    redirect_to root_path, notice: "Email confirmed"
+    redirect_to root_path, notice: t(".success")
   end
 
   def create
     UserMailer.with(user: Current.user).email_verification.deliver_later
-    redirect_to root_path, notice: "Email verification sent"
+    redirect_to root_path, notice: t(".success")
   end
 
   private
@@ -18,6 +18,6 @@ class Identity::EmailVerificationsController < ApplicationController
     @token = EmailVerificationToken.find_signed!(params[:sid])
     @user = @token.user
   rescue
-    redirect_to edit_identity_email_path, alert: "Invalid verification link"
+    redirect_to edit_identity_email_path, alert: t(".failure")
   end
 end
