@@ -9,7 +9,9 @@ class Entry < ApplicationRecord
 
   belongs_to :feed, touch: true
   has_many :plays, dependent: :destroy
-  has_one :recent_play, -> { order(updated_at: :desc) }, class_name: "Play"
+  has_one :recent_play, -> {
+    where("plays.id = (SELECT id FROM plays WHERE plays.entry_id = entries.id ORDER BY created_at DESC LIMIT 1)")
+  }, class_name: "Play"
   has_one :table_of_contents, dependent: :destroy
 
   def duration
