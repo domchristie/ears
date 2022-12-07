@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_18_210554) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_06_163224) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
   enable_extension "pg_trgm"
@@ -152,6 +152,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_18_210554) do
     t.index ["user_id"], name: "index_password_reset_tokens_on_user_id"
   end
 
+  create_table "playlists", force: :cascade do |t|
+    t.string "name"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_playlists_on_user_id"
+  end
+
   create_table "plays", force: :cascade do |t|
     t.float "elapsed"
     t.bigint "entry_id", null: false
@@ -233,6 +241,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_18_210554) do
   add_foreign_key "followings", "feeds"
   add_foreign_key "followings", "users"
   add_foreign_key "password_reset_tokens", "users"
+  add_foreign_key "playlists", "users"
   add_foreign_key "plays", "entries"
   add_foreign_key "plays", "feeds"
   add_foreign_key "plays", "users"
