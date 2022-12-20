@@ -37,11 +37,17 @@ module UiHelper
       tag.attributes class: "#{sizes[size]} block w-full bg-grey-200 dark:bg-grey-800 border-transparent focus:bg-white dark:focus:bg-black disabled:bg-grey-100 disabled:text-grey-700 dark:disabled:bg-grey-900 dark:disabled:text-grey-400 disabled:cursor-not-allowed transition"
     end
 
-    def button
-      base = %w[rounded-none appearance-none relative flex items-center justify-center w-full font-semibold tracking-wide text-center uppercase border cursor-pointer focus:outline-none focus:ring-1]
-      color = %w[bg-black dark:bg-white text-white dark:text-black border-transparent focus:border-blue-600 focus:ring-blue-600]
-      size = %w[px-3 py-2 text-sm leading-6]
-      tag.attributes class: [base, color, size]
+    def button(size: :default, color: :default)
+      sizes = {
+        default: "px-3 py-2 text-sm leading-6",
+        xs: "px-1.5 py-1 text-sm"
+      }
+      colors = {
+        default: "bg-black dark:bg-white text-white dark:text-black border-transparent focus:border-blue-600 focus:ring-blue-600",
+        secondary: "bg-white dark:bg-black text-grey-900 dark:text-white border-grey-100 dark:border-grey-900 focus:border-blue-600 focus:ring-blue-600"
+      }
+      base = %w[font-semibold rounded-none appearance-none relative flex items-center justify-center w-full tracking-wide text-center uppercase border cursor-pointer focus:outline-none focus:ring-1]
+      tag.attributes class: [base, colors[color], sizes[size]]
     end
   end
 end

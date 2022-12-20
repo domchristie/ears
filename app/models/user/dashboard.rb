@@ -3,6 +3,13 @@ class User::Dashboard
     @user = user
   end
 
+  def queue_episodes
+    EpisodeCollection.new(
+      entries: @user.queue.entries.includes(:feed).order("playlist_items DESC"),
+      user: @user
+    ).episodes(limit: 3)
+  end
+
   def recently_played
     @recently_played ||= @user
       .played_feeds

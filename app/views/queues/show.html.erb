@@ -1,0 +1,9 @@
+<% content_for :nav, render("nav_bar") %>
+
+<%= render "container" do %>
+  <%= render("users/dashboards/heading", icon: :collection, class: "mt-fl-lg mb-fl-2xs") { "Play Later" } %>
+<% end %>
+
+<div class="space-y-fl-3xs">
+  <%= render partial: "queues/episode", collection: @episodes %>
+</div>

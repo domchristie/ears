@@ -12,6 +12,7 @@ class Entry < ApplicationRecord
   has_one :recent_play, -> {
     where("plays.id = (SELECT id FROM plays WHERE plays.entry_id = entries.id ORDER BY created_at DESC LIMIT 1)")
   }, class_name: "Play"
+  has_one :queue_item, class_name: "PlaylistItem"
   has_one :table_of_contents, dependent: :destroy
 
   def duration

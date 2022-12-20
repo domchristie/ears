@@ -1,0 +1,15 @@
+<%= render(
+  "plays/toggle",
+  play: episode.play,
+  options: ui.button(size: :xs, color: :secondary)
+) do %>
+  <%= icon :play, class: "group-data-playing:hidden group-data-loading:hidden w-5 h-5 -ml-px mr-1" %>
+
+  <span class="block group-data-playing:hidden group-data-loading:hidden">Play</span>
+
+  <%= icon :pause, class: "hidden group-data-playing:block w-5 h-5 -ml-px mr-1" %>
+
+  <span class="hidden group-data-playing:block group-data-loading:hidden">Pause</span>
+
+  <%= inline_svg_tag "icons/loading.svg", class: "hidden group-data-loading:block group-data-loading:motion-safe:animate-spin w-5 h-5", title: "Loading", aria: true %>
+<% end %>

@@ -4,7 +4,7 @@ class Playlist < ApplicationRecord
   has_many :items, class_name: "PlaylistItem", dependent: :destroy
   has_many :entries, through: :items
 
-  def append!(entry)
-    items.create!(entry:)
+  def prepend_entry(entry)
+    items.create(entry:)
   end
 end

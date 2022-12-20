@@ -37,4 +37,8 @@ class User < ApplicationRecord
   after_update if: :password_digest_previously_changed? do
     sessions.where.not(id: Current.session).destroy_all
   end
+
+  def queue
+    super || create_queue!
+  end
 end

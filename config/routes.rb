@@ -35,5 +35,9 @@ Rails.application.routes.draw do
     resources :followings, only: [:create], controller: "feeds/followings"
   end
 
+  resource :queue, only: :show do
+    resources :items, only: :create, controller: "queues/items"
+  end
+
   root "users/dashboards#show"
 end

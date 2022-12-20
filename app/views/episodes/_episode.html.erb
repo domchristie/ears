@@ -1,16 +1,18 @@
-<% cache_if episode.play.new_record?, episode.entry do %>
-  <%= render "list_item", title: episode.title, path: entry_path(episode.entry), color: :accent, contain: true do %>
-    <div class="flex space-x-4 text-sm font-medium text-grey-500 dark:text-grey-400">
-      <div class="flex items-center">
-        <%= icon :calendar, solid: true, class: "h-4 w-4 mr-1 text-grey-300 dark:text-grey-600 -translate-y-px" %>
-        <%= local_relative_time episode.published_at, type: "date", class: "uppercase" %>
-      </div>
-
-      <%= render episode.play %>
+<%= render "list_item", title: episode.title, path: entry_path(episode.entry), color: :accent, contain: true do %>
+  <div class="flex space-x-4 text-sm font-medium text-grey-500 dark:text-grey-400">
+    <div class="flex items-center">
+      <%= icon :calendar, solid: true, class: "h-4 w-4 mr-1 text-grey-300 dark:text-grey-600 -translate-y-px" %>
+      <%= local_relative_time episode.published_at, type: "date", class: "uppercase" %>
     </div>
 
+    <%= render "plays/play", play: episode.play %>
+  </div>
+
+  <div class="space-y-fl-3xs">
     <div class="text-grey-500 dark:text-grey-400 line-clamp-1 break-all">
       <%= strip_tags (episode.summary || episode.description).to_s.gsub("&nbsp;", " ") %>
     </div>
-  <% end %>
+
+    <%= render "episodes/actions", episode: %>
+  </div>
 <% end %>
