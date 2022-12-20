@@ -14,7 +14,7 @@ namespace :feeds do
   end
 
   task destroy_unused: :environment do
-    Feed.where.missing(:plays, :followings).destroy_all
+    Feed.where.missing(:plays, :followings, :playlist_items).destroy_all
   end
 
   task demo: :environment do

@@ -14,6 +14,7 @@ class Entry < ApplicationRecord
   }, class_name: "Play"
   has_one :queue_item, class_name: "PlaylistItem"
   has_one :table_of_contents, dependent: :destroy
+  has_many :playlist_items, dependent: :destroy
 
   def duration
     itunes_duration
