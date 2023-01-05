@@ -27,7 +27,7 @@ class User < ApplicationRecord
   )
 
   before_validation do
-    self.email = email.try(:downcase).try(:strip)
+    self.email = email&.downcase&.strip
   end
 
   before_validation if: :email_changed? do
