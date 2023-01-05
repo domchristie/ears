@@ -6,7 +6,7 @@
           <%= image_tag external_image_url(episode.feed.image_url), alt: "", width: 24, height: 24, loading: :lazy %>
         <% end %>
       </span>
-      <%= episode.feed.title %>
+      <span class="truncate"><%= episode.feed.title %></span>
     </p>
   <% end %>
 
