@@ -5,7 +5,7 @@ class User::Dashboard
 
   def queue_episodes
     EpisodeCollection.new(
-      entries: @user.queue.entries.includes(:feed).order("playlist_items DESC"),
+      entries: @user.queue.entries.includes(feed: :rss_image).order("playlist_items DESC"),
       user: @user
     ).episodes(limit: 3)
   end
