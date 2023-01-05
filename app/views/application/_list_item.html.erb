@@ -4,10 +4,10 @@ colors = {
   default: "bg-white dark:bg-black focus-within:bg-grey-100 dark:focus-within:bg-grey-900",
   accent: "bg-grey-50 dark:bg-grey-900 focus-within:bg-white dark:focus-within:bg-black"
 }
-props(local_assigns.with_defaults(color: :default, contain: true)) => {color:, contain:}
+props(local_assigns.with_defaults(color: :default, tag: :article, contain: true)) => {color:, tag:, contain:}
 %>
 
-<%= content_tag (local_assigns[:tag] || :article), class: "group relative #{colors[color]}" do %>
+<%= content_tag tag, class: "group relative #{colors[color]}" do %>
   <div class="<%= class_names "max-w-6xl px-fl-xs-lg mx-auto": contain, "px-fl-2xs": !contain %>">
     <div class="flex items-center p-fl-2xs -mx-fl-2xs ">
       <%= p.content_for :image %>
@@ -15,19 +15,16 @@ props(local_assigns.with_defaults(color: :default, contain: true)) => {color:, c
       <div class="space-y-fl-4xs flex-1 min-w-0">
         <%= p.content_for :kicker %>
 
-        <% class_names = "text-fl-sm font-semibold line-clamp-2" %>
-        <p class="<%= class_names %>">
+        <div class="text-fl-sm font-semibold line-clamp-2">
           <% if local_assigns[:method] %>
-            <%= button_to title, path, method: method, tabindex: 0, class: "#{class_names} after:absolute after:inset-0" %>
+            <%= button_to title, path, method: method, tabindex: 0, class: "after:absolute after:inset-0" %>
           <% else %>
             <%= link_to_if local_assigns[:path], title, local_assigns[:path], tabindex: 0, class: "after:absolute after:inset-0", data: {turbo_frame: "_top"} %>
           <% end %>
-        </p>
+        </div>
 
         <%= body %>
       </div>
-
-      <%= p.content_for :action %>
     </div>
   </div>
 <% end %>

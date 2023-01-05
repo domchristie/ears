@@ -35,7 +35,7 @@
     <%= render("heading", icon: :"rss", class: "mt-fl-lg mb-fl-2xs") { "Your Feeds" } %>
   <% end %>
 
-  <%= render "list", class: "-mt-fl-3xs" do %>
+  <div class="-mt-fl-3xs">
     <%= render partial: "feeds/feed", collection: @dashboard.feeds %>
-  <% end %>
+  </div>
 <% end %>

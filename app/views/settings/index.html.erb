@@ -29,9 +29,9 @@ account_items = [
 
 <% content_for :nav, render("nav_bar") %>
 
-<%= render "list", class: "mt-2" do %>
+<div class="mt-2">
   <%= render partial: "settings/setting", collection: items %>
-<% end %>
+</div>
 
 <%= render "container" do %>
   <h2 <%= tag.attributes(ui.heading, ui.turn).merge(class: "mt-fl-sm mb-fl-2xs") %>>Account</h2>
@@ -46,6 +46,6 @@ account_items = [
   <% end %>
 <% end %>
 
-<%= render "list", class: "mt-2 space-y-fl-2xs" do %>
+<div class="mt-2 space-y-fl-3xs">
   <%= render partial: "settings/setting", collection: account_items %>
-<% end %>
+</div>
