@@ -37,6 +37,14 @@ class Feed::Show
     ].compact
   end
 
+  def most_recent_play
+    @most_recent_play ||= feed.most_recent_play_by(Current.user)
+  end
+
+  def most_recent_entry
+    @most_recent_entry ||= feed.most_recent_entry
+  end
+
   private
 
   def find_feed
@@ -46,14 +54,6 @@ class Feed::Show
       url = Feed.decode_url(@params[:encoded_url])
       Feed.find_or_create_by(url: url)
     end
-  end
-
-  def most_recent_play
-    @most_recent_play ||= feed.most_recent_play_by(Current.user)
-  end
-
-  def most_recent_entry
-    @most_recent_entry ||= feed.most_recent_entry
   end
 
   def replay_resume_action
