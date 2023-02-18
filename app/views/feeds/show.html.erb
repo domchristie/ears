@@ -1,22 +1,22 @@
-<% @title = @feed_show.title %>
+<% @title = @show.title %>
 
 <% content_for :nav do %>
   <%= render "nav", class: "group fixed", data: {layout_target: "respondable", active_when: "banner:invisible"} do %>
     <div class="absolute inset-0 opacity bg-frosted-glass-light dark:bg-frosted-glass-dark bg-gradient-to-b from-white dark:from-black -translate-y-full group-data-active:translate-y-0 opacity-0 group-data-active:opacity-100 transition duration-300">
-      <%= link_to image_tag(external_image_url(@feed_show.image_url), width: 48, height: 48, alt: "", class: "absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 motion-safe:turn-enter:animate-enter-fade motion-safe:turn-exit:animate-exit-fade"), "#top", data: {action: "layout#scrollToTop:prevent"} %>
+      <%= link_to image_tag(external_image_url(@show.image_url), width: 48, height: 48, alt: "", class: "absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 motion-safe:turn-enter:animate-enter-fade motion-safe:turn-exit:animate-exit-fade"), "#top", data: {action: "layout#scrollToTop:prevent"} %>
     </div>
     <%= render "back", path: root_path, color: :translucent_black %>
   <% end %>
 <% end %>
 
-<%= render "header", image: external_image_url(@feed_show.image_url), title: @feed_show.title do |p| %>
+<%= render "header", image: external_image_url(@show.image_url), title: @show.title do |p| %>
   <% p.content_for :meta do %>
-    <p><%= @feed_show.author %></p>
+    <p><%= @show.author %></p>
   <% end %>
 
   <%= turbo_frame_tag :feed_actions do %>
     <menu class="flex justify-center gap-x-4 max-w-sm mt-fl-2xs mx-auto">
-      <% @feed_show.actions.each do |action| %>
+      <% @show.actions.each do |action| %>
         <li class="flex-1 min-w-0 max-w-[16rem] mx-auto text-center">
           <%= render action %>
         </li>
@@ -27,7 +27,7 @@
 
 <div class="mt-fl-xs">
   <%= render "container" do %>
-    <%= form_with url: feed_path(@feed_show.feed), method: :get, data: {turbo_frame: :entries, turbo_action: :replace, controller: "live-search", live_search_target: "form"}, class: "group px-px sm:px-0 -mx-fl-xs-lg sm:mx-0" do |form| %>
+    <%= form_with url: feed_path(@show.feed), method: :get, data: {turbo_frame: :entries, turbo_action: :replace, controller: "live-search", live_search_target: "form"}, class: "group px-px sm:px-0 -mx-fl-xs-lg sm:mx-0" do |form| %>
       <fieldset class="flex items-center">
         <div class="relative flex-1">
           <%= icon :search, solid: true, class: "w-5 h-5 absolute top-1/2 left-2 -translate-y-1/2 text-grey-500 dark:text-grey-400 pointer-events-none", aria_hidden: true %>
@@ -35,7 +35,7 @@
           <%= form.search_field :query, ui.text_input(size: :sm).merge(value: params[:query], class: "pl-8", data: {live_search_target: "input", action: "live-search#search live-search#setQuery"}) %>
         </div>
         <div data-live-search-target="cancel" class="overflow-hidden transition-[width] group-data-[query]:w-[var(--width)] group-data-[query='']:w-0">
-          <%= link_to "Cancel", feed_path(@feed_show.feed), data: {turbo_frame: :entries, turbo_action: :replace, action: "live-search#cancel"}, class: "px-fl-2xs" %>
+          <%= link_to "Cancel", feed_path(@show.feed), data: {turbo_frame: :entries, turbo_action: :replace, action: "live-search#cancel"}, class: "px-fl-2xs" %>
         </div>
       </fieldset>
     <% end %>
@@ -43,7 +43,7 @@
 
   <%= turbo_frame_tag :entries, class: "block relative py-fl-2xs" do %>
     <div class="<%= class_names ["space-y-fl-3xs", {"min-h-[50vh]": params[:query]}] %>">
-      <%= render(@feed_show.episodes) || render("empty") do %>
+      <%= render(@show.episodes) || render("empty") do %>
         <%= params[:query].present? ? "No results" : "No episodes" %>
       <% end %>
     </div>

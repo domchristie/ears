@@ -3,6 +3,10 @@ class ApplicationController < ActionController::Base
   before_action :set_current_request_details
   before_action :setup_player
 
+  helper_method def current_user
+    Current.user ||= Session.find_by(id: cookies.signed[:session_token])&.user
+  end
+
   private
 
   def authenticate
@@ -26,9 +30,5 @@ class ApplicationController < ActionController::Base
   def setup_player
     Current.play = Play.most_recent_by(Current.user) || NilPlay.new
     Current.entry = Current.play.try(:entry) || NilEntry.new
-  end
-
-  helper_method def current_user
-    Current.user ||= Session.find_by(id: cookies.signed[:session_token])&.user
   end
 end

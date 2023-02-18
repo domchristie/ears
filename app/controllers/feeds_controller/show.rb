@@ -1,11 +1,7 @@
-class Feed::Show
+class FeedsController::Show < ControllerAction
   delegate_missing_to :feed
 
-  def initialize(params)
-    @params = params
-  end
-
-  def start
+  def call
     if !feed.last_checked_at
       SyncFeedJob.perform_now(feed, source: :feeds_show)
       feed.reload
@@ -18,7 +14,7 @@ class Feed::Show
     episode_collection = EpisodeCollection.new(
       entries: feed.entries,
       user: Current.user,
-      query: @params[:query]
+      query: params[:query]
     )
     @episodes = episode_collection.episodes(
       limit: 25,
@@ -48,10 +44,10 @@ class Feed::Show
   private
 
   def find_feed
-    if @params[:id]
-      Feed.find_by_hashid!(@params[:id])
-    elsif @params[:encoded_url]
-      url = Feed.decode_url(@params[:encoded_url])
+    if params[:id]
+      Feed.find_by_hashid!(params[:id])
+    elsif params[:encoded_url]
+      url = Feed.decode_url(params[:encoded_url])
       Feed.find_or_create_by(url: url)
     end
   end
@@ -62,7 +58,7 @@ class Feed::Show
       locals: {
         title: most_recent_play.complete? ? "Replay" : "Resume",
         play: most_recent_play,
-        highlight: @params[:source] == "recently_played"
+        highlight: params[:source] == "recently_played"
       }
     }
   end
@@ -73,7 +69,7 @@ class Feed::Show
       locals: {
         title: "Latest",
         play: most_recent_entry.upcoming_play_by(Current.user),
-        highlight: @params[:source] == "recently_updated"
+        highlight: params[:source] == "recently_updated"
       }
     }
   end

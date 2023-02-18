@@ -1,9 +1,5 @@
-class TableOfContents::Show
-  def initialize(params)
-    @params = params
-  end
-
-  def start
+class TableOfContentsController::Show < ControllerAction
+  def call
     if table_of_contents.new_record?
       SyncTableOfContentsJob.perform_now(table_of_contents, source: :table_of_contents_show)
       table_of_contents.reload
@@ -31,7 +27,7 @@ class TableOfContents::Show
   private
 
   def find_entry
-    Entry.find_by_hashid!(@params[:entry_id])
+    Entry.find_by_hashid!(params[:entry_id])
   end
 
   def find_table_of_contents

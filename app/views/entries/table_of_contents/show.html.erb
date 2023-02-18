@@ -1,11 +1,11 @@
 <% content_for :nav do %>
   <%= render "nav", color: :translucent, class: "fixed top-0" do %>
-    <%= render "back", path: entry_path(@toc_show.entry), color: :translucent_black %>
+    <%= render "back", path: entry_path(@show.entry), color: :translucent_black %>
   <% end %>
   <div class="h-16"></div>
 <% end %>
 
-<% @toc_show.chapters.each_with_index do |chapter, i| %>
-  <% end_time = chapter.end_time || @toc_show.chapters[i + 1]&.start_time || @toc_show.play.duration %>
-  <%= render "chapters/chapter", chapter: chapter, index: i, end_time: end_time, play: @toc_show.play %>
+<% @show.chapters.each_with_index do |chapter, i| %>
+  <% end_time = chapter.end_time || @show.chapters[i + 1]&.start_time || @show.play.duration %>
+  <%= render "chapters/chapter", chapter: chapter, index: i, end_time: end_time, play: @show.play %>
 <% end %>
