@@ -1,5 +1,5 @@
 class EntriesController < ApplicationController
   def show
-    @entry = Entry.find_by_hashid!(params[:id])
+    @show = EntriesController::Show.call(self)
   end
 end

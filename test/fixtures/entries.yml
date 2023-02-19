@@ -3,7 +3,7 @@
 one:
   feed: one
   title: Episode one
-  content: The first episode
+  content: <p>The first episode. Hosted on <a href="http://example.com">example.com</a>.</p><p>(0:00) In the beginning …</p><a href="#">(0:00) already linked</a>
   url:  http://example.com/one
   author: Mr Feed
   published_at: 2022-04-05 08:43:08

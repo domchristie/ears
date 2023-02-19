@@ -1,0 +1,10 @@
+<%= link_to_if(
+  entry_timestamp.valid?,
+  entry_timestamp,
+  entry_timestamp.url,
+  data: {
+    action: "player#skipToAndPlay",
+    player_time_param: entry_timestamp.duration_in_seconds
+  },
+  tabindex: 0
+) %>
