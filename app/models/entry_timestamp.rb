@@ -10,8 +10,7 @@ class EntryTimestamp
     return @uri if @uri
 
     uri = URI(entry.enclosure_url)
-    params = URI.decode_www_form(uri.query || "") << ["t", duration_in_seconds]
-    uri.query = URI.encode_www_form(params)
+    uri.fragment = "t=#{duration_in_seconds}"
     @uri = uri.to_s
   end
 

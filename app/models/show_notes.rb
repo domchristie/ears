@@ -52,6 +52,6 @@ class ShowNotes
         entry: @entry,
         timestamp: Timestamp.new(timestamp)
       )
-    )
+    ).strip
   end
 end
