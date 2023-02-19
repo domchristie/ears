@@ -18,7 +18,6 @@
   visibility: hidden;
 }
 
-.prose br:last-child,
-.prose p:empty {
+.prose br:last-child {
   display: none
 }

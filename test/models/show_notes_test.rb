@@ -1,6 +1,11 @@
 require "test_helper"
 
 class ShowNotesTest < ActiveSupport::TestCase
+  test "removing blank p elements" do
+    show_notes = ShowNotes.new(entries(:one))
+    assert_no_match(/<p> <\/p>/, show_notes.to_s)
+  end
+
   test "links open in a new tab/window" do
     show_notes = ShowNotes.new(entries(:one))
     assert_match(/<a href="http:\/\/example\.com" target="_blank" rel="external noopener">/, show_notes.to_s)

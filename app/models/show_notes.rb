@@ -2,6 +2,7 @@ class ShowNotes
   def initialize(entry)
     @entry = entry
     @source = entry.content || entry.description
+    remove_empty_ps
     externalize_links
     link_timestamps
   end
@@ -16,6 +17,10 @@ class ShowNotes
     @doc ||= Nokogiri::HTML(
       Rails::Html::SafeListSanitizer.new.sanitize(@source)
     )
+  end
+
+  def remove_empty_ps
+    doc.search("//p[not(normalize-space())]").each(&:remove)
   end
 
   def links

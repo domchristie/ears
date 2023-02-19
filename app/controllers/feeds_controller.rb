@@ -9,7 +9,7 @@ class FeedsController < ApplicationController
       last_modified: [
         @show.feed.updated_at,
         @show.most_recent_entry.published_at,
-        @show.most_recent_play.updated_at
+        @show.most_recent_play&.updated_at
       ].compact.max
     )
   end
