@@ -101,6 +101,8 @@ export default class PlayerController extends Controller {
   }
 
   updateToggles () {
+    if (document.visibilityState === 'hidden') return
+
     this.playTargets.forEach((target) => {
       if (this.targetApplicable(target)) {
         target.toggleAttribute('data-loading', this.loading)
@@ -113,6 +115,8 @@ export default class PlayerController extends Controller {
   }
 
   updatePlays () {
+    if (document.visibilityState === 'hidden') return
+
     this.ifApplicable(this.playTargets, t => {
       t.setAttribute('data-started', true)
       t.toggleAttribute('data-playing', this.playing)
@@ -120,6 +124,7 @@ export default class PlayerController extends Controller {
   }
 
   updateTime () {
+    if (document.visibilityState === 'hidden') return
     if (this.audioTarget.readyState < 2) return
 
     this.ifApplicable(this.elapsedTargets, t => {
@@ -155,12 +160,16 @@ export default class PlayerController extends Controller {
   }
 
   get updateTimeLater () {
+    if (document.visibilityState === 'hidden') return
+
     return this._updateTimeLater = (
       this._updateTimeLater || throttle(_ => this.updateTime(), 250)
     )
   }
 
   updateProgress () {
+    if (document.visibilityState === 'hidden') return
+
     const progress = this.currentTime / this.duration
     this.ifApplicable(this.progressTargets, t => {
       t.value = progress
