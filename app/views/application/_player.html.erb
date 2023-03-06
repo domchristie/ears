@@ -2,9 +2,7 @@
   <%= render "entries/players/audio", source: entry.try(:resume_enclosure_url, play) %>
 
   <div style="margin-bottom: env(safe-area-inset-bottom)"><%# Leave room for iOS home bar %>
-    <%= turbo_frame_tag :player do %>
-      <%= render "entries/players/player", entry: Current.entry, play: Current.play %>
-    <% end %>
+    <%= render "entries/players/player", entry: Current.entry, play: Current.play %>
   </div>
 </div>
 <div class="box-content h-32 pb-[env(safe-area-inset-bottom,0)]"></div>
