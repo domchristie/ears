@@ -1,4 +1,7 @@
 class ShowNotes
+  include ActionView::Helpers::TextHelper
+  include ActionView::Helpers::SanitizeHelper
+
   def initialize(entry)
     @entry = entry
     @source = entry.content || entry.description
@@ -8,15 +11,26 @@ class ShowNotes
   end
 
   def to_s
-    doc.to_html.html_safe
+    doc.css("body").inner_html.html_safe
   end
 
   private
 
+  def source_html?
+    sanitize(@source) != strip_tags(@source)
+  end
+
+  def source_html
+    # auto_link and simple_format both sanitize by default
+    if source_html?
+      auto_link(@source)
+    else
+      simple_format(auto_link(@source, sanitize: false))
+    end
+  end
+
   def doc
-    @doc ||= Nokogiri::HTML(
-      Rails::Html::SafeListSanitizer.new.sanitize(@source)
-    )
+    @doc ||= Nokogiri::HTML.parse(source_html)
   end
 
   def remove_empty_ps

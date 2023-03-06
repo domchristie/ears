@@ -24,4 +24,23 @@ class ShowNotesTest < ActiveSupport::TestCase
     show_notes = ShowNotes.new(entries(:one))
     assert_match(/<a href="#" target="_blank" rel="external noopener">\(0:00\) already linked/, show_notes.to_s)
   end
+
+  test "formatting plain text" do
+    entry = entries(:one)
+    entry.update!(content: "Plain text")
+    show_notes = ShowNotes.new(entry)
+    assert_match(/<p>Plain text<\/p>/, show_notes.to_s)
+  end
+
+  test "linking unlinked URLs" do
+    show_notes = ShowNotes.new(entries(:one))
+    assert_match(/Find out more on <a href="http:\/\/example.com" target="_blank" rel="external noopener">http:\/\/example.com/, show_notes.to_s)
+  end
+
+  test "sanitization" do
+    entry = entries(:one)
+    entry.update!(content: "This & that")
+    show_notes = ShowNotes.new(entry)
+    assert_match(/This &amp; that/, show_notes.to_s)
+  end
 end

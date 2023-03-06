@@ -99,3 +99,5 @@ gem "pg_search", "~> 2.3"
 gem 'attributes_and_token_lists', github: "seanpdoyle/attributes_and_token_lists", branch: "main"
 
 gem "dalli"
+
+gem "rails_autolink", "~> 1.1"
