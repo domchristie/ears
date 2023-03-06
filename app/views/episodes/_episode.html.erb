@@ -10,7 +10,7 @@
 
   <div class="space-y-fl-3xs">
     <div class="text-grey-500 dark:text-grey-400 line-clamp-1 break-all">
-      <%= strip_tags (episode.summary || episode.description).to_s.gsub("&nbsp;", " ") %>
+      <%= strip_tags (episode.summary || episode.description).to_s %>
     </div>
 
     <%= render "episodes/actions", episode: %>
