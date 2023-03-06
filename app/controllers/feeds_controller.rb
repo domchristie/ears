@@ -3,14 +3,6 @@ class FeedsController < ApplicationController
 
   def show
     @show = FeedsController::Show.call(self)
-
-    fresh_when(
-      @show.feed,
-      last_modified: [
-        @show.feed.updated_at,
-        @show.most_recent_entry.published_at,
-        @show.most_recent_play&.updated_at
-      ].compact.max
-    )
+    fresh_when(@show.feed, last_modified: @show.last_modified)
   end
 end

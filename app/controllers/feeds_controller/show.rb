@@ -1,6 +1,4 @@
 class FeedsController::Show < ControllerAction
-  delegate_missing_to :feed
-
   def call
     if !feed.last_checked_at
       SyncFeedJob.perform_now(feed, source: :feeds_show)
@@ -8,12 +6,24 @@ class FeedsController::Show < ControllerAction
     end
   end
 
+  def title
+    feed.title
+  end
+
+  def image_url
+    feed.image_url
+  end
+
+  def author
+    feed.author
+  end
+
   def episodes
     return @episodes if @episodes
 
     episode_collection = EpisodeCollection.new(
       entries: feed.entries,
-      user: Current.user,
+      user: current_user,
       query: params[:query]
     )
     @episodes = episode_collection.episodes(
@@ -33,12 +43,12 @@ class FeedsController::Show < ControllerAction
     ].compact
   end
 
-  def most_recent_play
-    @most_recent_play ||= feed.most_recent_play_by(Current.user)
-  end
-
-  def most_recent_entry
-    @most_recent_entry ||= feed.most_recent_entry
+  def last_modified
+    [
+      feed.updated_at,
+      most_recent_entry.published_at,
+      most_recent_play&.updated_at
+    ].compact.max
   end
 
   private
@@ -50,6 +60,14 @@ class FeedsController::Show < ControllerAction
       url = Feed.decode_url(params[:encoded_url])
       Feed.find_or_create_by(url: url)
     end
+  end
+
+  def most_recent_entry
+    @most_recent_entry ||= feed.most_recent_entry
+  end
+
+  def most_recent_play
+    @most_recent_play ||= feed.most_recent_play_by(current_user)
   end
 
   def replay_resume_action
@@ -68,7 +86,7 @@ class FeedsController::Show < ControllerAction
       partial: "plays/featured",
       locals: {
         title: "Latest",
-        play: most_recent_entry.upcoming_play_by(Current.user),
+        play: most_recent_entry.upcoming_play_by(current_user),
         highlight: params[:source] == "recently_updated"
       }
     }
