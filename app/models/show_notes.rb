@@ -34,7 +34,7 @@ class ShowNotes
   end
 
   def remove_empty_ps
-    doc.search("//p[not(normalize-space())]").each(&:remove)
+    doc.xpath("//p[not(normalize-space())]").each(&:remove)
   end
 
   def links
@@ -51,7 +51,7 @@ class ShowNotes
   end
 
   def link_timestamps
-    unlinked_text_nodes = doc.search("//*[not(self::a or self::button or self::input or self::select or self::textarea) and not(ancestor::a or ancestor::button or ancestor::input or ancestor::select or ancestor::textarea)]/text()")
+    unlinked_text_nodes = doc.xpath("//*[not(self::a or self::button or self::input or self::select or self::textarea) and not(ancestor::a or ancestor::button or ancestor::input or ancestor::select or ancestor::textarea)]/text()")
     unlinked_text_nodes.select do |node|
       Timestamp::REGEX.match?(node.content)
     end.each do |node|
