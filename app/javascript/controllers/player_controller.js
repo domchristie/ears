@@ -160,8 +160,6 @@ export default class PlayerController extends Controller {
   }
 
   get updateTimeLater () {
-    if (document.visibilityState === 'hidden') return
-
     return this._updateTimeLater = (
       this._updateTimeLater || throttle(_ => this.updateTime(), 250)
     )
