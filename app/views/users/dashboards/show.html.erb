@@ -10,6 +10,15 @@
 <% end %>
 
 <%= render "container" do %>
+  <%= render("heading", icon: :sparkles, class: "mt-fl-lg mb-fl-2xs") { "Recently Updated" } %>
+  <div class="flex flex-nowrap space-x-fl-xs overflow-x-auto snap-x pb-2" id="recently_updated">
+    <%= render(partial: "recently_updated", collection: @dashboard.recently_updated, as: :feed) || render("empty") do %>
+      Recently updated feeds appear here
+    <% end %>
+  </div>
+<% end %>
+
+<%= render "container" do %>
   <%= render("heading", icon: :collection, class: "mt-fl-lg mb-fl-2xs") do %>
     <%= link_to "Play Later", queue_path %>
   <% end %>
@@ -20,15 +29,6 @@
     <%= render("empty") { "Play later episodes appear here" } %>
   <% end %>
 </div>
-
-<%= render "container" do %>
-  <%= render("heading", icon: :sparkles, class: "mt-fl-lg mb-fl-2xs") { "Recently Updated" } %>
-  <div class="flex flex-nowrap space-x-fl-xs overflow-x-auto snap-x pb-2" id="recently_updated">
-    <%= render(partial: "recently_updated", collection: @dashboard.recently_updated, as: :feed) || render("empty") do %>
-      Recently updated feeds appear here
-    <% end %>
-  </div>
-<% end %>
 
 <% if @dashboard.feeds.any? %>
   <%= render "container" do %>
