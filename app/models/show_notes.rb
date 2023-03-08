@@ -1,6 +1,5 @@
 class ShowNotes
-  include ActionView::Helpers::TextHelper
-  include ActionView::Helpers::SanitizeHelper
+  include ActionView::Helpers
 
   def initialize(entry)
     @entry = entry

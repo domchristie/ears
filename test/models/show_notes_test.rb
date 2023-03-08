@@ -37,6 +37,11 @@ class ShowNotesTest < ActiveSupport::TestCase
     assert_match(/Find out more on <a href="http:\/\/example.com" target="_blank" rel="external noopener">http:\/\/example.com/, show_notes.to_s)
   end
 
+  test "linking email addresses" do
+    show_notes = ShowNotes.new(entries(:one))
+    assert_match(/email <a href="mailto:email@example.com" target="_blank" rel="external noopener">email@example.com/, show_notes.to_s)
+  end
+
   test "sanitization" do
     entry = entries(:one)
     entry.update!(content: "This & that")
