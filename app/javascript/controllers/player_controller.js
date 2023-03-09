@@ -100,6 +100,13 @@ export default class PlayerController extends Controller {
     )
   }
 
+  updateActiveElements () {
+    this.updateToggles()
+    this.updatePlays()
+    this.updateTime()
+    this.updateProgress()
+  }
+
   updateToggles () {
     if (document.visibilityState === 'hidden') return
 

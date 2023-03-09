@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-controller="player media-session" data-action="turbo:load->player#updateToggles">
+<html data-controller="player media-session" data-action="turbo:load->player#updateToggles visibilitychange@window->player#updateActiveElements">
   <head>
     <title><%= @title ? "#{@title} - All Ears" : "All Ears" %></title>
     <meta name="viewport" content="width=device-width,viewport-fit=cover,initial-scale=1">
