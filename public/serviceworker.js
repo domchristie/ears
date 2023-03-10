@@ -1,6 +1,7 @@
 console.log('[Service Worker] Hello world!')
 
-var CACHE_NAME = 'v1-cached-assets'
+const VERSION = 1.0
+const CACHE_NAME = `${VERSION}-cached-assets`
 
 function onInstall (event) {
   event.waitUntil(
@@ -30,5 +31,11 @@ function onActivate (event) {
   )
 }
 
+function onFetch (event) {
+  event.request.headers.set('User-Agent', `${event.request.headers.get('User-Agent')} +http://www.ears.app EarsPWA/${VERSION}`)
+  event.respondWith(fetch(event.request))
+}
+
 self.addEventListener('install', onInstall)
 self.addEventListener('activate', onActivate)
+self.addEventListener('fetch', onFetch)
