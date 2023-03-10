@@ -2,9 +2,9 @@ task mdns: :environment do
   require "mdns"
   local_ip = `ifconfig -l | xargs -n1 ipconfig getifaddr`.split("\n").first
 
-  puts "Adding mDNS record for allears.local"
-  MDNS.add_record("app.allears.local", 60, local_ip)
-  MDNS.add_record("websub.allears.local", 60, local_ip)
+  puts "Adding mDNS record for ears.app.local"
+  MDNS.add_record("app.ears.app.local", 60, local_ip)
+  MDNS.add_record("websub.ears.app.local", 60, local_ip)
 
   MDNS.start
   puts "mDNS started"

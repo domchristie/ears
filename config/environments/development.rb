@@ -80,6 +80,6 @@ Rails.application.configure do
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
 
-  routes.default_url_options = {host: "allears.local"}
-  config.hosts << /.*\.allears\.local/
+  routes.default_url_options = {host: "ears.app.local"}
+  config.hosts << /.*\.ears\.app\.local/
 end

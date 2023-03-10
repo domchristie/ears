@@ -81,7 +81,7 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     address: "smtp.gmail.com",
     port: 587,
-    domain: "listenup.club",
+    domain: "ears.app",
     user_name: Rails.application.credentials.smtp.username,
     password: Rails.application.credentials.smtp.password,
     authentication: "plain",
@@ -113,6 +113,6 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  routes.default_url_options = {protocol: "https", host: "listenup.club"}
-  config.hosts << /.*\.listenup\.club/
+  routes.default_url_options = {protocol: "https", host: "ears.app"}
+  config.hosts << /.*\.ears\.app/
 end
