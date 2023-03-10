@@ -1,5 +1,4 @@
 require_relative "boot"
-require_relative "../app/middleware/cloudflare_proxy"
 
 require "rails/all"
 
@@ -19,7 +18,5 @@ module Ears
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
-
-    config.middleware.use CloudflareProxy
   end
 end
