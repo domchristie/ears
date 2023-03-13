@@ -175,7 +175,7 @@ export default class PlayerController extends Controller {
   updateProgress () {
     if (document.visibilityState === 'hidden') return
 
-    const progress = this.currentTime / this.duration
+    const progress = (this.currentTime / this.duration) || 0
     this.ifApplicable(this.progressTargets, t => {
       t.value = progress
       t.style.setProperty('--progress', progress)
