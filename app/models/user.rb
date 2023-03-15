@@ -11,6 +11,9 @@ class User < ApplicationRecord
   has_many :followed_feeds, through: :followings, source: :feed
   has_many :played_feeds, through: :plays, source: :feed
   has_one :queue, -> { where(name: "Queue") }, class_name: "Playlist"
+  has_many :playlists, dependent: :destroy
+  has_many :playlisted_items, through: :playlists, source: :items
+  has_many :playlisted_feeds, through: :playlists, source: :feeds
 
   validates(
     :email,

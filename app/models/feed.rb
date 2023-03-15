@@ -10,10 +10,7 @@ class Feed < ApplicationRecord
   has_many :followings, dependent: :destroy
   has_many :playlist_items, through: :entries
 
-  scope :relevant_to, ->(user) {
-    Feed.where(id: user.followed_feeds).or(Feed.where(id: user.played_feeds))
-  }
-
+  scope :followed_by, ->(user) { where(id: user.followed_feeds) }
   scope :web_subable, -> { Feed.where.not(web_sub_hub_url: nil) }
 
   after_commit :start_web_sub, if: :saved_change_to_web_sub_hub_url?

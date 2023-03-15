@@ -3,6 +3,7 @@ class Playlist < ApplicationRecord
   belongs_to :user
   has_many :items, class_name: "PlaylistItem", dependent: :destroy
   has_many :entries, through: :items
+  has_many :feeds, through: :entries
 
   def prepend_entry(entry)
     items.create(entry:)

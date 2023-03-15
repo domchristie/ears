@@ -53,3 +53,30 @@ two:
   enclosure_length: 60
   enclosure_type: audio/mp3
   enclosure_url: http://example.com/two.mp3
+
+three:
+  feed: two
+  title: Feed Two Episode one
+  content: Second Feed Episode One
+  url:  http://another.example.com/one
+  author: Mr Another Feed
+  published_at: 2022-04-05 08:43:08
+  last_modified_at: 2022-04-05 08:43:08
+  guid: 3f6a8ee0-37f4-4fa0-844e-6c4d7e58f035
+  itunes_author: Mr Another Feed
+  itunes_block: false
+  itunes_duration: 60
+  itunes_explicit: false
+  itunes_keywords: crime
+  itunes_subtitle: In another beginning
+  itunes_image_url: http://another.example.com/one.jpg
+  itunes_closed_captioned: false
+  itunes_order: 1
+  itunes_season: 1
+  itunes_episode: 1
+  itunes_title: Feed Two Episode one
+  itunes_episode_type: MyString
+  itunes_summary: The first episode of another feed
+  enclosure_length: 60
+  enclosure_type: audio/mp3
+  enclosure_url: http://another.example.com/one.mp3
