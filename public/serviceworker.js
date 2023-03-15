@@ -31,11 +31,5 @@ function onActivate (event) {
   )
 }
 
-function onFetch (event) {
-  event.request.headers.set('User-Agent', `${event.request.headers.get('User-Agent')} +http://www.ears.app EarsPWA/${VERSION}`)
-  event.respondWith(fetch(event.request))
-}
-
 self.addEventListener('install', onInstall)
 self.addEventListener('activate', onActivate)
-self.addEventListener('fetch', onFetch)
