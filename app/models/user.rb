@@ -9,8 +9,11 @@ class User < ApplicationRecord
   has_many :followings, dependent: :destroy
   has_many :plays, dependent: :destroy
   has_many :followed_feeds, through: :followings, source: :feed
+  has_many :followed_entries, through: :followed_feeds, source: :entries
   has_many :played_feeds, through: :plays, source: :feed
+  has_many :played_entries, through: :plays, source: :entry
   has_one :queue, -> { where(name: "Queue") }, class_name: "Playlist"
+  has_many :queued_entries, through: :queue, source: :entries
   has_many :playlists, dependent: :destroy
   has_many :playlisted_items, through: :playlists, source: :items
   has_many :playlisted_feeds, through: :playlists, source: :feeds

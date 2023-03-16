@@ -4,6 +4,11 @@ items = [
     title: "Import OPML",
     path: new_opml_import_path,
     icon: :"cloud-upload"
+  },
+  {
+    title: "Followed Feeds",
+    path: feeds_path,
+    icon: :rss
   }
 ]
 account_items = [
@@ -29,7 +34,7 @@ account_items = [
 
 <% content_for :nav, render("nav_bar") %>
 
-<div class="mt-2">
+<div class="mt-2 space-y-fl-3xs">
   <%= render partial: "settings/setting", collection: items %>
 </div>
 
