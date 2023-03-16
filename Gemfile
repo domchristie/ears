@@ -101,3 +101,5 @@ gem 'attributes_and_token_lists', github: "seanpdoyle/attributes_and_token_lists
 gem "dalli"
 
 gem "rails_autolink", "~> 1.1"
+
+gem "good_job", "~> 3.14"
