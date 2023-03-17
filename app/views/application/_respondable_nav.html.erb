@@ -1,0 +1,14 @@
+<%= render "nav", class: "group fixed", data: {layout_target: "respondable", active_when:} do %>
+  <div class="absolute grid inset-0 opacity bg-frosted-glass-light dark:bg-frosted-glass-dark bg-gradient-to-b from-white dark:from-black -translate-y-full group-data-active:translate-y-0 opacity-0 group-data-active:opacity-100 transition duration-300"></div>
+
+  <div class="w-full relative grid grid-cols-[1fr,auto,1fr] gap-fl-2xs items-center">
+    <div class="order-2 cols-start-2 h-full flex items-center overflow-hidden -translate-y-[calc(100%+0.875rem)] group-data-active:translate-y-0 opacity-0 group-data-active:opacity-100 transition duration-300">
+      <div><%= yield %></div>
+    </div>
+    <div class="order-1 cols-start-1 flex">
+      <%= render "back", path: root_path %>
+    </div>
+    <div class="order-3 cols-start-3 flex"></div>
+  </div>
+<% end %>
+<div class="h-16"></div>

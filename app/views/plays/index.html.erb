@@ -1,10 +1,12 @@
 <% content_for :nav do %>
-  <%= render("nav") { render("back", path: root_path) }  %>
+  <%= render "respondable_nav", active_when: "heading:invisible" do %>
+    <h1 class="truncate text-fl-sm font-semibold motion-safe:turn-enter:animate-enter-fade motion-safe:turn-exit:animate-exit-fade">Played Episodes</h1>
+  <% end %>
 <% end %>
 
 <%= render "container" do %>
-  <h1 <%= turn_attributes %> class="mt-fl-lg mb-fl-2xs text-fl-base font-semibold dark:text-grey-50">
-    <span>Recently Played</span>
+  <h1 data-layout-target="observable" id="heading" <%= turn_attributes %> class="mt-fl-sm-lg mb-fl-2xs text-fl-base font-semibold dark:text-grey-50">
+    Played Episodes
   </h1>
 <% end %>
 
