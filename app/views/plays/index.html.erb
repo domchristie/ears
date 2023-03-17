@@ -1,7 +1,11 @@
-<% content_for :nav, render("nav_bar") %>
+<% content_for :nav do %>
+  <%= render("nav") { render("back", path: root_path) }  %>
+<% end %>
 
 <%= render "container" do %>
-  <%= render("users/dashboards/heading", icon: :play, class: "mt-fl-lg mb-fl-2xs") { "Recently Played" } %>
+  <h1 <%= turn_attributes %> class="mt-fl-lg mb-fl-2xs text-fl-base font-semibold dark:text-grey-50">
+    <span>Recently Played</span>
+  </h1>
 <% end %>
 
 <div class="space-y-fl-3xs">
