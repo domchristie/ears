@@ -40,7 +40,14 @@ class Entry < ApplicationRecord
       title: title,
       artist: feed.title,
       album: published_at.to_date.to_fs(:short),
-      artwork: [{src: ExternalImage.url(feed.image_url), sizes: "512x512"}]
+      artwork: [
+        {src: ExternalImage.url(feed.image_url, width: 96, height: 96), sizes: "96x96"},
+        {src: ExternalImage.url(feed.image_url), width: 128, height: 128, sizes: "128x128"},
+        {src: ExternalImage.url(feed.image_url), width: 192, height: 192, sizes: "192x192"},
+        {src: ExternalImage.url(feed.image_url), width: 256, height: 256, sizes: "256x256"},
+        {src: ExternalImage.url(feed.image_url), width: 384, height: 384, sizes: "384x384"},
+        {src: ExternalImage.url(feed.image_url), width: 512, height: 512, sizes: "512x512"}
+      ]
     }
   end
 

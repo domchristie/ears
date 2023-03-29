@@ -1,16 +1,16 @@
 class ExternalImage
-  def self.url(source_url)
-    new(source_url).url
+  def self.url(source_url, width: 512, height: 512)
+    new(source_url).url(width:, height:)
   end
 
   def initialize(source_url)
     @source_url = source_url
   end
 
-  def url
+  def url(width: 512, height: 512)
     cdn.url({
       path: CGI.escape(@source_url),
-      transformation: [{height: "512", width: "512"}],
+      transformation: [{height:, width:}],
       signed: true
     })
   end
