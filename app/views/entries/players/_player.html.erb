@@ -8,7 +8,7 @@
     <menu class="flex justify-center items-end gap-x-3">
       <li class="relative w-16 h-16 order-2">
         <div class="block relative before:absolute before:inset-0 before:ring-inset before:ring-1 before:ring-black/10">
-          <%= image_tag external_image_url(entry.feed.image_url), alt: "", width: 80, height: 80 %>
+          <%= image_tag ExternalImage.url(entry.feed.image_url), alt: "", width: 80, height: 80 %>
         </div>
 
         <div class="absolute inset-0 flex items-center justify-center">

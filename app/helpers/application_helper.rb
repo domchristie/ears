@@ -33,17 +33,4 @@ module ApplicationHelper
   def turn_enter_class_names
     "motion-safe:turn-enter:animate-enter"
   end
-
-  def external_image_url(url)
-    imagekitio = ImageKitIo::Client.new(
-      Rails.application.credentials.imagekit.private_key,
-      Rails.application.credentials.imagekit.public_key,
-      Rails.application.credentials.imagekit.url_endpoint,
-    )
-    imagekitio.url({
-      path: CGI.escape(url),
-      transformation: [{height: "512", width: "512"}],
-      signed: true
-    })
-  end
 end

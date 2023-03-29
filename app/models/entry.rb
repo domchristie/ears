@@ -40,7 +40,7 @@ class Entry < ApplicationRecord
       title: title,
       artist: feed.title,
       album: published_at.to_date.to_fs(:short),
-      artwork: [{src: feed.image_url, sizes: "512x512"}]
+      artwork: [{src: ExternalImage.url(feed.image_url), sizes: "512x512"}]
     }
   end
 

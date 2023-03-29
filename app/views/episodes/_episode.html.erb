@@ -6,7 +6,7 @@
       <p class="flex items-center text-grey-500 dark:text-grey-400">
         <span class="relative w-6 h-6 shrink-0 mr-2 before:absolute before:inset-0 before:ring-inset before:ring-1 before:ring-black/10 dark:before:ring-white/10">
           <% if episode.feed.image_url %>
-            <%= image_tag external_image_url(episode.feed.image_url), alt: "", width: 24, height: 24, loading: :lazy %>
+            <%= image_tag ExternalImage.url(episode.feed.image_url), alt: "", width: 24, height: 24, loading: :lazy %>
           <% end %>
         </span>
         <span class="truncate"><%= episode.feed.title %></span>

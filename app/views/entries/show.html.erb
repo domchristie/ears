@@ -3,7 +3,7 @@
 <% content_for :nav do %>
   <%= render "nav", class: "group fixed", data: {layout_target: "respondable", active_when: "banner:invisible"} do %>
     <div class="absolute inset-0 opacity bg-frosted-glass-light dark:bg-frosted-glass-dark bg-gradient-to-b from-white dark:from-black -translate-y-full group-data-active:translate-y-0 opacity-0 group-data-active:opacity-100 transition duration-300">
-      <%= link_to image_tag(external_image_url(@show.feed.image_url), width: 48, height: 48, alt: "", class: "absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 motion-safe:turn-enter:animate-enter-fade motion-safe:turn-exit:animate-exit-fade"), "#top", data: {action: "layout#scrollToTop:prevent"} %>
+      <%= link_to image_tag(ExternalImage.url(@show.feed.image_url), width: 48, height: 48, alt: "", class: "absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 motion-safe:turn-enter:animate-enter-fade motion-safe:turn-exit:animate-exit-fade"), "#top", data: {action: "layout#scrollToTop:prevent"} %>
     </div>
     <%= render "back", path: feed_path(@show.feed), color: :translucent_black %>
 
@@ -15,7 +15,7 @@
   <% end %>
 <% end %>
 
-<%= render "header", image: external_image_url(@show.entry.image_url), title: @show.entry.title do |p| %>
+<%= render "header", image: ExternalImage.url(@show.entry.image_url), title: @show.entry.title do |p| %>
   <% p.content_for :image_overlay do %>
     <div class="absolute inset-0 flex items-center justify-center">
       <%= render(
@@ -29,7 +29,7 @@
 
   <% p.content_for :meta do %>
     <div class="justify-center text-lg leading-6 my-fl-3xs">
-      <%= image_tag external_image_url(@show.feed.image_url), class: "inline-block w-6 h-6 mr-1 object-cover align-top", width: 24, height: 24 %>
+      <%= image_tag ExternalImage.url(@show.feed.image_url), class: "inline-block w-6 h-6 mr-1 object-cover align-top", width: 24, height: 24 %>
       <%= link_to @show.feed.title, feed_path(@show.feed), class: "text-grey-500 dark:text-grey-400" %>
     </div>
 
