@@ -9,6 +9,7 @@ class Feed < ApplicationRecord
   has_many :plays, dependent: :destroy
   has_many :followings, dependent: :destroy
   has_many :playlist_items, through: :entries
+  has_many :fetches, foreign_key: :resource_id, dependent: :destroy
 
   scope :followed_by, ->(user) { where(id: user.followed_feeds) }
   scope :web_subable, -> { Feed.where.not(web_sub_hub_url: nil) }

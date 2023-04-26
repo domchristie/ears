@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_16_112013) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_25_180212) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
   enable_extension "pg_trgm"
@@ -131,6 +131,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_16_112013) do
     t.bigint "itunes_id"
     t.index ["itunes_id"], name: "index_feeds_on_itunes_id", unique: true
     t.index ["url"], name: "index_feeds_on_url", unique: true
+  end
+
+  create_table "fetches", force: :cascade do |t|
+    t.string "type", null: false
+    t.string "resource_type"
+    t.bigint "resource_id"
+    t.datetime "started_at"
+    t.datetime "finished_at"
+    t.boolean "conditional", default: true
+    t.string "error"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "followings", force: :cascade do |t|

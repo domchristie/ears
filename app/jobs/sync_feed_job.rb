@@ -2,34 +2,35 @@ class SyncFeedJob < ApplicationJob
   queue_as :default
 
   def perform(feed, source:, force: false)
-    Rails.logger.info(
-      "[#{self.class}] starting; feed: #{feed.id}, source: #{source}, force: #{force}"
-    )
-    at = Time.now.utc
-    get = Feed::Manager.fetch(feed, conditional: !force)
+    log "Fetching Feed #{feed.id}, source: #{source}, force: #{force}"
 
-    feed.update!(
-      last_modified_at: get.headers["last-modified"],
-      etag: get.headers["etag"]
-    )
+    fetch = Feed::Fetch.start!(resource: feed)
 
-    case get.response
-    when Net::HTTPSuccess
+    if fetch.success?
+      log "Importing Feed #{feed.id}"
+
+      feed.update!({
+        last_modified_at: fetch.response_headers["last-modified"],
+        etag: fetch.response_headers["etag"],
+        url: (fetch.uri if fetch.redirected_permanently?)
+      }.compact_blank)
+
       ImportFeedJob.perform_now(
         feed,
-        remote_feed: Feed::Manager.parse(get.body),
-        source: source,
-        at: at
+        remote_feed: Feed::Manager.parse(fetch.response_body),
+        source: source
       )
       nil
-    when Net::HTTPNotModified
-      puts "[#{self.class}] feed: #{feed.id} Net::HTTPNotModified"
-    when Net::HTTPTemporaryRedirect, Net::HTTPMovedPermanently
-      puts "[#{self.class}] feed: #{feed.id} #{get.response.class}"
-      # TODO: update feed_url, enqueue SyncFeedJob
-    when Net::HTTPClientError
-      puts "[#{self.class}] feed: #{feed.id} #{get.response.class}"
-      # TODO: mark as gone?
+    elsif fetch.not_modified?
+      log "Feed #{feed.id} not modified, doing nothing"
     end
+
+    nil
+  end
+
+  private
+
+  def log(message)
+    puts "[#{self.class}] #{message}"
   end
 end
