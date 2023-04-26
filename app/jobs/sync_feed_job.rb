@@ -4,7 +4,7 @@ class SyncFeedJob < ApplicationJob
   def perform(feed, source:, force: false)
     log "Fetching Feed #{feed.id}, source: #{source}, force: #{force}"
 
-    fetch = Feed::Fetch.start!(resource: feed)
+    fetch = Feed::Fetch.start!(resource: feed, conditional: !force)
 
     if fetch.success?
       log "Importing Feed #{feed.id}"
