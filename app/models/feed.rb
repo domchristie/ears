@@ -70,6 +70,10 @@ class Feed < ApplicationRecord
     Encryptor.url_safe_decrypt(url[11..])
   end
 
+  def web_subable?
+    web_sub_hub_url.present?
+  end
+
   def start_web_sub
     StartWebSubJob.perform_later(self)
   end

@@ -9,11 +9,19 @@ class SyncFeedJob < ApplicationJob
     if fetch.success?
       log "Importing Feed #{feed.id}"
 
+      if fetch.redirected_permanently? && feed.web_subable?
+        feed.web_subs.destroy_all
+      end
+
       feed.update!({
         last_modified_at: fetch.response_headers["last-modified"],
         etag: fetch.response_headers["etag"],
         url: (fetch.uri if fetch.redirected_permanently?)
       }.compact_blank)
+
+      if fetch.redirected_permanently? && feed.web_subable?
+        feed.start_web_sub
+      end
 
       ImportFeedJob.perform_now(
         feed,
