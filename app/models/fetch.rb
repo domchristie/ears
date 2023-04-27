@@ -38,7 +38,12 @@ class Fetch < ApplicationRecord
           @response
         when Net::HTTPRedirection
           @redirected_permanently = @response.is_a?(Net::HTTPMovedPermanently)
-          return get(@response["location"], limit: limit - 1)
+
+          if @response["location"].present?
+            return get(@response["location"], limit: limit - 1)
+          else
+            @response
+          end
         when Net::HTTPServerError, Net::HTTPClientError
           update!(error: @response.class)
         end
