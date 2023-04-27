@@ -1,11 +1,11 @@
 class Feed::Fetch < Fetch
   belongs_to :feed, foreign_type: :resource_type, foreign_key: :resource_id, polymorphic: true
 
-  def self.start!(**attrs)
-    create!(**attrs).start
+  def self.start!(...)
+    new(...).start!
   end
 
-  def start
+  def start!
     if conditional?
       request_headers["If-Modified-Since"] = feed.last_modified_at.try(:to_fs, :rfc7231)
       request_headers["If-None-Match"] = feed.etag

@@ -3,6 +3,7 @@ class Fetch < ApplicationRecord
 
   attr_reader :response, :uri
   belongs_to :resource, polymorphic: true
+  has_one :synchronization, dependent: :destroy
 
   def user_agent
     "Ears/1.0 #{self.class} +https://www.ears.app"
@@ -56,6 +57,10 @@ class Fetch < ApplicationRecord
 
   def not_modified?
     response&.is_a? Net::HTTPNotModified
+  end
+
+  def error?
+    error.present?
   end
 
   def redirected_permanently?
