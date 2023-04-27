@@ -45,13 +45,15 @@ class Fetch < ApplicationRecord
             @response
           end
         when Net::HTTPServerError, Net::HTTPClientError
-          update!(error: @response.class)
+          self.error = @response.class
         end
       end
     rescue => exception
-      update!(error: exception.class)
+      self.error = exception.class
       # TODO: send to Honeybadger
     end
+
+    update!({status_code: @response&.code}.compact)
 
     @response
   end
