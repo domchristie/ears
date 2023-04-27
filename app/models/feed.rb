@@ -14,7 +14,10 @@ class Feed < ApplicationRecord
   scope :followed_by, ->(user) { where(id: user.followed_feeds) }
   scope :web_subable, -> { Feed.where.not(web_sub_hub_url: nil) }
 
-  after_commit :start_web_sub, if: :saved_change_to_web_sub_hub_url?
+  before_save if: :will_save_change_to_url? do
+    WebSub.where(feed_url: url_in_database).destroy_all
+  end
+  after_commit :start_web_sub, if: :web_sub_attributes_changed?
 
   validates :url, format: %r{http(s)?://.+}
 
@@ -72,6 +75,10 @@ class Feed < ApplicationRecord
 
   def web_subable?
     web_sub_hub_url.present?
+  end
+
+  def web_sub_attributes_changed?
+    saved_change_to_web_sub_hub_url? || saved_change_to_url?
   end
 
   def start_web_sub
