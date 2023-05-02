@@ -3,7 +3,7 @@ class Fetch < ApplicationRecord
 
   attr_reader :response, :uri
   belongs_to :resource, polymorphic: true
-  has_one :synchronization
+  has_one :synchronization, dependent: :destroy
 
   def user_agent
     "Ears/1.0 #{self.class} +https://www.ears.app"

@@ -43,7 +43,7 @@ class Feed::Synchronization < Synchronization
     ImportFeedJob.perform_now(
       feed,
       remote_feed: Feed::Manager.parse(fetch.response_body),
-      source: :rake
+      source:
     )
   end
 end
