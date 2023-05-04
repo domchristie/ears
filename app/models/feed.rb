@@ -3,7 +3,7 @@ class Feed < ApplicationRecord
 
   has_many :entries, dependent: :destroy
   has_one :most_recent_entry, -> { order(published_at: :desc) }, class_name: "Entry"
-  has_one :rss_image, as: :rss_imageable
+  has_one :rss_image, as: :rss_imageable, dependent: :destroy
   has_many :web_subs, foreign_key: :feed_url, primary_key: :url, dependent: :destroy
   has_many :active_web_subs, -> { where("web_subs.expires_at > ?", Time.current) }, class_name: "WebSub", foreign_key: :feed_url, primary_key: :url
   has_many :plays, dependent: :destroy

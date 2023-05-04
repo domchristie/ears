@@ -3,16 +3,14 @@ require "test_helper"
 class FeedTest < ActiveSupport::TestCase
   test "destroying related records" do
     feed = feeds(:one)
-    Feed::Synchronization.create!(
-      feed:,
-      fetch: Feed::Fetch.create!(feed:),
-      source: :test
-    )
+    id = feed.id
+
     assert feed.entries.any?
     assert feed.plays.any?
     assert feed.web_subs.any?
     assert feed.synchronizations.any?
     assert feed.fetches.any?
+    assert feed.rss_image.present?
 
     feed.destroy!
 
@@ -21,5 +19,6 @@ class FeedTest < ActiveSupport::TestCase
     assert feed.web_subs.none?
     assert feed.synchronizations.none?
     assert feed.fetches.none?
+    refute RssImage.find_by(rss_imageable_type: "Feed", rss_imageable_id: id)
   end
 end
