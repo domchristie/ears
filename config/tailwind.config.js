@@ -106,6 +106,17 @@ module.exports = {
       addVariant('turn-exit', '.turn-exit &')
       addVariant('turbo-preview', '[data-turbo-preview] &')
     }),
+    plugin(function ({ addVariant }) {
+      addVariant('range-track', [
+        '&::-webkit-slider-runnable-track',
+        '&::-moz-range-track'
+      ])
+      addVariant('range-thumb', [
+        '&::-webkit-slider-thumb',
+        '&::-moz-range-thumb'
+      ])
+      addVariant('range-progress', '&::-moz-range-progress')
+    }),
     plugin(function ({ addUtilities }) {
       addUtilities({
         '.min-h-dscreen': generate('minHeight'),

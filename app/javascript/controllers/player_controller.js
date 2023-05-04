@@ -86,6 +86,7 @@ export default class PlayerController extends Controller {
 
   skipBack (event = {}) {
     event.currentTarget?.focus()
+
     this.audioTarget.currentTime = Math.max(
       this.audioTarget.currentTime - 15,
       0
@@ -94,6 +95,7 @@ export default class PlayerController extends Controller {
 
   skipForward (event = {}) {
     event.currentTarget?.focus()
+
     this.audioTarget.currentTime = Math.min(
       this.audioTarget.currentTime + 30,
       this.duration
@@ -133,6 +135,7 @@ export default class PlayerController extends Controller {
   updateTime () {
     if (document.visibilityState === 'hidden') return
     if (this.audioTarget.readyState < 2) return
+    if (this.seeking) return
 
     this.ifApplicable(this.elapsedTargets, t => {
       t.textContent = chronoDuration(this.currentTime)
@@ -174,6 +177,7 @@ export default class PlayerController extends Controller {
 
   updateProgress () {
     if (document.visibilityState === 'hidden') return
+    if (this.seeking) return
 
     const progress = (this.currentTime / this.duration) || 0
     this.ifApplicable(this.progressTargets, t => {
@@ -215,6 +219,39 @@ export default class PlayerController extends Controller {
         href: requestUrl(this.audioTarget.src),
         currentTime: this.currentTime
       }
+    })
+  }
+
+  startSeeking () {
+    this.seeking = true
+  }
+
+  stopSeeking () {
+    this.seeking = false
+  }
+
+  seekTo (event) {
+    this.audioTarget.currentTime = Number(event.currentTarget.value) * this.duration
+  }
+
+  seek (event) {
+    const progress = Number(event.currentTarget.value)
+    const elapsed = this.duration * progress
+    const remaining = this.duration * (1 - progress)
+
+    this.ifApplicable(this.elapsedTargets, t => {
+      t.textContent = chronoDuration(elapsed)
+      t.setAttribute('datetime', iso8601Duration(elapsed))
+      t.setAttribute(
+        'aria-label',
+        `${humanDuration(elapsed)} elapsed`
+      )
+    })
+
+    this.ifApplicable(this.remainingTargets, t => {
+      t.textContent = '-' + chronoDuration(remaining, 'display')
+      t.setAttribute('datetime', iso8601Duration(remaining))
+      t.setAttribute('aria-label', `${humanDuration(remaining)} left`)
     })
   }
 

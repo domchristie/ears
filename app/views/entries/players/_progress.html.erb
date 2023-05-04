@@ -1,0 +1,51 @@
+<input
+  data-player-target="progress"
+  data-href="<%= entry.enclosure_url %>"
+  data-action="mousedown->player#startSeeking mouseup->player#stopSeeking touchstart->player#startSeeking touchend->player#stopSeeking change->player#seekTo input->player#seek"
+  type="range"
+  min="0"
+  max="1"
+  step="0.00001"
+  value="<%= play.progress %>"
+  style="--track-height: 0.25rem; --thumb-height: 1.25rem; --thumb-width: var(--thumb-height)"
+  class="
+    appearance-none
+    relative
+    bg-transparent
+    overflow-x-hidden
+    block
+    w-full
+    h-[var(--thumb-height)]
+
+    range-track:appearance-none
+    range-track:relative
+    [&::-webkit-slider-runnable-track]:h-[var(--thumb-height)]
+
+    [&::-moz-range-track]:h-[var(--track-height)]
+    [&::-moz-range-track]:bg-grey-300
+    dark:[&::-moz-range-track]:bg-grey-700
+
+    range-thumb:appearance-none
+    range-thumb:box-border
+    range-thumb:relative
+    range-thumb:w-[var(--thumb-width)]
+    range-thumb:h-[var(--thumb-height)]
+    range-thumb:rounded-full
+    range-thumb:bg-white
+    dark:range-thumb:bg-black
+    range-thumb:border-2
+    range-thumb:border-solid
+    range-thumb:border-white
+    dark:range-thumb:border-black
+    range-thumb:ring-4
+    range-thumb:ring-inset
+    range-thumb:ring-current
+    range-thumb:transition
+    range-thumb:cursor-grab
+    range-thumb:active:cursor-grabbing
+    range-thumb:active:scale-125
+
+    range-progress:h-[var(--track-height)]
+    range-progress:bg-black
+    dark:range-progress:bg-grey-100
+  ">

@@ -35,7 +35,43 @@
 
   progress::-webkit-progress-value {
     background: currentColor;
-    transition: width 0.1s;
+  }
+
+  input[type="range"] {
+    --track-color: theme(colors.grey.300);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    input[type="range"] {
+      --track-color: theme(colors.grey.700);
+    }
+  }
+
+  input[type="range"]::-webkit-slider-runnable-track {
+    background: linear-gradient(var(--track-color) 0 0) scroll no-repeat center / 100% calc(var(--track-height));
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    --clip-top: calc((var(--thumb-height) - var(--track-height)) * 0.5);
+    --clip-bottom: calc(var(--thumb-height) - var(--clip-top));
+    --clip-edges: 0.125rem;
+    --clip-further: calc(100% + 1px);
+    --box-fill: calc(-100vmax - var(--thumb-width, var(--thumb-height))) 0 0 100vmax currentColor;
+
+    width: var(--thumb-width, var(--thumb-height));
+    box-shadow: var(--tw-ring-offset-shadow),
+      var(--tw-ring-shadow),
+      var(--tw-shadow, 0 0 #0000),
+      var(--box-fill);
+
+    clip-path: polygon(100% -1px,
+      var(--clip-edges) -1px,
+      0 var(--clip-top),
+      -100vmax var(--clip-top),
+      -100vmax var(--clip-bottom),
+      0 var(--clip-bottom),
+      var(--clip-edges) 100%,
+      var(--clip-further) var(--clip-further));
   }
 
   .bg-frosted-glass-light {

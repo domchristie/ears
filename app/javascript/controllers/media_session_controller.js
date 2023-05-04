@@ -27,6 +27,10 @@ export default class MediaSessionController extends Controller {
       navigator.mediaSession.setActionHandler('seekforward', (details) =>
         this.audioTarget.currentTime += details.seekOffset
       )
+
+      navigator.mediaSession.setActionHandler('seekto', (details) =>
+        this.audioTarget.currentTime = details.seekTime
+      )
     }
   }
 

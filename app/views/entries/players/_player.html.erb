@@ -21,12 +21,13 @@
     </menu>
 
 
-    <p class="flex items-end justify-between px-2 pb-1 -mt-2.5 font-native text-xs tabular-nums font-semibold">
+    <p class="flex items-end justify-between mx-fl-xs pb-0.5 -mt-3.5 font-native text-xs tabular-nums font-semibold">
       <time
         data-player-target="elapsed"
         data-href="<%= entry.enclosure_url %>"
         datetime="<%= iso8601_duration play.elapsed %>"
         aria-label="<%= distance_of_time_in_words 0, play.elapsed, include_seconds: true %> elapsed"
+        class="text-grey-500 dark:text-grey-400"
       >
         <%= chrono_duration play.elapsed %>
       </time>
@@ -35,21 +36,17 @@
         data-href="<%= entry.enclosure_url %>"
         datetime="<%= iso8601_duration play.remaining %>"
         aria-label="<%= distance_of_time_in_words 0, play.remaining, include_seconds: true %> left"
+        class="text-grey-500 dark:text-grey-400"
       >
         -<%= chrono_duration play.remaining %>
       </time>
     </p>
 
-    <progress
-      data-player-target="progress"
-      data-href="<%= entry.enclosure_url %>"
-      min="0"
-      max="1"
-      value="<%= play.progress %>"
-      class="block w-full h-1 appearance-none border-0 ring-1 ring-white/50 text-black dark:ring-black/50 dark:text-white"
-    ></progress>
+    <div class="relative mx-fl-xs">
+      <%= render "entries/players/progress", entry:, play: %>
+    </div>
 
-    <div class="block p-1.5 text-sm font-medium text-center text-black dark:text-white">
+    <div class="block pt-0.5 pb-1.5 px-fl-2xs text-sm font-medium text-center text-black dark:text-white">
       <%= link_to_if(
         entry.present?,
         "#{entry.feed.title} - #{entry.title}",
