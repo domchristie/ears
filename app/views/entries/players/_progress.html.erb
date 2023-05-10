@@ -1,7 +1,7 @@
 <input
   data-player-target="progress"
   data-href="<%= entry.enclosure_url %>"
-  data-action="mousedown->player#startSeeking mouseup->player#stopSeeking touchstart->player#startSeeking touchend->player#stopSeeking change->player#seekTo input->player#seek"
+  data-action="mousedown->player#startSeeking mouseup@window->player#stopSeeking touchstart->player#startSeeking touchend@window->player#stopSeeking change->player#seekTo input->player#seek"
   type="range"
   min="0"
   max="1"
