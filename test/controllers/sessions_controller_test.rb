@@ -36,4 +36,12 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to sign_in_url
   end
+
+  test "should redirect to root when already logged in" do
+    sign_in_as @user
+
+    get sign_in_url
+
+    assert_redirected_to root_url
+  end
 end
