@@ -7,14 +7,12 @@ class Feed::Synchronization < Synchronization
 
   def start!
     log("Fetching Feed #{feed.id}")
-    update!(
-      fetch: Feed::Fetch.start!(feed:, conditional:),
-      started_at: Time.current
-    )
+    update!(started_at: Time.current)
+    fetch = Feed::Fetch.start!(synchronization: self, feed:, conditional:)
 
     if fetch.success?
-      import_feed
-      update_feed
+      import_feed(fetch)
+      update_feed(fetch)
     elsif fetch.not_modified?
       log("Feed #{feed.id} Not Modified")
     elsif fetch.error?
@@ -22,11 +20,12 @@ class Feed::Synchronization < Synchronization
     end
 
     update!(finished_at: Time.current)
+    self
   end
 
   private
 
-  def update_feed
+  def update_feed(fetch)
     updates = ["conditional request", ("url" if fetch.redirected_permanently?)].compact
     log("Updating Feed #{feed.id} #{updates.to_sentence} attributes")
 
@@ -37,7 +36,7 @@ class Feed::Synchronization < Synchronization
     }.compact_blank)
   end
 
-  def import_feed
+  def import_feed(fetch)
     log("Importing Feed #{feed.id}")
     # update!(import: Feed::Import.start!(feed:, fetch:))
     ImportFeedJob.perform_now(

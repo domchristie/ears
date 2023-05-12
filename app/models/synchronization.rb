@@ -1,5 +1,5 @@
 class Synchronization < ApplicationRecord
-  belongs_to :fetch, dependent: :destroy
+  has_many :fetches, dependent: :destroy
   belongs_to :resource, polymorphic: true
 
   private

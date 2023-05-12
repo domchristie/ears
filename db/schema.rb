@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_27_185921) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_12_062220) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
   enable_extension "pg_trgm"
@@ -144,6 +144,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_27_185921) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "status_code"
+    t.bigint "synchronization_id"
   end
 
   create_table "followings", force: :cascade do |t|
@@ -288,12 +289,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_27_185921) do
     t.datetime "finished_at"
     t.string "resource_type"
     t.bigint "resource_id"
-    t.bigint "fetch_id", null: false
     t.boolean "conditional", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "source", null: false
-    t.index ["fetch_id"], name: "index_synchronizations_on_fetch_id"
   end
 
   create_table "table_of_contents", force: :cascade do |t|
@@ -347,7 +346,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_27_185921) do
   add_foreign_key "plays", "feeds"
   add_foreign_key "plays", "users"
   add_foreign_key "sessions", "users"
-  add_foreign_key "synchronizations", "fetches"
   add_foreign_key "table_of_contents", "entries"
   add_foreign_key "web_subs", "feeds", column: "feed_url", primary_key: "url"
 end

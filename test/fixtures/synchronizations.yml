@@ -3,5 +3,4 @@
 one:
   type: "Feed::Synchronization"
   resource: one (Feed)
-  fetch: one
   source: :web_sub
