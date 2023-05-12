@@ -92,6 +92,18 @@ module.exports = {
             opacity: 0
           }
         }
+      },
+      typography: {
+        DEFAULT: {
+          css: {
+            ul: {
+              paddingLeft: '1em'
+            },
+            ol: {
+              paddingLeft: '1em'
+            }
+          }
+        }
       }
     },
   },
