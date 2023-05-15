@@ -57,7 +57,7 @@ class Entry < ApplicationRecord
   end
 
   def upcoming_play_by(user)
-    plays.build(user: user, elapsed: 0, remaining: duration)
+    plays.build({user: user, elapsed: 0, remaining: duration}.compact)
   end
 
   def play_by(user)

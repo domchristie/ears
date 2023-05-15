@@ -21,11 +21,12 @@ class Play < ApplicationRecord
   end
 
   def progress
-    duration == 0 ? 0 : elapsed / duration
+    duration == 0 || duration.nil? ? 0 : elapsed / duration
   end
 
   def complete?
-    0.05 * duration > 60 ? remaining < 60 : progress > 0.95
+    duration.present? &&
+      (0.05 * duration > 60 ? remaining < 60 : progress > 0.95)
   end
 
   def started?

@@ -29,6 +29,12 @@ module PlaysHelper
   end
 
   def play_state_attributes(play)
-    {data: {started: play.started? || nil, played: play.complete? || nil}}
+    {
+      data: {
+        started: play.started? || nil,
+        played: play.complete? || nil,
+        duration: play.duration
+      }
+    }
   end
 end

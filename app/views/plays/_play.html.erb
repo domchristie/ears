@@ -1,7 +1,7 @@
 <div
   data-player-target="play"
   data-href="<%= play.entry&.enclosure_url %>"
-  class="group flex items-center"
+  class="group flex items-center data-[duration='0.0']:hidden"
   <%= tag.attributes(play_state_attributes(play)) %>
 >
   <span class="<%= class_names("hidden group-data-played:flex items-center") %>">

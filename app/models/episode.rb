@@ -7,11 +7,11 @@ class Episode
   delegate_missing_to :entry
 
   def play
-    @play ||= Play.new(
+    @play ||= Play.new({
       entry:, user:,
       elapsed: 0,
       remaining: entry.duration
-    )
+    }.compact)
   end
 
   def queue_item
