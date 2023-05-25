@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_12_062220) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_19_202055) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
   enable_extension "pg_trgm"
@@ -123,9 +123,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_12_062220) do
     t.text "itunes_summary"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "last_checked_at"
     t.string "web_sub_hub_url"
-    t.string "import_source"
     t.datetime "last_modified_at"
     t.string "etag"
     t.bigint "itunes_id"
@@ -217,6 +215,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_12_062220) do
     t.index ["priority", "created_at"], name: "index_good_jobs_jobs_on_priority_created_at_when_unfinished", order: { priority: "DESC NULLS LAST" }, where: "(finished_at IS NULL)"
     t.index ["queue_name", "scheduled_at"], name: "index_good_jobs_on_queue_name_and_scheduled_at", where: "(finished_at IS NULL)"
     t.index ["scheduled_at"], name: "index_good_jobs_on_scheduled_at", where: "(finished_at IS NULL)"
+  end
+
+  create_table "imports", force: :cascade do |t|
+    t.string "type", null: false
+    t.string "resource_type"
+    t.bigint "resource_id"
+    t.datetime "started_at"
+    t.datetime "finished_at"
+    t.string "error"
+    t.bigint "synchronization_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "opml_imports", force: :cascade do |t|
