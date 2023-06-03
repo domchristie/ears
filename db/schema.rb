@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_19_202055) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_26_092302) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
   enable_extension "pg_trgm"
@@ -131,20 +131,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_19_202055) do
     t.index ["url"], name: "index_feeds_on_url", unique: true
   end
 
-  create_table "fetches", force: :cascade do |t|
-    t.string "type", null: false
-    t.string "resource_type"
-    t.bigint "resource_id"
-    t.datetime "started_at"
-    t.datetime "finished_at"
-    t.boolean "conditional", default: true
-    t.string "error"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "status_code"
-    t.bigint "synchronization_id"
-  end
-
   create_table "followings", force: :cascade do |t|
     t.bigint "feed_id", null: false
     t.bigint "user_id", null: false
@@ -217,16 +203,30 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_19_202055) do
     t.index ["scheduled_at"], name: "index_good_jobs_on_scheduled_at", where: "(finished_at IS NULL)"
   end
 
-  create_table "imports", force: :cascade do |t|
+  create_table "import_fetches", force: :cascade do |t|
     t.string "type", null: false
     t.string "resource_type"
     t.bigint "resource_id"
     t.datetime "started_at"
     t.datetime "finished_at"
+    t.boolean "conditional", default: true
     t.string "error"
-    t.bigint "synchronization_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "status_code"
+    t.bigint "import_id"
+  end
+
+  create_table "imports", force: :cascade do |t|
+    t.string "type", null: false
+    t.datetime "started_at"
+    t.datetime "finished_at"
+    t.string "resource_type"
+    t.bigint "resource_id"
+    t.boolean "conditional", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "source", null: false
   end
 
   create_table "opml_imports", force: :cascade do |t|
@@ -291,18 +291,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_19_202055) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_sessions_on_user_id"
-  end
-
-  create_table "synchronizations", force: :cascade do |t|
-    t.string "type", null: false
-    t.datetime "started_at"
-    t.datetime "finished_at"
-    t.string "resource_type"
-    t.bigint "resource_id"
-    t.boolean "conditional", default: true
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "source", null: false
   end
 
   create_table "table_of_contents", force: :cascade do |t|

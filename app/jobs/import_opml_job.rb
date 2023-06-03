@@ -5,6 +5,7 @@ class ImportOpmlJob < ApplicationJob
     doc = Nokogiri::XML.parse(opml_import.temp_file)
     feeds_ids = upsert_feeds(doc.css("outline"))
     upsert_followings(feeds_ids, user)
+    import_feeds(feeds_ids)
     opml_import.destroy!
   end
 
@@ -23,6 +24,12 @@ class ImportOpmlJob < ApplicationJob
       followings_attributes(feeds_ids, user),
       unique_by: [:feed_id, :user_id]
     )
+  end
+
+  def import_feeds(feed_ids)
+    Feed.where(id: feed_ids).find_each do |feed|
+      SyncFeedJob.perform_now(feed, source: :opml_import)
+    end
   end
 
   def feeds_attributes(outlines)

@@ -3,45 +3,43 @@ class Feed::Import < Import
 
   def start!
     super do
-      feed.update!(feed_attributes)
+      log("Fetching Feed #{feed.id}")
+      fetch = Feed::Import::Fetch.start!(feed:, conditional:, import: self)
 
-      if remote_feed.image
-        RssImage.import!(Feed, feed.id, remote_feed.image)
-      end
-
-      if remote_feed.entries.try(:any?)
-        Entry.import_all!(feed.id, remote_feed.entries)
+      if fetch.success?
+        transform = Feed::Import::Transform.new(fetch, resource: feed)
+        load(transform.data)
+      elsif fetch.not_modified?
+        log("Feed #{feed.id} Not Modified")
+      elsif fetch.error?
+        log("Feed #{feed.id} Fetch Error: #{fetch.error}")
       end
     end
   end
 
   private
 
-  def remote_feed
-    @remote_feed = Feed::Manager.parse(data)
+  def load(data)
+    feed.update!(data.without(:entries_attributes, :rss_image_attributes))
+    load_entries(data[:entries_attributes])
+    load_rss_image(data[:rss_image_attributes])
   end
 
-  def feed_attributes
-    @feed_attributes ||= {
-      web_sub_hub_url: remote_feed.hubs.first,
-      copyright: remote_feed.copyright,
-      description: remote_feed.description,
-      language: remote_feed.language,
-      last_build_at: remote_feed.last_built,
-      website_url: remote_feed.url,
-      managing_editor: remote_feed.managing_editor,
-      title: remote_feed.title,
-      ttl: remote_feed.ttl,
-      itunes_author: remote_feed.itunes_author,
-      itunes_block: remote_feed.itunes_block == "Yes",
-      itunes_image: remote_feed.itunes_image,
-      itunes_explicit: remote_feed.itunes_explicit == "true",
-      itunes_complete: remote_feed.itunes_complete == "Yes",
-      itunes_keywords: remote_feed.itunes_keywords,
-      itunes_type: remote_feed.itunes_type,
-      itunes_new_feed_url: remote_feed.itunes_new_feed_url,
-      itunes_subtitle: remote_feed.itunes_subtitle,
-      itunes_summary: remote_feed.itunes_summary
-    }
+  def load_entries(entries_attributes)
+    Entry.upsert_all(
+      entries_attributes,
+      unique_by: [:feed_id, :formatted_guid],
+      record_timestamps: true
+    )
+  end
+
+  def load_rss_image(rss_image_attributes)
+    if rss_image_attributes.present?
+      RssImage.upsert(
+        data[:rss_image_attributes],
+        unique_by: [:rss_imageable_type, :rss_imageable_id],
+        record_timestamps: true
+      )
+    end
   end
 end

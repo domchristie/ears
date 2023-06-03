@@ -1,4 +1,4 @@
-class Feed::Fetch < Fetch
+class Feed::Import::Fetch < Import::Fetch
   belongs_to :feed, foreign_type: :resource_type, foreign_key: :resource_id, polymorphic: true
 
   def self.start!(...)

@@ -8,8 +8,8 @@ class FeedTest < ActiveSupport::TestCase
     assert feed.entries.any?
     assert feed.plays.any?
     assert feed.web_subs.any?
-    assert feed.synchronizations.any?
-    assert feed.fetches.any?
+    assert feed.imports.any?
+    assert feed.import_fetches.any?
     assert feed.rss_image.present?
 
     feed.destroy!
@@ -17,8 +17,8 @@ class FeedTest < ActiveSupport::TestCase
     assert feed.entries.none?
     assert feed.plays.none?
     assert feed.web_subs.none?
-    assert feed.synchronizations.none?
-    assert feed.fetches.none?
+    assert feed.imports.none?
+    assert feed.import_fetches.none?
     refute RssImage.find_by(rss_imageable_type: "Feed", rss_imageable_id: id)
   end
 end

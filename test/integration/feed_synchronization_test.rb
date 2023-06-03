@@ -10,7 +10,7 @@ class FeedSynchronizationTest < ActionDispatch::IntegrationTest
     stub_request(:get, @feed.url).to_return(status: 200, body: File.read(file))
 
     assert_difference -> { Entry.count }, 3 do
-      Feed::Synchronization.start!(feed: @feed, source: :test)
+      Feed::Import.start!(feed: @feed, source: :test)
     end
   end
 
@@ -18,7 +18,7 @@ class FeedSynchronizationTest < ActionDispatch::IntegrationTest
     stub_request(:get, @feed.url).to_return(status: 301)
 
     assert_no_difference -> { Entry.count } do
-      Feed::Synchronization.start!(feed: @feed, source: :test)
+      Feed::Import.start!(feed: @feed, source: :test)
     end
   end
 
@@ -26,7 +26,7 @@ class FeedSynchronizationTest < ActionDispatch::IntegrationTest
     stub_request(:get, @feed.url).to_return(status: 404)
 
     assert_no_difference -> { Entry.count } do
-      Feed::Synchronization.start!(feed: @feed, source: :test)
+      Feed::Import.start!(feed: @feed, source: :test)
     end
   end
 end

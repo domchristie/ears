@@ -1,8 +1,6 @@
 class Import < ApplicationRecord
+  has_many :import_fetches, dependent: :destroy, class_name: "Import::Fetch"
   belongs_to :resource, polymorphic: true, optional: true
-  belongs_to :synchronization, optional: true
-
-  attr_accessor :data
 
   def self.start!(...)
     new(...).start!
@@ -13,5 +11,11 @@ class Import < ApplicationRecord
     yield
     update!(finished_at: Time.current)
     self
+  end
+
+  private
+
+  def log(message)
+    Rails.logger.info "[#{self.class}] #{message}"
   end
 end

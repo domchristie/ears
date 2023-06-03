@@ -1,9 +1,9 @@
-class Fetch < ApplicationRecord
+class Import::Fetch < ApplicationRecord
   class TooManyRedirects < StandardError; end
 
   attr_reader :response, :uri
   belongs_to :resource, polymorphic: true
-  belongs_to :synchronization, optional: true
+  belongs_to :import, optional: true
 
   def user_agent
     "Ears/1.0 #{self.class} +https://www.ears.app"
