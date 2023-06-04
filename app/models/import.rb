@@ -1,4 +1,6 @@
 class Import < ApplicationRecord
+  enum status: [:success, :not_modified, :error]
+
   has_many :import_fetches, dependent: :destroy, class_name: "Import::Fetch"
   belongs_to :resource, polymorphic: true, optional: true
 

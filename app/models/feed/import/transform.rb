@@ -37,7 +37,7 @@ class Feed::Import::Transform < Import::Transform
   end
 
   def feed
-    @resource
+    @feed ||= fetch.feed
   end
 
   def parsed

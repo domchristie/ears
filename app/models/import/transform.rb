@@ -3,8 +3,7 @@ class Import::Transform
     new(...).data
   end
 
-  def initialize(source, resource: nil)
+  def initialize(source)
     @source = source
-    @resource = resource
   end
 end

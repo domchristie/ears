@@ -7,13 +7,17 @@ class Feed::Import < Import
       fetch = Feed::Import::Fetch.start!(feed:, conditional:, import: self)
 
       if fetch.success?
-        transform = Feed::Import::Transform.new(fetch, resource: feed)
-        load(transform.data)
+        load(Feed::Import::Transform.data(fetch))
+        success!
       elsif fetch.not_modified?
+        not_modified!
         log("Feed #{feed.id} Not Modified")
       elsif fetch.error?
+        error!
         log("Feed #{feed.id} Fetch Error: #{fetch.error}")
       end
+
+      clean
     end
   end
 
@@ -40,6 +44,17 @@ class Feed::Import < Import
         unique_by: [:rss_imageable_type, :rss_imageable_id],
         record_timestamps: true
       )
+    end
+  end
+
+  def clean
+    if success?
+      feed.imports.where("created_at < ?", created_at).destroy_all
+    else
+      feed.imports
+        .where("created_at < ?", created_at)
+        .where.not(id: feed.recent_successful_or_not_modified_import&.id)
+        .destroy_all
     end
   end
 end

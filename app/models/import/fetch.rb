@@ -44,7 +44,7 @@ class Import::Fetch < ApplicationRecord
           else
             @response
           end
-        when Net::HTTPServerError, Net::HTTPClientError
+        when Net::HTTPClientError, Net::HTTPServerError
           self.error = @response.class
         end
       end
