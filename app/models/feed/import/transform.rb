@@ -45,11 +45,15 @@ class Feed::Import::Transform < Import::Transform
   end
 
   def entries_attributes
-    (parsed.entries || []).map { |parsed_entry| entry_attributes(parsed_entry) }
+    (parsed.entries || [])
+      .map { |parsed_entry| entry_attributes(parsed_entry) }
+      .compact_blank
   end
 
   def entry_attributes(parsed_entry)
-    Entry::Import::Transform.data(parsed_entry).merge(feed_id: feed.id)
+    Entry::Import::Transform.data(parsed_entry).tap do |attributes|
+      attributes.merge!(feed_id: feed.id) if attributes.present?
+    end
   end
 
   def rss_image_attributes

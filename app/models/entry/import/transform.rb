@@ -33,7 +33,7 @@ class Entry::Import::Transform < Import::Transform
 
       podcast_chapters_url: @source.podcast_chapters_url,
       podcast_chapters_type: @source.podcast_chapters_type
-    }.compact_blank
+    }
   end
 
   private
