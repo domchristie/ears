@@ -59,7 +59,7 @@ class Feed::Import::Transform < Import::Transform
   def rss_image_attributes
     RssImage::Import::Transform.data(parsed.image).tap do |attributes|
       if attributes.present?
-        attributes.merge(rss_imageable_type: Feed, rss_imageable_id: feed.id)
+        attributes.merge!(rss_imageable_type: Feed, rss_imageable_id: feed.id)
       end
     end
   end

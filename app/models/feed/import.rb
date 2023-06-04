@@ -36,7 +36,7 @@ class Feed::Import < Import
   def load_rss_image(rss_image_attributes)
     if rss_image_attributes.present?
       RssImage.upsert(
-        data[:rss_image_attributes],
+        rss_image_attributes,
         unique_by: [:rss_imageable_type, :rss_imageable_id],
         record_timestamps: true
       )
