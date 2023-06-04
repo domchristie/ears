@@ -30,11 +30,13 @@ class Feed::Import < Import
   end
 
   def load_entries(entries_attributes)
-    Entry.upsert_all(
-      entries_attributes,
-      unique_by: [:feed_id, :formatted_guid],
-      record_timestamps: true
-    )
+    if entries_attributes.present?
+      Entry.upsert_all(
+        entries_attributes,
+        unique_by: [:feed_id, :formatted_guid],
+        record_timestamps: true
+      )
+    end
   end
 
   def load_rss_image(rss_image_attributes)
