@@ -40,8 +40,7 @@ module.exports = {
         active: 'active',
       },
       fontFamily: {
-        sans: ['Bespoke Sans', ...defaultTheme.fontFamily.sans],
-        mono: ['Roboto Mono', ...defaultTheme.fontFamily.mono],
+        sans: ['Bespoke Sans', 'Seravek', 'Gill Sans Nova', 'Ubuntu', 'Calibri', 'DejaVu Sans', 'source-sans-pro', 'sans-serif'],
         native: defaultTheme.fontFamily.sans,
       },
       keyframes: {
