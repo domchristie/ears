@@ -1,7 +1,7 @@
 <%= layout :base do %>
   <%= render "spinner" %>
 
-  <%= content_for :nav %>
+  <%= content_for :nav unless turbo_native_app? %>
 
   <%= render "flash" %>
 
@@ -9,7 +9,7 @@
     <%= yield %>
   </main>
 
-  <%= render("player", entry: Current.entry, play: Current.play) if Current.user %>
+  <%= render("player", entry: Current.entry, play: Current.play) if Current.user && !turbo_native_app? %>
 
   <script data-turbo-eval="false">
   if (navigator.serviceWorker) {

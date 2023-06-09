@@ -7,6 +7,8 @@ class ApplicationController < ActionController::Base
     Current.user ||= Session.find_by(id: cookies.signed[:session_token])&.user
   end
 
+  helper_method :turbo_native_app?
+
   private
 
   def authenticate
