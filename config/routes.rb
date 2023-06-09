@@ -23,20 +23,26 @@ Rails.application.routes.draw do
   end
 
   resources :entries, only: :show do
-    resources :plays, only: [:create, :update], controller: "entries/plays"
-    resource :player, only: :show, controller: "entries/players"
-    resource :table_of_contents, only: :show, controller: "entries/table_of_contents", path: "toc"
+    scope module: :entries do
+      resources :plays, only: [:create, :update]
+      resource :player, only: :show
+      resource :table_of_contents, only: :show, path: "toc"
+    end
   end
 
   resources :opml_imports, only: [:new, :create]
 
   get "feeds/:encoded_url", to: "feeds#show", constraints: {encoded_url: %r{encoded_url.+}}
   resources :feeds, only: [:index, :show] do
-    resources :followings, only: [:create], controller: "feeds/followings"
+    scope module: :feeds do
+      resources :followings, only: [:create]
+    end
   end
 
   resource :queue, only: :show do
-    resources :items, only: :create, controller: "queues/items"
+    scope module: :queues do
+      resources :items, only: :create
+    end
   end
 
   resources :plays, only: [:index]
