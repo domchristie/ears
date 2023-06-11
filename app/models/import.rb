@@ -11,8 +11,9 @@ class Import < ApplicationRecord
   def start!
     update!(started_at: Time.current)
     yield
-    update!(finished_at: Time.current)
     self
+  ensure
+    update!(finished_at: Time.current)
   end
 
   private
