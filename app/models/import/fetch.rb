@@ -66,6 +66,10 @@ class Import::Fetch < ApplicationRecord
     response&.is_a? Net::HTTPNotModified
   end
 
+  def not_found?
+    response&.is_a? Net::HTTPNotFound
+  end
+
   def error?
     error.present?
   end

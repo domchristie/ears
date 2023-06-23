@@ -12,6 +12,9 @@ class Feed::Import < Import
       elsif fetch.not_modified?
         not_modified!
         log("Feed #{feed.id} Not Modified")
+      elsif fetch.not_found?
+        not_found!
+        log("Feed #{feed.id} Not Found")
       elsif fetch.error?
         error!
         log("Feed #{feed.id} Fetch Error: #{fetch.error}")
