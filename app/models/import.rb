@@ -16,6 +16,18 @@ class Import < ApplicationRecord
     update!(finished_at: Time.current)
   end
 
+  def started?
+    started_at.present?
+  end
+
+  def finished?
+    finished_at.present?
+  end
+
+  def in_progress?
+    started? && !finished?
+  end
+
   private
 
   def log(message)
