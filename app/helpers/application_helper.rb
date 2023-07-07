@@ -18,19 +18,4 @@ module ApplicationHelper
   def props(hash)
     Props[hash]
   end
-
-  def turn_attributes
-    tag.attributes(data: {
-      turn_exit: turn_exit_class_names,
-      turn_enter: turn_enter_class_names
-    })
-  end
-
-  def turn_exit_class_names
-    "motion-safe:turn-exit:animate-exit"
-  end
-
-  def turn_enter_class_names
-    "motion-safe:turn-enter:animate-enter"
-  end
 end
