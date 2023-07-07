@@ -113,8 +113,8 @@ module.exports = {
     require('@tailwindcss/typography'),
     require('@tailwindcss/line-clamp'),
     plugin(function ({ addVariant }) {
-      addVariant('turn-enter', '.turn-enter &')
-      addVariant('turn-exit', '.turn-exit &')
+      addVariant('turn-enter', ['.turn-advance.turn-enter &', '[data-animate-restore].turn-restore.turn-enter &'])
+      addVariant('turn-exit', ['.turn-advance.turn-exit &', '[data-animate-restore].turn-restore.turn-exit &'])
       addVariant('turbo-preview', '[data-turbo-preview] &')
     }),
     plugin(function ({ addVariant }) {
