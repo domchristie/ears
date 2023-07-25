@@ -16,15 +16,15 @@
     <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <script src="//js.honeybadger.io/v4.0/honeybadger.min.js" type="text/javascript"></script>
-    <script type="text/javascript">
+    <%= javascript_importmap_tags %>
+    <script type="module">
+      import Honeybadger from '@honeybadger-io/js'
       Honeybadger.configure({
         apiKey: '<%= ENV["HONEYBADGER_API_KEY"] %>',
         environment: '<%= Rails.env %>',
         revision: '<%= ENV["HEROKU_SLUG_COMMIT"] %>'
       });
     </script>
-    <%= javascript_importmap_tags %>
   </head>
 
   <body id="top" data-controller="layout" class="bg-white text-grey-900 dark:bg-black dark:text-grey-100">
