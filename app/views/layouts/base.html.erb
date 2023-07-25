@@ -1,21 +1,9 @@
 <!DOCTYPE html>
 <html data-controller="player media-session" data-action="turbo:load->player#updateToggles visibilitychange@window->player#updateActiveElements">
   <head>
-    <title><%= @title ? "#{@title} - EARS" : "EARS" %></title>
     <meta name="viewport" content="width=device-width,viewport-fit=cover,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-    <link rel="manifest" href="/manifest.json">
-    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
-    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
-    <meta name="color-scheme" content="light dark">
-    <link rel="apple-touch-icon" href="/icon.png">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👂</text></svg>">
+    <title><%= @title ? "#{@title} - EARS" : "EARS" %></title>
 
-    <link href="https://api.fontshare.com/css?f[]=bespoke-sans@1,2&display=swap" rel="stylesheet">
-    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
-
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
     <script type="module">
       import Honeybadger from '@honeybadger-io/js'
@@ -25,6 +13,20 @@
         revision: '<%= ENV["HEROKU_SLUG_COMMIT"] %>'
       });
     </script>
+
+    <link href="https://api.fontshare.com/css?f[]=bespoke-sans@1,2&display=swap" rel="stylesheet">
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/icon.png">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👂</text></svg>">
+
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+    <meta name="color-scheme" content="light dark">
   </head>
 
   <body id="top" data-controller="layout" class="bg-white text-grey-900 dark:bg-black dark:text-grey-100">
