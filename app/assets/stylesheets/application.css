@@ -18,6 +18,15 @@
   visibility: hidden;
 }
 
+.prose p + br,
+.prose ul + br,
+.prose ol + br,
+.prose h1 + br,
+.prose h2 + br,
+.prose h3 + br,
+.prose h4 + br,
+.prose h5 + br,
+.prose h6 + br,
 .prose br:last-child {
   display: none
 }
