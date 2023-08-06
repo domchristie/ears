@@ -1,14 +1,19 @@
 <%
 colors = {
-  default: "bg-grey-100 dark:bg-black/60 ring ring-white/50 dark:ring-white/20 group-focus:ring-white",
-  translucent_black: "bg-black/60 text-white ring ring-white/20 group-focus:ring-white/75"
+  default: "bg-grey-100 dark:bg-grey-900 ring-2 ring-white/50 dark:ring-black/50 group-focus:ring-blue-400 dark:group-focus:ring-white",
+  translucent_black: "bg-black/60 text-white ring-2 ring-white/20 group-focus:ring-white"
 }
-props = self.props(local_assigns.with_defaults(color: :default))
-self.props(props) => {path:, icon:, label:, color:, **options}
-options[:class] = Array(options[:class]).push("relative group rounded-full focus:outline-none")
+props = self.props(local_assigns.with_defaults(color: :default, label_position: :top))
+self.props(props) => {path:, icon:, label:, color:, label_position:, **options}
+options[:class] = Array(options[:class]).push("relative group flex flex-col items-center rounded-full focus:outline-none")
 %>
 
 <%= link_to path, options do %>
+  <% unless label_position == :none %>
+    <span class="text-[0.625rem] uppercase tracking-wide leading-3 -mb-3 -translate-y-full font-medium">
+      <%= label %>
+    </span>
+  <% end %>
   <span <%= tag.attributes(class: ["block p-2 rounded-full", colors[color]]) %>>
     <%= self.icon icon, solid: true, class: "w-5 h-5", title: label, aria: true %>
   </span>

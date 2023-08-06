@@ -1,13 +1,13 @@
 <%= render "nav", color: :translucent, class: "fixed top-0" do %>
   <% if current_page?(root_path) %>
-    <%= render "nav_link", path: request.url, icon: :refresh, label: "Refresh", onclick: "window.location.reload(); return false" %>
+    <%= render "nav_link", path: request.url, icon: :refresh, label: "Refresh", label_position: :none, onclick: "window.location.reload(); return false" %>
   <% else %>
     <%= render "back", path: root_path %>
   <% end %>
 
   <div class="flex justify-end ml-auto space-x-fl-xs-md">
     <%= render "nav_link", path: new_directories_search_path, icon: :search, label: "Search" %>
-    <%= render "nav_link", path: settings_path, icon: :"dots-horizontal", label: "Settings" %>
+    <%= render "nav_link", path: settings_path, icon: :menu, label: "Menu" %>
   </div>
 <% end %>
 
