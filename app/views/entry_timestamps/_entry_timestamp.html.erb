@@ -1,20 +1,15 @@
 <% if entry_timestamp.valid? %>
-  <span><%= link_to(
+  <%= link_to(
     entry_timestamp,
     entry_timestamp.url,
     data: {
-      action: "player#skipToAndPlay",
+      action: "player#skipToAndPlay:prevent",
       player_time_param: entry_timestamp.duration_in_seconds,
+      player_controls_url_param: entry_player_path(entry_timestamp.entry),
       href: entry_timestamp.entry.enclosure_url
     },
     tabindex: 0
-  ) %><%# Player loader %><%= link_to(
-    "Skip to #{entry_timestamp.duration_in_seconds} seconds in #{entry_timestamp.entry.title}",
-    entry_player_path(entry_timestamp.entry, autoplay: true),
-    data: {turbo_frame: "player", player_target: "loader"},
-    hidden: true,
-    class: "hidden"
-  ) %><%# Player loader %></span>
+  ) %>
 <% else %>
   <%= entry_timestamp %>
 <% end %>

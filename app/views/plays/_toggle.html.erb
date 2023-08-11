@@ -8,16 +8,14 @@ options[:class] = Array(options[:class]).push("group relative")
   <% if entry.present? %>
     <a
       href="<%= entry.resume_enclosure_url(play) %>"
-      data-action="player#toggle"
+      data-action="player#toggle:prevent"
+      data-player-controls-url-param="<%= entry_player_path(entry) %>"
       data-href="<%= entry.enclosure_url %>"
       tabindex="0"
       class="select-none before:absolute before:inset-0 before:z-10"
     >
       <span class="sr-only"><%= entry.title %></span>
     </a>
-
-    <%# Used to load the player %>
-    <%= link_to entry.title, entry_player_path(entry, autoplay: true), data: {turbo_frame: "player", player_target: "loader"}, hidden: true, class: "hidden" %>
   <% end %>
 
   <%= yield %>

@@ -9,7 +9,6 @@ export default class PlayerController extends Controller {
   static targets = [
     'audio',
     'controls',
-    'loader',
     'elapsed',
     'remaining',
     'progress',
@@ -58,28 +57,24 @@ export default class PlayerController extends Controller {
   // Actions
 
   async toggle (event) {
-    event.preventDefault()
-
     if (this.targetApplicable(event.currentTarget)) {
       this.audioTarget[this.audioTarget.paused ? 'play' : 'pause']()
     } else {
       this.audioTarget.src = event.currentTarget.href
       this.audioTarget.load()
-      await this.loadNewControls(this.findLoader(event.currentTarget))
+      await this.loadNewControls(event.params.controlsUrl)
       this.audioTarget.play()
     }
   }
 
   async skipToAndPlay (event) {
-    event.preventDefault()
-
     if (this.targetApplicable(event.currentTarget)) {
       this.audioTarget.currentTime = event.params.time || 0.001
       if (this.audioTarget.paused) this.audioTarget.play()
     } else {
       this.audioTarget.src = event.currentTarget.href
       this.audioTarget.load()
-      await this.loadNewControls(this.findLoader(event.currentTarget))
+      await this.loadNewControls(event.params.controlsUrl)
       this.audioTarget.play()
     }
   }
@@ -273,13 +268,9 @@ export default class PlayerController extends Controller {
     })
   }
 
-  findLoader (target) {
-    return target.parentNode.querySelector('[data-player-target="loader"]')
-  }
-
-  loadNewControls (loader) {
+  loadNewControls (url) {
     const promise = new Promise(resolve => this._controlsLoaded = resolve)
-    loader.click()
+    Turbo.visit(url, { frame: 'player' })
     return promise
   }
 }

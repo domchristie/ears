@@ -14,7 +14,8 @@ progress = (play.elapsed - chapter.start_time) / duration
 >
   <a
     href="<%= entry.enclosure_url %>#t=<%= chapter.start_time %>"
-    data-action="player#skipToAndPlay"
+    data-action="player#skipToAndPlay:prevent"
+    data-player-controls-url-param="<%= entry_player_path(entry) %>"
     data-player-time-param="<%= chapter.start_time %>"
     data-href="<%= entry.enclosure_url %>"
     tabindex="0"
@@ -22,9 +23,6 @@ progress = (play.elapsed - chapter.start_time) / duration
   >
     <span class="sr-only"><%= chapter.title %></span>
   </a>
-
-  <%# Used to load the player %>
-  <%= link_to chapter.title, entry_player_path(entry, autoplay: true), data: {turbo_frame: "player", player_target: "loader"}, hidden: true, class: "hidden" %>
 
   <header class="flex items-baseline font-semibold">
     <data value="<%= chapter.start_time %>" class="block text-xs font-native tabular-nums text-grey-500">
