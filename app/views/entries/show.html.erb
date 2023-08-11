@@ -8,8 +8,8 @@
     <%= render "back", path: feed_path(@show.feed), color: :translucent_black %>
 
     <div class="flex justify-end ml-auto space-x-fl-3xs-xs">
-      <% if @show.entry.podcast_chapters_url.present? %>
-        <%= render "nav_link", path: entry_table_of_contents_path(@show.entry), color: :translucent_black, icon: :"book-open", label: "ToC" %>
+      <% if @show.entry.podcast_chapters_url.present? || @show.table_of_contents.present? %>
+        <%= render "nav_link", path: entry_table_of_contents_path(@show.entry), color: :translucent_black, icon: :"book-open", label: "ToC", position: :none %>
       <% end %>
     </div>
   <% end %>
