@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  namespace :list_items do
+    resources :plays, only: [], param: :feed_id do
+      resource :following, only: [:create, :destroy], controller: "plays/followings"
+    end
+  end
+
   get "sign_in", to: "sessions#new"
   post "sign_in", to: "sessions#create"
   get "sign_up", to: "registrations#new"
@@ -33,11 +39,7 @@ Rails.application.routes.draw do
   resources :opml_imports, only: [:new, :create]
 
   get "feeds/:encoded_url", to: "feeds#show", constraints: {encoded_url: %r{encoded_url.+}}
-  resources :feeds, only: [:index, :show] do
-    scope module: :feeds do
-      resources :followings, only: [:create]
-    end
-  end
+  resources :feeds, only: [:index, :show]
 
   resource :queue, only: :show do
     scope module: :queues do

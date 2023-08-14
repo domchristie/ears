@@ -9,6 +9,7 @@ class Feed < ApplicationRecord
   has_many :active_web_subs, -> { where("web_subs.expires_at > ?", Time.current) }, class_name: "WebSub", foreign_key: :feed_url, primary_key: :url
   has_many :plays, dependent: :destroy
   has_many :followings, dependent: :destroy
+  has_one :following
   has_many :playlist_items, through: :entries
 
   scope :followed_by, ->(user) { where(id: user.followed_feeds) }

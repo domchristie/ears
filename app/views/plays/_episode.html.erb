@@ -1,0 +1,5 @@
+<%= render "episodes/episode", episode: do |p| %>
+  <%= p.content_for :actions do %>
+    <%= render "list_items/plays/followings/form", following: episode.following %>
+  <% end %>
+<% end %>

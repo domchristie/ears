@@ -7,24 +7,37 @@ colors = {
 props(local_assigns.with_defaults(color: :default, tag: :article, contain: true)) => {color:, tag:, contain:}
 %>
 
-<%= content_tag tag, class: "group relative #{colors[color]}" do %>
-  <div class="<%= class_names "max-w-6xl px-fl-xs-lg mx-auto": contain, "px-fl-2xs": !contain %>">
-    <div class="flex items-center p-fl-2xs -mx-fl-2xs ">
-      <%= p.content_for :image %>
+<%= content_tag tag, class: "group #{colors[color]}" do %>
+  <%# scroller %>
+  <div class="flex overflow-x-scroll snap-x snap-mandatory [scrollbar-width:none] [-ms-overflow-style: none] [&::-webkit-scrollbar]:hidden">
 
-      <div class="space-y-fl-4xs flex-1 min-w-0">
-        <%= p.content_for :kicker %>
+    <%# scroll main %>
+    <div class="min-w-full flex-1 snap-start relative">
+      <div class="<%= class_names "max-w-6xl px-fl-xs-lg mx-auto": contain, "px-fl-2xs": !contain %>">
+        <div class="flex items-center p-fl-2xs -mx-fl-2xs ">
+          <%= p.content_for :image %>
 
-        <div class="text-fl-sm font-semibold line-clamp-2">
-          <% if local_assigns[:method] %>
-            <%= button_to title, path, method: method, tabindex: 0, class: "after:absolute after:inset-0" %>
-          <% else %>
-            <%= link_to_if local_assigns[:path], title, local_assigns[:path], tabindex: 0, class: "after:absolute after:inset-0", data: {turbo_frame: "_top"} %>
-          <% end %>
+          <div class="space-y-fl-4xs flex-1 min-w-0">
+            <%= p.content_for :kicker %>
+
+            <div class="text-fl-sm font-semibold line-clamp-2">
+              <% if local_assigns[:method] %>
+                <%= button_to title, path, method: method, tabindex: 0, class: "after:absolute after:inset-0" %>
+              <% else %>
+                <%= link_to_if local_assigns[:path], title, local_assigns[:path], tabindex: 0, class: "after:absolute after:inset-0", data: {turbo_frame: "_top"} %>
+              <% end %>
+            </div>
+
+            <%= body %>
+          </div>
         </div>
-
-        <%= body %>
       </div>
     </div>
+
+    <% if p.content_for?(:actions) %>
+      <aside class="snap-end px-fl-xs bg-white dark:bg-black">
+        <%= p.content_for :actions %>
+      </aside>
+    <% end %>
   </div>
 <% end %>

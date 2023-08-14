@@ -1,0 +1,4 @@
+<%= turbo_stream.replace_all(
+  ".#{dom_id(@following.feed, :plays_followings)}",
+  render("form", following: @following)
+) %>

@@ -5,7 +5,7 @@ class User::Dashboard
 
   def recently_played
     @recently_played ||= EpisodeCollection.new(
-      entries: @user.played_entries.includes(:plays, feed: :rss_image),
+      entries: @user.played_entries.includes(:plays, following: :feed, feed: :rss_image),
       user: @user
     ).episodes(limit: 3, order: "plays.updated_at DESC")
   end

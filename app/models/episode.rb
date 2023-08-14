@@ -2,7 +2,7 @@ class Episode
   include ActiveModel::API
 
   attr_accessor :entry, :user
-  attr_writer :play, :queue_item
+  attr_writer :play, :queue_item, :following
 
   delegate_missing_to :entry
 
@@ -16,5 +16,9 @@ class Episode
 
   def queue_item
     @queue_item ||= PlaylistItem.new(entry: entry)
+  end
+
+  def following
+    @following ||= Following.new(feed:, user:)
   end
 end

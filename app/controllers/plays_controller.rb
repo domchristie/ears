@@ -5,7 +5,7 @@ class PlaysController < ApplicationController
     @episodes = EpisodeCollection.new(
       entries: current_user
         .played_entries
-        .includes(:plays, feed: :rss_image)
+        .includes(:plays, following: :feed, feed: :rss_image)
         .order("plays.updated_at DESC"),
       user: current_user
     ).episodes(limit: 25)

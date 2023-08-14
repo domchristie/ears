@@ -1,0 +1,17 @@
+<%
+url = list_items_play_following_path(following.feed)
+method, icon_name, label = if following.new_record?
+  [:post, :"plus-circle", "Follow"]
+else
+  [:delete, :"minus-circle", "Unfollow"]
+end
+%>
+
+<div class="min-w-[8rem] flex justify-center">
+  <%= form_with url:, method:, class: dom_id(following.feed, :plays_followings) do |form| %>
+    <%= form.button nil, ui.button(size: :xs, color: :secondary) do %>
+      <%= icon icon_name, class: "w-5 h-5 -ml-px mr-1", aria_hidden: true %>
+      <span><%= label %></span>
+    <% end %>
+  <% end %>
+</div>

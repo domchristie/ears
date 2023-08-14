@@ -6,7 +6,7 @@
   <% end %>
 <% end %>
 <div class="space-y-fl-3xs" id="recently_played">
-  <%= render(partial: "episodes/episode", collection: @dashboard.recently_played) || render("container") do %>
+  <%= render(partial: "plays/episode", collection: @dashboard.recently_played) || render("container") do %>
     <%= render("empty") { "Recently played episodes appear here" } %>
   <% end %>
 </div>
