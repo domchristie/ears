@@ -14,6 +14,11 @@
  *= require_self
  */
 
+.turn-view-transitions.turn-transition [data-turn-enter],
+.turn-view-transitions.turn-before-transition [data-turn-enter] {
+  opacity: 0;
+}
+
 .turbo-progress-bar {
   visibility: hidden;
 }
