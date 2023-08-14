@@ -1,10 +1,10 @@
 <%
 body = yield(p = component_partial)
 colors = {
-  default: "bg-white dark:bg-black focus-within:bg-grey-100 dark:focus-within:bg-grey-900",
-  accent: "bg-grey-50 dark:bg-grey-900 focus-within:bg-white dark:focus-within:bg-black"
+  default: "bg-grey-50 dark:bg-grey-900 focus-within:bg-white dark:focus-within:bg-black",
+  accent: "bg-white dark:bg-black focus-within:bg-grey-100 dark:focus-within:bg-grey-900"
 }
-props(local_assigns.with_defaults(color: :default, tag: :article, contain: true)) => {color:, tag:, contain:}
+props(local_assigns.with_defaults(color: :default, tag: :article, contain: true)) => {color:, tag:, contain:};
 %>
 
 <%= content_tag tag, class: "group #{colors[color]}" do %>

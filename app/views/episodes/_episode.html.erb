@@ -3,7 +3,7 @@ yield(episode_partial = component_partial) if block_given?
 parts ||= [:feed, :description, :play, :play_later]
 %>
 
-<%= render "list_item", title: episode.title, path: entry_path(episode.entry), color: :accent, contain: true do |p| %>
+<%= render "list_item", title: episode.title, path: entry_path(episode.entry), contain: true do |p| %>
   <% if parts.include?(:feed) %>
     <% p.content_for :kicker do %>
       <p class="flex items-center text-grey-500 dark:text-grey-400">

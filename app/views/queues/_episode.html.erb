@@ -1,4 +1,4 @@
-<%= render "list_item", title: episode.title, path: entry_path(episode.entry), color: :accent do |p| %>
+<%= render "list_item", title: episode.title, path: entry_path(episode.entry) do |p| %>
   <% p.content_for :kicker do %>
     <p class="flex items-center text-grey-500 dark:text-grey-400">
       <span class="relative w-6 h-6 shrink-0 mr-2 before:absolute before:inset-0 before:ring-inset before:ring-1 before:ring-black/10 dark:before:ring-white/10">

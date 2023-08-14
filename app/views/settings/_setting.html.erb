@@ -1,4 +1,4 @@
-<%= render "list_item", title: setting[:title], path: setting[:path], method: setting[:method], color: :accent do |p| %>
+<%= render "list_item", title: setting[:title], path: setting[:path], method: setting[:method] do |p| %>
   <% p.content_for :image do %>
     <div class="p-fl-2xs bg-white dark:bg-black group-focus-within:bg-white dark:group-focus-within:bg-black mr-3">
       <%= icon setting[:icon], class: "w-6 h-6" %>
