@@ -13,11 +13,12 @@ class ShowNotesTest < ActiveSupport::TestCase
 
   test "linkifies timestamps including a link to load the player" do
     show_notes = ShowNotes.new(entries(:one))
-    assert_match(%r{
-      <span>\
-        <a\ data-action="player#skipToAndPlay"\ data-player-time-param="0"\ tabindex="0"\ href="http:\/\/example\.com\/one\.mp3\#t=0">0:00</a>\
-        <a\ data-turbo-frame="player"\ data-player-target="loader"\ hidden="hidden"\ class="hidden"\ href="/entries/#{entries(:one).hashid}/player?autoplay=true">
-    }x, show_notes.to_s)
+    assert_match(
+      %r{
+        <a\ data-action="player#skipToAndPlay:prevent"\ data-player-time-param="0"\ data-player-controls-url-param=\"/entries/#{entries(:one).hashid}/player\" tabindex="0"\ href="http:\/\/example\.com\/one\.mp3\#t=0">0:00</a>
+      }x,
+      show_notes.to_s
+    )
   end
 
   test "timestamps in existing links are ignored" do
