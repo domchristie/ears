@@ -12,7 +12,7 @@ class User::Dashboard
 
   def recently_updated
     @recently_updated ||= EpisodeCollection.new(
-      entries: @user.followed_entries.includes(feed: :rss_image),
+      entries: Entry.includes(:following, feed: :rss_image).where(followings: {user: @user}),
       user: @user
     ).episodes(limit: 3)
   end
