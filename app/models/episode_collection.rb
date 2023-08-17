@@ -23,13 +23,12 @@ class EpisodeCollection
 
   def entries
     @entries
-      .includes(:recent_play, :queue_item, :following)
+      .includes(:recent_play, :queue_item)
       .where("plays.user_id = ? OR plays.user_id IS NULL", user.id)
       .where(
         "playlist_items.playlist_id = ? OR playlist_items.playlist_id IS NULL",
         user.queue&.id
       )
-      .where(followings: {user:})
       .references(:plays, :playlist_items)
   end
 end

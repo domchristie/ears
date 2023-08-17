@@ -3,9 +3,7 @@ class EpisodesController < ApplicationController
 
   def index
     @episodes = EpisodeCollection.new(
-      entries: Entry
-        .includes(:following, feed: :rss_image)
-        .where(followings: {user: current_user}),
+      entries: Entry.includes(feed: :rss_image),
       user: current_user
     ).episodes(limit: 25)
   end
