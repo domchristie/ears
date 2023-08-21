@@ -14,9 +14,7 @@ class ShowNotesTest < ActiveSupport::TestCase
   test "linkifies timestamps including a link to load the player" do
     show_notes = ShowNotes.new(entries(:one))
     assert_match(
-      %r{
-        <a\ data-action="player#skipToAndPlay:prevent"\ data-player-time-param="0"\ data-player-controls-url-param=\"/entries/#{entries(:one).hashid}/player\" tabindex="0"\ href="http:\/\/example\.com\/one\.mp3\#t=0">0:00</a>
-      }x,
+      %r{<a\ data-action="player#skipToAndPlay:prevent"\ data-player-time-param="0"\ data-player-controls-url-param="/entries/vzuoMRWDy/player"\ data-href="http://example.com/one.mp3"\ tabindex="0"\ href="http://example.com/one.mp3#t=0">0:00</a>},
       show_notes.to_s
     )
   end
@@ -24,6 +22,14 @@ class ShowNotesTest < ActiveSupport::TestCase
   test "timestamps in existing links are ignored" do
     show_notes = ShowNotes.new(entries(:one))
     assert_match(/<a href="#" target="_blank" rel="external noopener">\(0:00\) already linked/, show_notes.to_s)
+  end
+
+  test "linkifying fragment links" do
+    show_notes = ShowNotes.new(entries(:one))
+    assert_match(
+      %r{<a\ data-action="player#skipToAndPlay:prevent"\ data-player-time-param="10"\ data-player-controls-url-param="/entries/vzuoMRWDy/player"\ data-href="http://example.com/one.mp3"\ tabindex="0"\ href="http://example.com/one.mp3#t=10">00:10 Fragment Link</a>},
+      show_notes.to_s
+    )
   end
 
   test "formatting plain text" do

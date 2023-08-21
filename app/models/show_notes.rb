@@ -7,6 +7,7 @@ class ShowNotes
     remove_empty_ps
     externalize_links
     link_timestamps
+    link_media_fragment_links
   end
 
   def to_s
@@ -58,18 +59,29 @@ class ShowNotes
     end
   end
 
+  def link_media_fragment_links
+    fragment_links = doc.css("a[href^='#']")
+    fragment_links.select do |node|
+      node.attr("href").match?(/t=#{Timestamp::REGEX}/o)
+    end.each do |node|
+      timestamp = node.attr("href").match(/t=#{Timestamp::REGEX}/o)[0].delete_prefix("t=")
+      node.replace(render_timestamp(timestamp, node.content))
+    end
+  end
+
   def create_linked_timestamps(string)
     string.gsub(Timestamp::REGEX) do |match|
       render_timestamp(match)
     end
   end
 
-  def render_timestamp(timestamp)
+  def render_timestamp(timestamp, text = nil)
     ApplicationController.render(
       partial: EntryTimestamp.new(
         entry: @entry,
         timestamp: Timestamp.new(timestamp)
-      )
+      ),
+      locals: {text:}
     ).strip
   end
 end

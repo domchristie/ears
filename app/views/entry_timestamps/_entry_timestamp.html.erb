@@ -1,6 +1,6 @@
 <% if entry_timestamp.valid? %>
   <%= link_to(
-    entry_timestamp,
+    local_assigns[:text] || entry_timestamp,
     entry_timestamp.url,
     data: {
       action: "player#skipToAndPlay:prevent",
@@ -11,5 +11,5 @@
     tabindex: 0
   ) %>
 <% else %>
-  <%= entry_timestamp %>
+  <%= local_assigns[:text] || entry_timestamp %>
 <% end %>
