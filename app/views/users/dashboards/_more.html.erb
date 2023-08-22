@@ -1,0 +1,12 @@
+<% if feeds.load.any? %>
+  <%= render "container" do %>
+    <div class="mt-fl-2xs inline-flex items-center relative">
+      <ul class="flex -space-x-fl-4xs mr-2">
+        <% feeds.each do |feed| %>
+          <%= image_tag feed.image_url, width: 24, height: 24, class: "ring-1 ring-white dark:ring-black", alt: "" %>
+        <% end %>
+      </ul>
+      <%= yield %>
+    </div>
+  <% end %>
+<% end %>

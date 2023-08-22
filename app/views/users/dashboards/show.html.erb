@@ -9,6 +9,8 @@
   <%= render(partial: "plays/episode", collection: @dashboard.recently_played) || render("container") do %>
     <%= render("empty") { "Recently played episodes appear here" } %>
   <% end %>
+
+  <%= render("more", feeds: @dashboard.additional_recently_played) { link_to "Played Episodes →", plays_path, class: "text-sm font-semibold uppercase tracking-wide before:absolute before:inset-0" } %>
 </div>
 
 <%= render "container" do %>
@@ -18,7 +20,11 @@
 <% end %>
 <div class="space-y-fl-3xs" id="recently_updated">
   <%= render(partial: "episodes/episode", collection: @dashboard.recently_updated) || render("container") do %>
-    <%= render("empty") { "Recently update episodes appear here" } %>
+    <%= render("empty") { "Recently updated episodes appear here" } %>
+  <% end %>
+
+  <%= render "more", feeds: @dashboard.additional_recently_updated do %>
+    <%= link_to "Episodes →", episodes_path, class: "text-sm font-semibold uppercase tracking-wide before:absolute before:inset-0" %>
   <% end %>
 </div>
 
@@ -30,5 +36,9 @@
 <div class="space-y-fl-3xs" id="play_later">
   <%= render(partial: "queues/episode", collection: @dashboard.queue_episodes) || render("container") do %>
     <%= render("empty") { "Play later episodes appear here" } %>
+  <% end %>
+
+  <%= render "more", feeds: @dashboard.additional_queue_episodes do %>
+    <%= link_to "Play Later →", queue_path, class: "text-sm font-semibold uppercase tracking-wide before:absolute before:inset-0" %>
   <% end %>
 </div>

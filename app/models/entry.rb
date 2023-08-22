@@ -17,6 +17,8 @@ class Entry < ApplicationRecord
   has_one :table_of_contents, dependent: :destroy
   has_many :playlist_items, dependent: :destroy
 
+  scope :followed_by, ->(user) { includes(:following).where(followings: {user:}) }
+
   def duration
     itunes_duration
   end

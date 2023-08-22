@@ -13,6 +13,7 @@ class User < ApplicationRecord
   has_many :played_entries, through: :plays, source: :entry
   has_one :queue, -> { where(name: "Queue") }, class_name: "Playlist"
   has_many :queued_entries, through: :queue, source: :entries
+  has_many :queued_feeds, through: :queued_entries, source: :feed
   has_many :playlists, dependent: :destroy
   has_many :playlisted_items, through: :playlists, source: :items
   has_many :playlisted_feeds, through: :playlists, source: :feeds
@@ -41,6 +42,10 @@ class User < ApplicationRecord
 
   after_update if: :password_digest_previously_changed? do
     sessions.where.not(id: Current.session).destroy_all
+  end
+
+  def followed_entries
+    Entry.followed_by(self)
   end
 
   def queue
