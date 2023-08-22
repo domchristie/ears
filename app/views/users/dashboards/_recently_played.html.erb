@@ -1,6 +1,0 @@
-<% play = feed.most_recent_play_by(Current.user) %>
-<%= render "feeds/cover", feed: feed, source: :recently_played do %>
-  <div class="absolute top-1.5 left-1.5 whitespace-nowrap px-1.5 leading-5 bg-white/95 dark:bg-black/95 text-xs font-medium">
-    <%= render "plays/play", play: play %>
-  </div>
-<% end %>
