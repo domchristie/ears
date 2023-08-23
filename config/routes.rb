@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  namespace :list_items do
-    resources :plays, only: [], param: :feed_id do
-      resource :following, only: [:create, :destroy], controller: "plays/followings"
+  scope :list_items, as: :list_items, defaults: {variant: :list_items} do
+    resources :feeds, only: [] do
+      resource :following, only: [:create, :destroy]
     end
   end
 

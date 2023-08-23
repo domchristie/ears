@@ -36,10 +36,10 @@ parts = (parts || [:feed, :description, :play, :play_later]).inquiry
     <%= render "episodes/actions", episode: %>
   </div>
 
-  <% if episode_partial&.content_for?(:actions) %>
+  <% if episode.following %>
     <% p.content_for :actions do %>
       <div class="flex h-full items-center justify-center">
-        <%= episode_partial.content_for(:actions) %>
+        <%= render partial: "followings/form", locals: {following: episode.following}, variants: [:list_items] %>
       </div>
     <% end %>
   <% end %>

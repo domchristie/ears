@@ -1,6 +1,6 @@
-class ListItems::Plays::FollowingsController < ApplicationController
+class FollowingsController < ApplicationController
   def create
-    feed = Feed.find_by_hashid!(params[:play_feed_id])
+    feed = Feed.find_by_hashid!(params[:feed_id])
     @following = current_user.followings.create_or_find_by!(
       feed: feed,
       sourceable: current_user
@@ -13,7 +13,7 @@ class ListItems::Plays::FollowingsController < ApplicationController
   end
 
   def destroy
-    feed = Feed.find_by_hashid!(params[:play_feed_id])
+    feed = Feed.find_by_hashid!(params[:feed_id])
     following = current_user.followings.find_by(feed:)
 
     if following

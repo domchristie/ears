@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  before_action :set_variant
   before_action :current_user
   before_action :set_current_request_details
   before_action :setup_player
@@ -10,6 +11,10 @@ class ApplicationController < ActionController::Base
   helper_method :turbo_native_app?
 
   private
+
+  def set_variant
+    request.variant << params[:variant].to_sym if params[:variant]
+  end
 
   def authenticate
     if (session = Session.find_by_id(cookies.signed[:session_token]))
