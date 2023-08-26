@@ -2,43 +2,45 @@
 
 <%= render "container" do %>
   <%= render("heading", icon: :play, class: "mt-fl-lg mb-fl-2xs") do %>
-    <%= link_to_if @dashboard.recently_played.any?, "Recently Played", plays_path %>
+    <%= link_to_if @dashboard.recently_played.present?, "Recently Played", plays_path %>
   <% end %>
 <% end %>
 <div class="space-y-fl-3xs" id="recently_played">
-  <%= render(partial: "episodes/episode", collection: @dashboard.recently_played) || render("container") do %>
+  <%= render(partial: "episodes/episode", collection: @dashboard.recently_played.episodes) || render("container") do %>
     <%= render("empty") { "Recently played episodes appear here" } %>
   <% end %>
 
-  <%= render("more", feeds: @dashboard.additional_recently_played) { link_to "Played Episodes →", plays_path, class: "text-sm font-semibold uppercase tracking-wide before:absolute before:inset-0" } %>
+  <%= render("more", feeds: @dashboard.recently_played.more_feeds) do %>
+    <%= link_to "Played Episodes →", plays_path, class: "text-sm font-semibold uppercase tracking-wide before:absolute before:inset-0" %>
+  <% end %>
 </div>
 
 <%= render "container" do %>
   <%= render("heading", icon: :sparkles, class: "mt-fl-lg mb-fl-2xs") do %>
-    <%= link_to_if @dashboard.recently_updated.any?, "Recently Updated", episodes_path %>
+    <%= link_to_if @dashboard.recently_updated.present?, "Recently Updated", episodes_path %>
   <% end %>
 <% end %>
 <div class="space-y-fl-3xs" id="recently_updated">
-  <%= render(partial: "episodes/episode", collection: @dashboard.recently_updated) || render("container") do %>
+  <%= render(partial: "episodes/episode", collection: @dashboard.recently_updated.episodes) || render("container") do %>
     <%= render("empty") { "Recently updated episodes appear here" } %>
   <% end %>
 
-  <%= render "more", feeds: @dashboard.additional_recently_updated do %>
+  <%= render "more", feeds: @dashboard.recently_updated.more_feeds do %>
     <%= link_to "Episodes →", episodes_path, class: "text-sm font-semibold uppercase tracking-wide before:absolute before:inset-0" %>
   <% end %>
 </div>
 
 <%= render "container" do %>
   <%= render("heading", icon: :collection, class: "mt-fl-lg mb-fl-2xs") do %>
-    <%= link_to_if @dashboard.queue_episodes.any?, "Play Later", queue_path %>
+    <%= link_to_if @dashboard.play_later.present?, "Play Later", queue_path %>
   <% end %>
 <% end %>
 <div class="space-y-fl-3xs" id="play_later">
-  <%= render(partial: "queues/episode", collection: @dashboard.queue_episodes) || render("container") do %>
+  <%= render(partial: "queues/episode", collection: @dashboard.play_later.episodes) || render("container") do %>
     <%= render("empty") { "Play later episodes appear here" } %>
   <% end %>
 
-  <%= render "more", feeds: @dashboard.additional_queue_episodes do %>
+  <%= render "more", feeds: @dashboard.play_later.more_feeds do %>
     <%= link_to "Play Later →", queue_path, class: "text-sm font-semibold uppercase tracking-wide before:absolute before:inset-0" %>
   <% end %>
 </div>
