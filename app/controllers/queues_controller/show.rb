@@ -4,8 +4,10 @@ class QueuesController::Show < ControllerAction
   def episodes
     @episodes ||= EpisodeCollection.new(
       entries: current_user.queued_entries.includes(feed: :rss_image),
-      user: current_user
-    ).episodes(limit: @limit, order: "playlist_items.created_at DESC")
+      user: current_user,
+      limit: @limit,
+      order: "playlist_items.created_at DESC"
+    ).episodes
   end
 
   def more_feeds

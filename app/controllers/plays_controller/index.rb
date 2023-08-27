@@ -4,8 +4,10 @@ class PlaysController::Index < ControllerAction
   def episodes
     @episodes ||= EpisodeCollection.new(
       entries: current_user.played_entries.includes(feed: :rss_image),
-      user: current_user
-    ).episodes(limit: @limit, order: "plays.updated_at DESC")
+      user: current_user,
+      limit: @limit,
+      order: "plays.updated_at DESC"
+    ).episodes
   end
 
   def more_feeds

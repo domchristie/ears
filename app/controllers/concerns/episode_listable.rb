@@ -9,6 +9,7 @@ module EpisodeListable
   end
 
   def episodes
+    []
   end
 
   def present?

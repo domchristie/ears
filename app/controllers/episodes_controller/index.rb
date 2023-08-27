@@ -4,8 +4,9 @@ class EpisodesController::Index < ControllerAction
   def episodes
     @episodes ||= EpisodeCollection.new(
       entries: current_user.followed_entries.includes(feed: :rss_image),
-      user: current_user
-    ).episodes(limit: @limit)
+      user: current_user,
+      limit: @limit
+    ).episodes
   end
 
   def more_feeds

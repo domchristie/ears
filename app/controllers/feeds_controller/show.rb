@@ -19,17 +19,14 @@ class FeedsController::Show < ControllerAction
   end
 
   def episodes
-    return @episodes if @episodes
-
-    episode_collection = EpisodeCollection.new(
-      entries: feed.entries,
+    @episodes ||= EpisodeCollection.new(
+      entries: feed.entries.includes(:feed).then { |entries|
+        params[:query].present? ? entries.entry_search(params[:query]) : entries
+      },
       user: current_user,
-      query: params[:query]
-    )
-    @episodes = episode_collection.episodes(
       limit: 25,
-      order: {published_at: feed.itunes_type == "serial" ? :asc : :desc}
-    )
+      order: {published_at: (feed.itunes_type == "serial") ? :asc : :desc}
+    ).episodes
   end
 
   def feed

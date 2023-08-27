@@ -1,28 +1,14 @@
 <%= render "list_item", title: episode.title, path: entry_path(episode.entry) do |p| %>
-  <% p.content_for :kicker do %>
-    <p class="flex items-center text-grey-500 dark:text-grey-400">
-      <span class="relative w-6 h-6 shrink-0 mr-2 before:absolute before:inset-0 before:ring-inset before:ring-1 before:ring-black/10 dark:before:ring-white/10">
-        <% if episode.feed.image_url %>
-          <%= image_tag ExternalImage.url(episode.feed.image_url), alt: "", width: 24, height: 24, loading: :lazy %>
-        <% end %>
-      </span>
-      <span class="truncate"><%= episode.feed.title %></span>
-    </p>
-  <% end %>
+  <% p.content_for :kicker, render("episodes/feed", feed: episode.feed) %>
 
-  <p class="text-grey-500 dark:text-grey-400 line-clamp-1 break-all">
-    <%= strip_tags (episode.summary || episode.description).to_s.gsub("&nbsp;", " ") %>
-  </p>
+  <%= render "episodes/description", episode: %>
 
   <div class="flex space-x-fl-2xs !mt-fl-3xs text-sm font-medium text-grey-500 dark:text-grey-400">
     <div>
       <%= render "episodes/toggle", episode: %>
     </div>
 
-    <p class="flex items-center">
-      <%= icon :calendar, solid: true, class: "h-4 w-4 mr-1 text-grey-300 dark:text-grey-600 -translate-y-px" %>
-      <%= local_relative_time episode.published_at, type: "date", class: "uppercase" %>
-    </p>
+    <%= render "episodes/published_at", published_at: episode.published_at %>
 
     <%= render "plays/play", play: episode.play %>
   </div>
