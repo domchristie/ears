@@ -3,7 +3,9 @@
     <div class="mt-fl-2xs inline-flex items-center relative">
       <ul class="flex mr-2">
         <% feeds.each do |feed| %>
-          <%= image_tag feed.image_url, width: 24, height: 24, class: "ring-1 ring-white dark:ring-black", alt: "" %>
+          <li class="-ml-1.5">
+            <%= image_tag feed.image_url, width: 24, height: 24, class: "ring-1 ring-white dark:ring-black", alt: "" %>
+          </li>
         <% end %>
       </ul>
       <%= yield %>
