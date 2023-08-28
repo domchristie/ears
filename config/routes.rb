@@ -3,6 +3,10 @@ Rails.application.routes.draw do
     resources :feeds, only: [] do
       resource :following, only: [:create, :destroy]
     end
+
+    resource :queue, only: [] do
+      resources :items, only: :destroy, param: :entry_id, controller: "queues/items"
+    end
   end
 
   get "sign_in", to: "sessions#new"

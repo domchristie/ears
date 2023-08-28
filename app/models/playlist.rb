@@ -8,4 +8,8 @@ class Playlist < ApplicationRecord
   def prepend_entry(entry)
     items.create(entry:)
   end
+
+  def remove_entry(entry)
+    items.find_by(entry:)&.destroy
+  end
 end

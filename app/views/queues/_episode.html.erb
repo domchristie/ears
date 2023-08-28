@@ -1,4 +1,4 @@
-<%= render "list_item", title: episode.title, path: entry_path(episode.entry) do |p| %>
+<%= render "list_item", title: episode.title, path: entry_path(episode.entry), id: dom_id(episode.queue_item, :list_item) do |p| %>
   <% p.content_for :kicker, render("episodes/feed", feed: episode.feed) %>
 
   <%= render "episodes/description", episode: %>
@@ -12,4 +12,10 @@
 
     <%= render "plays/play", play: episode.play %>
   </div>
+
+  <% p.content_for :actions do %>
+    <div class="flex h-full items-center justify-center">
+      <%= render partial: "queues/items/form", variants: [:list_items], locals: {queue_item: episode.queue_item} %>
+    </div>
+  <% end %>
 <% end %>
