@@ -10,6 +10,4 @@
   </h1>
 <% end %>
 
-<div class="space-y-fl-3xs">
-  <%= render @index.episodes %>
-</div>
+<%= render "plays/episodes", episodes:  @index.episodes, more_feeds: (@index.more_feeds if params[:top]) %>

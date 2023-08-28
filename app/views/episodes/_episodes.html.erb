@@ -1,0 +1,11 @@
+<% more_feeds ||= nil %>
+
+<%= render "list", id: "episodes", partial: "episodes/episode", collection: episodes do |p| %>
+  <%= p.content_for :empty, "Recently updated episodes appear here" %>
+
+  <% if more_feeds %>
+    <%= render "feeds/covers", feeds: more_feeds do %>
+      <%= link_to "Episodes →", episodes_path, class: "text-sm font-semibold uppercase tracking-wide before:absolute before:inset-0" %>
+    <% end %>
+  <% end %>
+<% end %>

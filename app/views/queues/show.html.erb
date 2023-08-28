@@ -12,6 +12,4 @@
   </h1>
 <% end %>
 
-<div class="space-y-fl-3xs">
-  <%= render partial: "queues/episode", collection: @show.episodes %>
-</div>
+<%= render "episodes", episodes: @show.episodes, more_feeds: (@show.more_feeds if params[:top]) %>

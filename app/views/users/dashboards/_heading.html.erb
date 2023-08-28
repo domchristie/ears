@@ -1,7 +1,9 @@
+<%= render "container" do %>
   <h2
     <%= ui.turn %>
-    class="flex items-center text-fl-xs uppercase tracking-wide font-semibold dark:text-grey-50 <%= local_assigns[:class] %>"
+    class="flex items-center text-fl-xs uppercase tracking-wide font-semibold dark:text-grey-50 mt-fl-lg mb-fl-2xs"
   >
     <%= icon icon, solid: true, class: "h-fl-sm w-fl-sm mr-fl-3xs -translate-y-[5%] text-grey-300 dark:text-grey-500" %>
     <%= yield %>
   </h2>
+<% end %>
