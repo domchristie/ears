@@ -10,10 +10,12 @@ class ApplicationController < ActionController::Base
 
   helper_method :turbo_native_app?
 
+  VARIANTS = [:list_items]
+
   private
 
   def set_variant
-    request.variant << params[:variant].to_sym if params[:variant]
+    request.variant << params[:variant].to_sym if params[:variant].in?(VARIANTS)
   end
 
   def authenticate
