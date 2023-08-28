@@ -4,6 +4,7 @@ import {
   iso8601Duration,
   humanDuration
 } from 'helpers/time-helpers'
+import { throttle } from 'helpers/debounce-helpers'
 
 export default class PlayerController extends Controller {
   static targets = [
@@ -277,14 +278,4 @@ export default class PlayerController extends Controller {
 
 function requestUrl (url) {
   return url.split("#")[0]
-}
-
-function throttle (fn, delay) {
-  let lastCalled = 0
-  return function (...args) {
-    let now = new Date().getTime()
-    if (now - lastCalled < delay) return
-    lastCalled = now
-    return fn(...args)
-  }
 }

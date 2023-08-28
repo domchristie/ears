@@ -1,20 +1,12 @@
 import { Controller } from '@hotwired/stimulus'
-import debounce from 'lodash.debounce'
+import { debounce } from 'helpers/debounce-helpers'
 
 export default class LiveSearchController extends Controller {
   static targets = ['form', 'input', 'cancel']
 
-  initialize () {
-    this.search = debounce(this.search, 300).bind(this)
-  }
-
   connect () {
     this.setCancelWidth()
     this.setQuery()
-  }
-
-  search () {
-    this.formTarget.requestSubmit()
   }
 
   cancel () {
@@ -32,4 +24,6 @@ export default class LiveSearchController extends Controller {
       `${this.cancelTarget.clientWidth}px`
     )
   }
+
+  search = debounce(() => { this.formTarget.requestSubmit() }, 300)
 }
