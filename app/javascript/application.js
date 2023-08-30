@@ -19,4 +19,23 @@ LocalTime.start()
     )
     if (shouldClearCache) Turbo.cache.clear()
   })
+
+  // Fix disabled buttons during render
+  let submitter = null
+  addEventListener('turbo:before-fetch-response', function (event) {
+    submitter = event.target.querySelector('[disabled]')
+  })
+  addEventListener('turbo:before-frame-render', function () {
+    submitter && (submitter.disabled = true)
+  })
 })()
+
+// Frame View Transitions
+addEventListener('turbo:before-frame-render', function (event) {
+  if (document.startViewTransition) {
+    const render = event.detail.render
+    event.detail.render = function (currentElement, newElement) {
+      document.startViewTransition(_ => render(currentElement, newElement))
+    }
+  }
+})

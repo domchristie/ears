@@ -1,4 +1,5 @@
-<%= render "list_item", title: episode.title, path: entry_path(episode.entry), contain: true do |p| %>
+<% list ||= nil %>
+<%= render "list_item", title: episode.title, path: entry_path(episode.entry), contain: true, style: "view-transition-name: #{dom_id(episode, list)}; contain: layout;" do |p| %>
   <% p.content_for :kicker, render("episodes/feed", feed: episode.feed) %>
 
   <div class="flex space-x-4 text-sm font-medium text-grey-500 dark:text-grey-400">

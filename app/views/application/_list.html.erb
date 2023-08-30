@@ -1,7 +1,7 @@
 <% more = yield(p = component_partial) %>
 
 <div id="<%= id %>" class="space-y-fl-3xs">
-  <%= render(partial:, collection:) || render("container") do %>
+  <%= render(partial:, collection:, locals: {list: id}) || render("container") do %>
     <%= render("empty") { p.content_for :empty } %>
   <% end %>
 

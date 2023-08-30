@@ -4,10 +4,10 @@ colors = {
   default: "bg-grey-50 dark:bg-grey-900 focus-within:bg-white dark:focus-within:bg-black",
   accent: "bg-white dark:bg-black focus-within:bg-grey-100 dark:focus-within:bg-grey-900"
 }
-props(local_assigns.with_defaults(color: :default, tag: :article, contain: true)) => {color:, tag:, contain:};
+props(local_assigns.with_defaults(color: :default, contain: true, style: nil)) => {color:, contain:, style:};
 %>
 
-<%= content_tag tag, class: "group #{colors[color]}" do %>
+<%= content_tag :article, tag.attributes(id: local_assigns[:id], class: "group #{colors[color]}", style:).to_h do %>
   <%# scroller %>
   <div class="flex overflow-x-scroll snap-x snap-mandatory [scrollbar-width:none] [-ms-overflow-style: none] [&::-webkit-scrollbar]:hidden">
 

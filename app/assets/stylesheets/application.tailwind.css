@@ -17,6 +17,23 @@
     @apply bg-white;
   }
 
+  #nav {
+    view-transition-name: nav;
+  }
+  #player_bar {
+    view-transition-name: player_bar;
+  }
+  ::view-transition-group(nav),
+  ::view-transition-group(player_bar) {
+    @apply z-10 backdrop-blur
+  }
+  ::view-transition-old(player_bar) {
+    display: none;
+  }
+  ::view-transition-new(player_bar) {
+    animation-name: none;
+  }
+
   progress {
     @apply bg-black/10 dark:bg-white/20;
   }
