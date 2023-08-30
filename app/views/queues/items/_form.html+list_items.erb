@@ -1,6 +1,6 @@
 <%= form_with url: list_items_queue_item_path(queue_item.entry), method: :delete do |f| %>
   <%= f.button nil, ui.button(size: :xs, color: :secondary) do %>
-    <%= icon :"minus-circle", class: "w-5 h-5 -ml-px mr-1" %>
+    <%= render "button_icon", icon_name: :"minus-circle" %>
     <span>Remove</span>
   <% end %>
 <% end %>

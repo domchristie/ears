@@ -10,7 +10,7 @@ end
 <div class="min-w-[8rem] flex justify-center">
   <%= form_with url:, method:, class: dom_id(following.feed, :list_items_followings) do |form| %>
     <%= form.button nil, ui.button(size: :xs, color: :secondary) do %>
-      <%= icon icon_name, class: "w-5 h-5 -ml-px mr-1", aria_hidden: true %>
+      <%= render "button_icon", icon_name: %>
       <span><%= label %></span>
     <% end %>
   <% end %>

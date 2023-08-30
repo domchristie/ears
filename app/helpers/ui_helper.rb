@@ -44,9 +44,9 @@ module UiHelper
       }
       colors = {
         default: "bg-black dark:bg-white text-white dark:text-black border-transparent focus:border-blue-600 focus:ring-blue-600",
-        secondary: "bg-white dark:bg-black text-grey-900 dark:text-white border-grey-100 dark:border-grey-900 focus:border-blue-600 focus:ring-blue-600"
+        secondary: "bg-white dark:bg-black text-grey-900 disabled:text-grey-500 dark:disabled:text-grey-400 dark:text-white border-grey-100 dark:border-grey-900 focus:border-blue-600 focus:ring-blue-600"
       }
-      base = %w[font-semibold rounded-none appearance-none relative flex items-center justify-center w-full tracking-wide text-center uppercase border cursor-pointer focus:outline-none focus:ring-1]
+      base = %w[group font-semibold rounded-none appearance-none relative flex items-center justify-center w-full tracking-wide text-center uppercase border cursor-pointer focus:outline-none focus:ring-1]
       tag.attributes class: [base, colors[color], sizes[size]]
     end
   end

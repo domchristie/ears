@@ -2,7 +2,7 @@
   <%= form_with model: queue_item, url: queue_items_path, class: ["relative", dom_id(queue_item.entry, :list_items_queue_items)] do |f| %>
     <%= f.hidden_field :entry_id %>
     <%= f.button nil, ui.button(size: :xs, color: :secondary) do %>
-      <%= icon :collection, class: "w-5 h-5 -ml-px mr-1" %>
+      <%= render "button_icon", icon_name: :collection %>
       <span>Play Later</span>
     <% end %>
   <% end %>
