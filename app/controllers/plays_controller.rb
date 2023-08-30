@@ -2,6 +2,6 @@ class PlaysController < ApplicationController
   before_action :authenticate
 
   def index
-    @index = PlaysController::Index.call(self)
+    @index = Index.call(self)
   end
 end

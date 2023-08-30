@@ -10,7 +10,7 @@ class FeedsController < ApplicationController
   end
 
   def show
-    @show = FeedsController::Show.call(self)
+    @show = Show.call(self)
     fresh_when(@show.feed, last_modified: @show.last_modified)
   end
 end

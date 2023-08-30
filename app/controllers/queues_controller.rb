@@ -1,5 +1,5 @@
 class QueuesController < ApplicationController
   def show
-    @show = QueuesController::Show.call(self)
+    @show = Show.call(self)
   end
 end

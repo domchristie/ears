@@ -1,5 +1,5 @@
 class EntriesController < ApplicationController
   def show
-    @show = EntriesController::Show.call(self)
+    @show = Show.call(self)
   end
 end
