@@ -4,25 +4,35 @@ class EpisodeTest < ActiveSupport::TestCase
   setup do
     @entry = entries(:one)
     @user = users(:one)
+    @collection = Minitest::Mock.new
   end
 
-  test "#play builds a new record" do
-    episode = Episode.new(entry: @entry, user: @user, play: nil)
-    assert episode.play.new_record?
-    assert_equal @entry, episode.play.entry
-    assert_equal @user, episode.play.user
-    assert_equal 0, episode.play.elapsed
-    assert_equal @entry.duration, episode.play.remaining
+  test "#play lazy loads a play from its collection" do
+    play = Play.new
+    @collection.expect :play_for, play, [@entry]
+    episode = Episode.new(collection: @collection, entry: @entry, user: @user)
+    episode.play
+    episode.play # check memoization
   end
 
-  test "#play returns the record" do
-    play = plays(:one)
-    episode = Episode.new(entry: @entry, user: @user, play:)
-    assert_equal play, episode.play
+  test "#queue_item lazy loads a play from its collection" do
+    queue_item = PlaylistItem.new
+    @collection.expect :queue_item_for, queue_item, [@entry]
+    episode = Episode.new(collection: @collection, entry: @entry, user: @user)
+    episode.queue_item
+    episode.queue_item # check memoization
+  end
+
+  test "#following lazy loads a play from its collection" do
+    following = Following.new
+    @collection.expect :following_for, following, [@entry]
+    episode = Episode.new(collection: @collection, entry: @entry, user: @user)
+    episode.following
+    episode.following # check memoization
   end
 
   test "delegating missing methods to entry" do
-    episode = Episode.new(entry: @entry, user: @user, play: nil)
+    episode = Episode.new(collection: @collection, entry: @entry, user: @user)
     assert_equal @entry.guid, episode.guid
   end
 end

@@ -32,15 +32,11 @@ class EpisodeCollection
   private
 
   def build_episode(entry)
-    Episode.new(
-      entry:,
-      user:,
-      collection: self
-    )
+    Episode.new(entry:, user:, collection: self)
   end
 
   def plays
-    @plays ||= Play.includes(:entry).where(user:, entry: @entries.map(&:id)).map do |play|
+    @plays ||= Play.includes(:entry).where(user:, entry: @entries).map do |play|
       [play.entry_id, play]
     end.to_h
   end

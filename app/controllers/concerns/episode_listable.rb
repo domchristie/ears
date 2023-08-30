@@ -11,8 +11,4 @@ module EpisodeListable
   def episodes
     []
   end
-
-  def present?
-    episodes.present?
-  end
 end
