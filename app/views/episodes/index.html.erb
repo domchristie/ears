@@ -12,4 +12,6 @@
   </h1>
 <% end %>
 
-<%= render "episodes", episodes: @index.episodes, more_feeds: (@index.more_feeds if params[:top]) %>
+<%= turbo_frame_tag :episodes_frame do %>
+  <%= render "episodes", episodes: @index.episodes %>
+<% end %>

@@ -52,7 +52,7 @@ class EpisodeCollection
   end
 
   def queue_items
-    @queue_items ||= PlaylistItem.where(playlist: user.queue, entry: @entries).map do |queue_item|
+    @queue_items ||= PlaylistItem.includes(:entry).where(playlist: user.queue, entry: @entries).map do |queue_item|
       [queue_item.entry_id, queue_item]
     end.to_h
   end

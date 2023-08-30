@@ -1,16 +1,18 @@
 <% content_for :nav, render("nav_bar") %>
 
-<%= render "heading", icon: :play do %>
-  <%= link_to_if @dashboard.recently_played.present?, "Recently Played", plays_path %>
-<% end %>
-<%= render "plays/episodes", episodes: @dashboard.recently_played.episodes, more_feeds: @dashboard.recently_played.more_feeds %>
+<%= turbo_frame_tag :dashboard do %>
+  <%= render "heading", icon: :play do %>
+    <%= link_to "Recently Played", plays_path, data: {turbo_frame: "_top"} %>
+  <% end %>
+  <%= render "plays/episodes", episodes: @dashboard.recently_played.episodes, more_feeds: @dashboard.recently_played.more_feeds %>
 
-<%= render "heading", icon: :sparkles do %>
-  <%= link_to_if @dashboard.recently_updated.present?, "Recently Updated", episodes_path %>
-<% end %>
-<%= render "episodes/episodes", episodes: @dashboard.recently_updated.episodes, more_feeds: @dashboard.recently_updated.more_feeds%>
+  <%= render "heading", icon: :sparkles do %>
+    <%= link_to "Recently Updated", episodes_path, data: {turbo_frame: "_top"} %>
+  <% end %>
+  <%= render "episodes/episodes", episodes: @dashboard.recently_updated.episodes, more_feeds: @dashboard.recently_updated.more_feeds %>
 
-<%= render "heading", icon: :collection do %>
-  <%= link_to_if @dashboard.play_later.present?, "Play Later", queue_path %>
+  <%= render "heading", icon: :collection do %>
+    <%= link_to "Play Later", queue_path, data: {turbo_frame: "_top"} %>
+  <% end %>
+  <%= render "queues/episodes", episodes: @dashboard.play_later.episodes, more_feeds: @dashboard.play_later.more_feeds %>
 <% end %>
-<%= render "queues/episodes", episodes: @dashboard.play_later.episodes, more_feeds: @dashboard.play_later.more_feeds%>

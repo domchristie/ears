@@ -5,11 +5,7 @@ class FollowingsController < ApplicationController
       feed: feed,
       sourceable: current_user
     )
-
-    respond_to do |format|
-      format.turbo_stream
-      format.html { redirect_to feed_path(feed), notice: "You are now following #{feed.title}" }
-    end
+    redirect_back_or_to feed_path(feed)
   end
 
   def destroy
@@ -19,13 +15,8 @@ class FollowingsController < ApplicationController
     if following
       following.destroy!
       @following = Following.new(feed:)
-    else
-      head(:ok)
     end
 
-    respond_to do |format|
-      format.turbo_stream
-      format.html { redirect_to feed_path(feed), notice: "You are no longer following #{feed.title}" }
-    end
+    redirect_back_or_to feed_path(feed)
   end
 end

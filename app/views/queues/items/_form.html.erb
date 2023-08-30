@@ -1,16 +1,14 @@
-<%= turbo_frame_tag "queue_item_entry_#{queue_item.entry.id}", class: "block" do %>
-  <% if queue_item.new_record? %>
-    <%= form_with model: queue_item, url: queue_items_path, class: "relative" do |f| %>
-      <%= f.hidden_field :entry_id %>
-      <%= f.button nil, ui.button(size: :xs, color: :secondary) do %>
-        <%= icon :collection, class: "w-5 h-5 -ml-px mr-1" %>
-        <span>Play Later</span>
-      <% end %>
-    <% end %>
-  <% else %>
-    <span <%= ui.button(size: :xs, color: :secondary) %>>
+<% if queue_item.new_record? %>
+  <%= form_with model: queue_item, url: queue_items_path, class: ["relative", dom_id(queue_item.entry, :list_items_queue_items)] do |f| %>
+    <%= f.hidden_field :entry_id %>
+    <%= f.button nil, ui.button(size: :xs, color: :secondary) do %>
       <%= icon :collection, class: "w-5 h-5 -ml-px mr-1" %>
-      <span>Added</span>
-    </span>
+      <span>Play Later</span>
+    <% end %>
   <% end %>
+<% else %>
+  <span <%= ui.button(size: :xs, color: :secondary).merge(class: dom_id(queue_item.entry, :list_items_queue_items)) %>>
+    <%= icon :collection, class: "w-5 h-5 -ml-px mr-1" %>
+    <span>Added</span>
+  </span>
 <% end %>

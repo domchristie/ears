@@ -1,4 +1,4 @@
-<%= render "list_item", title: episode.title, path: entry_path(episode.entry), id: dom_id(episode.queue_item, :list_item) do |p| %>
+<%= render "list_item", title: episode.title, path: entry_path(episode.entry) do |p| %>
   <% p.content_for :kicker, render("episodes/feed", feed: episode.feed) %>
 
   <%= render "episodes/description", episode: %>

@@ -1,9 +1,9 @@
-<% more = yield(p = component_partial)%>
+<% more = yield(p = component_partial) %>
 
-<%= turbo_frame_tag id, target: "_top", class: "space-y-fl-3xs" do %>
+<div id="<%= id %>" class="space-y-fl-3xs">
   <%= render(partial:, collection:) || render("container") do %>
     <%= render("empty") { p.content_for :empty } %>
   <% end %>
 
   <%= more %>
-<% end %>
+</div>
