@@ -11,7 +11,7 @@ class OpmlImportsTest < ApplicationSystemTestCase
 
     user = users(:one)
     sign_in_as user
-    click_link "Settings"
+    click_link "Menu"
     click_link "Import OPML"
     attach_file "Choose OPML file", file_fixture("valid.opml")
     click_button "Import"

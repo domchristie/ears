@@ -6,7 +6,7 @@ class PasswordsTest < ApplicationSystemTestCase
   end
 
   test "updating the password" do
-    click_on "Settings"
+    click_on "Menu"
     click_on "Change Password"
 
     fill_in "Current password", with: "Secret1*3*5*"
