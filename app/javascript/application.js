@@ -23,13 +23,9 @@ LocalTime.start()
   let submitter = null
   addEventListener('turbo:submit-end', function (event) {
     submitter = event.detail.formSubmission.submitter
-    submitter && (submitter.disabled = false)
+    submitter && (submitter.disabled = true)
   })
-  addEventListener('turbo:before-frame-render', function () {
-    submitter && (submitter.disabled = false)
-    submitter = null
-  })
-  addEventListener('turbo:before-render', function () {
+  addEventListener('turbo:before-cache', function () {
     submitter && (submitter.disabled = false)
     submitter = null
   })
