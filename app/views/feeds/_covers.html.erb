@@ -4,7 +4,7 @@
       <ul class="flex mr-2 -space-x-1.5">
         <% feeds.each do |feed| %>
           <li>
-            <%= image_tag feed.image_url, width: 24, height: 24, class: "ring-1 ring-white dark:ring-black", alt: "" %>
+            <%= image_tag ExternalImage.url(feed.image_url), width: 24, height: 24, class: "ring-1 ring-white dark:ring-black", alt: "" %>
           </li>
         <% end %>
       </ul>
