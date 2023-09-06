@@ -2,8 +2,6 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 import LocalTime from "local-time"
-import Turn from "@domchristie/turn"
-Turn.start()
 LocalTime.start()
 
 // clear cache after both turbo-frame and turbo-stream form submissions
