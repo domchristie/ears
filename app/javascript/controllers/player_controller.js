@@ -6,6 +6,8 @@ import {
 } from 'helpers/time-helpers'
 import { throttle } from 'helpers/debounce-helpers'
 
+const PLAY_PERSISTENCE_DURATION = 30000
+
 export default class PlayerController extends Controller {
   static targets = [
     'audio',
@@ -205,7 +207,7 @@ export default class PlayerController extends Controller {
 
   get persistElapsedLater () {
     return this._persistElapsedLater = (
-      this._persistElapsedLater || throttle(_ => this.persistElapsed(), 20000)
+      this._persistElapsedLater || throttle(_ => this.persistElapsed(), PLAY_PERSISTENCE_DURATION)
     )
   }
 
