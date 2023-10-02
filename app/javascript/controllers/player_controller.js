@@ -179,7 +179,7 @@ export default class PlayerController extends Controller {
 
     const progress = (this.currentTime / this.duration) || 0
     this.ifApplicable(this.progressTargets, t => {
-      t.value = progress
+      t.value = progress * 100
       t.style.setProperty('--progress', progress)
     })
   }
