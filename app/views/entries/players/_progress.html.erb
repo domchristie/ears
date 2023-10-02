@@ -1,6 +1,6 @@
-<label for="progress" class="sr-only">Seek (as a percentage)</label>
+<label for="player_progress" class="sr-only">Seek (as a percentage)</label>
 <input
-  id="progress"
+  id="player_progress"
   data-player-target="progress"
   data-href="<%= entry.enclosure_url %>"
   data-action="mousedown->player#startSeeking mouseup@window->player#stopSeeking touchstart->player#startSeeking touchend@window->player#stopSeeking change->player#seekTo input->player#seek"
