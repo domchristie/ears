@@ -229,11 +229,12 @@ export default class PlayerController extends Controller {
   }
 
   seekTo (event) {
-    this.audioTarget.currentTime = Number(event.currentTarget.value) * this.duration
+    const progress = Number(event.currentTarget.value) / 100
+    this.audioTarget.currentTime = progress * this.duration
   }
 
   seek (event) {
-    const progress = Number(event.currentTarget.value)
+    const progress = Number(event.currentTarget.value) / 100
     const elapsed = this.duration * progress
     const remaining = this.duration * (1 - progress)
 

@@ -1,11 +1,12 @@
+<label for="progress" class="sr-only">Seek (as a percentage)</label>
 <input
   data-player-target="progress"
   data-href="<%= entry.enclosure_url %>"
   data-action="mousedown->player#startSeeking mouseup@window->player#stopSeeking touchstart->player#startSeeking touchend@window->player#stopSeeking change->player#seekTo input->player#seek"
   type="range"
   min="0"
-  max="1"
-  step="0.00001"
+  max="100"
+  step="0.01"
   value="<%= play.progress %>"
   style="--track-height: 0.25rem; --thumb-height: 1.25rem; --thumb-width: var(--thumb-height)"
   class="
