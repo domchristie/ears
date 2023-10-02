@@ -6,6 +6,7 @@ colors = {
 props = self.props(local_assigns.with_defaults(color: :default, label_position: :top))
 self.props(props) => {path:, icon:, label:, color:, label_position:, **options}
 options[:class] = Array(options[:class]).push("relative group flex flex-col items-center rounded-full focus:outline-none")
+options[:aria] = Hash(options[:aria]).with_defaults(label:)
 %>
 
 <%= link_to path, options do %>
