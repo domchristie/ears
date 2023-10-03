@@ -261,6 +261,7 @@ export default class PlayerController extends Controller {
   }
 
   audioTargetConnected () {
+    // Fix NotSupported error on Firefox
     if (!this.audioSrcReset && this.audioTarget.src) {
       this.audioTarget.src = this.audioTarget.src
       this.audioSrcReset = true
