@@ -5,7 +5,7 @@
 
   <% if more_feeds %>
     <%= render "feeds/covers", feeds: more_feeds do %>
-      <%= link_to "Played Episodes →", plays_path, data: {turbo_frame: "_top"}, class: "text-sm font-semibold uppercase tracking-wide before:absolute before:inset-0" %>
+      <%= link_to "Played Episodes →", plays_path, data: {turbo_frame: "_top"}, class: "text-sm font-semibold uppercase tracking-wide before:absolute before:inset-0 before:z-10" %>
     <% end %>
   <% end %>
 <% end %>
