@@ -61,12 +61,12 @@ export default class PlayerController extends Controller {
 
   async toggle (event) {
     if (this.targetApplicable(event.currentTarget)) {
-      this.audioTarget[this.audioTarget.paused ? 'play' : 'pause']()
+      await this.audioTarget[this.audioTarget.paused ? 'play' : 'pause']()
     } else {
       this.audioTarget.src = event.currentTarget.href
       this.audioTarget.load()
       await this.loadNewControls(event.params.controlsUrl)
-      this.audioTarget.play()
+      await this.audioTarget.play()
     }
   }
 
