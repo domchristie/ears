@@ -25,7 +25,7 @@ progress = (play.elapsed - chapter.start_time) / duration
   </a>
 
   <header class="flex items-baseline font-semibold">
-    <data value="<%= chapter.start_time %>" class="block text-xs font-native tabular-nums text-grey-500">
+    <data value="<%= chapter.start_time %>" class="block text-xs font-native tabular-nums text-grey-500 dark:text-grey-400">
       <%= chrono_duration(chapter.start_time, include_empty_hours: play.duration >= 1.hour) %>
     </data>
     <% if chapter.url %>
@@ -40,7 +40,7 @@ progress = (play.elapsed - chapter.start_time) / duration
     min="0"
     max="1"
     <%= "value=#{progress}" if (chapter.start_time..end_time).include?(play.elapsed) %>
-    class="block absolute bottom-0 left-0 right-0 w-full h-1 appearance-none border-0 text-black"
+    class="block absolute bottom-0 left-0 right-0 w-full h-1 appearance-none border-0 text-black dark:text-white"
   ></progress>
   <div class="h-1"></div>
 </article>
