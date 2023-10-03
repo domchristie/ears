@@ -2,8 +2,8 @@
   <%= render "container" do %>
     <div class="mt-fl-2xs inline-flex items-center relative">
       <ul class="flex mr-2 -space-x-1.5">
-        <% feeds.each do |feed| %>
-          <li>
+        <% feeds.each_with_index do |feed, index| %>
+          <li class="relative" style="z-index: <%= feeds.length - index %>">
             <%= image_tag ExternalImage.url(feed.image_url), width: 24, height: 24, class: "ring-1 ring-white dark:ring-black", alt: "" %>
           </li>
         <% end %>
