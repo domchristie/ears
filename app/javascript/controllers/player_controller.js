@@ -260,6 +260,13 @@ export default class PlayerController extends Controller {
     this._controlsLoaded?.call()
   }
 
+  audioTargetConnected () {
+    if (!this.audioSrcReset && this.audioTarget.src) {
+      this.audioTarget.src = this.audioTarget.src
+      this.audioSrcReset = true
+    }
+  }
+
   // Private
 
   targetApplicable (target) {
