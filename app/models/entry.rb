@@ -31,13 +31,6 @@ class Entry < ApplicationRecord
     itunes_image_url || super || feed.image_url
   end
 
-  def resume_enclosure_url(play)
-    elapsed = play.try(:complete?) || play.try(:elapsed).to_i == 0 ?
-      nil :
-      play.try(:elapsed)
-    [enclosure_url, elapsed].compact.join("#t=")
-  end
-
   def media_session_metadata
     image_url = ExternalImage.url(feed.image_url)
     {

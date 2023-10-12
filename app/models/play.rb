@@ -33,6 +33,10 @@ class Play < ApplicationRecord
     persisted?
   end
 
+  def resume_timestamp
+    complete? || elapsed.to_i == 0 ? nil : elapsed
+  end
+
   private
 
   def follow_feed!

@@ -63,22 +63,26 @@ export default class PlayerController extends Controller {
     if (this.targetApplicable(event.currentTarget)) {
       await this.audioTarget[this.audioTarget.paused ? 'play' : 'pause']()
     } else {
-      this.audioTarget.src = event.currentTarget.href
+      let src = event.currentTarget.dataset.href
+      if (event.currentTarget.hash) src += event.currentTarget.hash
+      this.audioTarget.src = src
       this.audioTarget.load()
-      await this.loadNewControls(event.params.controlsUrl)
+      await this.loadNewControls(event.currentTarget.href)
       await this.audioTarget.play()
     }
   }
 
-  async skipToAndPlay (event) {
-    if (this.targetApplicable(event.currentTarget)) {
-      this.audioTarget.currentTime = event.params.time || 0.001
+  async skipToAndPlay ({ currentTarget }) {
+    if (this.targetApplicable(currentTarget)) {
+      this.audioTarget.currentTime = parseTimestamp(currentTarget.hash) || 0.001
       if (this.audioTarget.paused) this.audioTarget.play()
     } else {
-      this.audioTarget.src = event.currentTarget.href
+      let src = currentTarget.dataset.href
+      if (currentTarget.hash) src += currentTarget.hash
+      this.audioTarget.src = src
       this.audioTarget.load()
-      await this.loadNewControls(event.params.controlsUrl)
-      this.audioTarget.play()
+      await this.loadNewControls(currentTarget.href)
+      await this.audioTarget.play()
     }
   }
 
@@ -289,4 +293,8 @@ export default class PlayerController extends Controller {
 
 function requestUrl (url) {
   return url.split("#")[0]
+}
+
+function parseTimestamp (hash) {
+  return Number(hash.replace(/[^\d.]/g, ''))
 }

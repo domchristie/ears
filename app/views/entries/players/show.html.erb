@@ -1,1 +1,3 @@
-<%= render "entries/players/player", entry: @entry, play: @entry.play_by(Current.user) %>
+<div class="w-full h-24 flex items-center px-fl-xs-lg">
+  <%= audio_tag entry_enclosure_at_time_url(@entry, params[:t]), controls: true, autoplay: true, style: "display: block; width: 100%" %>
+</div>

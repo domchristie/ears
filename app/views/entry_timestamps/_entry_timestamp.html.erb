@@ -1,13 +1,12 @@
 <% if entry_timestamp.valid? %>
   <%= link_to(
     local_assigns[:text] || entry_timestamp,
-    entry_timestamp.url,
+    entry_player_at_time_path(entry_timestamp.entry, entry_timestamp.duration_in_seconds),
     data: {
       action: "player#skipToAndPlay:prevent",
-      player_time_param: entry_timestamp.duration_in_seconds,
-      player_controls_url_param: entry_player_path(entry_timestamp.entry),
       href: entry_timestamp.entry.enclosure_url
     },
+    target: :player,
     tabindex: 0
   ) %>
 <% else %>

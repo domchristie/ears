@@ -6,14 +6,6 @@ class EntryTimestamp
     @timestamp = timestamp
   end
 
-  def url
-    return @uri if @uri
-
-    uri = URI(entry.enclosure_url)
-    uri.fragment = "t=#{duration_in_seconds}"
-    @uri = uri.to_s
-  end
-
   def duration_in_seconds
     timestamp.duration_in_seconds
   end

@@ -1,14 +1,15 @@
+<% play = @entry.play_by(Current.user) %>
 <%= turbo_frame_tag :player do %>
   <div
     data-player-target="controls"
     data-media-session-target="controls"
-    data-media-session-metadata="<%= entry.media_session_metadata.to_json %>"
+    data-media-session-metadata="<%= @entry.media_session_metadata.to_json %>"
     class="relative -mt-4"
   >
     <menu class="flex justify-center items-end gap-x-3">
       <li class="relative w-16 h-16 order-2">
         <div class="block relative before:absolute before:inset-0 before:ring-inset before:ring-1 before:ring-black/10">
-          <%= image_tag ExternalImage.url(entry.feed.image_url), alt: "", width: 80, height: 80 %>
+          <%= image_tag ExternalImage.url(@entry.feed.image_url), alt: "", width: 80, height: 80 %>
         </div>
 
         <div class="absolute inset-0 flex items-center justify-center">
@@ -16,15 +17,15 @@
         </div>
       </li>
 
-      <li class="order-1"><%= render "entries/players/skip", direction: :back, seconds: 15, disabled: entry.nil?, data: { action: "player#skipBack" } %></li>
-      <li class="order-3"><%= render "entries/players/skip", direction: :forward, seconds: 30, disabled: entry.nil?, data: { action: "player#skipForward" } %></li>
+      <li class="order-1"><%= render "entries/players/skip", direction: :back, seconds: 15, disabled: @entry.nil?, data: { action: "player#skipBack" } %></li>
+      <li class="order-3"><%= render "entries/players/skip", direction: :forward, seconds: 30, disabled: @entry.nil?, data: { action: "player#skipForward" } %></li>
     </menu>
 
 
     <p class="flex items-end justify-between mx-fl-xs-lg -mt-3.5 font-native text-xs tabular-nums font-semibold">
       <time
         data-player-target="elapsed"
-        data-href="<%= entry.enclosure_url %>"
+        data-href="<%= @entry.enclosure_url %>"
         datetime="<%= iso8601_duration play.elapsed %>"
         aria-label="<%= distance_of_time_in_words 0, play.elapsed, include_seconds: true %> elapsed"
         class="text-grey-500 dark:text-grey-400"
@@ -33,7 +34,7 @@
       </time>
       <time
         data-player-target="remaining"
-        data-href="<%= entry.enclosure_url %>"
+        data-href="<%= @entry.enclosure_url %>"
         datetime="<%= iso8601_duration play.remaining %>"
         aria-label="<%= distance_of_time_in_words 0, play.remaining, include_seconds: true %> left"
         class="text-grey-500 dark:text-grey-400"
@@ -43,19 +44,19 @@
     </p>
 
     <div class="relative mx-fl-xs-lg">
-      <%= render "entries/players/progress", entry:, play: %>
+      <%= render "entries/players/progress", entry: @entry, play: %>
     </div>
 
     <div class="block pt-0.5 pb-1.5 px-fl-2xs text-sm font-medium text-center text-black dark:text-white">
       <%= link_to_if(
-        entry.present?,
-        "#{entry.feed.title} - #{entry.title}",
-        entry.present? ? entry_path(entry) : "#",
+        @entry.present?,
+        "#{@entry.feed.title} - #{@entry.title}",
+        @entry.present? ? entry_path(@entry) : "#",
         class: "block truncate",
         data: {turbo_frame: "_top"}
       ) %>
     </div>
 
-    <%= render("plays/form", entry: entry) if entry.present? %>
+    <%= render("plays/form", entry: @entry) if @entry.present? %>
   </div>
 <% end %>

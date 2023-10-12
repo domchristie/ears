@@ -13,10 +13,9 @@ progress = (play.elapsed - chapter.start_time) / duration
   class="group relative p-3.5 sm:px-fl-xs-lg"
 >
   <a
-    href="<%= entry.enclosure_url %>#t=<%= chapter.start_time %>"
+    href="<%= entry_player_at_time_path(entry, chapter.start_time) %>"
+    target="player"
     data-action="player#skipToAndPlay:prevent"
-    data-player-controls-url-param="<%= entry_player_path(entry) %>"
-    data-player-time-param="<%= chapter.start_time %>"
     data-href="<%= entry.enclosure_url %>"
     tabindex="0"
     class="select-none before:absolute before:inset-0 before:z-10"
