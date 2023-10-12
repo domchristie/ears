@@ -3,10 +3,7 @@
 
   <div class="grid grid-cols-1 grid-rows-1 w-full" style="margin-bottom: env(safe-area-inset-bottom)"><%# Leave room for iOS home bar %>
     <%= turbo_frame_tag :player, src: entry_player_path(entry), class: "[grid-area:1/1] w-full" %>
-
-    <div class="[grid-area:1/1]">
-      <iframe name="player" class="w-full" height="96"></iframe>
-    </div>
+    <iframe name="player" class="w-full [grid-area:1/1] [[busy]+&]:hidden [[complete]+&]:hidden" height="96"></iframe>
   </div>
 </div>
 <div class="box-content h-40 pb-[env(safe-area-inset-bottom,0)]"></div>
