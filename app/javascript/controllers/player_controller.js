@@ -21,6 +21,7 @@ export default class PlayerController extends Controller {
     'play',
     'timerIcon',
     'remainingInWords',
+    'iframe'
   ]
 
   get ready () {
@@ -259,6 +260,9 @@ export default class PlayerController extends Controller {
   }
 
   // Callbacks
+  connect () {
+    this.iframeTarget.remove()
+  }
 
   controlsTargetConnected () {
     this._controlsLoaded?.call()

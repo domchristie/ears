@@ -12,6 +12,10 @@ class ApplicationController < ActionController::Base
 
   VARIANTS = [:list_items]
 
+  def blank
+    render layout: "blank"
+  end
+
   private
 
   def set_variant

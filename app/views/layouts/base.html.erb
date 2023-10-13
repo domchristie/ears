@@ -4,6 +4,17 @@
     <meta name="viewport" content="width=device-width,viewport-fit=cover,initial-scale=1">
     <title><%= @title ? "#{@title} - EARS" : "EARS" %></title>
 
+    <script>
+      (function () {
+        const style = document.createElement('style')
+        style.textContent = 'iframe { visibility: hidden; }'
+        document.head.prepend(style)
+        addEventListener('load', () => {
+          document.head.removeChild(style)
+        })
+      })()
+    </script>
+
     <%= javascript_importmap_tags %>
     <script type="module">
       import Honeybadger from '@honeybadger-io/js'

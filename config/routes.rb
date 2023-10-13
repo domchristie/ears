@@ -54,5 +54,7 @@ Rails.application.routes.draw do
   resources :plays, only: [:index]
   resources :episodes, only: [:index]
 
+  get "blank", to: "application#blank"
+
   root "users/dashboards#show"
 end
