@@ -7,6 +7,7 @@ gem "rails", "~> 7.0.2", ">= 7.0.2.3"
 gem "puma"
 gem "bootsnap", require: false
 gem "good_job", "~> 3.14"
+gem "dalli"
 
 # = Database =
 gem "pg", "~> 1.1"

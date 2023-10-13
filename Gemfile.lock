@@ -98,6 +98,7 @@ GEM
     crack (0.4.5)
       rexml
     crass (1.0.6)
+    dalli (3.2.6)
     date (3.3.3)
     debug (1.5.0)
       irb (>= 1.3.6)
@@ -312,6 +313,7 @@ DEPENDENCIES
   bootsnap
   bullet (~> 7.0)
   capybara
+  dalli
   debug
   email_spec
   feedjira (~> 3.2)
