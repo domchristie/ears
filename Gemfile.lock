@@ -95,6 +95,7 @@ GEM
       xpath (~> 3.2)
     childprocess (4.1.0)
     concurrent-ruby (1.2.2)
+    connection_pool (2.4.1)
     crack (0.4.5)
       rexml
     crass (1.0.6)
@@ -241,6 +242,10 @@ GEM
       thor (~> 1.0)
       zeitwerk (~> 2.5)
     rake (13.0.6)
+    redis (5.0.7)
+      redis-client (>= 0.9.0)
+    redis-client (0.17.0)
+      connection_pool
     regexp_parser (2.3.0)
     reline (0.3.1)
       io-console (~> 0.5)
@@ -332,6 +337,7 @@ DEPENDENCIES
   rack-mini-profiler
   rails (~> 7.0.2, >= 7.0.2.3)
   rails_autolink (~> 1.1)
+  redis
   selenium-webdriver
   sprockets-rails
   stackprof
