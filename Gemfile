@@ -91,7 +91,7 @@ gem "inline_svg", "~> 1.8"
 
 gem "bullet", "~> 7.0", :group => :development
 
-gem "imagekitio", github: "domchristie/imagekit-ruby", branch: "carrierwave"
+gem "imagekitio"
 
 gem "pg_search", "~> 2.3"
 
