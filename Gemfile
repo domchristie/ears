@@ -16,7 +16,7 @@ gem "pg_search", "~> 2.3"
 gem "hashid-rails", "~> 1.4"
 
 # = Frontend =
-gem "sprockets-rails"
+gem "propshaft"
 gem "importmap-rails"
 gem "turbo-rails", "~> 1.0"
 gem "stimulus-rails"

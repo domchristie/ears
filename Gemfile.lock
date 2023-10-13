@@ -199,6 +199,11 @@ GEM
     pg_search (2.3.6)
       activerecord (>= 5.2)
       activesupport (>= 5.2)
+    propshaft (0.7.0)
+      actionpack (>= 7.0.0)
+      activesupport (>= 7.0.0)
+      rack
+      railties (>= 7.0.0)
     public_suffix (5.0.3)
     puma (6.3.1)
       nio4r (~> 2.0)
@@ -262,13 +267,6 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
-    sprockets (4.0.3)
-      concurrent-ruby (~> 1.0)
-      rack (> 1, < 3)
-    sprockets-rails (3.4.2)
-      actionpack (>= 5.2)
-      activesupport (>= 5.2)
-      sprockets (>= 3.0.0)
     stackprof (0.2.23)
     stimulus-rails (1.2.2)
       railties (>= 6.0.0)
@@ -333,13 +331,13 @@ DEPENDENCIES
   mdns
   pg (~> 1.1)
   pg_search (~> 2.3)
+  propshaft
   puma
   rack-mini-profiler
   rails (~> 7.0.2, >= 7.0.2.3)
   rails_autolink (~> 1.1)
   redis
   selenium-webdriver
-  sprockets-rails
   stackprof
   stimulus-rails
   tailwindcss-rails
