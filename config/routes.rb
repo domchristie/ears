@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   end
 
   # = Feeds & Entries
+  get "feeds/:encoded_url", to: "feeds#show", constraints: {encoded_url: %r{encoded_url.+}}
   resources :feeds, only: [:index, :show]
   resources :entries, only: :show do
     scope module: :entries do
@@ -38,7 +39,6 @@ Rails.application.routes.draw do
   namespace :directories do
     resource :search, only: [:new, :show]
   end
-  get "feeds/:encoded_url", to: "feeds#show", constraints: {encoded_url: %r{encoded_url.+}}
 
   # = Following & Playing Later =
   scope :list_items, as: :list_items, defaults: {variant: :list_items} do
