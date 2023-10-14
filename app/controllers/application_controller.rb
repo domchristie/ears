@@ -16,6 +16,10 @@ class ApplicationController < ActionController::Base
     render layout: "blank"
   end
 
+  helper_method def fetch_request?
+    request.xhr? || request.headers["sec-fetch-mode"] != "navigate"
+  end
+
   private
 
   def set_variant
