@@ -1,14 +1,5 @@
 Rails.application.routes.draw do
-  scope :list_items, as: :list_items, defaults: {variant: :list_items} do
-    resources :feeds, only: [] do
-      resource :following, only: [:create, :destroy]
-    end
-
-    resource :queue, only: [] do
-      resources :items, only: :destroy, param: :entry_id, controller: "queues/items"
-    end
-  end
-
+  # = Authenticating =
   get "sign_in", to: "sessions#new"
   post "sign_in", to: "sessions#create"
   get "sign_up", to: "registrations#new"
@@ -21,17 +12,20 @@ Rails.application.routes.draw do
     resource :password_reset, only: [:new, :edit, :create, :update]
   end
 
-  namespace :directories do
-    resource :search, only: [:new, :show]
+  # = Dashboarding =
+  root "users/dashboards#show"
+  resources :plays, only: :index
+  # (Episodes encapsulate an entries with a user and their associated
+  # plays/followings/playlists)
+  resources :episodes, only: :index
+  resource :queue, only: :show do
+    scope module: :queues do
+      resources :items, only: :create
+    end
   end
 
-  resources :settings, only: :index
-
-  constraints subdomain: "websub" do
-    get "web_subs/:id/feed", to: "web_subs#update", as: :web_sub_feed
-    post "web_subs/:web_sub_id/feed", to: "web_subs/feeds#update"
-  end
-
+  # = Feeds & Entries
+  resources :feeds, only: [:index, :show]
   resources :entries, only: :show do
     scope module: :entries do
       resources :plays, only: [:create, :update]
@@ -40,21 +34,31 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :opml_imports, only: [:new, :create]
-
+  # = Searching =
+  namespace :directories do
+    resource :search, only: [:new, :show]
+  end
   get "feeds/:encoded_url", to: "feeds#show", constraints: {encoded_url: %r{encoded_url.+}}
-  resources :feeds, only: [:index, :show]
 
-  resource :queue, only: :show do
-    scope module: :queues do
-      resources :items, only: :create
+  # = Following & Playing Later =
+  scope :list_items, as: :list_items, defaults: {variant: :list_items} do
+    resources :feeds, only: [] do
+      resource :following, only: [:create, :destroy]
+    end
+
+    resource :queue, only: [] do
+      resources :items, only: :destroy, param: :entry_id, controller: "queues/items"
     end
   end
 
-  resources :plays, only: [:index]
-  resources :episodes, only: [:index]
+  # = Importing =
+  resources :opml_imports, only: [:new, :create]
+  constraints subdomain: "websub" do
+    get "web_subs/:id/feed", to: "web_subs#update", as: :web_sub_feed
+    post "web_subs/:web_sub_id/feed", to: "web_subs/feeds#update"
+  end
 
+  # = Etc =
+  resources :settings, only: :index
   get "blank", to: "application#blank"
-
-  root "users/dashboards#show"
 end
