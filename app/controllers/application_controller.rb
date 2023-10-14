@@ -17,7 +17,10 @@ class ApplicationController < ActionController::Base
   end
 
   helper_method def fetch_request?
-    request.xhr? || request.headers["sec-fetch-mode"] != "navigate"
+    (
+      request.headers["sec-fetch-mode"].present? &&
+      request.headers["sec-fetch-mode"] != "navigate"
+    ) || request.xhr?
   end
 
   private
