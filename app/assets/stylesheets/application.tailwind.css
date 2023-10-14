@@ -7,16 +7,16 @@
     -webkit-tap-highlight-color: transparent;
   }
 
+  img {
+    @apply bg-white;
+  }
+
   turbo-frame {
     display: block;
   }
 }
 
 @layer components {
-  img {
-    @apply bg-white;
-  }
-
   #nav {
     view-transition-name: nav;
   }
@@ -32,6 +32,18 @@
   }
   ::view-transition-new(player_bar) {
     animation-name: none;
+  }
+  html.turn-view-transitions.turn-transition [data-turn-enter],
+  html.turn-view-transitions.turn-before-transition [data-turn-enter] {
+    opacity: 0;
+  }
+  html.turn-before-exit [data-turn-exit],
+  html.turn-exit [data-turn-exit] {
+    will-change: transform, opacity;
+  }
+
+  .turbo-progress-bar {
+    visibility: hidden;
   }
 
   progress {
@@ -109,8 +121,58 @@
       supports-[backdrop-filter:blur(0)]:backdrop-blur
   }
 
-  html.turn-before-exit [data-turn-exit],
-  html.turn-exit [data-turn-exit] {
-    will-change: transform, opacity;
+  .prose {
+    div,
+    p,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    ul,
+    ol,
+    li,
+    dl,
+    dt,
+    dd,
+    blockquote,
+    pre,
+    hr,
+    table,
+    caption,
+    thead,
+    tbody,
+    tfoot,
+    tr,
+    th,
+    td,
+    figure,
+    figcaption,
+    article,
+    section,
+    header,
+    footer,
+    nav,
+    aside,
+    address,
+    main {
+      & + br {
+        display: none;
+      }
+    }
+  }
+
+  .prose a,
+  .prose :not(pre) code {
+    /* These are technically the same, but use both */
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+
+    -ms-word-break: break-all;
+    /* This is the dangerous one in WebKit, as it breaks things wherever */
+    word-break: break-all;
+    /* Instead use this non-standard one: */
+    word-break: break-word;
   }
 }
