@@ -9,7 +9,7 @@ export default class ChapterController extends Controller {
   }
 
   update (event) {
-    if (this.eventApplicable(event)) {
+    if (this.#eventApplicable(event)) {
       this.progressTarget.value = this.progress(event.detail.currentTime)
       this.element.setAttribute('data-playing', true)
     } else {
@@ -26,7 +26,7 @@ export default class ChapterController extends Controller {
     return (time - this.startTimeValue) / this.duration
   }
 
-  eventApplicable ({ detail: { href, currentTime } }) {
+  #eventApplicable ({ detail: { href, currentTime } }) {
     return (
       href === this.element.dataset.href &&
       currentTime >= this.startTimeValue &&

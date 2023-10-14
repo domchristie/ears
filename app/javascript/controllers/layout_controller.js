@@ -4,8 +4,7 @@ export default class LayoutController extends Controller {
   static targets = ['observable', 'respondable']
 
   initialize () {
-    this._observed = this.observed.bind(this)
-    this.observer = new IntersectionObserver(this._observed)
+    this.observer = new IntersectionObserver(this.#observed)
   }
 
   connect () {
@@ -16,7 +15,7 @@ export default class LayoutController extends Controller {
     window.scroll({ top: 0, behavior: 'smooth' })
   }
 
-  observed (entries) {
+  #observed = (entries) => {
     const respondables = this.respondableTargets
     entries.forEach(entry => {
       const relevants = respondables.filter(element =>
