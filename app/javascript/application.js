@@ -26,3 +26,8 @@ addEventListener('turbo:before-frame-render', function (event) {
     }
   }
 })
+
+// Flag Turbo Requests
+addEventListener('turbo:before-fetch-request', function ({ detail }) {
+  detail.fetchOptions.headers['Turbo-Request'] = 1
+})

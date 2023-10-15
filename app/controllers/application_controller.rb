@@ -16,11 +16,8 @@ class ApplicationController < ActionController::Base
     render layout: "blank"
   end
 
-  helper_method def fetch_request?
-    (
-      request.headers["sec-fetch-mode"].present? &&
-      request.headers["sec-fetch-mode"] != "navigate"
-    ) || request.xhr?
+  helper_method def turbo_request?
+    request.headers["Turbo-Frame"].present?
   end
 
   private
