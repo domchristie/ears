@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-controller="player media-session" data-action="turbo:load->player#updateToggles visibilitychange@window->player#updateActiveElements">
+<html lang="en" data-controller="player media-session" data-action="turbo:load->player#updateToggles turbo:load->player#removeFallbackPlayer visibilitychange@window->player#updateActiveElements">
   <head>
     <meta name="viewport" content="width=device-width,viewport-fit=cover,initial-scale=1">
     <title><%= @title ? "#{@title} - EARS" : "EARS" %></title>

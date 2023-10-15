@@ -259,10 +259,11 @@ export default class PlayerController extends Controller {
     })
   }
 
-  // Callbacks
-  connect () {
-    this.iframeTarget.remove()
+  removeFallbackPlayer () {
+    if (this.hasIframeTarget) this.iframeTarget.remove()
   }
+
+  // Callbacks
 
   controlsTargetConnected () {
     this._controlsLoaded?.call()

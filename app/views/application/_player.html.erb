@@ -1,8 +1,8 @@
 <div <%= tag.attributes data: {turbo_permanent: Current.user.present?} %> id="player_bar" class="fixed z-10 bottom-0 w-full min-h-[6.125rem] bg-frosted-glass-light dark:bg-frosted-glass-dark">
-  <%= render "entries/players/audio", source: entry_enclosure_at_time_url(entry, play.resume_timestamp) %>
+  <%= render "entries/players/audio", source: entry.presence && entry_enclosure_at_time_url(entry, play.resume_timestamp) %>
 
   <div class="grid grid-cols-1 grid-rows-1 w-full" style="margin-bottom: env(safe-area-inset-bottom)"><%# Leave room for iOS home bar %>
-    <%= turbo_frame_tag :player, src: entry_player_path(entry), class: "[grid-area:1/1] w-full" %>
+    <%= turbo_frame_tag :player, src: entry.presence && entry_player_path(entry), class: "[grid-area:1/1] w-full" %>
 
     <% unless turbo_request? %>
       <iframe src="<%= blank_path %>" name="player" data-player-target="iframe" class="w-full [grid-area:1/1]" height="98" allowtransparency="true"></iframe>
