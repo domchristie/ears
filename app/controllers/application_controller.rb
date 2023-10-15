@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   end
 
   helper_method def turbo_request?
-    request.headers["Turbo-Frame"].present?
+    request.headers.include? "Turbo-Request"
   end
 
   private

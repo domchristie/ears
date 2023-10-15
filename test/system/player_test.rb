@@ -5,5 +5,6 @@ class PlayerTest < ApplicationSystemTestCase
     user = users(:one)
     sign_in_as user
     assert_no_selector "iframe[name='player']"
+    assert_selector "[data-player-target='controls']"
   end
 end

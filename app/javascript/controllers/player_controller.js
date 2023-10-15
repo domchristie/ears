@@ -259,10 +259,6 @@ export default class PlayerController extends Controller {
     })
   }
 
-  removeFallbackPlayer () {
-    if (this.hasIframeTarget) this.iframeTarget.remove()
-  }
-
   // Callbacks
 
   controlsTargetConnected () {
@@ -275,6 +271,10 @@ export default class PlayerController extends Controller {
       this.audioTarget.src = this.audioTarget.src
       this.audioSrcReset = true
     }
+  }
+
+  iframeTargetConnected () {
+    this.iframeTarget.remove()
   }
 
   // Private

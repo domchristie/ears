@@ -7,5 +7,6 @@ class FallbackPlayerTest < ApplicationSystemTestCase
     user = users(:one)
     sign_in_as user
     assert_selector "iframe[name='player']"
+    assert_no_selector "[data-player-target='controls']"
   end
 end
