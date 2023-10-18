@@ -26,7 +26,7 @@
 <% end %>
 
 <div class="mt-fl-xs">
-  <%= render "container" do %>
+  <%= render "container", tag: :search do %>
     <%= form_with url: feed_path(@show.feed), method: :get, data: {turbo_frame: :entries, turbo_action: :replace, controller: "live-search", live_search_target: "form"}, class: "group px-px sm:px-0 -mx-fl-xs-lg sm:mx-0" do |form| %>
       <fieldset class="flex items-center">
         <div class="relative flex-1">
