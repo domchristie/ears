@@ -172,11 +172,7 @@ export default class PlayerController extends Controller {
     })
   }
 
-  get updateTimeLater () {
-    return this._updateTimeLater = (
-      this._updateTimeLater || throttle(_ => this.updateTime(), 250)
-    )
-  }
+  updateTimeLater = throttle(_ => this.updateTime(), 250)
 
   updateProgress () {
     if (document.visibilityState === 'hidden') return
@@ -206,15 +202,10 @@ export default class PlayerController extends Controller {
 
   persistElapsed () {
     if (!this.shouldTrackPlayTime) return
-
     this.dispatch('submit', { target: this.playFormTarget, prefix: '' })
   }
 
-  get persistElapsedLater () {
-    return this._persistElapsedLater = (
-      this._persistElapsedLater || throttle(_ => this.persistElapsed(), PLAY_PERSISTENCE_DURATION)
-    )
-  }
+  persistElapsedLater = throttle(_ => this.persistElapsed(), PLAY_PERSISTENCE_DURATION)
 
   dispatchTimeUpdate () {
     this.dispatch('timeupdate', {
