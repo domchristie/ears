@@ -7,4 +7,12 @@ class PlayerTest < ApplicationSystemTestCase
     assert_no_selector "iframe[name='player']"
     assert_selector "[data-player-target='controls']"
   end
+
+  test "player controller is initialized after sign in" do
+    user = users(:one)
+    visit root_path
+    assert_no_selector "[data-controller~='player']"
+    sign_in_as user
+    assert_selector "[data-controller~='player']"
+  end
 end
