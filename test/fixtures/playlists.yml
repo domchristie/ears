@@ -1,3 +1,4 @@
-queue:
-  name: Queue
+play_later:
+  name: Play Later
   user: one
+  type: PlayLaterPlaylist

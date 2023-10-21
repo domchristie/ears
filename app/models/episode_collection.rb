@@ -25,8 +25,8 @@ class EpisodeCollection
     followings[entry.feed_id] || Following.new(feed: entry.feed, user:)
   end
 
-  def queue_item_for(entry)
-    queue_items[entry.id] || PlaylistItem.new(entry:, playlist: user.queue)
+  def play_later_item_for(entry)
+    play_later_items[entry.id] || PlaylistItem.new(entry:, playlist: user.play_later_playlist)
   end
 
   private
@@ -47,9 +47,9 @@ class EpisodeCollection
     end.to_h
   end
 
-  def queue_items
-    @queue_items ||= PlaylistItem.includes(:entry).where(playlist: user.queue, entry: @entries).map do |queue_item|
-      [queue_item.entry_id, queue_item]
+  def play_later_items
+    @play_later_items ||= PlaylistItem.includes(:entry).where(playlist: user.play_later_playlist, entry: @entries).map do |play_later_item|
+      [play_later_item.entry_id, play_later_item]
     end.to_h
   end
 end

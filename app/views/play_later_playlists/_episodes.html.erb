@@ -1,0 +1,11 @@
+<% more_feeds ||= nil %>
+
+<%= render "list", id: "play_later", partial: "play_later_playlists/episode", collection: episodes do |p| %>
+  <%= p.content_for :empty, "Play later episodes appear here" %>
+
+  <% if more_feeds %>
+    <%= render "feeds/covers", feeds: more_feeds do %>
+      <%= link_to "Play Later →", play_later_path, data: {turbo_frame: "_top"}, class: "text-sm font-semibold uppercase tracking-wide before:absolute before:inset-0 before:z-10" %>
+    <% end %>
+  <% end %>
+<% end %>

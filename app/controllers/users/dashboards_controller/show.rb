@@ -12,7 +12,7 @@ class Users::DashboardsController::Show < ControllerAction
   end
 
   def play_later
-    @play_later ||= QueuesController::Show.call(controller, limit: 3)
+    @play_later ||= PlayLaterPlaylistsController::Show.call(controller, limit: 3)
   end
 
   private

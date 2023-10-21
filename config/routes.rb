@@ -18,8 +18,8 @@ Rails.application.routes.draw do
   # (Episodes encapsulate an entries with a user and their associated
   # plays/followings/playlists)
   resources :episodes, only: :index
-  resource :queue, only: :show do
-    scope module: :queues do
+  resource :play_later_playlist, only: :show, as: :play_later, path: "play_later" do
+    scope module: :play_later_playlists do
       resources :items, only: :create
     end
   end
@@ -46,8 +46,8 @@ Rails.application.routes.draw do
       resource :following, only: [:create, :destroy]
     end
 
-    resource :queue, only: [] do
-      resources :items, only: :destroy, param: :entry_id, controller: "queues/items"
+    resource :play_later_playlist, only: [], as: :play_later, path: "play_later" do
+      resources :items, only: :destroy, param: :entry_id, controller: "play_later_playlists/items"
     end
   end
 

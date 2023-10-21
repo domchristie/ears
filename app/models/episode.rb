@@ -10,8 +10,8 @@ class Episode
     @play ||= collection.play_for(entry)
   end
 
-  def queue_item
-    @queue_item ||= collection.queue_item_for(entry)
+  def play_later_item
+    @play_later ||= collection.play_later_item_for(entry)
   end
 
   def following

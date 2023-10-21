@@ -1,9 +1,9 @@
-class QueuesController::Show < ControllerAction
+class PlayLaterPlaylistsController::Show < ControllerAction
   include EpisodeListable
 
   def episodes
     @episodes ||= EpisodeCollection.new(
-      entries: current_user.queued_entries.includes(feed: :rss_image),
+      entries: current_user.play_later_entries.includes(feed: :rss_image),
       user: current_user,
       limit: @limit,
       order: "playlist_items.created_at DESC"
@@ -12,7 +12,7 @@ class QueuesController::Show < ControllerAction
 
   def more_feeds
     @more_feeds ||= current_user
-      .queued_feeds
+      .play_later_feeds
       .where.not(id: episodes.map(&:feed_id))
       .group(:id)
       .includes(:rss_image)

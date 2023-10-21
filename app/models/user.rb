@@ -12,9 +12,9 @@ class User < ApplicationRecord
   has_many :played_feeds, through: :plays, source: :feed
   has_many :followed_entries, through: :followed_feeds, source: :entries
   has_many :played_entries, through: :plays, source: :entry
-  has_one :queue, -> { where(name: "Queue") }, class_name: "Playlist"
-  has_many :queued_entries, through: :queue, source: :entries
-  has_many :queued_feeds, through: :queued_entries, source: :feed
+  has_one :play_later_playlist
+  has_many :play_later_entries, through: :play_later_playlist, source: :entries
+  has_many :play_later_feeds, through: :play_later_entries, source: :feed
   has_many :playlists, dependent: :destroy
   has_many :playlisted_items, through: :playlists, source: :items
   has_many :playlisted_feeds, through: :playlists, source: :feeds
@@ -45,7 +45,7 @@ class User < ApplicationRecord
     sessions.where.not(id: Current.session).destroy_all
   end
 
-  def queue
-    super || create_queue!
+  def play_later_playlist
+    super || create_play_later_playlist!
   end
 end

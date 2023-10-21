@@ -15,7 +15,7 @@
 
   <% p.content_for :actions do %>
     <div class="flex h-full items-center justify-center">
-      <%= render partial: "queues/items/form", variants: [:list_items], locals: {queue_item: episode.queue_item} %>
+      <%= render partial: "play_later_playlists/items/form", variants: [:list_items], locals: {play_later_item: episode.play_later_item} %>
     </div>
   <% end %>
 <% end %>

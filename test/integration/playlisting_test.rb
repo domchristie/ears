@@ -8,13 +8,13 @@ class PlaylistingTest < ActionDispatch::IntegrationTest
     refute Following.where(user:, feed:).exists?
 
     sign_in_as user
-    post queue_items_path, params: {playlist_item: {entry_id: entry.id}}
+    post play_later_items_path, params: {playlist_item: {entry_id: entry.id}}
 
     assert Following.where(
       user:,
       feed:,
       sourceable_type: "PlaylistItem",
-      sourceable_id: PlaylistItem.find_by(playlist: user.queue, entry:).id
+      sourceable_id: PlaylistItem.find_by(playlist: user.play_later_playlist, entry:).id
     ).exists?
   end
 end

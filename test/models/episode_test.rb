@@ -15,12 +15,12 @@ class EpisodeTest < ActiveSupport::TestCase
     episode.play # check memoization
   end
 
-  test "#queue_item lazy loads a play from its collection" do
-    queue_item = PlaylistItem.new
-    @collection.expect :queue_item_for, queue_item, [@entry]
+  test "#play_later_item lazy loads a play from its collection" do
+    play_later_item = PlaylistItem.new
+    @collection.expect :play_later_item_for, play_later_item, [@entry]
     episode = Episode.new(collection: @collection, entry: @entry, user: @user)
-    episode.queue_item
-    episode.queue_item # check memoization
+    episode.play_later_item
+    episode.play_later_item # check memoization
   end
 
   test "#following lazy loads a play from its collection" do
