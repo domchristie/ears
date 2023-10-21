@@ -13,7 +13,7 @@
   }
 
   img {
-    @apply bg-white;
+    @apply bg-white dark:bg-black;
   }
 
   turbo-frame {
