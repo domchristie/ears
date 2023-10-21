@@ -112,18 +112,16 @@
       var(--clip-further) var(--clip-further));
   }
 
-  .bg-frosted-glass-light {
+  /* Frosted Glass */
+
+  .bg-frosted-glass {
     @apply
       bg-white/95
+      dark:bg-black/95
       supports-[backdrop-filter:blur(0)]:bg-white/75
-      supports-[backdrop-filter:blur(0)]:backdrop-blur;
-  }
-
-  .bg-frosted-glass-dark {
-    @apply
-      bg-black/95
-      supports-[backdrop-filter:blur(0)]:bg-black/75
       supports-[backdrop-filter:blur(0)]:backdrop-blur
+      dark:supports-[backdrop-filter:blur(0)]:bg-black/75
+      dark:supports-[backdrop-filter:blur(0)]:backdrop-blur;
   }
 
   .prose {

@@ -5,7 +5,7 @@ data = {
   turbo_permanent: Current.user.present?
 }
 %>
-<div <%= tag.attributes(data:) %> id="player_bar" class="fixed z-10 bottom-0 w-full min-h-[6.125rem] bg-frosted-glass-light dark:bg-frosted-glass-dark">
+<div <%= tag.attributes(data:) %> id="player_bar" class="fixed z-10 bottom-0 w-full min-h-[6.125rem] bg-frosted-glass">
   <%= render "entries/players/audio", source: entry.presence && entry_enclosure_at_time_url(entry, play.resume_timestamp) %>
 
   <div class="grid grid-cols-1 grid-rows-1 w-full mb-[env(safe-area-inset-bottom)]">
