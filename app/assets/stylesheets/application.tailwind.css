@@ -7,6 +7,11 @@
     -webkit-tap-highlight-color: transparent;
   }
 
+  body {
+    margin-right: env(safe-area-inset-right);
+    margin-left: env(safe-area-inset-left);
+  }
+
   img {
     @apply bg-white;
   }
