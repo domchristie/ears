@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.turbo-progress-bar {
+  visibility: hidden;
+}
+
 @layer base {
   html {
     -webkit-tap-highlight-color: transparent;
@@ -50,10 +54,6 @@
   }
 
   /* Progress */
-
-  .turbo-progress-bar {
-    visibility: hidden;
-  }
 
   progress {
     @apply bg-black/10 dark:bg-white/20;
