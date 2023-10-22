@@ -25,8 +25,9 @@ Rails.application.routes.draw do
   end
 
   # = Feeds & Entries
-  get "feeds/:encoded_url", to: "feeds#show", constraints: {encoded_url: %r{encoded_url.+}}
   resources :feeds, only: [:index, :show]
+  resources :itunes_feeds, only: :show, path: "itunes", param: :apple_id
+
   resources :entries, only: :show do
     scope module: :entries do
       resources :plays, only: [:create, :update]

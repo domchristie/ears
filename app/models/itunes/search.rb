@@ -16,7 +16,7 @@ class Itunes::Search
         image_url: result["artworkUrl600"],
         title: result["collectionName"],
         details: result["artistName"],
-        meta: {url: result["feedUrl"]}
+        path: itunes_feed_path(result["collectionId"])
       )
     end
   end
