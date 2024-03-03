@@ -31,3 +31,19 @@ addEventListener('turbo:before-frame-render', function (event) {
 addEventListener('turbo:before-fetch-request', function ({ detail }) {
   detail.fetchOptions.headers['Turbo-Request'] = 1
 })
+
+// Service Worker
+if (navigator.serviceWorker) {
+  // Clear out old registrations
+  navigator.serviceWorker.getRegistrations().then((regs) => {
+    regs.forEach((reg) => {
+      const wrongScope = !/app(\.local)?\/$/.test(reg.scope)
+      const oldUrl = /serviceworker.js$/.test(reg.active?.scriptURL)
+      if (wrongScope || oldUrl) reg.unregister()
+    })
+  })
+
+  navigator.serviceWorker.register('/service-worker.js').then(function () {
+    console.log('[Page] Service worker registered!')
+  })
+}

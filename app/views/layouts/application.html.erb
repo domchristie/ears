@@ -10,13 +10,4 @@
   </main>
 
   <%= render("player", entry: Current.entry, play: Current.play) if Current.user && !turbo_native_app? %>
-
-  <script data-turbo-eval="false">
-  if (navigator.serviceWorker) {
-    navigator.serviceWorker.register('/serviceworker.js', { scope: './' })
-      .then(function () {
-        console.log('[Page] Service worker registered!')
-      })
-  }
-  </script>
 <% end %>

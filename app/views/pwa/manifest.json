@@ -2,6 +2,7 @@
   "name": "EARS",
   "short_name": "EARS",
   "display": "standalone",
+  "scope": "/",
   "start_url": "https://app.ears.app",
   "theme_color": "#ffffff",
   "background_color": "#ffffff",

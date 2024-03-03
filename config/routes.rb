@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  # = PWA =
+  get "service-worker" => "pwa#service_worker", as: :pwa_service_worker
+  get "manifest" => "pwa#manifest", as: :pwa_manifest
+
   # = Authenticating =
   get "sign_in", to: "sessions#new"
   post "sign_in", to: "sessions#create"
