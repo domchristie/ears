@@ -9,6 +9,7 @@ import { throttle } from 'helpers/debounce-helpers'
 const PLAY_PERSISTENCE_DURATION = 30000
 
 export default class PlayerController extends Controller {
+  static values = { duration: Number }
   static targets = [
     'audio',
     'controls',
@@ -24,6 +25,10 @@ export default class PlayerController extends Controller {
     'iframe'
   ]
 
+  get hasNothing () {
+    return !this.audioTarget?.readyState
+  }
+
   get ready () {
     return this.audioTarget && this.audioTarget.readyState >= 3
   }
@@ -37,11 +42,26 @@ export default class PlayerController extends Controller {
   }
 
   get duration () {
-    return this.audioTarget?.duration || 0
+    return this.audioTarget?.duration || this.durationValue || 0
   }
 
   get currentTime () {
     return this.audioTarget?.currentTime || 0
+  }
+
+  set currentTime (value) {
+    // In Safari, when a src contains a Media Fragment, currentTime will be
+    // reset to the Media Fragment time when the audio is loaded. This means
+    // setting currentTime before anything has loaded won't work as expected.
+    // To fix, update the Media Fragment so when the audio is loaded, it'll
+    // play from the expected point. Only set if the audio has not yet loaded
+    // to prevent reloads.
+    if (this.hasNothing) {
+      const src = new URL(this.audioTarget.src)
+      src.hash = `#t=${value}`
+      this.audioTarget.src = src.toString()
+    }
+    this.audioTarget.currentTime = value
   }
 
   get remaining () {
@@ -75,7 +95,7 @@ export default class PlayerController extends Controller {
 
   async skipToAndPlay ({ currentTarget }) {
     if (this.targetApplicable(currentTarget)) {
-      this.audioTarget.currentTime = parseTimestamp(currentTarget.hash) || 0.001
+      this.currentTime = parseTimestamp(currentTarget.hash) || 0.001
       if (this.audioTarget.paused) this.audioTarget.play()
     } else {
       let src = currentTarget.dataset.href
@@ -90,7 +110,7 @@ export default class PlayerController extends Controller {
   skipBack (event = {}) {
     event.currentTarget?.focus()
 
-    this.audioTarget.currentTime = Math.max(
+    this.currentTime = Math.max(
       this.audioTarget.currentTime - 15,
       0
     )
@@ -99,7 +119,7 @@ export default class PlayerController extends Controller {
   skipForward (event = {}) {
     event.currentTarget?.focus()
 
-    this.audioTarget.currentTime = Math.min(
+    this.currentTime = Math.min(
       this.audioTarget.currentTime + 30,
       this.duration
     )
@@ -226,7 +246,7 @@ export default class PlayerController extends Controller {
 
   seekTo (event) {
     const progress = Number(event.currentTarget.value) / 100
-    this.audioTarget.currentTime = progress * this.duration
+    this.currentTime = progress * this.duration
   }
 
   seek (event) {
@@ -254,6 +274,7 @@ export default class PlayerController extends Controller {
 
   controlsTargetConnected () {
     this._controlsLoaded?.call()
+    this.durationValue = this.controlsTarget.dataset.playerDuration
   }
 
   audioTargetConnected () {
