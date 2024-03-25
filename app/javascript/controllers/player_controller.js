@@ -309,7 +309,8 @@ export default class PlayerController extends Controller {
 }
 
 function requestUrl (url) {
-  return url.split("#")[0]
+  const u =  new URL(url)
+  return u.origin + u.pathname + u.search
 }
 
 function parseTimestamp (hash) {
