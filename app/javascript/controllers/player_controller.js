@@ -9,7 +9,7 @@ import { throttle } from 'helpers/debounce-helpers'
 const PLAY_PERSISTENCE_DURATION = 30000
 
 export default class PlayerController extends Controller {
-  static values = { duration: Number }
+  static values = { duration: Number, elapsed: Number }
   static targets = [
     'audio',
     'controls',
@@ -46,7 +46,7 @@ export default class PlayerController extends Controller {
   }
 
   get currentTime () {
-    return this.audioTarget?.currentTime || 0
+    return this.audioTarget?.currentTime || this.elapsedValue || 0
   }
 
   set currentTime (value) {
@@ -275,6 +275,7 @@ export default class PlayerController extends Controller {
   controlsTargetConnected () {
     this._controlsLoaded?.call()
     this.durationValue = this.controlsTarget.dataset.playerDuration
+    this.elapsedValue = this.controlsTarget.dataset.elapsedDuration
   }
 
   audioTargetConnected () {
