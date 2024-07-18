@@ -275,7 +275,7 @@ export default class PlayerController extends Controller {
   controlsTargetConnected () {
     this._controlsLoaded?.call()
     this.durationValue = this.controlsTarget.dataset.playerDuration
-    this.elapsedValue = this.controlsTarget.dataset.elapsedDuration
+    this.elapsedValue = this.controlsTarget.dataset.playerElapsed
   }
 
   audioTargetConnected () {
