@@ -9,7 +9,7 @@ import { throttle } from 'helpers/debounce-helpers'
 const PLAY_PERSISTENCE_DURATION = 30000
 
 export default class PlayerController extends Controller {
-  static values = { duration: Number, elapsed: Number }
+  static values = { duration: Number, elapsed: Number, src: String }
   static targets = [
     'audio',
     'controls',
@@ -57,9 +57,9 @@ export default class PlayerController extends Controller {
     // play from the expected point. Only set if the audio has not yet loaded
     // to prevent reloads.
     if (this.hasNothing) {
-      const src = new URL(this.audioTarget.src)
+      const src = new URL(this.src)
       src.hash = `#t=${value}`
-      this.audioTarget.src = src.toString()
+      this.src = src.toString()
     }
     this.audioTarget.currentTime = value
   }
@@ -78,6 +78,15 @@ export default class PlayerController extends Controller {
       : this.progress > 0.95
   }
 
+  get src () {
+    return this.srcValue
+  }
+
+  set src (value) {
+    this.srcValue = this.audioTarget.src = value
+    return value
+  }
+
   // Actions
 
   async toggle (event) {
@@ -86,7 +95,7 @@ export default class PlayerController extends Controller {
     } else {
       let src = event.currentTarget.dataset.href
       if (event.currentTarget.hash) src += event.currentTarget.hash
-      this.audioTarget.src = src
+      this.src = src
       this.audioTarget.load()
       await this.loadNewControls(event.currentTarget.href)
       await this.audioTarget.play()
@@ -100,7 +109,7 @@ export default class PlayerController extends Controller {
     } else {
       let src = currentTarget.dataset.href
       if (currentTarget.hash) src += currentTarget.hash
-      this.audioTarget.src = src
+      this.src = src
       this.audioTarget.load()
       await this.loadNewControls(currentTarget.href)
       await this.audioTarget.play()
@@ -132,8 +141,14 @@ export default class PlayerController extends Controller {
     this.updateProgress()
   }
 
-  updateToggles () {
+  updateToggles (event) {
     if (document.visibilityState === 'hidden') return
+    const initialLoad = (
+      event &&
+      event.type === 'turbo:load' &&
+      !event.detail.timing.visitStart
+    )
+    if (initialLoad) return
 
     this.playTargets.forEach((target) => {
       if (this.targetApplicable(target)) {
@@ -230,7 +245,7 @@ export default class PlayerController extends Controller {
   dispatchTimeUpdate () {
     this.dispatch('timeupdate', {
       detail: {
-        href: requestUrl(this.audioTarget.src),
+        href: requestUrl(this.src),
         currentTime: this.currentTime
       }
     })
@@ -276,12 +291,13 @@ export default class PlayerController extends Controller {
     this._controlsLoaded?.call()
     this.durationValue = this.controlsTarget.dataset.playerDuration
     this.elapsedValue = this.controlsTarget.dataset.playerElapsed
+    this.srcValue = this.controlsTarget.dataset.playerSrc
   }
 
   audioTargetConnected () {
     // Fix NotSupported error on Firefox
-    if (!this.audioSrcReset && this.audioTarget.src) {
-      this.audioTarget.src = this.audioTarget.src
+    if (!this.audioSrcReset && this.src) {
+      this.src = this.src
       this.audioSrcReset = true
     }
   }
@@ -293,7 +309,7 @@ export default class PlayerController extends Controller {
   // Private
 
   targetApplicable (target) {
-    return requestUrl(target.dataset.href) === requestUrl(this.audioTarget.src)
+    return requestUrl(target.dataset.href) === requestUrl(this.src)
   }
 
   ifApplicable (targets, callback) {
