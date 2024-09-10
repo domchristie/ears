@@ -38,6 +38,7 @@ module.exports = {
         playing: 'playing',
         played: 'played',
         active: 'active',
+        selected: 'selected'
       },
       fontFamily: {
         sans: ['Bespoke Sans', 'Seravek', 'Gill Sans Nova', 'Ubuntu', 'Calibri', 'DejaVu Sans', 'source-sans-pro', 'sans-serif'],

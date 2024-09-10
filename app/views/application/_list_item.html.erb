@@ -1,13 +1,13 @@
 <%
 body = yield(p = component_partial)
 colors = {
-  default: "bg-grey-50 dark:bg-grey-900 focus-within:bg-white dark:focus-within:bg-black",
-  accent: "bg-white dark:bg-black focus-within:bg-grey-100 dark:focus-within:bg-grey-900"
+  default: "bg-grey-50 dark:bg-grey-900 data-selected:bg-white dark:data-[selected]:bg-black",
+  accent: "bg-white dark:bg-black data-selected:bg-grey-100 dark:data-[selected]:bg-grey-900"
 }
 props(local_assigns.with_defaults(color: :default, contain: true, style: nil)) => {color:, contain:, style:};
 %>
 
-<%= content_tag :article, tag.attributes(id: local_assigns[:id], class: "group #{colors[color]}", style:).to_h do %>
+<%= content_tag :article, tag.attributes(id: local_assigns[:id], class: "group #{colors[color]}", style:, data: {controller: "list-item"}).to_h do %>
   <%# scroller %>
   <div class="flex overflow-x-scroll snap-x snap-mandatory [scrollbar-width:none] [-ms-overflow-style: none] [&::-webkit-scrollbar]:hidden">
 
@@ -22,9 +22,9 @@ props(local_assigns.with_defaults(color: :default, contain: true, style: nil)) =
 
             <div class="text-fl-sm font-semibold line-clamp-2">
               <% if local_assigns[:method] %>
-                <%= button_to title, path, method: method, tabindex: 0, class: "after:absolute after:inset-0" %>
+                <%= button_to title, path, method: method, tabindex: 0, class: "after:absolute after:inset-0", data: {turbo_frame: "_top", action: "list-item#select turbo:before-cache@window->list-item#deselect"} %>
               <% else %>
-                <%= link_to_if local_assigns[:path], title, local_assigns[:path], tabindex: 0, class: "after:absolute after:inset-0", data: {turbo_frame: "_top"} %>
+                <%= link_to_if local_assigns[:path], title, local_assigns[:path], tabindex: 0, class: "after:absolute after:inset-0", data: {turbo_frame: "_top", action: "list-item#select turbo:before-cache@window->list-item#deselect"} %>
               <% end %>
             </div>
 
