@@ -12,6 +12,7 @@
   }
 
   body {
+    padding-top: env(safe-area-inset-top);
     margin-right: env(safe-area-inset-right);
     margin-left: env(safe-area-inset-left);
   }
