@@ -12,10 +12,10 @@ export default class extends Controller {
   }
 
   #createPlayer () {
-    html.dataset.controller += ' player'
+    html.dataset.controller += ' player bridge--player'
   }
 
   #destroyPlayer () {
-    html.dataset.controller = html.dataset.controller.replace(' player', '')
+    html.dataset.controller = html.dataset.controller.replace(' player bridge--player', '')
   }
 }

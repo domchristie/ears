@@ -1,22 +1,7 @@
 <audio
   data-player-target="audio"
   data-media-session-target="audio"
-  data-action="
-    loadeddata->player#updateToggles
-    canplaythrough->player#updateToggles
-    play->player#updateToggles
-    play->player#updatePlays
-    play->media-session#create
-    play->media-session#setState
-    pause->player#updateToggles
-    pause->player#updatePlays
-    pause->media-session#setState
-    durationchange->player#updateTime
-    timeupdate->player#updateTimeLater
-    timeupdate->player#updateProgress
-    timeupdate->player#trackElapsed
-    timeupdate->player#dispatchTimeUpdate
-    ended->player#persistElapsed"
+  data-action="<%= audio_actions %>"
   preload="none"
   src="<%= local_assigns[:source] %>"
   class="hidden"

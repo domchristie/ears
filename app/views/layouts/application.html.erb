@@ -9,5 +9,5 @@
     <%= yield %>
   </main>
 
-  <%= render("player", entry: Current.entry, play: Current.play) if Current.user && !turbo_native_app? %>
+  <%= render("player", entry: Current.entry, play: Current.play) if Current.user %>
 <% end %>

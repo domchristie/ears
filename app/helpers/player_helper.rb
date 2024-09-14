@@ -1,0 +1,27 @@
+module PlayerHelper
+  def audio_actions(prefix: "")
+    actions = [
+      "loadeddata->player#updateToggles",
+      "canplaythrough->player#updateToggles",
+      "play->player#updateToggles",
+      "play->player#updatePlays",
+      "play->media-session#create",
+      "play->media-session#setState",
+      "pause->player#updateToggles",
+      "pause->player#updatePlays",
+      "pause->media-session#setState",
+      "durationchange->player#updateTime",
+      "timeupdate->player#updateTimeLater",
+      "timeupdate->player#updateProgress",
+      "timeupdate->player#trackElapsed",
+      "timeupdate->player#dispatchTimeUpdate",
+      "ended->player#persistElapsed"
+    ]
+
+    if prefix.present?
+      actions = actions.map { |action| "#{prefix}:#{action}" }
+    end
+
+    actions.join(" ")
+  end
+end

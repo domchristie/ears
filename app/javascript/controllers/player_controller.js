@@ -29,7 +29,9 @@ export default class PlayerController extends Controller {
   audioSource = new AudioSource()
 
   connect () {
-    this.audioSource.delegate = this.audioTarget
+    this.audioSource.delegate = this.hasAudioTarget
+      ? this.audioTarget
+      : this.#bridgePlayerController
   }
 
   get hasNothing () {
