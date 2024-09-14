@@ -5,6 +5,7 @@ import {
   humanDuration
 } from 'helpers/time-helpers'
 import { throttle } from 'helpers/debounce-helpers'
+import AudioSource from 'models/audio_source'
 
 const PLAY_PERSISTENCE_DURATION = 30000
 
@@ -25,28 +26,34 @@ export default class PlayerController extends Controller {
     'iframe'
   ]
 
+  audioSource = new AudioSource()
+
+  connect () {
+    this.audioSource.delegate = this.audioTarget
+  }
+
   get hasNothing () {
-    return !this.audioTarget?.readyState
+    return !this.audioSource.readyState
   }
 
   get ready () {
-    return this.audioTarget && this.audioTarget.readyState >= 3
+    return this.audioSource.readyState >= 3
   }
 
   get playing () {
-    return this.ready && !this.audioTarget.paused
+    return this.ready && !this.audioSource.paused
   }
 
   get loading () {
-    return !this.ready && !this.audioTarget.paused
+    return !this.ready && !this.audioSource.paused
   }
 
   get duration () {
-    return this.audioTarget?.duration || this.durationValue || 0
+    return this.audioSource.duration || this.durationValue || 0
   }
 
   get currentTime () {
-    return this.audioTarget?.currentTime || this.elapsedValue || 0
+    return this.audioSource.currentTime || this.elapsedValue || 0
   }
 
   set currentTime (value) {
@@ -61,7 +68,7 @@ export default class PlayerController extends Controller {
       src.hash = `#t=${value}`
       this.src = src.toString()
     }
-    this.audioTarget.currentTime = value
+    this.audioSource.currentTime = value
   }
 
   get remaining () {
@@ -83,36 +90,40 @@ export default class PlayerController extends Controller {
   }
 
   set src (value) {
-    this.srcValue = this.audioTarget.src = value
+    this.srcValue = this.audioSource.src = value
     return value
+  }
+
+  get #bridgePlayerController () {
+    return this.application.getControllerForElementAndIdentifier(document.documentElement, 'bridge--player')
   }
 
   // Actions
 
   async toggle (event) {
     if (this.targetApplicable(event.currentTarget)) {
-      await this.audioTarget[this.audioTarget.paused ? 'play' : 'pause']()
+      await this.audioSource[this.audioSource.paused ? 'play' : 'pause']()
     } else {
       let src = event.currentTarget.dataset.href
       if (event.currentTarget.hash) src += event.currentTarget.hash
       this.src = src
-      this.audioTarget.load()
+      this.audioSource.load()
       await this.loadNewControls(event.currentTarget.href)
-      await this.audioTarget.play()
+      await this.audioSource.play()
     }
   }
 
   async skipToAndPlay ({ currentTarget }) {
     if (this.targetApplicable(currentTarget)) {
       this.currentTime = parseTimestamp(currentTarget.hash) || 0.001
-      if (this.audioTarget.paused) this.audioTarget.play()
+      if (this.audioSource.paused) this.audioSource.play()
     } else {
       let src = currentTarget.dataset.href
       if (currentTarget.hash) src += currentTarget.hash
       this.src = src
-      this.audioTarget.load()
+      this.audioSource.load()
       await this.loadNewControls(currentTarget.href)
-      await this.audioTarget.play()
+      await this.audioSource.play()
     }
   }
 
@@ -120,7 +131,7 @@ export default class PlayerController extends Controller {
     event.currentTarget?.focus()
 
     this.currentTime = Math.max(
-      this.audioTarget.currentTime - 15,
+      this.audioSource.currentTime - 15,
       0
     )
   }
@@ -129,7 +140,7 @@ export default class PlayerController extends Controller {
     event.currentTarget?.focus()
 
     this.currentTime = Math.min(
-      this.audioTarget.currentTime + 30,
+      this.audioSource.currentTime + 30,
       this.duration
     )
   }
@@ -172,7 +183,7 @@ export default class PlayerController extends Controller {
 
   updateTime () {
     if (document.visibilityState === 'hidden') return
-    if (this.audioTarget.readyState < 2) return
+    if (this.audioSource.readyState < 2) return
     if (this.seeking) return
 
     this.ifApplicable(this.elapsedTargets, t => {
@@ -232,7 +243,7 @@ export default class PlayerController extends Controller {
       this.duration - this.currentTime,
       0
     )
-    if (!this.audioTarget.paused) this.persistElapsedLater()
+    if (!this.audioSource.paused) this.persistElapsedLater()
   }
 
   persistElapsed () {
@@ -291,13 +302,12 @@ export default class PlayerController extends Controller {
     this._controlsLoaded?.call()
     this.durationValue = this.controlsTarget.dataset.playerDuration
     this.elapsedValue = this.controlsTarget.dataset.playerElapsed
-    this.srcValue = this.controlsTarget.dataset.playerSrc
   }
 
   audioTargetConnected () {
     // Fix NotSupported error on Firefox
     if (!this.audioSrcReset && this.src) {
-      this.src = this.src
+      this.audioTarget.src = this.src
       this.audioSrcReset = true
     }
   }
