@@ -19,6 +19,10 @@ class Entry < ApplicationRecord
 
   scope :followed_by, ->(user) { includes(:following).where(followings: {user:}) }
 
+  def enclosure_url
+    Rails.env.development? ? "https://cloth.ears.app/#{super}" : super
+  end
+
   def duration
     itunes_duration
   end
