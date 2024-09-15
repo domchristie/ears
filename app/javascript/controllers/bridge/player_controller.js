@@ -23,19 +23,19 @@ export default class extends BridgeComponent {
 
   connect () {
     this.send('value', {}, this.#setValue)
-    this.send('connect', {})
+    this.send('connect')
   }
 
   load () {
-    return this.get('load')
+    return this.send('load')
   }
 
   play () {
-    return this.get('play')
+    return this.send('play')
   }
 
   pause () {
-    return this.get('pause')
+    return this.send('pause')
   }
 
   // Callbacks
@@ -72,6 +72,9 @@ export default class extends BridgeComponent {
     })
   }
 
+  // Values are sent from the native app
+  // This sets the values and dispatches the change to be picked up by the
+  // PlayerController
   #setValue = (message) => {
     const name = Object.keys(message.data)[0]
     const value = message.data[name]
@@ -86,15 +89,6 @@ export default class extends BridgeComponent {
       const value = (this[`_${name}`] = this[`${name}Value`])
       this.send('props', { props: { [name]: value } })
     }
-  }
-
-  get (name) {
-    return new Promise((resolve) => {
-      const id = this.send(name, {}, (message) => {
-        resolve(message.data.value)
-        this.bridge.removeCallbackFor(id)
-      })
-    })
   }
 
   // AudioSource Delegate
