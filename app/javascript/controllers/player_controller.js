@@ -10,7 +10,7 @@ import AudioSource from 'models/audio_source'
 const PLAY_PERSISTENCE_DURATION = 30000
 
 export default class PlayerController extends Controller {
-  static values = { duration: Number, elapsed: Number, src: String }
+  static values = { duration: Number, elapsed: Number }
   static targets = [
     'audio',
     'controls',
@@ -66,9 +66,9 @@ export default class PlayerController extends Controller {
     // play from the expected point. Only set if the audio has not yet loaded
     // to prevent reloads.
     if (this.hasNothing) {
-      const src = new URL(this.src)
+      const src = new URL(this.audioSource.src)
       src.hash = `#t=${value}`
-      this.src = src.toString()
+      this.audioSource.src = src.toString()
     }
     this.audioSource.currentTime = value
   }
@@ -87,15 +87,6 @@ export default class PlayerController extends Controller {
       : this.progress > 0.95
   }
 
-  get src () {
-    return this.srcValue
-  }
-
-  set src (value) {
-    this.srcValue = this.audioSource.src = value
-    return value
-  }
-
   get #bridgePlayerController () {
     return this.application.getControllerForElementAndIdentifier(document.documentElement, 'bridge--player')
   }
@@ -108,7 +99,7 @@ export default class PlayerController extends Controller {
     } else {
       let src = event.currentTarget.dataset.href
       if (event.currentTarget.hash) src += event.currentTarget.hash
-      this.src = src
+      this.audioSource.src = src
       this.audioSource.load()
       await this.loadNewControls(event.currentTarget.href)
       await this.audioSource.play()
@@ -122,7 +113,7 @@ export default class PlayerController extends Controller {
     } else {
       let src = currentTarget.dataset.href
       if (currentTarget.hash) src += currentTarget.hash
-      this.src = src
+      this.audioSource.src = src
       this.audioSource.load()
       await this.loadNewControls(currentTarget.href)
       await this.audioSource.play()
@@ -258,7 +249,7 @@ export default class PlayerController extends Controller {
   dispatchTimeUpdate () {
     this.dispatch('timeupdate', {
       detail: {
-        href: requestUrl(this.src),
+        href: requestUrl(this.audioSource.src),
         currentTime: this.currentTime
       }
     })
@@ -308,8 +299,8 @@ export default class PlayerController extends Controller {
 
   audioTargetConnected () {
     // Fix NotSupported error on Firefox
-    if (!this.audioSrcReset && this.src) {
-      this.audioTarget.src = this.src
+    if (!this.audioSrcReset && this.audioSource.src) {
+      this.audioTarget.src = this.audioSource.src
       this.audioSrcReset = true
     }
   }
@@ -321,7 +312,7 @@ export default class PlayerController extends Controller {
   // Private
 
   targetApplicable (target) {
-    return requestUrl(target.dataset.href) === requestUrl(this.src)
+    return requestUrl(target.dataset.href) === requestUrl(this.audioSource.src)
   }
 
   ifApplicable (targets, callback) {
