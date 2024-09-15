@@ -28,10 +28,9 @@ export default class PlayerController extends Controller {
 
   audioSource = new AudioSource()
 
-  connect () {
-    this.audioSource.delegate = this.hasAudioTarget
-      ? this.audioTarget
-      : this.#bridgePlayerController
+  initialize () {
+    // Overridden if audioTarget connects
+    this.audioSource.delegate = this.#bridgePlayerController
   }
 
   get hasNothing () {
@@ -147,12 +146,6 @@ export default class PlayerController extends Controller {
 
   updateToggles (event) {
     if (document.visibilityState === 'hidden') return
-    const initialLoad = (
-      event &&
-      event.type === 'turbo:load' &&
-      !event.detail.timing.visitStart
-    )
-    if (initialLoad) return
 
     this.playTargets.forEach((target) => {
       if (this.targetApplicable(target)) {
@@ -298,6 +291,8 @@ export default class PlayerController extends Controller {
   }
 
   audioTargetConnected () {
+    this.audioSource.delegate = this.audioTarget
+
     // Fix NotSupported error on Firefox
     if (!this.audioSrcReset && this.audioSource.src) {
       this.audioTarget.src = this.audioSource.src
@@ -329,7 +324,7 @@ export default class PlayerController extends Controller {
 }
 
 function requestUrl (url) {
-  const u =  new URL(url)
+  const u = new URL(url)
   return u.origin + u.pathname + u.search
 }
 

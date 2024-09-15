@@ -19,6 +19,10 @@ export default class AudioSource {
     this.delegate.currentTime = value
   }
 
+  get src () {
+    return this.delegate.src
+  }
+
   set src (value) {
     this.delegate.src = value
   }
