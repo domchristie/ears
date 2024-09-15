@@ -3,11 +3,7 @@
 content_for :nav, render("nav_bar")
 %>
 
-<%= render "container" do %>
-  <h1 id="heading" <%= ui.turn %> class="mt-fl-sm-lg mb-fl-2xs text-fl-base font-semibold dark:text-grey-50">
-    Feeds
-  </h1>
-<% end %>
+<%= render("heading") { "Feeds" } %>
 
 <div class="space-y-fl-3xs">
   <%= render @feeds %>

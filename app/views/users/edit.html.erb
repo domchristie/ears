@@ -1,4 +1,4 @@
-<h1 <%= ui.heading.merge(class: "mb-fl-2xs") %>>Account</h1>
+<h1 <%= ui.heading_2.merge(class: "mb-fl-2xs") %>>Account</h1>
 
 <%= form_with model: @user, url: account_path, method: :put do |form| %>
   <%= render "form_errors", object: form.object %>

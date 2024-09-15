@@ -17,7 +17,11 @@ module UiHelper
       })
     end
 
-    def heading
+    def heading_1
+      tag.attributes class: "text-fl-base font-serif font-semibold dark:text-grey-50"
+    end
+
+    def heading_2
       tag.attributes class: "text-fl-xs uppercase tracking-wide font-semibold"
     end
 

@@ -1,0 +1,7 @@
+<% tag_name = local_assigns.delete(:tag_name) || :h1 %>
+
+<%= render "container" do %>
+  <%= content_tag tag_name, tag.attributes(ui.turn, ui.heading_1, local_assigns, class: "mt-fl-lg-xl mb-fl-2xs").to_h do %>
+    <%= yield %>
+  <% end %>
+<% end %>

@@ -1,4 +1,4 @@
-<h1 <%= tag.attributes(ui.heading).merge(class: "mb-fl-2xs") %>>Sign Up</h1>
+<h1 <%= tag.attributes(ui.heading_2).merge(class: "mb-fl-2xs") %>>Sign Up</h1>
 
 <%= form_with model: @user, url: signup_path do |form| %>
   <%= render "form_errors", object: form.object %>

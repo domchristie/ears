@@ -39,7 +39,7 @@ account_items = [
 </div>
 
 <%= render "container" do %>
-  <h2 <%= tag.attributes(ui.heading, ui.turn).merge(class: "mt-fl-sm mb-fl-2xs") %>>Account</h2>
+  <h2 <%= tag.attributes(ui.heading_2, ui.turn).merge(class: "mt-fl-sm mb-fl-2xs") %>>Account</h2>
 
   <% unless Current.user.verified? %>
     <div class="mb-fl-sm">

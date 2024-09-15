@@ -1,4 +1,4 @@
-<h1 <%= tag.attributes(ui.heading, ui.turn, class: "mb-fl-2xs") %>>Reset Your Password</h1>
+<h1 <%= tag.attributes(ui.heading_2, ui.turn, class: "mb-fl-2xs") %>>Reset Your Password</h1>
 
 <%= form_with url: identity_password_reset_path, method: :patch do |form| %>
   <%= render "form_errors", object: @user %>

@@ -42,6 +42,7 @@ module.exports = {
       },
       fontFamily: {
         sans: ['Bespoke Sans', 'Seravek', 'Gill Sans Nova', 'Ubuntu', 'Calibri', 'DejaVu Sans', 'source-sans-pro', 'sans-serif'],
+        serif: ['Bespoke Serif', 'Charter', 'Bitstream Charter', 'Sitka Text', 'Cambria', 'serif'],
         native: defaultTheme.fontFamily.sans,
       },
       keyframes: {

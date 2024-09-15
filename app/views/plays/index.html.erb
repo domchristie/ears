@@ -6,11 +6,7 @@
   <% end %>
 <% end %>
 
-<%= render "container" do %>
-  <h1 data-layout-target="observable" id="heading" <%= ui.turn %> class="mt-fl-sm-lg mb-fl-2xs text-fl-base font-semibold dark:text-grey-50">
-    Played Episodes
-  </h1>
-<% end %>
+<%= render("heading", data: {layout_target: "observable"}, id: "heading") { "Played Episodes" } %>
 
 <%= turbo_frame_tag :plays_frame do %>
   <%= render "plays/episodes", episodes: @index.episodes %>

@@ -1,6 +1,6 @@
 <% content_for :nav, render("nav") { render("back", path: settings_path) } %>
 
-<h1 <%= tag.attributes(ui.heading, ui.turn, class: "mb-fl-2xs") %>>Import OPML</h1>
+<h1 <%= tag.attributes(ui.heading_2, ui.turn, class: "mb-fl-2xs") %>>Import OPML</h1>
 
 <%= form_with model: OpmlImport.new, class: "space-y-4" do |form| %>
   <%= form.label :file do %>
