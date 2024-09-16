@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "3.2.2"
 
 # = Core =
-gem "rails", "~> 7.0.2", ">= 7.0.2.3"
+gem "rails", "~> 7.1.0"
 gem "puma"
 gem "bootsnap", require: false
 gem "good_job", "~> 3.14"
@@ -48,7 +48,7 @@ group :development do
   gem "mdns", require: false
   gem "rack-mini-profiler"
   gem "stackprof"
-  gem "bullet", "~> 7.0"
+  gem "bullet"
 end
 
 group :test do
