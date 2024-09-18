@@ -2,17 +2,17 @@
 
 <%= turbo_frame_tag :dashboard do %>
   <%= render "heading", tag_name: :h2 do %>
-    <%= link_to "Recently Played", plays_path, target: :_top %>
+    <%= link_to "Recently Played", plays_path, data: {turbo_frame: "_top"} %>
   <% end %>
   <%= render "plays/episodes", episodes: @dashboard.recently_played.episodes, more_feeds: @dashboard.recently_played.more_feeds %>
 
   <%= render "heading", tag_name: :h2 do %>
-    <%= link_to "Recently Updated", episodes_path, target: :_top %>
+    <%= link_to "Recently Updated", episodes_path, data: {turbo_frame: "_top"} %>
   <% end %>
   <%= render "episodes/episodes", episodes: @dashboard.recently_updated.episodes, more_feeds: @dashboard.recently_updated.more_feeds %>
 
   <%= render "heading", tag_name: :h2 do %>
-    <%= link_to "Play Later", play_later_path, target: :_top %>
+    <%= link_to "Play Later", play_later_path, data: {turbo_frame: "_top"} %>
   <% end %>
   <%= render "play_later_playlists/episodes", episodes: @dashboard.play_later.episodes, more_feeds: @dashboard.play_later.more_feeds %>
 <% end %>
