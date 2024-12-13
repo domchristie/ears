@@ -10,19 +10,7 @@
   </span>
 
   <span class="group-data-played:hidden flex items-center">
-    <%= render(
-      "timer",
-      progress: play.progress,
-      options: {
-        aria: {hidden: true},
-        data: {player_target: "timerIcon", href: play.entry&.enclosure_url},
-        class: "h-[1.143em] w-[1.143em] -ml-px mr-1 text-grey-300 dark:text-grey-600 group-data-started:text-blue-500",
-        remaining: ({class: "group-data-started:text-blue-200"}),
-        progress: ({class: "group-data-started:text-white"}),
-        needle: ({class: "group-data-started:fill-blue-700"})
-      }
-    ) %>
-
+    <%= icon :clock, solid: true, class: "h-[1.143em] w-[1.143em] -ml-px mr-1 text-grey-300 dark:text-grey-600 group-data-started:text-blue-500" %>
     <%= render "plays/remaining_in_words", play: play %>
   </span>
 </div>

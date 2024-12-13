@@ -21,7 +21,6 @@ export default class PlayerController extends Controller {
     'elapsedField',
     'remainingField',
     'play',
-    'timerIcon',
     'remainingInWords',
     'iframe'
   ]
@@ -189,10 +188,6 @@ export default class PlayerController extends Controller {
 
     this.ifApplicable(this.playTargets, t => {
       t.toggleAttribute('data-played', this.complete)
-    })
-
-    this.ifApplicable(this.timerIconTargets, t => {
-      t.style.setProperty('--progress', this.currentTime / this.duration)
     })
 
     this.ifApplicable(this.remainingInWordsTargets, t => {
