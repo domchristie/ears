@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.3.5"
+ruby "3.4.3"
 
 # = Core =
 gem "rails", "~> 7.2.0"
@@ -10,6 +10,7 @@ gem "bootsnap", require: false
 gem "good_job", "~> 3.14"
 gem "dalli"
 gem "redis"
+gem "csv"
 
 # = Database =
 gem "pg", "~> 1.1"

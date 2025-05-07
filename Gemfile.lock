@@ -110,6 +110,7 @@ GEM
       bigdecimal
       rexml
     crass (1.0.6)
+    csv (3.3.4)
     dalli (3.2.8)
     date (3.4.1)
     debug (1.9.2)
@@ -347,6 +348,7 @@ DEPENDENCIES
   bootsnap
   bullet
   capybara
+  csv
   dalli
   debug
   email_spec
@@ -377,7 +379,7 @@ DEPENDENCIES
   webmock
 
 RUBY VERSION
-   ruby 3.3.5p100
+   ruby 3.4.3p32
 
 BUNDLED WITH
    2.4.20
