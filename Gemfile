@@ -37,7 +37,7 @@ gem "feedjira", "~> 3.2"
 gem "httparty", "~> 0.20.0"
 
 # = Error Tracking =
-gem "honeybadger", "~> 4.12"
+gem "honeybadger"
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
