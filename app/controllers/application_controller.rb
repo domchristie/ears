@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  include Authentication
+
   before_action :set_variant
   before_action :current_user
   before_action :set_current_request_details

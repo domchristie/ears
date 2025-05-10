@@ -1,5 +1,5 @@
 class Identity::EmailVerificationsController < ApplicationController
-  before_action :authenticate, only: :create
+  allow_unauthenticated_access only: :edit
   before_action :set_user, only: :edit
 
   def edit

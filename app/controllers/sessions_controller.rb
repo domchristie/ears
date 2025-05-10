@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  before_action :authenticate, only: :destroy
+  allow_unauthenticated_access only: [:new, :create]
 
   layout "forms"
 

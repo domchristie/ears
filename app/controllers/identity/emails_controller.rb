@@ -1,6 +1,4 @@
 class Identity::EmailsController < ApplicationController
-  before_action :authenticate
-
   layout "forms"
 
   def edit
