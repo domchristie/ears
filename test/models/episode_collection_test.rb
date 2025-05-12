@@ -14,7 +14,7 @@ class EpisodeCollectionTest < ActiveSupport::TestCase
   test "#episodes only contain the user's plays" do
     episodes_collection = EpisodeCollection.new(entries: @entries, user: @user)
     assert episodes_collection.episodes.any? { |e| e.play.persisted? }
-    assert episodes_collection.episodes.all? { |e| e.play.user = @user }
+    assert episodes_collection.episodes.all? { |e| e.play.user == @user }
   end
 
   test "#episodes limits the number of Episodes" do
