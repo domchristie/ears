@@ -1,6 +1,4 @@
 class Entries::PlaysController < ApplicationController
-  before_action :authenticate
-
   def create
     entry = Entry.find_by_hashid!(params[:entry_id])
     @play = Current.user.plays.find_or_initialize_by(

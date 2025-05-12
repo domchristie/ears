@@ -146,7 +146,9 @@ GEM
       activerecord (>= 4.0)
       hashids (~> 1.0)
     hashids (1.0.6)
-    honeybadger (4.12.2)
+    honeybadger (5.28.0)
+      logger
+      ostruct
     htmlentities (4.3.4)
     http-accept (1.7.0)
     http-cookie (1.0.7)
@@ -212,6 +214,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.18.8-x86_64-linux-gnu)
       racc (~> 1.4)
+    ostruct (0.6.1)
     pg (1.5.8)
     pg_search (2.3.7)
       activerecord (>= 6.1)
@@ -358,7 +361,7 @@ DEPENDENCIES
   foreman
   good_job (~> 3.14)
   hashid-rails (~> 1.4)
-  honeybadger (~> 4.12)
+  honeybadger
   httparty (~> 0.20.0)
   imagekitio
   importmap-rails

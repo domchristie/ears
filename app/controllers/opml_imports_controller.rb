@@ -1,6 +1,4 @@
 class OpmlImportsController < ApplicationController
-  before_action :authenticate
-
   layout "forms"
 
   def new

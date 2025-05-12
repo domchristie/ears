@@ -1,4 +1,6 @@
 class RegistrationsController < ApplicationController
+  allow_unauthenticated_access
+
   layout "forms"
 
   def new
@@ -9,7 +11,7 @@ class RegistrationsController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      sign_in @user
+      start_new_session_for @user
       send_email_verification
       redirect_to root_path, notice: t(".success")
     else

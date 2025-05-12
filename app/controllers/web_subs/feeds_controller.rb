@@ -1,4 +1,6 @@
 class WebSubs::FeedsController < ApplicationController
+  allow_unauthenticated_access
+
   class InvalidSignature < StandardError
     def initialize(message, context)
       @context = context
