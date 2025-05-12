@@ -23,7 +23,7 @@ class Identity::PasswordResetsController < ApplicationController
   def update
     if @user.update(user_params)
       @token.destroy
-      sign_in @user
+      start_new_session_for @user
       redirect_to root_path, notice: t(".success")
     else
       render :edit, status: :unprocessable_entity

@@ -4,14 +4,12 @@ class SessionsController < ApplicationController
   layout "forms"
 
   def new
-    redirect_to root_path if current_user
+    redirect_to root_path if authenticated?
   end
 
   def create
-    user = User.find_by(email: params[:email])
-
-    if user&.authenticate(params[:password])
-      sign_in user
+    if user = User.authenticate_by(params.permit(:email, :password))
+      start_new_session_for user
       redirect_to root_path
     else
       redirect_to sign_in_path(email_hint: params[:email]), alert: t(".failure")
@@ -19,8 +17,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    session = Current.user.sessions.find(params[:id])
-    session.destroy
+    terminate_session
     redirect_to sign_in_path, notice: t(".success")
   end
 end
