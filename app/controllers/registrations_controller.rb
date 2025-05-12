@@ -1,4 +1,6 @@
 class RegistrationsController < ApplicationController
+  allow_unauthenticated_access
+
   layout "forms"
 
   def new

@@ -1,4 +1,6 @@
 class Identity::PasswordResetsController < ApplicationController
+  allow_unauthenticated_access
+
   before_action :set_user, only: [:edit, :update]
 
   layout "forms"

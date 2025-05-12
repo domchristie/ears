@@ -1,4 +1,6 @@
 class WebSubsController < ApplicationController
+  allow_unauthenticated_access
+
   rescue_from "ActiveRecord::RecordNotFound" do
     head :not_found
   end

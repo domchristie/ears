@@ -1,5 +1,6 @@
 class PwaController < ApplicationController
   skip_forgery_protection
+  allow_unauthenticated_access
 
   def service_worker
     render template: "pwa/service-worker", layout: false
