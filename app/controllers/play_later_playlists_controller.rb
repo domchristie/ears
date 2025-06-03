@@ -1,5 +1,5 @@
 class PlayLaterPlaylistsController < ApplicationController
   def show
-    @show = Show.call(self)
+    @episodes = Episode.play_later_for(Current.user)
   end
 end

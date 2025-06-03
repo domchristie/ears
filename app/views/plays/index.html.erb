@@ -9,5 +9,5 @@
 <%= render("heading", data: {layout_target: "observable"}, id: "heading") { "Played Episodes" } %>
 
 <%= turbo_frame_tag :plays_frame do %>
-  <%= render "plays/episodes", episodes: @index.episodes %>
+  <%= render "plays/episodes", episodes: @episodes %>
 <% end %>

@@ -1,5 +1,5 @@
 class FeedsController < ApplicationController
-  etag { current_user&.id }
+  etag { Current.user&.id }
 
   def index
     @feeds = Feed
@@ -10,7 +10,13 @@ class FeedsController < ApplicationController
   end
 
   def show
-    @show = Show.call(self)
-    fresh_when(@show.feed, last_modified: @show.last_modified)
+    @feed = Feed.find_by_hashid!(params[:id])
+    @feed.sync(:feeds_show) if @feed.empty?
+
+    @episodes ||= Episode.belonging_to(
+      Current.user, @feed, search_term: params[:query]
+    )
+
+    fresh_when(@feed, last_modified: @feed.last_modified)
   end
 end

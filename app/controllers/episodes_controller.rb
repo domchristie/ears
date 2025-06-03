@@ -1,5 +1,5 @@
 class EpisodesController < ApplicationController
   def index
-    @index = Index.call(self)
+    @episodes = Episode.all(Current.user)
   end
 end

@@ -6,6 +6,11 @@ class TableOfContents < ApplicationRecord
     entry.podcast_chapters_url
   end
 
+  def sync(source)
+    SyncTableOfContentsJob.perform_now(self, source:)
+    reload
+  end
+
   def self.attributes_for_import(remote_table_of_contents)
     {
       version: remote_table_of_contents[:version],

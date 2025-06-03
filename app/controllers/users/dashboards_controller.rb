@@ -1,5 +1,5 @@
 class Users::DashboardsController < ApplicationController
   def show
-    @dashboard = Show.call(self, self)
+    @dashboard = Dashboard.new(Current.user)
   end
 end

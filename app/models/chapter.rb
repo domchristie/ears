@@ -2,6 +2,8 @@ class Chapter < ApplicationRecord
   belongs_to :table_of_contents
   has_one :entry, through: :table_of_contents
 
+  scope :ordered, -> { order(:start_time) }
+
   def self.attributes_for_import(remote_chapter)
     {
       start_time: remote_chapter[:startTime],

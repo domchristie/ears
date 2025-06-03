@@ -1,5 +1,5 @@
 class PlaysController < ApplicationController
   def index
-    @index = Index.call(self)
+    @episodes = Episode.played_by(Current.user)
   end
 end

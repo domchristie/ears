@@ -18,6 +18,7 @@ class Entry < ApplicationRecord
   has_many :playlist_items, dependent: :destroy
 
   scope :followed_by, ->(user) { includes(:following).where(followings: {user:}) }
+  scope :search, ->(term) { term.present? ? entry_search(term) : all }
 
   def enclosure_url
     Rails.env.development? ? "https://cloth.ears.app/#{super}" : super
@@ -62,6 +63,10 @@ class Entry < ApplicationRecord
 
   def play_by(user)
     most_recent_play_by(user) || upcoming_play_by(user)
+  end
+
+  def show_notes
+    @show_notes ||= ShowNotes.new(self)
   end
 
   def self.import_all!(feed_id, remote_entries)

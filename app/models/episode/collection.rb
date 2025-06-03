@@ -1,12 +1,23 @@
-class EpisodeCollection
-  attr_reader :user, :query, :includes
+class Episode::Collection
+  include Enumerable
+  delegate_missing_to :episodes
+
+  attr_reader :user
 
   def initialize(entries:, user:, order: {published_at: :desc}, limit: 25)
-    @entries = entries
-      .order(order)
-      .limit(limit)
-      .load
+    @entries = entries.order(order).limit(limit).load
     @user = user
+  end
+
+  def more_feeds(method, joins:, order:)
+    @more_feeds ||= user
+      .send(method)
+      .where.not(id: episodes.map(&:feed_id))
+      .group(:id)
+      .includes(:rss_image)
+      .joins(joins)
+      .order(order)
+      .limit(3)
   end
 
   def episodes

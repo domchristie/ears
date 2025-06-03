@@ -1,4 +1,4 @@
-<% more_feeds ||= nil %>
+<%# locals: (episodes:, more_feeds: nil) %>
 
 <%= render "list", id: "episodes", partial: "episodes/episode", collection: episodes do |p| %>
   <%= p.content_for :empty, "Recently updated episodes appear here" %>

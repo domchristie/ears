@@ -1,5 +1,6 @@
 class Episode
   include ActiveModel::API
+  include Collections
 
   attr_accessor :entry, :user
   attr_writer :collection

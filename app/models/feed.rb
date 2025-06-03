@@ -22,6 +22,23 @@ class Feed < ApplicationRecord
 
   validates :url, format: %r{http(s)?://.+}
 
+  def empty?
+    !last_checked_at
+  end
+
+  def sync(source)
+    SyncFeedJob.perform_now(self, source:)
+    reload
+  end
+
+  def last_modified
+    [
+      updated_at,
+      most_recent_entry.published_at,
+      most_recent_play_by(Current.user)&.updated_at
+    ].compact.max
+  end
+
   def author
     itunes_author || managing_editor
   end
