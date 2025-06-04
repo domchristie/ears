@@ -13,7 +13,6 @@ class Entry < ApplicationRecord
     where("plays.id = (SELECT id FROM plays WHERE plays.entry_id = entries.id ORDER BY created_at DESC LIMIT 1)")
   }, class_name: "Play"
   has_one :play_later_item, class_name: "PlaylistItem"
-  has_one :following, through: :feed
   has_one :table_of_contents, dependent: :destroy
   has_many :playlist_items, dependent: :destroy
 
@@ -63,6 +62,10 @@ class Entry < ApplicationRecord
 
   def play_by(user)
     most_recent_play_by(user) || upcoming_play_by(user)
+  end
+
+  def play_later_item_for(user)
+    @play_later_item_for ||= user.play_later_playlist.items.find_or_initialize_by(entry: self)
   end
 
   def show_notes

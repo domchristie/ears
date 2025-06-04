@@ -32,6 +32,10 @@ class Feed < ApplicationRecord
     ].compact.max
   end
 
+  def following_for(user)
+    user.followings.find_or_initialize_by(feed: self)
+  end
+
   def author
     itunes_author || managing_editor
   end
