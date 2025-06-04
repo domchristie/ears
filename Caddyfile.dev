@@ -1,7 +1,0 @@
-app.ears.app.local {
-  reverse_proxy localhost:3000
-}
-
-websub.ears.app.local {
-  reverse_proxy localhost:3000
-}

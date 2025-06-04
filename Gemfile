@@ -46,7 +46,6 @@ end
 
 group :development do
   gem "web-console"
-  gem "mdns", require: false
   gem "rack-mini-profiler"
   gem "stackprof"
   gem "bullet"

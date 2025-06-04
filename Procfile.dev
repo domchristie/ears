@@ -1,5 +1,3 @@
 web: bin/rails server -p 3000 -b 0.0.0.0
 worker: bundle exec good_job start
 css: bin/rails tailwindcss:watch
-caddy: caddy run --config Caddyfile.dev
-mdns: bundle exec rails mdns
