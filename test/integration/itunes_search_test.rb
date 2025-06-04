@@ -23,7 +23,8 @@ class ItunesSearchTest < ActionDispatch::IntegrationTest
 
     get itunes_feed_path(1)
 
-    assert_response :success
+    assert_response :see_other
+    follow_redirect!
     assert_select "h1", "All About Everything"
   end
 
