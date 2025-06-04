@@ -1,5 +1,4 @@
 class Episode::Collection
-  include Enumerable
   delegate_missing_to :episodes
 
   attr_reader :user
