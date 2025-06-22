@@ -4,7 +4,7 @@ class SyncTableOfContentsJob < ApplicationJob
   def perform(table_of_contents, source:, force: false)
     puts "[#{self.class}] starting; table_of_contents: #{table_of_contents.id}, source: #{source}, force: #{force}"
 
-    get = TableOfContents::Manager.fetch(table_of_contents, force: force)
+    get = TableOfContents.fetch(table_of_contents, force: force)
 
     case get.response
     when Net::HTTPSuccess
@@ -15,7 +15,7 @@ class SyncTableOfContentsJob < ApplicationJob
 
       ImportTableOfContentsJob.perform_now(
         table_of_contents,
-        remote_table_of_contents: TableOfContents::Manager.parse(get.body),
+        remote_table_of_contents: TableOfContents.parse(get.body),
         source: source
       )
       nil

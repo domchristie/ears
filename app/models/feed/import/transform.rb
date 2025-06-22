@@ -41,7 +41,7 @@ class Feed::Import::Transform < Import::Transform
   end
 
   def parsed
-    @parsed ||= Feed::Manager.parse(fetch.response_body)
+    @parsed ||= Feed.parse(fetch.response_body)
   end
 
   def entries_attributes

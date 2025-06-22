@@ -63,4 +63,8 @@ class Feed < ApplicationRecord
   def followed_by?(user)
     followings.where(user: user).exists?
   end
+
+  def self.parse(rss)
+    Feedjira.parse(rss, parser: Feedjira::Parser::ITunesRSS)
+  end
 end
