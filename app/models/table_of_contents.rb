@@ -6,6 +6,10 @@ class TableOfContents < ApplicationRecord
     entry.podcast_chapters_url
   end
 
+  def uri
+    URI(url)
+  end
+
   def sync(source)
     SyncTableOfContentsJob.perform_now(self, source:)
     reload
@@ -35,6 +39,6 @@ class TableOfContents < ApplicationRecord
       }
     end
 
-    HTTParty.get(table_of_contents.url, headers: headers)
+    Http.start Net::HTTP::Get.new(table_of_contents.uri, headers)
   end
 end

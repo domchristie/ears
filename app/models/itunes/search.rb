@@ -7,7 +7,7 @@ class Itunes::Search
   end
 
   def start
-    @response = HTTParty.get(url)
+    @response = Http.start Net::HTTP::Get.new(uri)
   end
 
   def results
@@ -21,8 +21,8 @@ class Itunes::Search
     end
   end
 
-  def url
-    "http://itunes.apple.com/search?media=podcast&term=#{term}"
+  def uri
+    URI("http://itunes.apple.com/search?media=podcast&term=#{term}")
   end
 
   def json

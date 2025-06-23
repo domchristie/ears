@@ -32,7 +32,6 @@ gem "bcrypt", "~> 3.1.7"
 
 # = Utilities =
 gem "feedjira", "~> 3.2"
-gem "httparty", "~> 0.20.0"
 
 # = Error Tracking =
 gem "honeybadger"
