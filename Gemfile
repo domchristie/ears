@@ -8,7 +8,6 @@ gem "rails", "~> 8.0.0"
 gem "puma"
 gem "bootsnap", require: false
 gem "good_job", "~> 3.14"
-gem "dalli"
 gem "redis"
 gem "csv"
 
