@@ -16,7 +16,7 @@ class Episode::Collection
       .includes(:rss_image)
       .joins(joins)
       .order(order)
-      .limit(3)
+      .limit(5)
   end
 
   def episodes
