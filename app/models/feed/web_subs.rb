@@ -11,7 +11,9 @@ module Feed::WebSubs
       WebSub.where(feed_url: url_in_database).destroy_all
     end
 
-    after_commit :start_web_sub, if: :web_sub_attributes_changed?
+    after_commit :start_web_sub, if: -> {
+      web_sub_attributes_changed? && web_subable?
+    }
   end
 
   def web_subable?
