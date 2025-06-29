@@ -16,6 +16,7 @@ class Entry < ApplicationRecord
   has_one :table_of_contents, dependent: :destroy
   has_many :playlist_items, dependent: :destroy
 
+  scope :in_latest_feed, -> { where(in_latest_feed: true) }
   scope :followed_by, ->(user) { includes(:following).where(followings: {user:}) }
   scope :search, ->(term) { term.present? ? entry_search(term) : all }
 

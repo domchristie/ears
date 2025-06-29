@@ -52,7 +52,9 @@ class Feed::Import::Transform < Import::Transform
 
   def entry_attributes(parsed_entry)
     Entry::Import::Transform.data(parsed_entry).tap do |attributes|
-      attributes.merge!(feed_id: feed.id) if attributes.present?
+      if attributes.present?
+        attributes.merge!(feed_id: feed.id, in_latest_feed: true)
+      end
     end
   end
 

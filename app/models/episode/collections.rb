@@ -13,7 +13,7 @@ module Episode::Collections
 
     def all(user, order: {published_at: :desc}, limit: 25)
       Episode::Collection.new(
-        entries: user.followed_entries.includes(feed: [:rss_image]),
+        entries: user.followed_entries.in_latest_feed.includes(feed: [:rss_image]),
         user:,
         order:,
         limit:
@@ -31,7 +31,7 @@ module Episode::Collections
 
     def belonging_to(user, feed, search_term: nil, order: {published_at: :desc}, limit: 25)
       Episode::Collection.new(
-        entries: feed.entries.search(search_term),
+        entries: feed.entries.in_latest_feed.search(search_term),
         user:,
         order:,
         limit:

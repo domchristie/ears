@@ -27,9 +27,12 @@ class Feed::Import < Import
   private
 
   def load(data)
-    feed.update!(data.without(:entries_attributes, :rss_image_attributes))
-    load_entries(data[:entries_attributes])
-    load_rss_image(data[:rss_image_attributes])
+    Feed.transaction do
+      feed.update!(data.without(:entries_attributes, :rss_image_attributes))
+      feed.entries.update_all(in_latest_feed: false)
+      load_entries(data[:entries_attributes])
+      load_rss_image(data[:rss_image_attributes])
+    end
   end
 
   def load_entries(entries_attributes)
