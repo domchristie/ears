@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_16_082124) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_29_084232) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
+  enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_trgm"
   enable_extension "pgcrypto"
-  enable_extension "plpgsql"
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -96,6 +96,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_16_082124) do
     t.string "podcast_chapters_url"
     t.string "podcast_chapters_type"
     t.virtual "formatted_guid", type: :string, as: "regexp_replace((guid)::text, 'http(s)?://'::text, ''::text)", stored: true
+    t.boolean "in_latest_feed"
     t.index ["feed_id", "formatted_guid"], name: "index_entries_on_feed_id_and_formatted_guid", unique: true
     t.index ["feed_id"], name: "index_entries_on_feed_id"
   end
