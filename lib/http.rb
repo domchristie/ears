@@ -13,7 +13,9 @@ class Http
       location = response["location"]
       new_uri = URI.join(uri, location) # supports relative redirects
       new_request = request.class.new(new_uri)
-      request.each_header { |k, v| new_request[k] = v } # copy headers
+      request.each_header.without("Host") do |k, v|
+        new_request[k] = v
+      end
       start(new_request, limit: limit - 1)
     else
       response
