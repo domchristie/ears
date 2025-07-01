@@ -9,7 +9,7 @@ class Feed::Import::Transform < Import::Transform
       copyright: parsed.copyright,
       description: parsed.description,
       language: parsed.language,
-      last_build_at: parsed.last_built,
+      last_built_at: parsed.last_built,
       website_url: parsed.url,
       managing_editor: parsed.managing_editor,
       title: parsed.title,
