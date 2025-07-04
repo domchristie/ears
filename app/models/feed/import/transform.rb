@@ -3,7 +3,7 @@ class Feed::Import::Transform < Import::Transform
     @data ||= {
       last_modified_at: fetch.response_headers["last-modified"],
       etag: fetch.response_headers["etag"],
-      url: (fetch.uri if fetch.redirected_permanently?),
+      url: fetch.new_permanent_location,
 
       web_sub_hub_url: parsed.hubs.first,
       copyright: parsed.copyright,

@@ -39,6 +39,6 @@ class TableOfContents < ApplicationRecord
       }
     end
 
-    Http.start Net::HTTP::Get.new(table_of_contents.uri, headers)
+    Http::Navigation.start(Net::HTTP::Get.new(table_of_contents.uri, headers))
   end
 end

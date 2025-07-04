@@ -1,7 +1,7 @@
 class Import::Fetch < ApplicationRecord
   class TooManyRedirects < StandardError; end
 
-  attr_reader :response, :uri
+  attr_reader :response
   belongs_to :resource, polymorphic: true
   belongs_to :import, optional: true
 
@@ -24,29 +24,16 @@ class Import::Fetch < ApplicationRecord
   def get(uri, limit: 10)
     raise TooManyRedirects if limit == 0
 
-    @uri = URI(uri)
-    @http = Net::HTTP.new(@uri.host, @uri.port)
-    @http.use_ssl = true if @uri.scheme == "https"
+    uri = URI(uri)
     @response = nil
 
     begin
-      @http.start do
-        request = Net::HTTP::Get.new(@uri, request_headers)
-        @response = @http.request(request)
-        case @response
-        when Net::HTTPSuccess
-          @response
-        when Net::HTTPRedirection
-          @redirected_permanently = @response.is_a?(Net::HTTPMovedPermanently)
+      @navigation = Http::Navigation.new(Net::HTTP::Get.new(uri, request_headers))
+      @response = @navigation.start
 
-          if @response["location"].present?
-            return get(@response["location"], limit: limit - 1)
-          else
-            @response
-          end
-        when Net::HTTPClientError, Net::HTTPServerError
-          self.error = @response.class
-        end
+      case @response
+      when Net::HTTPClientError, Net::HTTPServerError
+        self.error = @response.class
       end
     rescue => exception
       self.error = exception.class
@@ -74,7 +61,7 @@ class Import::Fetch < ApplicationRecord
     error.present?
   end
 
-  def redirected_permanently?
-    @redirected_permanently
+  def new_permanent_location
+    @navigation.new_permanent_location
   end
 end

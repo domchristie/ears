@@ -41,7 +41,7 @@ class WebSub < ApplicationRecord
       "hub.secret"   => web_sub.secret
     )
 
-    Http.start request
+    Http::Navigation.start request
   end
 
   private
