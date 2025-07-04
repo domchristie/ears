@@ -17,9 +17,9 @@ class Entry::Import::Transform < Import::Transform
       enclosure_url: @source.enclosure_url,
 
       itunes_author: @source.itunes_author,
-      itunes_block: @source.itunes_block == "Yes",
+      itunes_block: @source.itunes_block&.downcase == "yes",
       itunes_duration: parse_duration(@source.itunes_duration),
-      itunes_explicit: @source.itunes_explicit == "true",
+      itunes_explicit: @source.itunes_explicit&.downcase == "true",
       itunes_keywords: @source.itunes_keywords,
       itunes_subtitle: @source.itunes_subtitle,
       itunes_image_url: @source.itunes_image,
