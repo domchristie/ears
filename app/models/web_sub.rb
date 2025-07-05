@@ -28,20 +28,33 @@ class WebSub < ApplicationRecord
     URI(hub_url)
   end
 
-  def self.start(web_sub)
+  def start
     return if Rails.env.development?
 
-    request = Net::HTTP::Post.new(web_sub.hub_uri,
+    request = Net::HTTP::Post.new(hub_uri,
       "Content-Type" => "application/x-www-form-urlencoded"
     )
     request.body = URI.encode_www_form(
-      "hub.callback" => web_sub.callback_url,
+      "hub.callback" => callback_url,
       "hub.mode"     => "subscribe",
-      "hub.topic"    => web_sub.feed_url,
-      "hub.secret"   => web_sub.secret
+      "hub.topic"    => feed_url,
+      "hub.secret"   => secret
     )
 
     Http::Navigation.start request
+  end
+
+  def confirm!(lease_seconds)
+    update!(expires_at: created_at + lease_seconds)
+    WebSub.where(feed_url:, hub_url:).where.not(id:).delete_all
+  end
+
+  def renew!
+    WebSub.create!(feed:, hub_url:).start
+  end
+
+  def self.start!(...)
+    create!(...).start
   end
 
   private

@@ -12,20 +12,13 @@ class WebSubsController < ApplicationController
   private
 
   def verify
-    subscription = find_subscription
+    web_sub = WebSub.find(params[:id])
 
-    if subscription.verify_topic(params[:"hub.topic"])
-      ConfirmWebSubJob.perform_now(
-        subscription,
-        lease_seconds: params[:"hub.lease_seconds"].to_i
-      )
+    if web_sub.verify_topic(params[:"hub.topic"])
+      web_sub.confirm!(params[:"hub.lease_seconds"].to_i)
       render plain: params[:"hub.challenge"], status: :ok
     else
       head :not_found
     end
-  end
-
-  def find_subscription
-    WebSub.find(params[:id])
   end
 end
