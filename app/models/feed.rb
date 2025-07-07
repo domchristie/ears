@@ -15,6 +15,22 @@ class Feed < ApplicationRecord
 
   validates :url, format: %r{http(s)?://.+}
 
+  saves_nested_attributes_for :entries, with: -> {
+    Entry.upsert_all(
+      entries_attributes,
+      unique_by: [:feed_id, :formatted_guid],
+      record_timestamps: true
+    )
+  }
+
+  saves_nested_attributes_for :rss_image, with: -> {
+    RssImage.upsert(
+      rss_image_attributes,
+      unique_by: [:rss_imageable_type, :rss_imageable_id],
+      record_timestamps: true
+    )
+  }
+
   def empty?
     !last_checked_at
   end
