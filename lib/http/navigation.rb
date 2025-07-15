@@ -6,7 +6,6 @@ class Http::Navigation
     "User-Agent",
     "Accept",
     "Accept-Charset",
-    "Accept-Encoding",
     "Accept-Language",
     "Cache-Control",
     "ETag",
