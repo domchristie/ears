@@ -3,9 +3,10 @@ module Importable
 
   included do
     has_many :imports, foreign_key: :resource_id, dependent: :destroy
-    has_many :import_fetches, foreign_key: :resource_id, dependent: :destroy, class_name: "Import::Fetch"
     has_one :recent_import, -> { order(started_at: :desc) }, class_name: "Import", foreign_key: :resource_id
     has_one :recent_successful_or_not_modified_import, -> { where(status: [:success, :not_modified]).order(started_at: :desc) }, class_name: "Import", foreign_key: :resource_id
+    has_many :import_extractions, through: :imports, dependent: :destroy
+    has_many :extractions, through: :imports, dependent: :destroy
   end
 
   def importing?

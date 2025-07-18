@@ -1,9 +1,9 @@
 class Feed::Import::Transform < Import::Transform
   def data
     @data ||= {
-      last_modified_at: fetch.response_headers["last-modified"],
-      etag: fetch.response_headers["etag"],
-      url: fetch.new_permanent_location,
+      last_modified_at: responses.last["last-modified"]&.first,
+      etag: responses.last["etag"]&.first,
+      url:,
 
       web_sub_hub_url: parsed.hubs.first,
       copyright: parsed.copyright,
@@ -32,16 +32,30 @@ class Feed::Import::Transform < Import::Transform
 
   private
 
-  def fetch
+  def url
+    if [301, 308].include?(response_codes.first)
+      responses.first&.[]("location")&.first
+    end
+  end
+
+  def extraction
     @source
   end
 
+  def responses
+    extraction.result["responses"]
+  end
+
+  def response_codes
+    extraction.result["response_codes"]
+  end
+
   def feed
-    @feed ||= fetch.feed
+    @feed ||= extraction.resource
   end
 
   def parsed
-    @parsed ||= Feed.parse(fetch.response_body)
+    @parsed ||= Feed.parse(extraction.result["body"])
   end
 
   def entries_attributes

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_01_195709) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_09_080347) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
   enable_extension "pg_catalog.plpgsql"
@@ -99,6 +99,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_01_195709) do
     t.boolean "in_latest_feed"
     t.index ["feed_id", "formatted_guid"], name: "index_entries_on_feed_id_and_formatted_guid", unique: true
     t.index ["feed_id"], name: "index_entries_on_feed_id"
+  end
+
+  create_table "extractions", force: :cascade do |t|
+    t.jsonb "result"
+    t.datetime "started_at"
+    t.datetime "finished_at"
+    t.integer "status"
+    t.string "error_class"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "feeds", force: :cascade do |t|
@@ -231,6 +241,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_01_195709) do
     t.index ["priority", "scheduled_at"], name: "index_good_jobs_on_priority_scheduled_at_unfinished_unlocked", where: "((finished_at IS NULL) AND (locked_by_id IS NULL))"
     t.index ["queue_name", "scheduled_at"], name: "index_good_jobs_on_queue_name_and_scheduled_at", where: "(finished_at IS NULL)"
     t.index ["scheduled_at"], name: "index_good_jobs_on_scheduled_at", where: "(finished_at IS NULL)"
+  end
+
+  create_table "import_extractions", force: :cascade do |t|
+    t.bigint "import_id", null: false
+    t.bigint "extraction_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["extraction_id"], name: "index_import_extractions_on_extraction_id"
+    t.index ["import_id"], name: "index_import_extractions_on_import_id"
   end
 
   create_table "import_fetches", force: :cascade do |t|
@@ -368,6 +387,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_01_195709) do
   add_foreign_key "entries", "feeds"
   add_foreign_key "followings", "feeds"
   add_foreign_key "followings", "users"
+  add_foreign_key "import_extractions", "extractions"
+  add_foreign_key "import_extractions", "imports"
   add_foreign_key "password_reset_tokens", "users"
   add_foreign_key "playlist_items", "entries"
   add_foreign_key "playlist_items", "playlists"

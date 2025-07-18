@@ -7,7 +7,7 @@ class Itunes::Search
   end
 
   def start
-    @response = Http::Navigation.start(Net::HTTP::Get.new(uri))
+    @response = Fetch.start(Net::HTTP::Get.new(uri))
   end
 
   def results

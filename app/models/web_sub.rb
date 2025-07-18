@@ -41,7 +41,7 @@ class WebSub < ApplicationRecord
       "hub.secret"   => secret
     )
 
-    Http::Navigation.start request
+    Fetch.start request
   end
 
   def confirm!(lease_seconds)

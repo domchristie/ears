@@ -1,36 +1,54 @@
 class Import < ApplicationRecord
   enum :status, [:success, :not_modified, :not_found, :error]
 
-  has_many :import_fetches, dependent: :destroy, class_name: "Import::Fetch"
-  belongs_to :resource, polymorphic: true, optional: true
+  belongs_to :resource, polymorphic: true
+  has_one :import_extraction, dependent: :destroy
+  has_one :extraction, through: :import_extraction
 
-  def self.start!(...)
-    new(...).start!
-  end
+  after_save_commit :clean_up, if: :finished?
 
-  def start!
+  def self.start(...) = new(...).start
+
+  def start
     update!(started_at: Time.current)
-    yield
+
+    begin
+      update!(extraction: extract) unless extraction
+      load(transform) if extraction.success?
+      update!(status: extraction.status)
+    rescue
+      error!
+      raise
+    ensure
+      update!(finished_at: Time.current)
+    end
+
     self
-  ensure
-    update!(finished_at: Time.current)
   end
 
-  def started?
-    started_at.present?
-  end
+  def started? = started_at.present?
 
-  def finished?
-    finished_at.present?
-  end
+  def finished? = finished_at.present?
 
-  def in_progress?
-    started? && !finished?
+  def in_progress? = started? && !finished?
+
+  def self.reprocess(import)
+    import.class.start(
+      resource: import.resource,
+      extraction: import.extraction
+    )
   end
 
   private
 
-  def log(message)
-    Rails.logger.info "[#{self.class}] #{message}"
+  def clean_up
+    if success?
+      resource.imports.where(created_at: ...created_at).destroy_all
+    else
+      resource.imports
+        .where(created_at: ...created_at)
+        .where.not(id: resource.recent_successful_or_not_modified_import&.id)
+        .destroy_all
+    end
   end
 end

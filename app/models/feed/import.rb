@@ -1,26 +1,16 @@
 class Feed::Import < Import
-  def start!
-    super do
-      log("Fetching Feed #{feed.id}")
-      fetch = Feed::Import::Fetch.start!(feed:, conditional:, import: self)
-
-      if fetch.success?
-        load(Feed::Import::Transform.data(fetch))
-        success!
-      elsif fetch.not_modified?
-        not_modified!
-        log("Feed #{feed.id} Not Modified")
-      elsif fetch.not_found?
-        not_found!
-        log("Feed #{feed.id} Not Found")
-      elsif fetch.error?
-        error!
-        log("Feed #{feed.id} Fetch Error: #{fetch.error}")
-      end
-
-      clean
-    end
-  end
+  RESPONSE_HEADERS = %w[
+    location
+    etag
+    last-modified
+    cache-control
+    expires
+    content-type
+    content-length
+    content-encoding
+    server
+    via
+  ]
 
   def feed = resource
 
@@ -28,7 +18,19 @@ class Feed::Import < Import
     self.resource = feed
   end
 
-  private
+  def extract
+    Extraction.start_with_fetch(fetch:) do |fetch|
+      {
+        body: fetch.response.body,
+        responses: fetch.responses.map { |response| response_hash(response) },
+        response_codes: fetch.responses.map { |response| response.code.to_i },
+      }
+    end
+  end
+
+  def transform
+    Transform.data(extraction)
+  end
 
   def load(data)
     Feed.transaction do
@@ -37,14 +39,18 @@ class Feed::Import < Import
     end
   end
 
-  def clean
-    if success?
-      feed.imports.where("created_at < ?", created_at).destroy_all
-    else
-      feed.imports
-        .where("created_at < ?", created_at)
-        .where.not(id: feed.recent_successful_or_not_modified_import&.id)
-        .destroy_all
+  private
+
+  def fetch = Fetch.new(request)
+
+  def request
+    Net::HTTP::Get.new(URI(feed.url)).tap do |request|
+      request["If-Modified-Since"] = feed.last_modified_at.try(:to_fs, :rfc7231)
+      request["If-None-Match"] = feed.etag
     end
+  end
+
+  def response_hash(response)
+    response.to_hash.slice(*RESPONSE_HEADERS)
   end
 end

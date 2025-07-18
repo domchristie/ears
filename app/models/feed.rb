@@ -31,6 +31,8 @@ class Feed < ApplicationRecord
     )
   }
 
+  def uri = URI(url)
+
   def empty?
     !last_checked_at
   end
