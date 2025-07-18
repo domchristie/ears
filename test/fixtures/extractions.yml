@@ -1,0 +1,6 @@
+success:
+  result: {body: "test"}
+  status: :success
+
+not_modified:
+  status: :not_modified

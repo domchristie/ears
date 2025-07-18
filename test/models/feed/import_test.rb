@@ -15,7 +15,7 @@ class FeedImportTest < ActiveSupport::TestCase
     )
 
     assert_difference -> { Entry.count }, 3 do
-      Feed::Import.start!(feed: @feed, source: :test)
+      Feed::Import.start(feed: @feed, source: :test)
       assert_in_delta now, @feed.last_modified_at, 1
       assert_equal "test_etag", @feed.etag
     end
@@ -34,7 +34,7 @@ class FeedImportTest < ActiveSupport::TestCase
     )
 
     assert_difference -> { Entry.count }, 3 do
-      Feed::Import.start!(feed: @feed, source: :test)
+      Feed::Import.start(feed: @feed, source: :test)
       assert_equal redirect_location, @feed.url
     end
   end
@@ -43,7 +43,7 @@ class FeedImportTest < ActiveSupport::TestCase
     stub_request(:get, @feed.url).to_return(status: 304)
 
     assert_no_difference -> { Entry.count } do
-      Feed::Import.start!(feed: @feed, source: :test)
+      Feed::Import.start(feed: @feed, source: :test)
     end
   end
 
@@ -51,7 +51,7 @@ class FeedImportTest < ActiveSupport::TestCase
     stub_request(:get, @feed.url).to_return(status: 404)
 
     assert_no_difference -> { Entry.count } do
-      Feed::Import.start!(feed: @feed, source: :test)
+      Feed::Import.start(feed: @feed, source: :test)
     end
   end
 end
