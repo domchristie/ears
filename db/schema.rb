@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_09_080347) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_18_194658) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
   enable_extension "pg_catalog.plpgsql"
@@ -250,20 +250,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_09_080347) do
     t.datetime "updated_at", null: false
     t.index ["extraction_id"], name: "index_import_extractions_on_extraction_id"
     t.index ["import_id"], name: "index_import_extractions_on_import_id"
-  end
-
-  create_table "import_fetches", force: :cascade do |t|
-    t.string "type", null: false
-    t.string "resource_type"
-    t.bigint "resource_id"
-    t.datetime "started_at"
-    t.datetime "finished_at"
-    t.boolean "conditional", default: true
-    t.string "error"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "status_code"
-    t.bigint "import_id"
   end
 
   create_table "imports", force: :cascade do |t|
