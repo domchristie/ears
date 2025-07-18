@@ -22,7 +22,7 @@ class Extraction < ApplicationRecord
         not_modified!
       when Net::HTTPNotFound, Net::HTTPGone
         not_found!
-      when Net::HTTPClientError, Net::HTTP::ServerError, Socket::ResolutionError
+      when Net::HTTPClientError, Net::HTTPServerError, Socket::ResolutionError
         self.error_class = response.class
         error!
       end
