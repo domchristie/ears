@@ -1,8 +1,12 @@
 namespace :feeds do
   namespace :sync do
     task all: :environment do
-      Feed.all.each do |feed|
-        SyncFeedJob.perform_now(feed, source: :rake)
+      Feed.find_each do |feed|
+        begin
+          SyncFeedJob.perform_now(feed, source: :rake)
+        rescue => error
+          Honeybadger.notify(error, context: {feed_id: feed.id})
+        end
       end
     end
   end
