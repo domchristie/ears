@@ -29,7 +29,6 @@ class Extraction < ApplicationRecord
     rescue => exception
       self.error_class = exception.class
       error!
-      raise
     ensure
       save!
     end
