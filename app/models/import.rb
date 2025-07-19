@@ -6,7 +6,7 @@ class Import < ApplicationRecord
   has_one :extraction, through: :import_extraction
 
   after_save_commit :clean_up, if: :finished?
-  after_destroy_commit { extraction&.destroy! }
+  before_destroy { extraction&.destroy! }
 
   def self.start(...) = new(...).start
 
