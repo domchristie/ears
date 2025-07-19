@@ -1,20 +1,12 @@
 namespace :feeds do
   namespace :sync do
     task all: :environment do
-      Feed.find_each do |feed|
-        begin
-          SyncFeedJob.perform_now(feed, source: :rake)
-        rescue => error
-          Honeybadger.notify(error, context: {feed_id: feed.id})
-        end
-      end
+      Feed.find_each(batch_size: 10) { |feed| sync(feed) }
     end
   end
 
   task sync: :environment do
-    Feed.where.missing(:active_web_subs).each do |feed|
-      SyncFeedJob.perform_now(feed, source: :rake)
-    end
+    Feed.where.missing(:active_web_subs).find_each(batch_size: 10) { |feed| sync(feed) }
   end
 
   task destroy_unused: :environment do
@@ -42,6 +34,16 @@ namespace :feeds do
       feed = Feed.find_or_create_by!(url: url)
       user.followings.find_or_create_by!(feed: feed)
       SyncFeedJob.perform_now(feed, source: :rake)
+    end
+  end
+
+  private
+
+  def sync(feed)
+    begin
+      SyncFeedJob.perform_now(feed, source: :rake)
+    rescue => error
+      Honeybadger.notify(error, context: {feed_id: feed.id})
     end
   end
 end
