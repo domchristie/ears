@@ -3,9 +3,10 @@ class Import < ApplicationRecord
 
   belongs_to :resource, polymorphic: true
   has_one :import_extraction, dependent: :destroy
-  has_one :extraction, through: :import_extraction, dependent: :destroy
+  has_one :extraction, through: :import_extraction
 
   after_save_commit :clean_up, if: :finished?
+  after_destroy_commit { extraction.destroy! }
 
   def self.start(...) = new(...).start
 
