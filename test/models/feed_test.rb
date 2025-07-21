@@ -9,7 +9,6 @@ class FeedTest < ActiveSupport::TestCase
     assert feed.plays.any?
     assert feed.web_subs.any?
     assert feed.imports.any?
-    assert feed.import_extractions.any?
     assert feed.extractions.any?
     assert feed.rss_image.present?
 
@@ -19,7 +18,6 @@ class FeedTest < ActiveSupport::TestCase
     assert feed.plays.none?
     assert feed.web_subs.none?
     assert feed.imports.none?
-    assert feed.import_extractions.none?
     assert feed.extractions.none?
     refute RssImage.find_by(rss_imageable_type: "Feed", rss_imageable_id: id)
   end

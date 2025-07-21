@@ -43,12 +43,11 @@ class Import < ApplicationRecord
 
   def clean_up
     if success?
-      resource.imports.where(created_at: ...created_at).destroy_all
+      resource.imports.where(created_at: ...created_at)
     else
       resource.imports
         .where(created_at: ...created_at)
-        .where.not(id: resource.recent_successful_or_not_modified_import&.id)
-        .destroy_all
-    end
+        .where.not(status: :success)
+    end.destroy_all
   end
 end

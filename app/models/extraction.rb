@@ -43,10 +43,10 @@ class Extraction < ApplicationRecord
 
   def clean_up
     if success?
-      resource.extractions.where(created_at: [...created_at, nil])
+      resource.extractions.where(created_at: ...created_at)
     else
       resource.extractions
-        .where(created_at: [...created_at, nil])
+        .where(created_at: ...created_at)
         .where.not(status: :success)
     end.in_batches(of: 10).destroy_all
   end
