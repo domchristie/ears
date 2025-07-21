@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_18_194658) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_21_092555) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
   enable_extension "pg_catalog.plpgsql"
@@ -109,6 +109,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_18_194658) do
     t.string "error_class"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "resource_type", null: false
+    t.bigint "resource_id", null: false
+    t.index ["resource_type", "resource_id"], name: "index_extractions_on_resource"
   end
 
   create_table "feeds", force: :cascade do |t|
