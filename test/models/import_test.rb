@@ -5,7 +5,7 @@ class ImportTest < ActiveSupport::TestCase
     attribute :source, default: :test
 
     def extract
-      Extraction.create!(result: {body: "test"}, status: :success)
+      Extraction.create!(resource:, result: {body: "test"}, status: :success)
     end
 
     def transform

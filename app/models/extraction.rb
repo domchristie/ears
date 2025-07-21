@@ -3,8 +3,6 @@ class Extraction < ApplicationRecord
   attr_accessor :fetch
   has_many :import_extractions, dependent: :destroy
   has_many :imports, through: :import_extractions
-  has_one :recent_import_extraction, -> { order(created_at: :desc) }, class_name: "ImportExtraction"
-  has_one :recent_import, through: :recent_import_extraction, source: :import
   belongs_to :resource, polymorphic: true
 
   after_save_commit :clean_up, if: :finished?
@@ -39,18 +37,16 @@ class Extraction < ApplicationRecord
     self
   end
 
-  def resource = recent_import&.resource
-
   def finished? = finished_at.present?
 
   private
 
   def clean_up
     if success?
-      resource.extractions.where(created_at: ...created_at)
+      resource.extractions.where(created_at: [...created_at, nil])
     else
       resource.extractions
-        .where(created_at: ...created_at)
+        .where(created_at: [...created_at, nil])
         .where.not(status: :success)
     end.in_batches(of: 10).destroy_all
   end

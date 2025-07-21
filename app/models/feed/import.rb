@@ -19,7 +19,7 @@ class Feed::Import < Import
   end
 
   def extract
-    Extraction.start_with_fetch(fetch:) do |fetch|
+    Extraction.start_with_fetch(resource:, fetch:) do |fetch|
       {
         body: fetch.response.body,
         responses: fetch.responses.map { |response| response_hash(response) },
