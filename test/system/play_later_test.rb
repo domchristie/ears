@@ -2,7 +2,7 @@ require "application_system_test_case"
 
 class PlayLaterTest < ApplicationSystemTestCase
   test "adding an entry to play later" do
-    user = users(:one)
+    user = users.one
     sign_in_as user
     assert_selector "#play_later", text: "Play later episodes appear here"
 

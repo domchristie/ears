@@ -2,7 +2,7 @@ require "test_helper"
 
 class FeedImportTest < ActiveSupport::TestCase
   setup do
-    @feed = feeds(:one)
+    @feed = feeds.one
   end
 
   test "successful import" do

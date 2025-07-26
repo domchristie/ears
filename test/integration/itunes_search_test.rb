@@ -2,8 +2,7 @@ require "test_helper"
 
 class ItunesSearchTest < ActionDispatch::IntegrationTest
   setup do
-    @user = users(:one)
-    sign_in_as @user
+    @user = sign_in_as users.one
   end
 
   test "searching" do

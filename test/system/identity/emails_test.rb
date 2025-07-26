@@ -2,7 +2,7 @@ require "application_system_test_case"
 
 class Identity::EmailsTest < ApplicationSystemTestCase
   setup do
-    @user = sign_in_as users(:one)
+    @user = sign_in_as users.one
   end
 
   test "changing an email address" do

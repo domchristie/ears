@@ -2,8 +2,8 @@ require "test_helper"
 
 class Episode::CollectionTest < ActiveSupport::TestCase
   setup do
-    @entries = feeds(:one).entries
-    @user = users(:one)
+    @entries = feeds.one.entries
+    @user = users.one
   end
 
   test "#episodes returns a list of Episodes" do
@@ -20,7 +20,7 @@ class Episode::CollectionTest < ActiveSupport::TestCase
   test "#episodes limits the number of Episodes" do
     episodes_collection = Episode::Collection.new(entries: @entries, user: @user, limit: 1)
 
-    assert_operator entries.count, :>, 1
+    assert_operator Entry.count, :>, 1
     assert_equal 1, episodes_collection.episodes.count
   end
 

@@ -2,8 +2,8 @@ require "test_helper"
 
 class EpisodeTest < ActiveSupport::TestCase
   setup do
-    @entry = entries(:one)
-    @user = users(:one)
+    @entry = entries.one
+    @user = users.one
     @collection = Minitest::Mock.new
   end
 

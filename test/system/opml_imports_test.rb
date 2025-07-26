@@ -9,7 +9,7 @@ class OpmlImportsTest < ApplicationSystemTestCase
     stub_request(:get, "https://feeds.simplecast.com/BqbsxVfO")
       .to_return(status: 200, body: File.read(rss_fixture))
 
-    user = users(:one)
+    user = users.one
     sign_in_as user
     click_link "Menu"
     click_link "Import OPML"
