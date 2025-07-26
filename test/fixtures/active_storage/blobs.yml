@@ -1,1 +1,0 @@
-valid_opml_blob: <%= ActiveStorage::FixtureSet.blob filename: "valid.opml", service_name: "test_fixtures" %>

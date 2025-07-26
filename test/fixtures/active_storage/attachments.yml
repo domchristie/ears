@@ -1,4 +1,0 @@
-valid_opml:
-  name: file
-  record: valid (OpmlImport)
-  blob: valid_opml_blob
