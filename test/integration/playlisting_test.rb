@@ -3,18 +3,15 @@ require "test_helper"
 class PlaylistingTest < ActionDispatch::IntegrationTest
   test "playlisting creates a following" do
     feed = feeds.two
-    user = users.one
     entry = feed.entries.first
-    refute Following.where(user:, feed:).exists?
+    user = sign_in_as users.one
+    refute user.followings.exists?(feed:)
 
-    sign_in_as user
     post play_later_items_path, params: {playlist_item: {entry_id: entry.id}}
 
-    assert Following.where(
-      user:,
+    assert user.followings.where(
       feed:,
-      sourceable_type: "PlaylistItem",
-      sourceable_id: PlaylistItem.find_by(playlist: user.play_later_playlist, entry:).id
+      sourceable: user.play_later_playlist.items.find_by(entry:)
     ).exists?
   end
 end
