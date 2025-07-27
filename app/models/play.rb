@@ -8,9 +8,7 @@ class Play < ApplicationRecord
 
   scope :by, ->(user) { where(user: user) }
 
-  after_create :follow_feed!, unless: -> {
-    Following.where(user:, feed:).exists?
-  }
+  after_create :follow_feed!
 
   def self.most_recent_by(user)
     by(user).order(updated_at: :desc).first
@@ -40,6 +38,6 @@ class Play < ApplicationRecord
   private
 
   def follow_feed!
-    Following.create!(user:, feed:, sourceable: self)
+    feed.followings.create_with(sourceable: self).find_or_create_by!(user:)
   end
 end
