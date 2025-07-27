@@ -1,16 +1,13 @@
 lorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-feeds.defaults language: "en-us", ttl: 600, managing_editor: "Example Author", description: lorem,
+loader.defaults language: "en-us", ttl: 600, managing_editor: "Example Author", description: lorem,
+  author: "Mr Feed",
+  itunes_author: "Mr Feed",
   itunes_summary: lorem,
   itunes_block: false,
   itunes_explicit: false,
   itunes_complete: false,
-  itunes_type: "episodic"
-
-entries.defaults author: "Mr Feed",
-  itunes_author: "Mr Feed",
-  itunes_block: false,
+  itunes_type: "episodic",
   itunes_duration: 60,
-  itunes_explicit: false,
   itunes_keywords: :crime,
   itunes_closed_captioned: false,
   itunes_order: 1,
