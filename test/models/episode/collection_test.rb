@@ -1,40 +1,35 @@
 require "test_helper"
 
 class Episode::CollectionTest < ActiveSupport::TestCase
-  setup do
-    @entries = feeds.one.entries
-    @user = users.one
-  end
+  setup { @user = users.one }
 
   test "#episodes returns a list of Episodes" do
-    episodes_collection = Episode::Collection.new(entries: @entries, user: @user)
-    assert episodes_collection.episodes.all? { |e| e.is_a? Episode }
+    assert episodes.all?(Episode)
   end
 
   test "#episodes only contain the user's plays" do
-    episodes_collection = Episode::Collection.new(entries: @entries, user: @user)
-    assert episodes_collection.episodes.any? { |e| e.play.persisted? }
-    assert episodes_collection.episodes.all? { |e| e.play.user == @user }
+    plays = episodes.map(&:play)
+    assert plays.any?(&:persisted?)
+    assert plays.all? { _1.user == @user }
   end
 
   test "#episodes limits the number of Episodes" do
-    episodes_collection = Episode::Collection.new(entries: @entries, user: @user, limit: 1)
-
-    assert_operator Entry.count, :>, 1
-    assert_equal 1, episodes_collection.episodes.count
+    assert_predicate Entry, :many?
+    assert_predicate episodes(limit: 1), :one?
   end
 
   test "#episodes orders the number of Episodes by default" do
-    episodes_collection = Episode::Collection.new(entries: @entries, user: @user)
-    episodes = episodes_collection.episodes
-
-    assert_operator episodes[0].published_at, :>, episodes[1].published_at
+    episodes = self.episodes
+    assert_equal episodes, episodes.sort_by(&:published_at).reverse
   end
 
   test "#episodes order can be customized" do
-    episodes_collection = Episode::Collection.new(entries: @entries, user: @user, order: {published_at: :asc})
-    episodes = episodes_collection.episodes
-
-    assert_operator episodes[0].published_at, :<, episodes[1].published_at
+    episodes = episodes order: {published_at: :asc}
+    assert_equal episodes, episodes.sort_by(&:published_at)
   end
+
+  private
+    def episodes(entries: feeds.one.entries, user: @user, **)
+      Episode::Collection.new(entries:, user:, **).episodes
+    end
 end
