@@ -3,7 +3,7 @@ require "test_helper"
 class ImportOpmlJobTest < ActiveJob::TestCase
   setup do
     @user = users.one
-    @opml_import = opml_imports.valid
+    @opml_import = opml_imports.create file: blob_for("valid.opml")
 
     body = file_fixture("feed.xml").read
     stub_request(:get, "http://feeds.wnyc.org/radiolab").to_return(status: 200, body:)
