@@ -2,7 +2,7 @@ require "test_helper"
 
 class PlaylistTest < ActiveSupport::TestCase
   test "#prepend_entry creates a PlaylistItem" do
-    playlist = playlists.play_later
+    playlist = users.one.play_later_playlist
     entry = entries.two
     refute_includes playlist.entries, entries.two
 

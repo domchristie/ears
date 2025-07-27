@@ -2,7 +2,7 @@ class Play < ApplicationRecord
   include Hashid::Rails
 
   belongs_to :entry
-  belongs_to :feed
+  belongs_to :feed, default: -> { entry.feed }
   belongs_to :user
   has_many :followings, as: :sourceable
 
