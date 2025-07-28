@@ -29,7 +29,8 @@ class Episode::CollectionTest < ActiveSupport::TestCase
   end
 
   private
-    def episodes(entries: feeds.one.entries, user: @user, **)
-      Episode::Collection.new(entries:, user:, **).episodes
-    end
+
+  def episodes(entries: feeds.one.entries, user: @user, **)
+    Episode::Collection.new(entries:, user:, **).episodes
+  end
 end
