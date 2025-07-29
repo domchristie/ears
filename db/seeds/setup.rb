@@ -36,5 +36,3 @@ end
 def entries.create(label = nil, unique_by: [:feed, :itunes_episode], **) = super
 
 users.defaults password: "Secret1*3*5*"
-
-def users.create_verified(...) = create(...).tap { _1.update! verified: true }
