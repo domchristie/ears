@@ -11,7 +11,7 @@ end
 
 class ActiveSupport::TestCase
   # Run tests in parallel with specified workers
-  parallelize workers: 4
+  parallelize(workers: :number_of_processors)
 
   include Oaken.test_setup
 
