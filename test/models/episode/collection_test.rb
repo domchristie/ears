@@ -4,6 +4,8 @@ class Episode::CollectionTest < ActiveSupport::TestCase
   setup { @user = users.one }
 
   test "#episodes returns a list of Episodes" do
+    episodes = self.episodes
+    refute_empty episodes
     assert episodes.all?(Episode)
   end
 
