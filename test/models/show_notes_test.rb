@@ -14,7 +14,7 @@ class ShowNotesTest < ActiveSupport::TestCase
   test "linkifies timestamps including a link to load the player" do
     show_notes = ShowNotes.new(entries.one)
     assert_match(
-      %r{<a\ data-action="player#skipToAndPlay:prevent"\ data-href="http://example.com/one.mp3"\ target="player"\ tabindex="0"\ href="/entries/vzuoMRWDy/player\?t=0#t=0">0:00</a>},
+      %r{<a\ data-action="player#skipToAndPlay:prevent"\ data-href="http://example.com/one.mp3"\ target="player"\ tabindex="0"\ href="/entries/#{entries.one.to_param}/player\?t=0#t=0">0:00</a>},
       show_notes.to_s
     )
   end
