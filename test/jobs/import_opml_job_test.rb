@@ -2,14 +2,12 @@ require "test_helper"
 
 class ImportOpmlJobTest < ActiveJob::TestCase
   setup do
-    @user = users(:one)
-    @opml_import = opml_imports(:valid)
+    @user = users.one
+    @opml_import = opml_imports.create file: blob_for("valid.opml")
 
-    rss_fixture = Rails.root.join("test", "fixtures", "files", "feed.xml")
-    stub_request(:get, "http://feeds.wnyc.org/radiolab")
-      .to_return(status: 200, body: File.read(rss_fixture))
-    stub_request(:get, "https://feeds.simplecast.com/BqbsxVfO")
-      .to_return(status: 200, body: File.read(rss_fixture))
+    body = file_fixture("feed.xml").read
+    stub_request(:get, "http://feeds.wnyc.org/radiolab").to_return(status: 200, body:)
+    stub_request(:get, "https://feeds.simplecast.com/BqbsxVfO").to_return(status: 200, body:)
   end
 
   test "#perform creates feeds if they don't exist" do

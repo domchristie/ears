@@ -2,8 +2,8 @@ require "test_helper"
 
 class PlayingTest < ActionDispatch::IntegrationTest
   test "playing creates a following" do
-    feed = feeds(:two)
-    user = users(:one)
+    feed = feeds.two
+    user = users.one
     entry = feed.entries.first
     refute Following.where(user:, feed:).exists?
 

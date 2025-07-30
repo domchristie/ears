@@ -2,7 +2,7 @@ require "application_system_test_case"
 
 class SessionsTest < ApplicationSystemTestCase
   setup do
-    @user = users(:one)
+    @user = users.one
   end
 
   test "signing in" do

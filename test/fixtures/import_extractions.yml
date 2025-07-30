@@ -1,3 +1,0 @@
-one:
-  import: :one
-  extraction: :success

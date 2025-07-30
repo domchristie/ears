@@ -4,8 +4,7 @@ class FallbackPlayerTest < ApplicationSystemTestCase
   driven_by :rack_test
 
   test "fallback iframe player is present" do
-    user = users(:one)
-    sign_in_as user
+    user = sign_in_as users.one
     assert_selector "iframe[name='player']"
     assert_no_selector "[data-player-target='controls']"
   end

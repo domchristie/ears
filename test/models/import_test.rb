@@ -28,19 +28,19 @@ class ImportTest < ActiveSupport::TestCase
 
   test "#start sets started_at and finished_at" do
     now = Time.current
-    import = TestImport.new(resource: feeds(:one))
+    import = TestImport.new(resource: feeds.one)
     import.start
     assert_in_delta import.started_at, now, 0.5
     assert_in_delta import.finished_at, now, 0.5
   end
 
   test "#start returns the instance" do
-    import = TestImport.new(resource: feeds(:one))
+    import = TestImport.new(resource: feeds.one)
     assert_equal import, import.start
   end
 
   test "#start sets finished_at in error cases" do
-    import = TestErrorImport.new(resource: feeds(:one))
+    import = TestErrorImport.new(resource: feeds.one)
     begin
       import.start
     rescue TestErrorImport::Error
@@ -60,14 +60,14 @@ class ImportTest < ActiveSupport::TestCase
   end
 
   test "#start calls extract, transform, and load for a successful import" do
-    extraction = extractions(:success)
+    extraction = extractions.success
 
     mock = Minitest::Mock.new
     mock.expect :extract, extraction
     mock.expect :transform, :transformed_data
     mock.expect :load, nil, [:transformed_data]
 
-    import = TestImport.new(resource: feeds(:one))
+    import = TestImport.new(resource: feeds.one)
     import.define_singleton_method(:extract) { mock.extract }
     import.define_singleton_method(:transform) { mock.transform }
     import.define_singleton_method(:load) { |data| mock.load(data) }
@@ -79,7 +79,7 @@ class ImportTest < ActiveSupport::TestCase
   test "#start does not call extract if an extraction already exists" do
     mock = Minitest::Mock.new
     import = TestImport.new(
-      resource: feeds(:one), extraction: extractions(:success)
+      resource: feeds.one, extraction: extractions.success
     )
     import.define_singleton_method(:extract) { mock.extract }
 
@@ -90,7 +90,7 @@ class ImportTest < ActiveSupport::TestCase
   test "#start does not call transform if the extraction is not successful" do
     mock = Minitest::Mock.new
     import = TestImport.new(
-      resource: feeds(:one), extraction: extractions(:not_modified)
+      resource: feeds.one, extraction: extractions.not_modified
     )
     import.define_singleton_method(:transform) { mock.transform }
 
@@ -101,7 +101,7 @@ class ImportTest < ActiveSupport::TestCase
   test "#start does not call load if the extraction is not successful" do
     mock = Minitest::Mock.new
     import = TestImport.new(
-      resource: feeds(:one), extraction: extractions(:not_modified)
+      resource: feeds.one, extraction: extractions.not_modified
     )
     import.define_singleton_method(:load) { mock.load }
 
@@ -112,7 +112,7 @@ class ImportTest < ActiveSupport::TestCase
   test "#start creates an ImportExtraction" do
     existing_ids = ImportExtraction.pluck(:id)
     assert_difference -> { ImportExtraction.where.not(id: existing_ids).count } do
-      TestImport.new(resource: feeds(:one)).start
+      TestImport.new(resource: feeds.one).start
     end
   end
 
@@ -120,7 +120,7 @@ class ImportTest < ActiveSupport::TestCase
     existing_ids = ImportExtraction.pluck(:id)
     assert_difference -> { ImportExtraction.where.not(id: existing_ids).count } do
       TestImport.new(
-        resource: feeds(:one), extraction: extractions(:success)
+        resource: feeds.one, extraction: extractions.success
       ).start
     end
   end

@@ -2,15 +2,13 @@ class Play < ApplicationRecord
   include Hashid::Rails
 
   belongs_to :entry
-  belongs_to :feed
+  belongs_to :feed, default: -> { entry.feed }
   belongs_to :user
   has_many :followings, as: :sourceable
 
   scope :by, ->(user) { where(user: user) }
 
-  after_create :follow_feed!, unless: -> {
-    Following.where(user:, feed:).exists?
-  }
+  after_create :follow_feed!
 
   def self.most_recent_by(user)
     by(user).order(updated_at: :desc).first
@@ -40,6 +38,6 @@ class Play < ApplicationRecord
   private
 
   def follow_feed!
-    Following.create!(user:, feed:, sourceable: self)
+    feed.followings.create_with(sourceable: self).find_or_create_by!(user:)
   end
 end

@@ -2,7 +2,7 @@ require "test_helper"
 
 class FeedTest < ActiveSupport::TestCase
   test "destroying related records" do
-    feed = feeds(:one)
+    feed = feeds.one
     id = feed.id
 
     assert feed.entries.any?
