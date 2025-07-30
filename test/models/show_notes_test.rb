@@ -27,7 +27,7 @@ class ShowNotesTest < ActiveSupport::TestCase
   test "linkifying fragment links" do
     show_notes = ShowNotes.new(entries.one)
     assert_match(
-      %r{<a\ data-action="player#skipToAndPlay:prevent"\ data-href="http://example.com/one.mp3"\ target="player"\ tabindex="0"\ href="/entries/vzuoMRWDy/player\?t=10#t=10">00:10 Fragment Link</a>},
+      %r{<a\ data-action="player#skipToAndPlay:prevent"\ data-href="http://example.com/one.mp3"\ target="player"\ tabindex="0"\ href="/entries/#{entries.one.to_param}/player\?t=10#t=10">00:10 Fragment Link</a>},
       show_notes.to_s
     )
   end
