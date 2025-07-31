@@ -12,7 +12,7 @@ class Episode::CollectionTest < ActiveSupport::TestCase
   test "#episodes only contain the user's plays" do
     plays = episodes.map(&:play)
     assert plays.any?(&:persisted?)
-    assert plays.all? { _1.user == @user }
+    assert plays.all? { it.user == @user }
   end
 
   test "#episodes limits the number of Episodes" do
