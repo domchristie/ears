@@ -18,7 +18,7 @@ class ItunesSearchTest < ActionDispatch::IntegrationTest
     stub_request(:get, "https://itunes.apple.com/lookup?id=1&entity=podcast")
       .to_return(status: 200, body: itunes_search_response_body)
     stub_request(:get, "http://feeds.example.com")
-      .to_return(status: 200, body: feed_response_body)
+      .to_return(status: 200, body: file_fixture("feed.xml"))
 
     get itunes_feed_path(1)
 
@@ -40,9 +40,5 @@ class ItunesSearchTest < ActionDispatch::IntegrationTest
         feedUrl: "http://feeds.example.com"
       }]
     }.to_json
-  end
-
-  def feed_response_body
-    File.read(Rails.root.join("test", "fixtures", "files", "feed.xml"))
   end
 end

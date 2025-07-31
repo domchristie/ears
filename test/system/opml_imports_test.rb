@@ -2,12 +2,10 @@ require "application_system_test_case"
 
 class OpmlImportsTest < ApplicationSystemTestCase
   test "importing an OPML" do
-    rss_fixture = Rails.root.join("test", "fixtures", "files", "feed.xml")
-
     stub_request(:get, "http://feeds.wnyc.org/radiolab")
-      .to_return(status: 200, body: File.read(rss_fixture))
+      .to_return(status: 200, body: file_fixture("feed.xml"))
     stub_request(:get, "https://feeds.simplecast.com/BqbsxVfO")
-      .to_return(status: 200, body: File.read(rss_fixture))
+      .to_return(status: 200, body: file_fixture("feed.xml"))
 
     user = users.one
     sign_in_as user

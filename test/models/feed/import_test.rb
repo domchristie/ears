@@ -6,12 +6,11 @@ class FeedImportTest < ActiveSupport::TestCase
   end
 
   test "successful import" do
-    file = Rails.root.join("test", "fixtures", "files", "feed.xml")
     now = Time.current
     stub_request(:get, @feed.url).to_return(
       status: 200,
       headers: {last_modified: now.to_fs(:db), etag: "test_etag"},
-      body: File.read(file)
+      body: file_fixture("feed.xml")
     )
 
     assert_difference -> { Entry.count }, 3 do
@@ -22,7 +21,6 @@ class FeedImportTest < ActiveSupport::TestCase
   end
 
   test "successful redirected import" do
-    file = Rails.root.join("test", "fixtures", "files", "feed.xml")
     redirect_location = "http://new.example.com"
     stub_request(:get, @feed.url).to_return(
       status: 301,
@@ -30,7 +28,7 @@ class FeedImportTest < ActiveSupport::TestCase
     )
     stub_request(:get, redirect_location).to_return(
       status: 200,
-      body: File.read(file)
+      body: file_fixture("feed.xml")
     )
 
     assert_difference -> { Entry.count }, 3 do

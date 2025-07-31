@@ -70,9 +70,8 @@ class WebSubsTest < ActionDispatch::IntegrationTest
     assert_raise(ActiveRecord::RecordNotFound) { web_sub.reload }
 
     # CONTENT DISTRIBUTION
-    file = Rails.root.join("test", "fixtures", "files", "feed.xml")
     stub_request(:get, new_web_sub.feed_url)
-      .to_return(status: 200, body: File.read(file))
+      .to_return(status: 200, body: file_fixture("feed.xml"))
 
     params = {test: "body"}
     signature = OpenSSL::HMAC.hexdigest(
