@@ -356,7 +356,7 @@ DEPENDENCIES
   importmap-rails
   inline_svg (~> 1.8)
   local_time (~> 2.1)
-  oaken (~> 0.9.1)
+  oaken
   pg (~> 1.1)
   pg_search (~> 2.3)
   propshaft

@@ -37,7 +37,7 @@ gem "feedjira", "~> 3.2"
 gem "honeybadger"
 
 group :development, :test do
-  gem "debug", platforms: %i[ mri mingw x64_mingw ]
+  gem "debug", platforms: %i[ mri windows ]
   gem "webmock"
 
   gem "oaken"
