@@ -229,7 +229,16 @@ export default class PlayerController extends Controller {
 
   persistElapsed () {
     if (!this.shouldTrackPlayTime) return
-    this.dispatch('submit', { target: this.playFormTarget, prefix: '' })
+
+    const token = document.querySelector('meta[name="csrf-token"]').content
+    window.fetch(this.playFormTarget.action, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': token },
+      body: JSON.stringify({ play: {
+        elapsed: this.currentTime,
+        remaining: Math.max(this.duration - this.currentTime, 0)
+      }})
+    })
   }
 
   persistElapsedLater = throttle(_ => this.persistElapsed(), PLAY_PERSISTENCE_DURATION)

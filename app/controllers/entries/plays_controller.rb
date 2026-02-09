@@ -6,15 +6,7 @@ class Entries::PlaysController < ApplicationController
       feed: entry.feed
     )
     @play.update!(play_params)
-    render partial: "plays/form", locals: {entry: entry, play: @play}
-  end
-
-  def update
-    @play = Play.find_by_hashid!(params[:id])
-    return head(:forbidden) unless Current.user == @play.user
-
-    @play.update!(play_params)
-    render partial: "plays/form", locals: {entry: @play.entry, play: @play}
+    head :ok
   end
 
   private
