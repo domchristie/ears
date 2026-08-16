@@ -47,3 +47,9 @@ if (navigator.serviceWorker) {
     console.log('[Page] Service worker registered!')
   })
 }
+
+import defo from '@icelab/defo'
+
+defo({
+
+})

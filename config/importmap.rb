@@ -10,5 +10,6 @@ pin_all_from "app/javascript/helpers", under: "helpers"
 pin "local-time", to: "local-time.esm.js" # @2.1.0
 pin "humanize-duration" # @3.29.0
 pin "@domchristie/turn", to: "@domchristie--turn.js" # @2.1.0
+pin "@icelab/defo", to: "@icelab--defo.js" # @2.1.0
 pin "@honeybadger-io/js", to: "@honeybadger-io--js.js" # @6.4.1
 pin "@hotwired/strada", to: "@hotwired--strada.js" # @1.0.0
