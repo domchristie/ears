@@ -48,8 +48,4 @@ if (navigator.serviceWorker) {
   })
 }
 
-import defo from '@icelab/defo'
-
-defo({
-
-})
+import 'views'
