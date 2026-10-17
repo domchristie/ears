@@ -1,12 +1,12 @@
 namespace :web_subs do
-  namespace :renew do
-    task expiring: :environment do
-      WebSub.expiring.each(&:renew!)
-    end
+  task renew: :environment do
+    Feed.renew_web_subs
+  end
 
-    task expired: :environment do
-      WebSub.expired.each(&:renew!)
-    end
+  # Deprecated: kept so existing Heroku Scheduler jobs still work
+  namespace :renew do
+    task expiring: "web_subs:renew"
+    task expired: "web_subs:renew"
   end
 
   namespace :destroy do

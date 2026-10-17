@@ -38,8 +38,9 @@ class WebSubsTest < ActionDispatch::IntegrationTest
     assert_equal challenge, response.body
     assert_equal(web_sub.created_at + lease_seconds, web_sub.reload.expires_at)
 
-    # Simulate Renewal: create new WebSub
-    assert_difference("WebSub.count") { web_sub.renew! }
+    # RENEWAL
+    travel_to web_sub.expires_at - 1.hour
+    assert_difference("WebSub.count") { Feed.renew_web_subs }
     perform_enqueued_jobs
 
     new_web_sub = WebSub.order(created_at: :asc).last

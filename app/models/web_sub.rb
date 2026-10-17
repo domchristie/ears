@@ -5,11 +5,16 @@ class WebSub < ApplicationRecord
 
   belongs_to :feed, foreign_key: :feed_url, primary_key: :url
 
-  scope :expiring, -> { where(expires_at: Time.current..3.hours.from_now) }
+  RENEWAL_WINDOW = 3.hours
+  VERIFICATION_TIMEOUT = 1.hour
 
-  scope :expired, -> {
-    where.not(expires_at: nil).where("expires_at < ?", Time.current)
+  scope :not_expiring_soon, -> { where(expires_at: RENEWAL_WINDOW.from_now..) }
+
+  scope :awaiting_verification, -> {
+    where(expires_at: nil, created_at: VERIFICATION_TIMEOUT.ago..)
   }
+
+  scope :renewal_not_due, -> { not_expiring_soon.or(awaiting_verification) }
 
   before_create :set_secret
 
@@ -57,10 +62,6 @@ class WebSub < ApplicationRecord
   def confirm!(lease_seconds)
     update!(expires_at: created_at + lease_seconds)
     WebSub.where(feed_url:, hub_url:).where.not(id:).delete_all
-  end
-
-  def renew!
-    WebSub.start_later!(feed:, hub_url:)
   end
 
   def self.start_later!(...)
