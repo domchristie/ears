@@ -1,6 +1,8 @@
 class WebSub < ApplicationRecord
   include Hashid::Rails
 
+  class RequestFailed < StandardError; end
+
   belongs_to :feed, foreign_key: :feed_url, primary_key: :url
 
   scope :expiring, -> { where(expires_at: Time.current..3.hours.from_now) }
@@ -41,7 +43,15 @@ class WebSub < ApplicationRecord
       "hub.secret"   => secret
     )
 
-    Fetch.start request
+    Fetch.start(request).tap do |response|
+      unless response.is_a?(Net::HTTPSuccess)
+        raise RequestFailed, "#{hub_url} responded #{response.code} for #{feed_url}"
+      end
+    end
+  end
+
+  def start_later
+    StartWebSubJob.perform_later(self)
   end
 
   def confirm!(lease_seconds)
@@ -50,11 +60,11 @@ class WebSub < ApplicationRecord
   end
 
   def renew!
-    WebSub.create!(feed:, hub_url:).start
+    WebSub.start_later!(feed:, hub_url:)
   end
 
-  def self.start!(...)
-    create!(...).start
+  def self.start_later!(...)
+    create!(...).tap(&:start_later)
   end
 
   private

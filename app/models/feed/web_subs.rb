@@ -25,6 +25,6 @@ module Feed::WebSubs
   end
 
   def start_web_sub
-    StartWebSubJob.perform_later(self)
+    web_subs.start_later!(hub_url: web_sub_hub_url)
   end
 end

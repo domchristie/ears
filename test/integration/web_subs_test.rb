@@ -1,16 +1,14 @@
 require "test_helper"
 class WebSubsTest < ActionDispatch::IntegrationTest
   test "successful subscription" do
-    feed = Feed.create!(
-      title: "All About Everything",
-      url: "http://feeds.example.com/all-about-everything",
-      web_sub_hub_url: "https://websub.example.com/"
-    )
+    stub_request(:post, "https://websub.example.com/").to_return(status: 202)
+
+    feed = nil
+    assert_difference("WebSub.count") { feed = create_feed }
+    web_sub = feed.web_subs.first
 
     # SUBSCRIBER SENDS SUBSCRIPTION REQUEST
-    stub_request(:post, feed.web_sub_hub_url).to_return(status: 202)
-    assert_difference("WebSub.count") { perform_enqueued_jobs }
-    web_sub = feed.web_subs.first
+    perform_enqueued_jobs
 
     assert_requested(
       :post,
@@ -42,6 +40,7 @@ class WebSubsTest < ActionDispatch::IntegrationTest
 
     # Simulate Renewal: create new WebSub
     assert_difference("WebSub.count") { web_sub.renew! }
+    perform_enqueued_jobs
 
     new_web_sub = WebSub.order(created_at: :asc).last
 
@@ -88,5 +87,31 @@ class WebSubsTest < ActionDispatch::IntegrationTest
 
     assert_difference("Entry.count", 3) { perform_enqueued_jobs }
     assert_equal "web_sub", feed.reload.import_source
+  end
+
+  test "retries the subscription request when the hub fails" do
+    stub_request(:post, "https://websub.example.com/")
+      .to_return({status: 503}, {status: 202})
+
+    web_sub = create_feed.web_subs.first
+
+    assert_enqueued_with(job: StartWebSubJob, args: [web_sub]) do
+      perform_enqueued_jobs(only: StartWebSubJob)
+    end
+    assert_requested :post, web_sub.hub_url, times: 1
+
+    perform_enqueued_jobs(only: StartWebSubJob)
+    assert_requested :post, web_sub.hub_url, times: 2
+    assert_no_enqueued_jobs(only: StartWebSubJob)
+  end
+
+  private
+
+  def create_feed
+    Feed.create!(
+      title: "All About Everything",
+      url: "http://feeds.example.com/all-about-everything",
+      web_sub_hub_url: "https://websub.example.com/"
+    )
   end
 end
