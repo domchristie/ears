@@ -6,7 +6,11 @@ class WebSubsController < ApplicationController
   end
 
   def update
-    verify if params[:"hub.mode"].in?(["subscribe", "unsubscribe"])
+    if params[:"hub.mode"] == "subscribe"
+      verify
+    else
+      head :not_found
+    end
   end
 
   private

@@ -60,8 +60,8 @@ class WebSub < ApplicationRecord
   end
 
   def confirm!(lease_seconds)
-    update!(expires_at: created_at + lease_seconds)
-    WebSub.where(feed_url:, hub_url:).where.not(id:).delete_all
+    update!(expires_at: lease_seconds.seconds.from_now)
+    WebSub.where(feed_url:, created_at: ...created_at).delete_all
   end
 
   def self.start_later!(...)

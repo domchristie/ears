@@ -26,6 +26,8 @@ class WebSubsTest < ActionDispatch::IntegrationTest
     challenge = "hub-generated-random-string"
     lease_seconds = 10.days.to_i
 
+    travel 1.minute
+    freeze_time
     get web_sub_feed_url(
       web_sub,
       "hub.mode": "subscribe",
@@ -36,7 +38,7 @@ class WebSubsTest < ActionDispatch::IntegrationTest
 
     assert_response :ok
     assert_equal challenge, response.body
-    assert_equal(web_sub.created_at + lease_seconds, web_sub.reload.expires_at)
+    assert_equal(lease_seconds.seconds.from_now, web_sub.reload.expires_at)
 
     # RENEWAL
     travel_to web_sub.expires_at - 1.hour
@@ -104,6 +106,20 @@ class WebSubsTest < ActionDispatch::IntegrationTest
     perform_enqueued_jobs(only: StartWebSubJob)
     assert_requested :post, web_sub.hub_url, times: 2
     assert_no_enqueued_jobs(only: StartWebSubJob)
+  end
+
+  test "refuses to confirm an unsubscription" do
+    web_sub = create_feed.web_subs.first
+
+    get web_sub_feed_url(
+      web_sub,
+      "hub.mode": "unsubscribe",
+      "hub.topic": web_sub.feed.url,
+      "hub.challenge": "hub-generated-random-string"
+    )
+
+    assert_response :not_found
+    assert_nil web_sub.reload.expires_at
   end
 
   private
