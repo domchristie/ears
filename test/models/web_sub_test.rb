@@ -16,10 +16,17 @@ class WebSubTest < ActiveSupport::TestCase
     assert_nothing_raised { @web_sub.start }
   end
 
-  test "start raises when the hub rejects the request" do
+  test "start raises a client error when the hub rejects the request" do
+    stub_request(:post, @web_sub.hub_url).to_return(status: 422)
+
+    error = assert_raises(WebSub::ClientError) { @web_sub.start }
+    assert_match "422", error.message
+  end
+
+  test "start raises a server error when the hub fails" do
     stub_request(:post, @web_sub.hub_url).to_return(status: 503)
 
-    error = assert_raises(WebSub::RequestFailed) { @web_sub.start }
+    error = assert_raises(WebSub::ServerError) { @web_sub.start }
     assert_match "503", error.message
   end
 

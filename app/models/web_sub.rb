@@ -2,6 +2,8 @@ class WebSub < ApplicationRecord
   include Hashid::Rails
 
   class RequestFailed < StandardError; end
+  class ClientError < RequestFailed; end
+  class ServerError < RequestFailed; end
 
   belongs_to :feed, foreign_key: :feed_url, primary_key: :url
 
@@ -48,11 +50,16 @@ class WebSub < ApplicationRecord
       "hub.secret"   => secret
     )
 
-    Fetch.start(request).tap do |response|
-      unless response.is_a?(Net::HTTPSuccess)
-        raise RequestFailed, "#{hub_url} responded #{response.code} for #{feed_url}"
-      end
+    response = Fetch.start(request)
+
+    error = case response
+    when Net::HTTPSuccess then return response
+    when Net::HTTPClientError then ClientError
+    when Net::HTTPServerError then ServerError
+    else RequestFailed
     end
+
+    raise error, "#{hub_url} responded #{response.code} for #{feed_url}"
   end
 
   def start_later
