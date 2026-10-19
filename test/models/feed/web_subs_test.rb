@@ -12,6 +12,17 @@ class Feed::WebSubsTest < ActiveSupport::TestCase
     @feed.web_subs.delete_all
   end
 
+  test "changing the hub replaces the subscription" do
+    old_web_sub = @feed.web_subs.create!(hub_url: @feed.web_sub_hub_url, expires_at: 5.days.from_now)
+
+    assert_enqueued_jobs(1, only: StartWebSubJob) do
+      @feed.update!(web_sub_hub_url: "https://other-websub.example.com/")
+    end
+
+    assert_raises(ActiveRecord::RecordNotFound) { old_web_sub.reload }
+    assert_equal ["https://other-websub.example.com/"], @feed.web_subs.reload.pluck(:hub_url)
+  end
+
   test "renewal due without any subscriptions" do
     assert_renewal_due
   end

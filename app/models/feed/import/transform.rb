@@ -3,7 +3,6 @@ class Feed::Import::Transform < Import::Transform
     @data ||= {
       last_modified_at: responses.last["last-modified"]&.first,
       etag: responses.last["etag"]&.first,
-      url:,
 
       web_sub_hub_url: parsed.hubs.first,
       copyright: parsed.copyright,
@@ -23,11 +22,11 @@ class Feed::Import::Transform < Import::Transform
       itunes_type: parsed.itunes_type,
       itunes_new_feed_url: parsed.itunes_new_feed_url,
       itunes_subtitle: parsed.itunes_subtitle,
-      itunes_summary: parsed.itunes_summary,
-
-      entries_attributes:,
-      rss_image_attributes:
-    }.compact_blank
+      itunes_summary: parsed.itunes_summary
+    }
+      .transform_values { it.is_a?(String) ? it.presence : it }
+      # Only set when present
+      .merge({url:, entries_attributes:, rss_image_attributes:}.compact_blank)
   end
 
   private

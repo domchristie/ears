@@ -12,6 +12,12 @@ class Feed::Import < Import
     via
   ]
 
+  def start
+    super.tap do
+      feed.update!(web_sub_hub_url: nil) if not_found?
+    end
+  end
+
   def feed = resource
 
   def feed=(feed)

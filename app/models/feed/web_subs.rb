@@ -26,7 +26,7 @@ module Feed::WebSubs
       web_subable.where.not(url: WebSub.renewal_not_due.select(:feed_url))
     }
 
-    before_save if: :will_save_change_to_url? do
+    before_save if: -> { will_save_change_to_url? || will_save_change_to_web_sub_hub_url? } do
       WebSub.where(feed_url: url_in_database).destroy_all
     end
 

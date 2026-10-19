@@ -69,4 +69,67 @@ class FeedImportTest < ActiveSupport::TestCase
       Feed::Import.start(feed: @feed, source: :test)
     end
   end
+
+  test "import clears the hub when the feed no longer lists one" do
+    @feed.update_column(:web_sub_hub_url, "https://websub.example.com/")
+    assert @feed.web_subs.any?
+    stub_request(:get, @feed.url).to_return(status: 200, body: file_fixture("feed.xml"))
+
+    Feed::Import.start(feed: @feed, source: :test)
+
+    assert_nil @feed.reload.web_sub_hub_url
+    assert @feed.web_subs.none?
+  end
+
+  test "not found import clears the hub" do
+    @feed.update_column(:web_sub_hub_url, "https://websub.example.com/")
+    assert @feed.web_subs.any?
+    stub_request(:get, @feed.url).to_return(status: 404)
+
+    Feed::Import.start(feed: @feed, source: :test)
+
+    assert_nil @feed.reload.web_sub_hub_url
+    assert @feed.web_subs.none?
+  end
+
+  test "import saves false when a flag changes to no" do
+    @feed.update_column(:itunes_complete, true)
+    body = file_fixture("feed.xml").read
+      .sub("<channel>", "<channel><itunes:complete>No</itunes:complete>")
+    stub_request(:get, @feed.url).to_return(status: 200, body:)
+
+    Feed::Import.start(feed: @feed, source: :test)
+
+    assert_equal false, @feed.reload.itunes_complete
+  end
+
+  test "import clears a field that the feed removed" do
+    @feed.update_column(:ttl, 60)
+    stub_request(:get, @feed.url).to_return(status: 200, body: file_fixture("feed.xml"))
+
+    Feed::Import.start(feed: @feed, source: :test)
+
+    assert_nil @feed.reload.ttl
+  end
+
+  test "import without a redirect keeps the url" do
+    url = @feed.url
+    stub_request(:get, url).to_return(status: 200, body: file_fixture("feed.xml"))
+
+    Feed::Import.start(feed: @feed, source: :test)
+
+    assert_equal url, @feed.reload.url
+  end
+
+  test "import saves blank values as nil" do
+    body = file_fixture("feed.xml").read
+      .sub("<title>All About Everything</title>", "<title> </title>")
+      .sub("<channel>", %(<channel><atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="hub" href=""/>))
+    stub_request(:get, @feed.url).to_return(status: 200, body:)
+
+    Feed::Import.start(feed: @feed, source: :test)
+
+    assert_nil @feed.reload.title
+    assert_nil @feed.web_sub_hub_url
+  end
 end
