@@ -5,10 +5,7 @@ progress = (play.elapsed - chapter.start_time) / duration
 %>
 
 <article
-  data-controller="chapter"
-  data-chapter-start-time-value="<%= chapter.start_time %>"
-  data-chapter-end-time-value="<%= end_time %>"
-  data-action="player:timeupdate@window->chapter#update"
+  data-defo-chapter="<%= {startTime: chapter.start_time, endTime: end_time}.to_json %>"
   data-href="<%= entry.enclosure_url %>"
   class="group relative p-3.5 sm:px-fl-xs-lg"
 >
