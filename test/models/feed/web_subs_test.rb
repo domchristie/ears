@@ -88,7 +88,47 @@ class Feed::WebSubsTest < ActiveSupport::TestCase
     end
   end
 
+  test "sync due without a subscription, even when recently imported" do
+    import_at 1.hour.ago
+    assert_sync_due
+  end
+
+  test "sync not due with an active subscription and a recent import" do
+    @feed.web_subs.create!(hub_url: @feed.web_sub_hub_url, expires_at: 5.days.from_now)
+    import_at 1.hour.ago
+    assert_sync_not_due
+  end
+
+  test "sync due with an active subscription and an old import" do
+    @feed.web_subs.create!(hub_url: @feed.web_sub_hub_url, expires_at: 5.days.from_now)
+    import_at 7.hours.ago
+    assert_sync_due
+  end
+
+  test "sync due with an active subscription and no import" do
+    @feed.web_subs.create!(hub_url: @feed.web_sub_hub_url, expires_at: 5.days.from_now)
+    assert_sync_due
+  end
+
+  test "sync due with an expired subscription and a recent import" do
+    @feed.web_subs.create!(hub_url: @feed.web_sub_hub_url, expires_at: 1.day.ago)
+    import_at 1.hour.ago
+    assert_sync_due
+  end
+
   private
+
+  def import_at(time)
+    Feed::Import.create!(resource: @feed, source: "rake", started_at: time, finished_at: time)
+  end
+
+  def assert_sync_due
+    assert_includes Feed.sync_due, @feed
+  end
+
+  def assert_sync_not_due
+    assert_not_includes Feed.sync_due, @feed
+  end
 
   def assert_renewal_due
     assert_includes Feed.web_sub_renewal_due, @feed

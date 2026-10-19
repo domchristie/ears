@@ -1,11 +1,26 @@
 module Feed::WebSubs
   extend ActiveSupport::Concern
 
+  # Hubs do not always deliver notifications, so feeds with an active WebSub
+  # are still polled, but less often
+  WEB_SUB_POLL_INTERVAL = 6.hours
+
   included do
     has_many :web_subs, foreign_key: :feed_url, primary_key: :url, dependent: :destroy
-    has_many :active_web_subs, -> { where("active_web_subs.expires_at > ?", Time.current) }, class_name: "WebSub", foreign_key: :feed_url, primary_key: :url
 
     scope :web_subable, -> { Feed.where.not(web_sub_hub_url: nil) }
+
+    scope :with_active_web_sub, -> {
+      where(url: WebSub.where(expires_at: Time.current..).select(:feed_url))
+    }
+
+    scope :imported_since, ->(time) {
+      where(id: Import.where(resource_type: "Feed", finished_at: time..).select(:resource_id))
+    }
+
+    scope :sync_due, -> {
+      where.not(id: with_active_web_sub.imported_since(WEB_SUB_POLL_INTERVAL.ago).select(:id))
+    }
 
     scope :web_sub_renewal_due, -> {
       web_subable.where.not(url: WebSub.renewal_not_due.select(:feed_url))

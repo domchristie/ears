@@ -6,7 +6,7 @@ namespace :feeds do
   end
 
   task sync: :environment do
-    Feed.where.missing(:active_web_subs).find_each(batch_size: 10) { |feed| sync(feed) }
+    Feed.sync_due.find_each(batch_size: 10) { |feed| sync(feed) }
   end
 
   task destroy_unused: :environment do
