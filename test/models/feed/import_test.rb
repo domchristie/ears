@@ -45,6 +45,23 @@ class FeedImportTest < ActiveSupport::TestCase
     end
   end
 
+  test "not modified redirected import" do
+    @feed.update!(etag: "test_etag", last_modified_at: 1.day.ago)
+    redirect_location = "http://new.example.com"
+    stub_request(:get, @feed.url).to_return(
+      status: 301,
+      headers: {location: redirect_location}
+    )
+    stub_request(:get, redirect_location)
+      .with(headers: {"If-None-Match" => "test_etag"})
+      .to_return(status: 304)
+
+    assert_no_difference -> { Entry.count } do
+      import = Feed::Import.start(feed: @feed, source: :test)
+      assert import.not_modified?
+    end
+  end
+
   test "unsuccessful import" do
     stub_request(:get, @feed.url).to_return(status: 404)
 

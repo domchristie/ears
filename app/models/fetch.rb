@@ -3,15 +3,15 @@ class Fetch
   attr_reader :request, :response, :http
 
   SAFE_REQUEST_HEADERS = %w[
-    user-agent,
-    accept,
-    accept-charset,
-    accept-language,
-    cache-control,
-    etag,
-    if-match,
-    if-none-match,
-    if-modified-since,
+    user-agent
+    accept
+    accept-charset
+    accept-language
+    cache-control
+    etag
+    if-match
+    if-none-match
+    if-modified-since
     if-unmodified-since
   ]
 
