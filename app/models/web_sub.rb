@@ -21,7 +21,7 @@ class WebSub < ApplicationRecord
   before_create :set_secret
 
   def verify_topic(topic)
-    topic == feed.url
+    topic == feed.web_sub_topic
   end
 
   def validate_signature(algorithm, signature, payload)
@@ -46,7 +46,7 @@ class WebSub < ApplicationRecord
     request.body = URI.encode_www_form(
       "hub.callback" => callback_url,
       "hub.mode"     => "subscribe",
-      "hub.topic"    => feed_url,
+      "hub.topic"    => feed.web_sub_topic,
       "hub.secret"   => secret
     )
 

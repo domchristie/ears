@@ -5,6 +5,7 @@ class Feed::Import::Transform < Import::Transform
       etag: responses.last["etag"]&.first,
 
       web_sub_hub_url: parsed.hubs.first,
+      web_sub_topic_url: parsed.self_urls.first,
       copyright: parsed.copyright,
       description: parsed.description,
       language: parsed.language,

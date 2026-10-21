@@ -26,7 +26,7 @@ module Feed::WebSubs
       web_subable.where.not(url: WebSub.renewal_not_due.select(:feed_url))
     }
 
-    before_save if: -> { will_save_change_to_url? || will_save_change_to_web_sub_hub_url? } do
+    before_save if: -> { will_save_change_to_url? || will_save_change_to_web_sub_hub_url? || will_save_change_to_web_sub_topic_url? } do
       WebSub.where(feed_url: url_in_database).destroy_all
     end
 
@@ -46,7 +46,11 @@ module Feed::WebSubs
   end
 
   def web_sub_attributes_changed?
-    saved_change_to_web_sub_hub_url? || saved_change_to_url?
+    saved_change_to_web_sub_hub_url? || saved_change_to_url? || saved_change_to_web_sub_topic_url?
+  end
+
+  def web_sub_topic
+    web_sub_topic_url || url
   end
 
   def start_web_sub

@@ -16,6 +16,17 @@ class WebSubTest < ActiveSupport::TestCase
     assert_nothing_raised { @web_sub.start }
   end
 
+  test "start subscribes to the feed's topic url" do
+    @web_sub.feed.update_column(:web_sub_topic_url, "https://feeds.example.com/everything")
+    stub_request(:post, @web_sub.hub_url).to_return(status: 202)
+
+    @web_sub.start
+
+    assert_requested :post, @web_sub.hub_url,
+      body: hash_including("hub.topic" => "https://feeds.example.com/everything")
+    assert @web_sub.verify_topic("https://feeds.example.com/everything")
+  end
+
   test "start raises a client error when the hub rejects the request" do
     stub_request(:post, @web_sub.hub_url).to_return(status: 422)
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_21_092555) do
+ActiveRecord::Schema[8.0].define(version: 2026_10_21_201544) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
   enable_extension "pg_catalog.plpgsql"
@@ -141,6 +141,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_21_092555) do
     t.datetime "last_modified_at"
     t.string "etag"
     t.bigint "itunes_id"
+    t.string "web_sub_topic_url"
     t.index ["itunes_id"], name: "index_feeds_on_itunes_id", unique: true
     t.index ["url"], name: "index_feeds_on_url", unique: true
   end

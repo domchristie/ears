@@ -1,6 +1,8 @@
 class Feedjira::Parser::ITunesRSS
   elements :link, as: :hubs, value: :href, with: {rel: "hub"}
   elements :"atom:link", as: :hubs, value: :href, with: {rel: "hub"}
+  elements :link, as: :self_urls, value: :href, with: {rel: "self"}
+  elements :"atom:link", as: :self_urls, value: :href, with: {rel: "self"}
   element :"podcast:guid", as: :podcast_guid
   element :"podcast:funding", as: :podcast_funding_text
   element :"podcast:funding", value: :url, as: :podcast_funding_url

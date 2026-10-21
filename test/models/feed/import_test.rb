@@ -81,6 +81,23 @@ class FeedImportTest < ActiveSupport::TestCase
     assert @feed.web_subs.none?
   end
 
+  test "import saves the self url as the topic and resubscribes" do
+    @feed.update_column(:web_sub_hub_url, "https://websub.example.com/")
+    old_web_sub = @feed.web_subs.create!(hub_url: @feed.web_sub_hub_url)
+    body = file_fixture("feed.xml").read.sub("<channel>", <<~XML)
+      <channel>
+      <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="self" href="https://feeds.example.com/everything"/>
+      <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="hub" href="https://websub.example.com/"/>
+    XML
+    stub_request(:get, @feed.url).to_return(status: 200, body:)
+
+    Feed::Import.start(feed: @feed, source: :test)
+
+    assert_equal "https://feeds.example.com/everything", @feed.reload.web_sub_topic_url
+    assert_raises(ActiveRecord::RecordNotFound) { old_web_sub.reload }
+    assert_equal 1, @feed.web_subs.count
+  end
+
   test "not found import clears the hub" do
     @feed.update_column(:web_sub_hub_url, "https://websub.example.com/")
     assert @feed.web_subs.any?
